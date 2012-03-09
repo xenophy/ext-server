@@ -1,0 +1,8 @@
+ [{
+     "title": "Ext Sever Guides",
+     "items": [{
+         "name": "getting_started",
+         "title": "Getting Started with Ext Server",
+         "description": "This introduction to Ext Server explains how you can get started."
+     }]
+}]

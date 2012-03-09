@@ -1,0 +1,1 @@
+Ext.data.JsonP.getting_started({"title":"Getting Started with Ext Server","guide":"<h1>Getting Started</h1>\n\n<h2>1. Requirements</h2>\n\n<p>testing now.</p>\n"});

@@ -29,6 +29,7 @@ api:
 	jsduck ./lib/ext-server \
 		--title "Ext Server API Documentation" \
 		--categories ./docs/api.categories.json \
+		--guides ./docs/api.guide.json \
 		--images ./docs/images \
 		--output ./docs/api
 
