@@ -68,6 +68,25 @@
 
     Ext.apply(Ext, {
 
+        // {{{ $e
+
+<span id='Ext-method-S-e'>        /**
+</span>         * @private
+         */
+        $e: function(key) {
+
+            var arg = [Ext.$locale[key]];
+
+            Ext.iterate(arguments, function(item, i) {
+                if(i &gt; 0) {
+                    arg.push(item);
+                }
+            });
+
+            return Ext.String.format.apply(this, arg);
+        },
+
+        // }}}
         // {{{ Ext.applyIf
 
 <span id='Ext-method-applyIf'>        /**
@@ -90,6 +109,127 @@
                 }
             }
             return o;
+        },
+
+        // }}}
+        // {{{ Ext.clone
+
+<span id='Ext-method-clone'>        /**
+</span>         * 配列、オブジェクト、日付型を含むあらゆる変数のクローンを生成します。
+         *
+         * @param item {Object} クローンを作成する変数
+         * @return {Object} 生成されたクローン
+         */
+        clone: function(item) {
+
+            if(item === null || item === undefined) {
+                return item;
+            }
+
+            var type = toString.call(item);
+
+            if(type === '[object Date]') {
+                return new Date(item.getTime());
+            }
+
+            var i, j, k, clone, key;
+
+            if(type === '[object Array]') {
+
+                i = item.length;
+                clone = [];
+
+                while(i--) {
+                    clone[i] = Ext.clone(item[i]);
+                }
+
+            } else if(type === '[object Object]' &amp;&amp; item.constructor === Object) {
+
+                clone = {};
+
+                for(key in item) {
+                    clone[key] = Ext.clone(item[key]);
+                }
+
+            }
+
+            return clone || item;
+
+        },
+
+        // }}}
+        // {{{ Ext.emptyFn
+
+<span id='Ext-method-emptyFn'>        /**
+</span>         * 再利用のための空関数オブジェクトです。
+         * 何らかの関数を設定しなくてはならない&amp;#160;場合や、
+         * 継承先のクラスにメソッドを実装してもらうときの抽象メソッド定義などに使用します。
+         *
+         * @return {void}
+         */
+        emptyFn: function() {
+        },
+
+        // }}}
+        // {{{ Ext.functionFactory
+
+<span id='Ext-method-functionFactory'>        /**
+</span>         * @method functionFactory
+         * @private
+         */
+        functionFactory: function() {
+
+            var args = Array.prototype.slice.call(arguments);
+
+            if(args.length &gt; 0) {
+                args[args.length - 1] = [
+                    'var Ext=global.',
+                    this.getUniqueGlobalNamespace(),
+                    ';',
+                    args[args.length - 1]
+                ].join('');
+            }
+
+            return Function.prototype.constructor.apply(Function.prototype, args);
+        },
+
+        // }}}
+        // {{{ Ext.getRandomInt
+
+<span id='Ext-method-getRandomInt'>        /**
+</span>         * minからmaxの間でランダムな整数値を返却します。
+         *
+         * @param min {int} 最小値
+         * @param max {int} 最大値
+         * @return {int} ランダム値
+         */
+        getRandomInt: function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+
+        // }}}
+        // {{{ Ext.getUniqueGlobalNamespace
+
+<span id='Ext-method-getUniqueGlobalNamespace'>        /**
+</span>         * @private
+         */
+        getUniqueGlobalNamespace: function() {
+
+            var uniqueGlobalNamespace = this.uniqueGlobalNamespace;
+
+            if(uniqueGlobalNamespace === undefined) {
+
+                var i = 0;
+
+                do {
+                    uniqueGlobalNamespace = 'ExtBox' + (++i);
+                } while (Ext.global[uniqueGlobalNamespace] !== undefined);
+
+                Ext.global[uniqueGlobalNamespace] = Ext;
+                this.uniqueGlobalNamespace = uniqueGlobalNamespace;
+            }
+
+            return uniqueGlobalNamespace;
         }
 
         // }}}
