@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1 en\n"
+"Report-Msgid-Bugs-To: info@xenophy.com\n"
+"POT-Creation-Date: 2011-07-14 03:32+0900\n"
+"PO-Revision-Date: 2011-07-29 10:43+0900\n"
+"Last-Translator: Kazuhiro Kotsutsumi <kotsutsumi@xenophy.com>\n"
+"Language-Team: Xenophy.CO.,LTD <info@xenophy.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: NX.Object.fromQueryString line 60
+msgid "Malformed query string given, failed parsing name from "{0}""
+msgstr "Malformed query string given, failed parsing name from "{0}""
+
+#: NX.Error.prototype.name line 16
+msgid "(No description provided)"
+msgstr "(No description provided)"
+
+#: NX.ClassManager.create line 20
+msgid "Invalid class name '{0}' specified, must be a non-empty string"
+msgstr "Invalid class name '{0}' specified, must be a non-empty string"
+
+#: NX.ClassManager.parseNamespace line 18
+msgid "Invalid namespace, must be a string"
+msgstr "Invalid namespace, must be a string"
+
+#: NX.ClassManager.postprocessor.alternateClassName line 31
+msgid "Invalid alternate of: '{0}' for class: '{1}'; must be a valid string"
+msgstr "Invalid alternate of: '{0}' for class: '{1}'; must be a valid string"
+
+#: NX.ClassManager.postprocessor.alias line 28
+msgid "Invalid alias of: '{0}' for class: '{1}'; must be a valid string"
+msgstr "Invalid alias of: '{0}' for class: '{1}'; must be a valid string"
+
+#: NX.ClassManager.instantiate line 25
+msgid "Invalid class name or alias '{0}' specified, must be a non-empty string"
+msgstr "Invalid class name or alias '{0}' specified, must be a non-empty string"
+
+#: NX.ClassManager.instantiate line 79
+msgid "Invalid class name or alias '{0}' defined, must be a non-empty string"
+msgstr "Invalid class name or alias '{0}' defined, must be a non-empty string"
+
+#: NX.ClassManager.setAlias line 33
+msgid "[NX.ClassManager] Overriding existing alias: '{0}' of: '{1}' with: '{2}'. Be sure it's intentional."
+msgstr "[NX.ClassManager] Overriding existing alias: '{0}' of: '{1}' with: '{2}'. Be sure it's intentional."
+
+#: NX.Base.prototype.callOverridden line 20
+msgid "Attempting to call a protected method from the public scope, which is not allowed"
+msgstr "Attempting to call a protected method from the public scope, which is not allowed"
+
+#: NX.Base.prototype.callOverridden line 30
+msgid "this.callOverridden was called in '{0}' but this method has never been overridden"
+msgstr "this.callOverridden was called in '{0}' but this method has never been overridden"
+
