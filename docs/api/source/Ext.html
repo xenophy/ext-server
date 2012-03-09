@@ -25,6 +25,11 @@
 
 <span id='Ext'>/**
 </span> * @class Ext
+ *
+ * 名前空間 Ext (グローバルなオブジェクト)は、クラス、シングルトン、便利なメソッドを内包するライブラリです。
+ * 多くの便利な関数は、Extオブジェクトのプロパティとして提供されます。
+ * また、他のクラスメソッドで、頻繁に利用されるメソッドは、Extオブジェクトのショートカットとして提供されます。
+ *
  * @singleton
  */
 (function() {
@@ -164,8 +169,6 @@
 </span>         * 再利用のための空関数オブジェクトです。
          * 何らかの関数を設定しなくてはならない&amp;#160;場合や、
          * 継承先のクラスにメソッドを実装してもらうときの抽象メソッド定義などに使用します。
-         *
-         * @return {void}
          */
         emptyFn: function() {
         },
@@ -199,9 +202,9 @@
 <span id='Ext-method-getRandomInt'>        /**
 </span>         * minからmaxの間でランダムな整数値を返却します。
          *
-         * @param min {int} 最小値
-         * @param max {int} 最大値
-         * @return {int} ランダム値
+         * @param min {Number} 最小値
+         * @param max {Number} 最大値
+         * @return {Number} ランダム値
          */
         getRandomInt: function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -230,11 +233,320 @@
             }
 
             return uniqueGlobalNamespace;
+        },
+
+        // }}}
+        // {{{ Ext.isArray
+
+<span id='Ext-method-isArray'>        /**
+</span>         * テスト対象が配列の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isArray: Array.isArray,
+
+        // }}}
+        // {{{ Ext.isBoolean
+
+<span id='Ext-method-isBoolean'>        /**
+</span>         * テスト対象が真偽値の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isBoolean: function(value) {
+            return typeof value === 'boolean';
+        },
+
+        // }}}
+        // {{{ Ext.isDate
+
+<span id='Ext-method-isDate'>        /**
+</span>         * テスト対象が日付型の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isDate: function(value) {
+            return toString.call(value) === '[object Date]';
+        },
+
+        // }}}
+        // {{{ Ext.isDefined
+
+<span id='Ext-method-isDefined'>        /**
+</span>         * テスト対象がundefinedでない場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isDefined: function(value) {
+            return typeof value !== 'undefined';
+        },
+
+        // }}}
+        // {{{ Ext.isEmpty
+
+<span id='Ext-method-isEmpty'>        /**
+</span>         * value値がnullまたは、undefined、または空文字列、空配列の場合、trueを返します。
+         * 空文&amp;#160;字列をEmpty(空)としない場合は、allowBlankにtrueを設定します。
+         *
+         * - `null`
+         * - `undefined`
+         * - 空配列
+         * - 空文字列(空文字列を空と判定しない場合は、allowEmptyStringをtrueに設定します。)
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @param {Boolean} allowEmptyString (オプション)空文字列を空としない場合はtrueを設定(初期値:false)
+         * @return {Boolean}
+         */
+        isEmpty: function(value, allowEmptyString) {
+            return (
+                (value === null) ||
+                (value === undefined) ||
+                (!allowEmptyString ? value === '' : false) ||
+                (Ext.isArray(value) &amp;&amp; value.length === 0)
+            );
+        },
+
+        // }}}
+        // {{{ Ext.isFunction
+
+<span id='Ext-method-isFunction'>        /**
+</span>         * テスト対象が関数オブジェクトの場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isFunction: function(value) {
+            return typeof value === 'function';
+        },
+
+        // }}}
+        // {{{ Ext.isIterable
+
+<span id='Ext-method-isIterable'>        /**
+</span>         * テスト対象がイテレート可能な場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isIterable: function(value) {
+            return (
+                (value &amp;&amp; typeof value !== 'string')
+                ? value.length !== undefined
+                : false
+            );
+        },
+
+        // }}}
+        // {{{ Ext.isNumber
+
+<span id='Ext-method-isNumber'>        /**
+</span>         * テスト対象が数値型の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isNumber: function(value) {
+            return typeof value === 'number' &amp;&amp; isFinite(value);
+        },
+
+        // }}}
+        // {{{ Ext.isNumeric
+
+<span id='Ext-method-isNumeric'>        /**
+</span>         * テスト対象が数字の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト &lt;br /&gt;**例**: 1, '1', '2.34' はtrue
+         * @return {Boolean}
+         */
+        isNumeric: function(value) {
+            return !isNaN(parseFloat(value)) &amp;&amp; isFinite(value);
+        },
+
+        // }}}
+        // {{{ Ext.isObject
+
+<span id='Ext-method-isObject'>        /**
+</span>         * テスト対象がオブジェクト型の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isObject: function(value) {
+            return toString.call(value) === '[object Object]';
+        },
+
+        // }}}
+        // {{{ Ext.isPrimitive
+
+<span id='Ext-method-isPrimitive'>        /**
+</span>         * テスト対象が文字列型か数値型か真偽型の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isPrimitive: function(value) {
+
+            var type = typeof value;
+
+            return (
+                type === 'string' ||
+                type === 'number' ||
+                type === 'boolean'
+            );
+        },
+
+        // }}}
+        // {{{ Ext.isString
+
+<span id='Ext-method-isString'>        /**
+</span>         * テスト対象が文字列型の場合はtrue、そうでない場合はfalseを返します。
+         *
+         * @param {Mixed} value テストするオブジェクト
+         * @return {Boolean}
+         */
+        isString: function(value) {
+            return typeof value === 'string';
+        },
+
+        // }}}
+        // {{{ Ext.iterate
+
+<span id='Ext-method-iterate'>        /**
+</span>         * 配列の各要素か、オブジェクトのプロパティを繰り返します。
+         *
+         * @param {Object/Array} object 繰り返しを行うオブジェクトか配列
+         * @param {Function} fn 繰り返し時に呼び出す関数を設定します。
+         * 繰り返しを行うオブジェクトの種別によって、引数が異なります。
+         * 詳しくは、 Ext.Array.eachと Ext.Object.each を参照してください。
+         * @param {Object} scope 呼び出される関数スコープオブジェクトを設定します。
+         * デフォルト値は、繰り返されるオブジェクトです。
+         */
+        iterate: function(object, fn, scope) {
+
+            if(Ext.isEmpty(object)) {
+                return;
+            }
+
+            if(scope === undefined) {
+                scope = object;
+            }
+
+            if(Ext.isIterable(object)) {
+
+                Ext.Array.each.call(Ext.Array, object, fn, scope);
+
+            } else {
+
+                Ext.Object.each.call(Ext.Object, object, fn, scope);
+
+            }
+        },
+
+        // }}}
+        // {{{ Ext.microtime
+
+<span id='Ext-method-microtime'>        /**
+</span>         * 現在の Unix タイムスタンプをマイクロ秒で返します。
+         *
+         * @param {Boolean} get_as_float trueを指定すると、小数点を含んで値を返します。
+         * @return {Boolean}
+         */
+        microtime: function(get_as_float) {
+            var now = new Date().getTime() / 1000;
+            var s = parseInt(now, 10);
+            return (get_as_float) ? now : (Math.round((now - s) * 1000) / 1000) + ' ' + s;
+        },
+
+        // }}}
+        // {{{ Ext.moduleCacheClear
+
+<span id='Ext-method-moduleCacheClear'>        /**
+</span>         * モジュールキャッシュをクリアします。
+         *
+         * @param {String} path モジュールパス
+         * @param {Number} mtime ファイル更新日時
+         */
+        moduleCacheClear: function(path, mtime) {
+
+            if(require.cache[path]) {
+
+                if(!Ext.$requires[path]) {
+                    Ext.$requires[path] = {};
+                }
+
+                var prev = Ext.$requires[path].mtime || new Date(1900, 1, 1);
+
+                if(mtime &amp;&amp; prev &lt; mtime) {
+
+                    delete require.cache[path];
+
+                    Ext.$requires[path].mtime = mtime;
+                }
+
+            }
+
+        },
+
+        // }}}
+        // {{{ Ext.setLocale
+
+<span id='Ext-method-setLocale'>        /**
+</span>         * Next JSのロケールを設定します。
+         * 標準は、英語ですが、エラーメッセージなどをロケ&amp;#160;ールに合わせて出力することができます。
+         *
+         * @param {String} locale ロケール (初期値:'en')
+         * @return {Boolean}
+         */
+        setLocale: function(locale) {
+
+            try {
+                locale = locale || 'en';
+                locale = Ext.util.Format.replace(locale, '/', '');
+                Ext.apply(
+                    Ext.$locale,
+                    Ext.JSON.decode(
+                        require('fs').readFileSync(
+                            require('path').normalize(__dirname + '/../locale/' + locale + '.json')
+                        ).toString()
+                    )
+                );
+            } catch(e) {
+            }
+
+        },
+
+        // }}}
+        // {{{ Ext.uid
+
+<span id='Ext-method-uid'>        /**
+</span>         * ユニークIDを返します。
+         *
+         * @param {Number} len ID長
+         * @return {String}
+         */
+        uid: function(len) {
+
+            var buf = [],
+                ret = [];
+                chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+                charlen = chars.length;
+
+            for(var i = 0; i &lt; len; ++i) {
+                buf.push(chars[Ext.getRandomInt(0, charlen - 1)]);
+            }
+
+            return buf.join('');
         }
 
         // }}}
 
     });
+
+    module.exports = global.Ext;
 
 })();
 
