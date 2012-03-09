@@ -559,6 +559,12 @@
 
     });
 
+    // create shorthand
+    Ext.apply(Ext, {
+        sprintf: Ext.String.sprintf
+    });
+
+    // exports Ext
     module.exports = global.Ext;
 
 })();
