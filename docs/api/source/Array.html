@@ -35,10 +35,10 @@ module.exports = {
     // {{{ clean
 
 <span id='Ext-Array-method-clean'>    /**
-</span>     * &quot;write it&quot;
+</span>     * 配列をフィルタリングし、Ext.isEmptyで定義される要素を取り除きます。
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Array} array
+     * @return {Array} 取り除かれた結果
      */
     clean: function(array) {
 
@@ -63,10 +63,12 @@ module.exports = {
     // {{{ clone
 
 <span id='Ext-Array-method-clone'>    /**
-</span>     * &quot;write it&quot;
+</span>     * 一次配列のコピー（参照ではない）を生成します。
+     * このメソッドはExt.cloneと違い、再帰的なコピー処理を行わないという点に注意してください。
+     * これは、単にArray.prototype.slice.call(array)を使いやすくするためのメソッドです。
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Array} array
+     * @return {Array} コピーされた配列
      */
     clone: function(array) {
         return Array.prototype.slice.call(array);
@@ -76,10 +78,11 @@ module.exports = {
     // {{{ contains
 
 <span id='Ext-Array-method-contains'>    /**
-</span>     * &quot;write it&quot;
+</span>     * 指定した項目（item）が配列（array）に存在するかどうかをチェックします。
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Array} チェックされる配列
+     * @param {Mixed} 検索する項目
+     * @return {Boolean} 配列に項目が含まれている場合はtrue、そうでない場合はfalse
      */
     contains: function(array, item) {
         return array.indexOf(item) !== -1;

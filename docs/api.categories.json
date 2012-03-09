@@ -6,4 +6,19 @@
             "Ext"
         ]
     }]
+},{
+    "name": "その他",
+    "groups": [{
+        "name": "言語拡張",
+        "classes": [
+            "Ext.Array",
+            "Ext.JSON",
+            "Ext.String"
+        ]
+    }, {
+        "name": "ユーティリティ",
+        "classes": [
+            "Ext.util.Format"
+        ]
+    }]
 }]
