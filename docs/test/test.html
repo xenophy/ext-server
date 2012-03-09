@@ -73,5 +73,575 @@
         src.hoge.should.equal('piyo');</code></pre></dd>
       </dl>
     </section>
+    <section class="suite">
+      <h1>Ext.applyIf</h1>
+      <dl>
+        <dt>未定義のキーに新たなキーを追加することができること</dt>
+        <dd><pre><code>
+
+        var src, ret;
+
+        src = {
+            hoge: 'piyo'
+        };
+
+        ret = Ext.applyIf(src, {
+            foo: 'bar'
+        });
+
+        src.should.equal(ret);
+        src.foo.should.equal('bar');
+        src.hoge.should.equal('piyo');</code></pre></dd>
+        <dt>既に定義されているキーが上書きされないこと</dt>
+        <dd><pre><code>
+
+        var src, config, ret;
+
+        src = {
+            foo: 'original'
+        };
+
+        config = {
+            foo: 'bar'
+        };
+
+        ret = Ext.applyIf(src, config);
+
+        src.should.equal(ret);
+        src.foo.should.equal('original');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.clone</h1>
+      <dl>
+        <dt>オブジェクト型のクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
+        <dd><pre><code>
+
+        var o, c;
+
+        o = {
+            src: 'src object'
+        };
+
+        c = Ext.clone(o);
+
+        o.src.should.equal('src object');
+        c.src.should.equal('src object');
+
+        o.src = 'changed';
+
+        o.src.should.equal('changed');
+        c.src.should.equal('src object');</code></pre></dd>
+        <dt>関数型のクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
+        <dd><pre><code>
+
+        var o, c;
+
+        o = function() {
+            return 'original';
+        };
+
+        c = Ext.clone(o);
+
+        o().should.equal('original');
+        c().should.equal('original');
+
+        o = function() {
+            return 'replace';
+        }
+
+        o().should.equal('replace');
+        c().should.equal('original');</code></pre></dd>
+        <dt>日付型のクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
+        <dd><pre><code>
+
+        var dt, dt2;
+
+        dt = new Date();
+        dt2 = Ext.clone(dt);
+
+        dt.getMilliseconds().should.equal(dt2.getMilliseconds());
+        dt2.setMilliseconds(500);
+        dt.getMilliseconds().should.not.equal(dt2.getMilliseconds());</code></pre></dd>
+        <dt>配列のクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
+        <dd><pre><code>
+
+        var o, c;
+
+        o = function() {
+            return 'original';
+        };
+
+        c = Ext.clone(o);
+
+        o().should.equal('original');
+        c().should.equal('original');
+
+        o = function() {
+            return 'replace';
+        }
+
+        o().should.equal('replace');
+        c().should.equal('original');</code></pre></dd>
+        <dt>オブジェクト内に配列を持つオブジェクトのクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
+        <dd><pre><code>
+
+        var o, c;
+
+        o = {
+            cn: [{
+                tag: 'a'
+            },{
+                tag: 'span'
+            }]
+        };
+        o.obj = o.cn;
+
+        c = Ext.clone(o);
+
+        o.cn[0].tag.should.equal('a');
+        o.cn[1].tag.should.equal('span');
+
+        c.cn[0].tag.should.equal('a');
+        c.cn[1].tag.should.equal('span');
+
+        o.obj[0].tag.should.equal('a');
+        o.obj[1].tag.should.equal('span');
+
+        c.obj[0].tag.should.equal('a');
+        c.obj[1].tag.should.equal('span');
+
+        c.cn.push({tag: 'div'});
+
+        o.cn.length.should.equal(2);
+        c.cn.length.should.equal(3);
+
+        o.obj.length.should.equal(2);
+        c.obj.length.should.equal(2);</code></pre></dd>
+        <dt>引数に指定する値が、undefined,null,空文字列の場合、引数に指定されたものと同一のものを返却する</dt>
+        <dd><pre><code>
+
+        require('assert').equal(Ext.clone(), undefined);
+        require('assert').equal(Ext.clone(null), null);
+        Ext.clone('').should.equal('');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.emptyFn</h1>
+      <dl>
+        <dt>実行して何も起きないこと</dt>
+        <dd><pre><code>
+
+        Ext.emptyFn();</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isArray</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray(true).should.equal(false);
+Ext.isArray(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isArray([]).should.equal(true);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isArray(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isBoolean</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isBoolean(true).should.equal(true);
+Ext.isBoolean(false).should.equal(true);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isBoolean(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isDate</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate(true).should.equal(false);
+Ext.isDate(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDate((function(){})).should.not.equal(true);</code></pre></dd>
+        <dt>日付オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDate(new Date()).should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isDefined</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isDefined(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined(null).should.equal(true);</code></pre></dd>
+        <dt>文字列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined('Ext Server').should.equal(true);</code></pre></dd>
+        <dt>数値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined(3000).should.equal(true);</code></pre></dd>
+        <dt>真偽値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined(true).should.equal(true);
+Ext.isDefined(false).should.equal(true);</code></pre></dd>
+        <dt>オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined({}).should.equal(true);</code></pre></dd>
+        <dt>配列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined([]).should.equal(true);</code></pre></dd>
+        <dt>関数オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined((function(){})).should.equal(true);</code></pre></dd>
+        <dt>日付オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isDefined(new Date()).should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isEmpty</h1>
+      <dl>
+        <dt>undefinedを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isEmpty(undefined).should.equal(true);</code></pre></dd>
+        <dt>nullを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isEmpty(null).should.equal(true);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>空文字列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isEmpty('').should.equal(true);</code></pre></dd>
+        <dt>allowEmptyStringにtrueを指定し、空文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty('', true).should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty(true).should.equal(false);
+Ext.isEmpty(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isEmpty([]).should.equal(true);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isEmpty(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isFunction</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction(true).should.equal(false);
+Ext.isFunction(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isFunction((function(){})).should.equal(true);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isFunction(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isIterable</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable(true).should.equal(false);
+Ext.isIterable(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isIterable([]).should.equal(true);</code></pre></dd>
+        <dt>関数オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isIterable((function(){})).should.equal(true);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isIterable(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isNumber</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isNumber(3000).should.equal(true);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber(true).should.equal(false);
+Ext.isNumber(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumber(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isNumeric</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>文字列の数字を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isNumeric('3000').should.equal(true);</code></pre></dd>
+        <dt>数値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(3000).should.equal(true);</code></pre></dd>
+        <dt>数値0を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(0).should.equal(true);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(true).should.equal(false);
+Ext.isNumeric(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isNumeric(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isObject</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject('Ext Server').should.equal(false);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject(true).should.equal(false);
+Ext.isObject(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isObject({}).should.equal(true);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isObject(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isPrimitive</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive('Ext Server').should.equal(true);</code></pre></dd>
+        <dt>数値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive(3000).should.equal(true);</code></pre></dd>
+        <dt>真偽値を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive(true).should.equal(true);
+Ext.isPrimitive(false).should.equal(true);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isPrimitive(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.isString</h1>
+      <dl>
+        <dt>undefinedを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString(undefined).should.equal(false);</code></pre></dd>
+        <dt>nullを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString(null).should.equal(false);</code></pre></dd>
+        <dt>文字列を判定してtrueであること</dt>
+        <dd><pre><code>
+Ext.isString('Ext Server').should.equal(true);</code></pre></dd>
+        <dt>数値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString(3000).should.equal(false);</code></pre></dd>
+        <dt>真偽値を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString(true).should.equal(false);
+Ext.isString(false).should.equal(false);</code></pre></dd>
+        <dt>オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString({}).should.equal(false);</code></pre></dd>
+        <dt>配列を判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString([]).should.equal(false);</code></pre></dd>
+        <dt>関数オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString((function(){})).should.equal(false);</code></pre></dd>
+        <dt>日付オブジェクトを判定してfalseであること</dt>
+        <dd><pre><code>
+Ext.isString(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
   </body>
 </html>
