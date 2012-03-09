@@ -6,7 +6,9 @@
  * MIT Licensed
  */
 
-module.exports = require('./Ext');
+module.exports = process.env.EXTSERVER_COV
+  ? require('./lib-cov/ext-server')
+  : require('./lib/ext-server');
 
 /*
  * Local variables:
