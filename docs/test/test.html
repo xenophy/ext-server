@@ -39,10 +39,38 @@
     <h1>Ext Server</h1>
     <p>The Ext Server test suite.</p>
     <section class="suite">
-      <h1>test1</h1>
+      <h1>Ext.apply</h1>
       <dl>
         <dt>空のオブジェクトに値が適用されること</dt>
-        <dd><pre><code></code></pre></dd>
+        <dd><pre><code>
+
+        var src = {}, ret;
+
+        ret = Ext.apply(src, {
+            foo: 'bar'
+        });
+
+        src.should.equal(ret);
+        src.foo.should.equal('bar');</code></pre></dd>
+        <dt>デフォルト値が適用されること</dt>
+        <dd><pre><code>
+
+        var src = {}, config, defaults, ret;
+
+        config = {
+            foo: 'bar'
+        };
+
+        defaults = {
+            foo     : 'default value',
+            hoge    : 'piyo'
+        };
+
+        ret = Ext.apply(src, config, defaults);
+
+        src.should.equal(ret);
+        src.foo.should.equal('bar');
+        src.hoge.should.equal('piyo');</code></pre></dd>
       </dl>
     </section>
   </body>

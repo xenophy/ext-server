@@ -1,4 +1,21 @@
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /*!
  * Ext Server
@@ -6,8 +23,8 @@
  * MIT Licensed
  */
 
-/**
- * @class Ext
+<span id='Ext'>/**
+</span> * @class Ext
  * @singleton
  */
 (function() {
@@ -18,8 +35,8 @@
 
     // {{{ Ext.apply
 
-    /**
-     * 設定されたコンフィグオブジェクトをオブジェクトに全てコピーします。
+<span id='Ext-method-apply'>    /**
+</span>     * 設定されたコンフィグオブジェクトをオブジェクトに全てコピーします。
      * Note:オブジェクトや配列に対して、再帰的なコピーを行わず、
      * クローンを作成してコピーする場合は、Ext.Object.mergeを利用してください。
      *
@@ -34,7 +51,7 @@
             Ext.apply(o, defaults);
         }
 
-        if(o && config && typeof config === 'object') {
+        if(o &amp;&amp; config &amp;&amp; typeof config === 'object') {
 
             var i, j, k;
 
@@ -53,8 +70,8 @@
 
         // {{{ Ext.applyIf
 
-        /**
-         * プロパティ値が存在しないものに対して、設定されたコンフィグオブジェクトをオブジェクトにコピーします。
+<span id='Ext-method-applyIf'>        /**
+</span>         * プロパティ値が存在しないものに対して、設定されたコンフィグオブジェクトをオブジェクトにコピーします。
          * 既に存在するプロパティは上書きしません。
          *
          * @param o {Object} 適用されるオブジェクト
@@ -73,52 +90,6 @@
                 }
             }
             return o;
-        },
-
-        // }}}
-        // {{{ Ext.clone
-
-        /**
-         * 配列、オブジェクト、日付型を含むあらゆる変数のクローンを生成します。
-         *
-         * @param item {Object} クローンを作成する変数
-         * @return {Object} 生成されたクローン
-         */
-        clone: function(item) {
-
-            if(item === null || item === undefined) {
-                return item;
-            }
-
-            var type = toString.call(item);
-
-            if(type === '[object Date]') {
-                return new Date(item.getTime());
-            }
-
-            var i, j, k, clone, key;
-
-            if(type === '[object Array]') {
-
-                i = item.length;
-                clone = [];
-
-                while(i--) {
-                    clone[i] = Ext.clone(item[i]);
-                }
-
-            } else if(type === '[object Object]' && item.constructor === Object) {
-
-                clone = {};
-
-                for(key in item) {
-                    clone[key] = Ext.clone(item[key]);
-                }
-
-            }
-
-            return clone || item;
-
         }
 
         // }}}
@@ -134,3 +105,6 @@
  * c-hanging-comment-ender-p: nil
  * End:
  */
+</pre>
+</body>
+</html>
