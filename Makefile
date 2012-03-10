@@ -1,4 +1,5 @@
-TESTS = test/Ext/*.js
+TESTS = test/Ext/*.js \
+		test/lang/Array/*.js
 
 REPORTER = dot
 

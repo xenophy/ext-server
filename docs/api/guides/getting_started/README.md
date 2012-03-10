@@ -1,5 +1,16 @@
 # Getting Started
 
-## 1. Requirements
+An application server having the class system which is compatible with Ext JS
 
-testing now.
+## Getting it
+
+    $ npm install ext-server
+
+## Usage
+
+    require('ext-server');
+
+    // global.Ext Object is Available
+    Ext.emptyFn();
+
+
