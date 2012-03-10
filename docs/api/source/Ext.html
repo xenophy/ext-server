@@ -570,7 +570,17 @@
         Object: require('./lang/Object'),
 
         // Ext.String
-        String: require('./lang/String')
+        String: require('./lang/String'),
+
+        // Ext.util
+        util: {}
+
+    });
+
+    Ext.apply(Ext.util, {
+
+        // Ext.util.Format
+        Format: require('./util/Format')
 
     });
 
