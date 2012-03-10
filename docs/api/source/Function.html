@@ -34,7 +34,281 @@
  */
 module.exports = {
 
+    // {{{ alias
 
+<span id='Ext-Function-method-alias'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    alias: function(object, methodName) {
+        return function() {
+            return object[methodName].apply(object, arguments);
+        };
+    },
+
+    // }}}
+    // {{{ bind
+
+<span id='Ext-Function-method-bind'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    bind: function(fn, scope, args, appendArgs) {
+
+        var method = fn, slice = Array.prototype.slice;
+
+        return function() {
+
+            var callArgs = args || arguments;
+
+            if(appendArgs === true) {
+
+                callArgs = slice.call(arguments, 0);
+                callArgs = callArgs.concat(args);
+
+            } else if(Ext.isNumber(appendArgs)) {
+
+                callArgs = slice.call(arguments, 0);
+                Ext.Array.insert(callArgs, appendArgs, args);
+
+            }
+
+            return method.apply(scope || global, callArgs);
+        };
+    },
+
+    // }}}
+    // {{{ createBuffered
+
+<span id='Ext-Function-method-createBuffered'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    createBuffered: function(fn, buffer, scope, args) {
+
+        return function() {
+
+            var timerId;
+
+            return function() {
+
+                var me = this;
+
+                if(timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                }
+
+                timerId = setTimeout(function(){
+                    fn.apply(scope || me, args || arguments);
+                }, buffer);
+
+            };
+
+        }();
+    },
+
+    // }}}
+    // {{{ createDelayed
+
+<span id='Ext-Function-method-createDelayed'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    createDelayed: function(fn, delay, scope, args, appendArgs) {
+
+        if(scope || args) {
+            fn = Ext.Function.bind(fn, scope, args, appendArgs);
+        }
+
+        return function() {
+            var me = this;
+            setTimeout(function() {
+                fn.apply(me, arguments);
+            }, delay);
+        };
+    },
+
+    // }}}
+    // {{{ createInterceptor
+
+<span id='Ext-Function-method-createInterceptor'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    createInterceptor: function(origFn, newFn, scope, returnValue) {
+
+        var method = origFn;
+
+        if(!Ext.isFunction(newFn)) {
+
+            return origFn;
+
+        } else {
+
+            return function() {
+                var me = this,
+                args = arguments;
+                newFn.target = me;
+                newFn.method = origFn;
+                return (newFn.apply(scope || me || window, args) !== false) ? origFn.apply(me || window, args) : returnValue || null;
+            };
+
+        }
+    },
+
+    // }}}
+    // {{{ createSequence
+
+<span id='Ext-Function-method-createSequence'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    createSequence: function(origFn, newFn, scope) {
+
+        if(!Ext.isFunction(newFn)) {
+
+            return origFn;
+
+        } else {
+
+            return function() {
+                var retval = origFn.apply(this || window, arguments);
+                newFn.apply(scope || this || window, arguments);
+                return retval;
+            };
+
+        }
+    },
+
+    // }}}
+    // {{{ createThrottled
+
+<span id='Ext-Function-method-createThrottled'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    createThrottled: function(fn, interval, scope) {
+
+        var lastCallTime, elapsed, lastArgs, timer, execute = function() {
+            fn.apply(scope || this, lastArgs);
+            lastCallTime = new Date().getTime();
+        };
+
+        return function() {
+
+            elapsed = new Date().getTime() - lastCallTime;
+            lastArgs = arguments;
+
+            clearTimeout(timer);
+
+            if(!lastCallTime || (elapsed &gt;= interval)) {
+                execute();
+            } else {
+                timer = setTimeout(execute, interval - elapsed);
+            }
+        };
+    },
+
+    // }}}
+    // {{{ defer
+
+<span id='Ext-Function-method-defer'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    defer: function(fn, millis, obj, args, appendArgs) {
+
+        fn = Ext.Function.bind(fn, obj, args, appendArgs);
+
+        if(millis &gt; 0) {
+            return setTimeout(fn, millis);
+        }
+
+        fn();
+
+        return 0;
+    },
+
+    // }}}
+    // {{{ flexSetter
+
+<span id='Ext-Function-method-flexSetter'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    flexSetter: function(fn) {
+
+        return function(a, b) {
+
+            var k, i;
+
+            if(a === null) {
+                return this;
+            }
+
+            if(typeof a !== 'string') {
+
+                for(k in a) {
+
+                    if(a.hasOwnProperty(k)) {
+                        fn.call(this, k, a[k]);
+                    }
+
+                }
+
+            } else {
+
+                fn.call(this, a, b);
+
+            }
+
+            return this;
+        };
+
+    },
+
+    // }}}
+    // {{{ pass
+
+<span id='Ext-Function-method-pass'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    pass: function(fn, args, scope) {
+
+        if(args) {
+            args = Ext.Array.from(args);
+        } else {
+            args = [];
+        }
+
+        return function() {
+            return fn.apply(scope, args.concat(Ext.Array.toArray(arguments)));
+        };
+    }
+
+    // }}}
 
 };
 
