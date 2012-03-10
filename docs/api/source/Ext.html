@@ -551,8 +551,23 @@
         // Ext.Array
         Array: require('./lang/Array'),
 
+        // Ext.Date
+        String: require('./lang/Date'),
+
+        // Ext.Error
+        String: require('./lang/Error'),
+
+        // Ext.Function
+        String: require('./lang/Function'),
+
         // Ext.JSON
         JSON: require('./misc/JSON'),
+
+        // Ext.Number
+        String: require('./lang/Number'),
+
+        // Ext.Object
+        String: require('./lang/Object'),
 
         // Ext.String
         String: require('./lang/String')
@@ -561,7 +576,25 @@
 
     // create shorthand
     Ext.apply(Ext, {
-        sprintf: Ext.String.sprintf
+
+<span id='Ext-method-sprintf'>        /**
+</span>         * &quot;write it&quot;
+         *
+         * @param o {Object} xxx
+         * @return {Object}
+         */
+        sprintf: Ext.String.sprintf,
+
+<span id='Ext-method-toArray'>        /**
+</span>         * &quot;write it&quot;
+         *
+         * @param o {Object} xxx
+         * @return {Object}
+         */
+        toArray: function() {
+            return Ext.Array.toArray.apply(Ext.Array, arguments);
+        }
+
     });
 
     // exports Ext

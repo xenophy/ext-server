@@ -65,7 +65,7 @@ describe('Ext.clone', function() {
         dt2 = Ext.clone(dt);
 
         dt.getMilliseconds().should.equal(dt2.getMilliseconds());
-        dt2.setMilliseconds(500);
+        dt2.setMilliseconds(50000);
         dt.getMilliseconds().should.not.equal(dt2.getMilliseconds());
 
     });

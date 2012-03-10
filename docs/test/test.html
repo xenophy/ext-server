@@ -161,7 +161,7 @@
         dt2 = Ext.clone(dt);
 
         dt.getMilliseconds().should.equal(dt2.getMilliseconds());
-        dt2.setMilliseconds(500);
+        dt2.setMilliseconds(50000);
         dt.getMilliseconds().should.not.equal(dt2.getMilliseconds());</code></pre></dd>
         <dt>配列のクローンを生成し、値を変更してオリジナルに影響がないこと</dt>
         <dd><pre><code>
@@ -641,6 +641,11 @@ Ext.isString((function(){})).should.equal(false);</code></pre></dd>
         <dt>日付オブジェクトを判定してfalseであること</dt>
         <dd><pre><code>
 Ext.isString(new Date()).should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.iterate</h1>
+      <dl>
       </dl>
     </section>
   </body>

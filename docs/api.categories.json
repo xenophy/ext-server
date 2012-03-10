@@ -12,7 +12,12 @@
         "name": "言語拡張",
         "classes": [
             "Ext.Array",
+            "Ext.Date",
+            "Ext.Error",
+            "Ext.Function",
             "Ext.JSON",
+            "Ext.Number",
+            "Ext.Object",
             "Ext.String"
         ]
     }, {
