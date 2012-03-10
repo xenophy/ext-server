@@ -23,6 +23,8 @@
  * MIT Licensed
  */
 
+// Ext.Number
+
 <span id='Ext-Number'>/**
 </span> * @class Ext.Number
  *
@@ -32,7 +34,102 @@
  */
 module.exports = {
 
+    // {{{ constrain
+
+<span id='Ext-Number-method-constrain'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    constrain: function(number, min, max) {
+
+        number = parseFloat(number);
+
+        if(!isNaN(min)) {
+            number = Math.max(number, min);
+        }
+
+        if(!isNaN(max)) {
+            number = Math.min(number, max);
+        }
+
+        return number;
+    },
+
+    // }}}
+    // {{{ from
+
+<span id='Ext-Number-method-from'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    from: function(value, defaultValue) {
+
+        if(isFinite(value)) {
+            value = parseFloat(value);
+        }
+
+        return !isNaN(value) ? value : defaultValue;
+    },
+
+    // }}}
+    // {{{ snap
+
+<span id='Ext-Number-method-snap'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    snap: function(value, increment, minValue, maxValue) {
+
+        var newValue = value, m;
+
+        if(!(increment &amp;&amp; value)) {
+            return value;
+        }
+
+        m = value % increment;
+
+        if(m !== 0) {
+
+            newValue -= m;
+
+            if(m * 2 &gt;= increment) {
+
+                newValue += increment;
+
+            } else if(m * 2 &lt; -increment) {
+
+                newValue -= increment;
+
+            }
+        }
+
+        return Ext.Number.constrain(newValue, minValue,  maxValue);
+    },
+
+    // }}}
+    // {{{ toFixed
+
+<span id='Ext-Number-method-toFixed'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    toFixed: function(value, precision) {
+        return value.toFixed(precision);
+    }
+
+    // }}}
+
 };
+
+// }}}
 
 /*
  * Local variables:

@@ -23,12 +23,108 @@
  * MIT Licensed
  */
 
+// {{{ Ext.Error
+
 <span id='Ext-Error'>/**
 </span> * @class Ext.Error
  */
-module.exports = {
+var ExtError = function(config) {
 
+    if(Ext.isString(config)) {
+        config = { msg: config };
+    }
+
+    Ext.apply(this, config);
+    this.message = this.message || this.msg;
 };
+ExtError.prototype = new Error();
+ExtError.prototype.name = 'Ext.Error';
+ExtError.prototype.toString = function() {
+
+    var me = this,
+        className = me.className ? me.className  : '',
+        methodName = me.methodName ? '.' + me.methodName + '(): ' : '',
+        msg = me.msg || Ext.$e(&quot;(No description provided)&quot;);
+
+    return className + methodName + msg;
+};
+
+module.exports = Ext.apply(ExtError, {
+
+    // {{{ ignore
+
+<span id='Ext-Error-property-ignore'>    /**
+</span>     * @property ignore
+     */
+    ignore: false,
+
+    // }}}
+    // {{{ handle
+
+<span id='Ext-Error-method-handle'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    handle: function() {
+        return Ext.Error.ignore;
+    },
+
+    // }}}
+    // {{{ raise
+
+<span id='Ext-Error-method-raise'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    raise: function(err) {
+
+        err = err || {};
+
+        if(Ext.isString(err)) {
+            err = { msg: err };
+        }
+
+        var method = this.raise.caller;
+
+        if(method) {
+
+            if(method.$name) {
+                err.sourceMethod = method.$name;
+            }
+
+            if(method.$owner) {
+                err.sourceClass = method.$owner.$className;
+            }
+
+        }
+
+        if(Ext.Error.handle(err) !== true) {
+
+            var msg = Ext.Error.prototype.toString.call(err);
+
+            /*
+             * TODO:
+            Ext.log({
+                msg: msg,
+                level: 'error',
+                dump: err,
+                stack: true
+            });
+            */
+
+            throw new Ext.Error(err);
+        }
+    }
+
+    // }}}
+
+});
+
+// }}}
 
 /*
  * Local variables:
