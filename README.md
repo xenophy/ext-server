@@ -16,5 +16,5 @@ An application server having the class system which is compatible with Ext JS
 
 ## API Documentation
 
-[Documentation](./docs/api/index.html)
+[Ext Server API Documentation](http://xenophy.github.com/ext-server/)
 
