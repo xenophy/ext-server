@@ -2,11 +2,11 @@
 
 An application server having the class system which is compatible with Ext JS
 
-## 1.Getting it
+## Getting it
 
     $ npm install ext-server
 
-## 2.Usage
+## Usage
 
     require('ext-server');
 
