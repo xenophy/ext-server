@@ -689,5 +689,41 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
         ret.should.not.equal(a);</code></pre></dd>
       </dl>
     </section>
+    <section class="suite">
+      <h1>Ext.Array.contains</h1>
+      <dl>
+        <dt>配列に含まれているものを検査した時、trueを返すこと</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar'},
+            a = [1, o, 'hoge'];
+
+        Ext.Array.contains(a, 1).should.equal(true);
+        Ext.Array.contains(a, 2).should.equal(false);
+        Ext.Array.contains(a, o).should.equal(true);
+        Ext.Array.contains(a, {}).should.equal(false);
+        Ext.Array.contains(a, 'hoge').should.equal(true);
+        Ext.Array.contains(a, 'piyo').should.equal(false);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.difference</h1>
+      <dl>
+        <dt>配列Aから、配列Bに存在する項目を取り除いた配列を返すこと</dt>
+        <dd><pre><code>
+
+        var arrayA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            arrayB = [2, 3, 5, 8, 9, 10],
+            ret;
+
+        ret = Ext.Array.difference(arrayA, arrayB);
+
+        ret.length.should.equal(4);
+        ret[0].should.equal(1);
+        ret[1].should.equal(4);
+        ret[2].should.equal(6);
+        ret[3].should.equal(7);</code></pre></dd>
+      </dl>
+    </section>
   </body>
 </html>
