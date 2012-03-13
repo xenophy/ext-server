@@ -1409,5 +1409,174 @@ Ext.Object.each({foo: 'bar', hoge: 123}, function(key, v) {
         ret.length.should.equal(3);</code></pre></dd>
       </dl>
     </section>
+    <section class="suite">
+      <h1>Ext.Object.merge</h1>
+      <dl>
+        <dt>既存オブジェクトにキーと値を指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar'};
+
+        Ext.Object.merge(o, 'hoge', 123);
+
+        o.foo.should.equal('bar');
+        o.hoge.should.equal(123);</code></pre></dd>
+        <dt>既存オブジェクトにキーと、オブジェクトを指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar', hoge: {baz: 888}};
+
+        Ext.Object.merge(o, 'hoge', {piyo: 999});
+
+        o.foo.should.equal('bar');
+        o.hoge.baz.should.equal(888);
+        o.hoge.piyo.should.equal(999);</code></pre></dd>
+        <dt>既存オブジェクトにキーと、関数オブジェクトを指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar', hoge: {baz: 888}};
+
+        Ext.Object.merge(o, 'hoge', {piyo: function() {
+            return 'hoge func.';
+        }});
+
+        o.foo.should.equal('bar');
+        o.hoge.baz.should.equal(888);
+        o.hoge.piyo().should.equal('hoge func.');</code></pre></dd>
+        <dt>既存オブジェクトにキーと、真偽値を指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar', hoge: {baz: 888}};
+
+        Ext.Object.merge(o, 'hoge', {piyo: false});
+
+        o.foo.should.equal('bar');
+        o.hoge.baz.should.equal(888);
+        o.hoge.piyo.should.equal(false);</code></pre></dd>
+        <dt>既存オブジェクトにキーと、数値を指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar'};
+        var a = {hoge: 123, piyo: 999};
+
+        Ext.Object.merge(o, a);
+
+        o.hoge.should.equal(123);
+        o.piyo.should.equal(999);</code></pre></dd>
+        <dt>既存オブジェクトにキーと、日付オブジェクトを指定してマージできること</dt>
+        <dd><pre><code>
+
+        var o = {foo: 'bar', hoge: new Date()};
+
+        Ext.Object.merge(o, 'hoge', {piyo: 999});
+
+        o.hoge.piyo.should.equal(999);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.toQueryObjects</h1>
+      <dl>
+        <dt>値に配列を指定して、正常にクエリーオブジェクト化されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.toQueryObjects('hobbies', ['reading', 'cooking', 'swimming']);
+
+        ret[0].name.should.equal('hobbies');
+        ret[0].value.should.equal('reading');
+        ret[1].name.should.equal('hobbies');
+        ret[1].value.should.equal('cooking');
+        ret[2].name.should.equal('hobbies');
+        ret[2].value.should.equal('swimming');</code></pre></dd>
+        <dt>再帰フラグをtrueにし値に配列を指定して、正常にクエリーオブジェクト化されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.toQueryObjects('hobbies', ['reading', 'cooking', 'swimming'], true);
+
+        ret[0].name.should.equal('hobbies[0]');
+        ret[0].value.should.equal('reading');
+        ret[1].name.should.equal('hobbies[1]');
+        ret[1].value.should.equal('cooking');
+        ret[2].name.should.equal('hobbies[2]');
+        ret[2].value.should.equal('swimming');</code></pre></dd>
+        <dt>再帰フラグをtrueにし値にオブジェクトを指定して、正常にクエリーオブジェクト化されること</dt>
+        <dd><pre><code>
+var o = Ext.Object.toQueryObjects(
+    'dateOfBirth',
+    {
+        day: 3,
+        month: 8,
+        year: 1987,
+        extra: {
+            hour: 4,
+            minute: 30
+}
+    },
+    true
+);
+
+o[0].name.should.equal('dateOfBirth[day]');
+o[0].value.should.equal(3);
+o[1].name.should.equal('dateOfBirth[month]');
+o[1].value.should.equal(8);
+o[2].name.should.equal('dateOfBirth[year]');
+o[2].value.should.equal(1987);
+o[3].name.should.equal('dateOfBirth[extra][hour]');
+o[3].value.should.equal(4);
+o[4].name.should.equal('dateOfBirth[extra][minute]');
+o[4].value.should.equal(30);</code></pre></dd>
+        <dt>再帰フラグをfalseにし値にオブジェクトを指定して、正常にクエリーオブジェクト化されること</dt>
+        <dd><pre><code>
+
+        var o = Ext.Object.toQueryObjects(
+            'dateOfBirth',
+            {
+                day: 3,
+                month: 8,
+                year: 1987,
+                extra: {
+                    hour: 4,
+                    minute: 30
+                }
+            },
+            false
+        );
+
+        o[0].name.should.equal('dateOfBirth');
+        o[0].value.should.equal(3);
+        o[1].name.should.equal('dateOfBirth');
+        o[1].value.should.equal(8);
+        o[2].name.should.equal('dateOfBirth');
+        o[2].value.should.equal(1987);
+        o[3].name.should.equal('dateOfBirth');
+        o[3].value.hour.should.equal(4);
+        o[3].value.minute.should.equal(30);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.toQueryString</h1>
+      <dl>
+        <dt>{foo: "bar"}を渡して、"foo=bar"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({foo: 'bar'}).should.equal('foo=bar');</code></pre></dd>
+        <dt>{foo: "bar", hoge: 123}を渡して、"foo=bar&hoge=123"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({foo: 'bar', hoge: 123}).should.equal('foo=bar&amp;hoge=123');</code></pre></dd>
+        <dt>{foo: 1, bar: 2}を渡して、"foo=1&bar=2"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({foo: 1, bar: 2}).should.equal(&quot;foo=1&amp;bar=2&quot;);</code></pre></dd>
+        <dt>{foo: null, bar: 2}を渡して、"foo=&bar=2"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({foo: null, bar: 2}).should.equal(&quot;foo=&amp;bar=2&quot;);</code></pre></dd>
+        <dt>"some price": "$300"を渡して、"some%20price=%24300"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({'some price': '$300'}).should.equal(&quot;some%20price=%24300&quot;);</code></pre></dd>
+        <dt>{date: new Date(2011, 0, 1)}を渡して、"date=2011-01-01T00%3A00%3A00"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({date: new Date(2011, 0, 1)}).should.equal(&quot;date=2011-01-01T00%3A00%3A00&quot;);</code></pre></dd>
+        <dt>{colors: ["red", "green", "blue"]}を渡して、"colors=red&colors=green&colors=blue"に変換されること</dt>
+        <dd><pre><code>
+Ext.Object.toQueryString({colors: ['red', 'green', 'blue']}).should.equal(&quot;colors=red&amp;colors=green&amp;colors=blue&quot;);</code></pre></dd>
+      </dl>
+    </section>
   </body>
 </html>
