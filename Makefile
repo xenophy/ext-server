@@ -1,6 +1,7 @@
 TESTS = test/Ext/*.js \
 		test/lang/Array/*.js \
-		test/lang/Number/*.js
+		test/lang/Number/*.js \
+		test/lang/Object/*.js
 
 REPORTER = dot
 
