@@ -147,21 +147,17 @@ module.exports = {
         if(reverse !== true) {
 
             for(i = 0; i &lt; ln; i++) {
-
                 if(fn.call(scope || array[i], array[i], i, array) === false) {
                     return i;
                 }
-
             }
 
         } else {
 
             for(i = ln - 1; i &gt; -1; i--) {
-
                 if(fn.call(scope || array[i], array[i], i, array) === false) {
                     return i;
                 }
-
             }
         }
 

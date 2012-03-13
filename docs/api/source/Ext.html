@@ -73,6 +73,11 @@
 
     Ext.apply(Ext, {
 
+        // {{{ $locale
+
+        $locale: {},
+
+        // }}}
         // {{{ $e
 
 <span id='Ext-method-S-e'>        /**
@@ -546,6 +551,9 @@
 
     });
 
+    // Ext.Error
+    require('./lang/Error');
+
     Ext.apply(Ext, {
 
         // Ext.Array
@@ -553,9 +561,6 @@
 
         // Ext.Date
         Date: require('./lang/Date'),
-
-        // Ext.Error
-        Error: require('./lang/Error'),
 
         // Ext.Function
         Function: require('./lang/Function'),
@@ -627,6 +632,17 @@
 
     // exports Ext
     module.exports = global.Ext;
+
+    // locale setting
+    var locale = process.env.LANG || 'en';
+
+    if(Ext.isString(process.env.LANG)) {
+        var tmp = process.env.LANG.split('_');
+        if(Ext.isArray(tmp)) {
+            locale = tmp[0];
+        }
+    }
+    Ext.setLocale(locale);
 
 })();
 

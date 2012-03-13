@@ -725,5 +725,689 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
         ret[3].should.equal(7);</code></pre></dd>
       </dl>
     </section>
+    <section class="suite">
+      <h1>Ext.Array.each</h1>
+      <dl>
+        <dt>引数オブジェクトを正常に繰り返すこと</dt>
+        <dd><pre><code>
+
+        var sum = function() {
+            var sum = 0;
+
+            Ext.Array.each(arguments, function(value) {
+                sum += value;
+            });
+
+            return sum;
+        };
+
+        sum(1, 2, 3).should.equal(6);</code></pre></dd>
+        <dt>配列を正常に繰り返すこと</dt>
+        <dd><pre><code>
+
+        var countries = ['Vietnam', 'Singapore', 'United States', 'Russia', 'James'],
+            x = 0,
+            ret;
+
+        ret = Ext.Array.each(['Vietnam', 'Singapore', 'United States', 'Russia'], function(name, index, countriesItSelf) {
+            if(name === 'Singapore' &amp;&amp; index === 1 &amp;&amp; x === index) {
+                return false;
+            }
+            x++;
+        });
+
+        ret.should.equal(1);</code></pre></dd>
+        <dt>配列を逆回転で正常に繰り返すこと</dt>
+        <dd><pre><code>
+
+        var countries = ['Vietnam', 'Singapore', 'United States', 'Russia', 'James'],
+            x = 0,
+            ret;
+
+        ret = Ext.Array.each(countries, function(name, index, countriesItSelf) {
+            if(name === 'Singapore' &amp;&amp; index === 1 &amp;&amp; x === 3) {
+                return false;
+            }
+            x++;
+        }, this, true);
+
+        ret.should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.every</h1>
+      <dl>
+        <dt>関数の返す値がfalseになるまで繰り返すこと</dt>
+        <dd><pre><code>
+
+        var isBigEnough, passed, x;
+
+        isBigEnough = function(element, index, array) {
+            x++;
+            return (element &gt;= 10);
+        }
+        x = 0;
+        passed = Ext.Array.every([12, 5, 8, 130, 44], isBigEnough);
+        passed.should.equal(false);
+        x.should.equal(2);
+
+        x = 0;
+        passed = Ext.Array.every([12, 54, 18, 130, 44], isBigEnough);
+        passed.should.equal(true);
+        x.should.equal(5);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.from</h1>
+      <dl>
+        <dt>オブジェクトを指定して、配列にして返されること</dt>
+        <dd><pre><code>
+
+        var o = {
+            a: 1,
+            b: 2,
+            c: 3
+        }, ret;
+
+        ret = Ext.Array.from(o);
+
+        ret.length.should.equal(1);
+        ret[0].a.should.equal(1);
+        ret[0].b.should.equal(2);
+        ret[0].c.should.equal(3);</code></pre></dd>
+        <dt>引数オブジェクトを指定して、配列にして返されること</dt>
+        <dd><pre><code>
+
+        var f = function() {
+            var ret = Ext.Array.from(arguments);
+
+            ret.length.should.equal(3);
+            ret[0].should.equal(1);
+            ret[1].should.equal(2);
+            ret[2].should.equal(3);
+        };
+
+        f(1,2,3);</code></pre></dd>
+        <dt>数値を指定して、配列にして返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.from(1);
+
+        ret[0].should.equal(1);
+        ret.length.should.equal(1);</code></pre></dd>
+        <dt>undefinedを指定して、空配列にして返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.from(undefined);
+
+        ret.length.should.equal(0);</code></pre></dd>
+        <dt>nullを指定して、空配列にして返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.from(null);
+
+        ret.length.should.equal(0);</code></pre></dd>
+        <dt>配列を指定して、別配列にして返されること</dt>
+        <dd><pre><code>
+
+        var a = [1,2,3], ret;
+
+        ret = Ext.Array.from(a, true);
+        ret.length.should.equal(3);
+        ret[0].should.not.equal(a);
+        ret.should.not.equal(a);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.include</h1>
+      <dl>
+        <dt>指定した項目が配列に含まれている場合、追加しないこと</dt>
+        <dd><pre><code>
+
+        var arr;
+
+        arr = [1,2,3,4,5];
+
+        Ext.Array.include(arr, 3);
+        arr.length.should.equal(5);
+        arr[0].should.equal(1);
+        arr[1].should.equal(2);
+        arr[2].should.equal(3);
+        arr[3].should.equal(4);
+        arr[4].should.equal(5);
+
+        Ext.Array.include(arr, 6);
+        arr.length.should.equal(6);</code></pre></dd>
+        <dt>指定した項目が配列に含まれていない場合、追加すること</dt>
+        <dd><pre><code>
+
+        var arr;
+
+        arr = [1,2,3,4,5];
+
+        Ext.Array.include(arr, 6);
+
+        arr.length.should.equal(6);
+        arr[0].should.equal(1);
+        arr[1].should.equal(2);
+        arr[2].should.equal(3);
+        arr[3].should.equal(4);
+        arr[4].should.equal(5);
+        arr[5].should.equal(6);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.indexOf</h1>
+      <dl>
+        <dt>引数に与えられた値のインデックスを返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9], index;
+
+        index = Ext.Array.indexOf(array, 2);
+        index.should.equal(0);</code></pre></dd>
+        <dt>配列内に存在しない値の場合、-1を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9], index;
+
+        index = Ext.Array.indexOf(array, 7);
+        index.should.equal(-1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.insert</h1>
+      <dl>
+        <dt>添え字2から0要素削除され、添え字2の部分に[9, 10]が挿入されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.insert([1,2,3,4,5], 2, [9, 10]);
+
+        ret[0].should.equal(1);
+        ret[1].should.equal(2);
+        ret[2].should.equal(9);
+        ret[3].should.equal(10);
+        ret[4].should.equal(3);
+        ret[5].should.equal(4);
+        ret[6].should.equal(5);</code></pre></dd>
+        <dt>添え字が配列の範囲外(8)で、0要素削除され、末尾に[9, 10]が挿入されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.insert([1,2,3,4,5], 8, [9, 10]);
+
+        ret[0].should.equal(1);
+        ret[1].should.equal(2);
+        ret[2].should.equal(3);
+        ret[3].should.equal(4);
+        ret[4].should.equal(5);
+        ret[5].should.equal(9);
+        ret[6].should.equal(10);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.lastIndexOf</h1>
+      <dl>
+        <dt>引数に与えられた値の末尾からのインデックスを返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2);
+        index.should.equal(3);</code></pre></dd>
+        <dt>引数に与えられた値のが存在しない場合、-1を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 7);
+        index.should.equal(-1);</code></pre></dd>
+        <dt>検索開始場所は添え字3から2を検索し、インデックス3を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2, 3);
+        index.should.equal(3);</code></pre></dd>
+        <dt>検索開始場所は添え字2から2を検索し、インデックス0を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2, 2);
+        index.should.equal(0);</code></pre></dd>
+        <dt>検索開始場所は添え字-2(後ろから2番目)から2を検索し、インデックス0を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2, -2);
+        index.should.equal(0);</code></pre></dd>
+        <dt>検索開始場所は添え字-1(後ろから1番目)から2を検索し、インデックス3を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2, -1);
+        index.should.equal(3);</code></pre></dd>
+        <dt>検索開始場所は添え字10(配列長以上の添え字)から2を検索し、インデックス3を返すこと</dt>
+        <dd><pre><code>
+
+        var array = [2, 5, 9, 2], index;
+
+        index = Ext.Array.lastIndexOf(array, 2, 10);
+        index.should.equal(3);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.replace</h1>
+      <dl>
+        <dt>添え字2から2要素削除されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.replace([1,2,3,4,5], 2, 2);
+
+        ret[0].should.equal(1);
+        ret[1].should.equal(2);
+        ret[2].should.equal(5);</code></pre></dd>
+        <dt>添え字2から0要素削除され、添え字2の部分に[9, 10]が挿入されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.replace([1,2,3,4,5], 2, 0, [9, 10]);
+
+        ret[0].should.equal(1);
+        ret[1].should.equal(2);
+        ret[2].should.equal(9);
+        ret[3].should.equal(10);
+        ret[4].should.equal(3);
+        ret[5].should.equal(4);
+        ret[6].should.equal(5);</code></pre></dd>
+        <dt>添え字が配列の範囲外(8)で、0要素削除され、末尾に[9, 10]が挿入されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.replace([1,2,3,4,5], 8, 0, [9, 10]);
+
+        ret[0].should.equal(1);
+        ret[1].should.equal(2);
+        ret[2].should.equal(3);
+        ret[3].should.equal(4);
+        ret[4].should.equal(5);
+        ret[5].should.equal(9);
+        ret[6].should.equal(10);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.slice</h1>
+      <dl>
+        <dt>添え字1から末尾までの配列を返すこと</dt>
+        <dd><pre><code>
+
+        var array = ['a', 'b', 'c', 'd'], ret;
+
+        ret = Ext.Array.slice(['a', 'b', 'c', 'd'], 1);
+
+        ret[0].should.equal('b');
+        ret[1].should.equal('c');
+        ret[2].should.equal('d');</code></pre></dd>
+        <dt>添え字2から範囲外の添え字である4を指定して末尾までの配列を返すこと</dt>
+        <dd><pre><code>
+
+        var array = ['a', 'b', 'c', 'd'], ret;
+
+        ret = Ext.Array.slice(array, 2, 4);
+
+        ret[0].should.equal('c');
+        ret[1].should.equal('d');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.splice</h1>
+      <dl>
+        <dt>配列の添え字2から３要素置換されること</dt>
+        <dd><pre><code>
+
+        var a = new Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;);
+
+        Ext.Array.splice(a, 2, 3, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);
+
+        a[0].should.equal(&quot;A&quot;);
+        a[1].should.equal(&quot;B&quot;);
+        a[2].should.equal(&quot;c&quot;);
+        a[3].should.equal(&quot;d&quot;);
+        a[4].should.equal(&quot;e&quot;);
+        a[5].should.equal(&quot;F&quot;);
+        a[6].should.equal(&quot;G&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Array.toArray</h1>
+      <dl>
+        <dt>添え字2から2要素(指定した3-1個)の配列が返されること</dt>
+        <dd><pre><code>
+
+        var arr = [1,2,3,4,5], ret;
+
+        ret = Ext.Array.toArray(arr, 2, 4);
+
+        ret.length.should.equal(2);
+        ret[0].should.equal(3);
+        ret[1].should.equal(4);</code></pre></dd>
+        <dt>文字列だけを指定すると、1文字配列の要素に格納されて返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.toArray('abc');
+
+        ret[0].should.equal('a');
+        ret[1].should.equal('b');
+        ret[2].should.equal('c');</code></pre></dd>
+        <dt>添え字1から1要素(2-1)の配列が返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.toArray('abc', 1, 2);
+
+        ret[0].should.equal('b');</code></pre></dd>
+        <dt>イテレート不可能なundefinedを指定した場合、空配列が返されること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Array.toArray(undefined);
+
+        ret.length.should.equal(0);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Number.contains</h1>
+      <dl>
+        <dt>2以上、10以下の範囲で5を判定した場合、5が返されること</dt>
+        <dd><pre><code>
+Ext.Number.constrain(5, 2, 10).should.equal(5);</code></pre></dd>
+        <dt>2以上、4以下の範囲で5を判定した場合、4が返されること</dt>
+        <dd><pre><code>
+Ext.Number.constrain(5, 2, 4).should.equal(4);</code></pre></dd>
+        <dt>2以上、4以下の範囲で1を判定した場合、2が返されること</dt>
+        <dd><pre><code>
+Ext.Number.constrain(1, 2, 4).should.equal(2);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Number.from</h1>
+      <dl>
+        <dt>"1.23"を指定すると1(第二引数の値)を返却すること</dt>
+        <dd><pre><code>
+Ext.Number.from('1.23', 1);</code></pre></dd>
+        <dt>"abc"を指定すると1(第二引数の値)を返却すること</dt>
+        <dd><pre><code>
+Ext.Number.from('abc', 1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Number.snap</h1>
+      <dl>
+        <dt>2以上、10以下の範囲で1で割り切れる5に最も近い数値は、5であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(5, 1, 2, 10).should.equal(5);</code></pre></dd>
+        <dt>2以上、10以下の範囲で2で割り切れる5に最も近い数値は、6であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(5, 2, 2, 10).should.equal(6);</code></pre></dd>
+        <dt>2以上、10以下の範囲で3で割り切れる5に最も近い数値は、6であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(5, 3, 2, 10).should.equal(6);</code></pre></dd>
+        <dt>割る値をnullに指定した場合、5が返却されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(5, null, 2, 10).should.equal(5);</code></pre></dd>
+        <dt>2以上、10以下の範囲で6で割り切れる2に最も近い数値は、2であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(2, 6, 2, 10).should.equal(2);</code></pre></dd>
+        <dt>2以上、10以下の範囲で6で割り切れる3に最も近い数値は、6であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(3, 6, 2, 10).should.equal(6);</code></pre></dd>
+        <dt>2以上、10以下の範囲で-6で割り切れる3に最も近い数値は、2であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(3, -6, 2, 10).should.equal(2);</code></pre></dd>
+        <dt>2以上、10以下の範囲で6で割り切れる-3に最も近い数値は、2であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(-3, 6, 2, 10).should.equal(2);</code></pre></dd>
+        <dt>2以上、10以下の範囲で-6で割り切れる-3に最も近い数値は、2であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(-3, -6, 2, 10).should.equal(2);</code></pre></dd>
+        <dt>2以上、10以下の範囲で-6で割り切れる-6に最も近い数値は、2であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(-6, -6, 2, 10).should.equal(2);</code></pre></dd>
+        <dt>10以上、100以下の範囲で48で割り切れる-50に最も近い数値は、10であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(-50, 48, 10, 100).should.equal(10);</code></pre></dd>
+        <dt>0以上、100以下の範囲で26で割り切れる-50に最も近い数値は、0であると判定されること</dt>
+        <dd><pre><code>
+Ext.Number.snap(-50, 26, 0, 100).should.equal(0);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Number.toFixed</h1>
+      <dl>
+        <dt>5に小数点表記10を指定した場合、5.0000000000が返されること</dt>
+        <dd><pre><code>
+Ext.Number.toFixed(5, 10).should.equal('5.0000000000');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.each</h1>
+      <dl>
+        <dt>単一キーオブジェクトの繰り返しが正常に行われること</dt>
+        <dd><pre><code>
+Ext.Object.each({foo: 'bar'}, function(key, v) {
+    key.should.equal('foo');
+    v.should.equal('bar');
+});</code></pre></dd>
+        <dt>複数キーオブジェクトの繰り返しが正常に行われること</dt>
+        <dd><pre><code>
+var x = 0;
+Ext.Object.each({foo: 'bar', hoge: 123}, function(key, v) {
+
+    if(x == 0) {
+        key.should.equal('foo');
+        v.should.equal('bar');
+    }
+
+    if(x == 1) {
+        key.should.equal('hoge');
+        v.should.equal(123);
+    }
+
+    x++;
+});</code></pre></dd>
+        <dt>コールバック関数内でfalseを返却すると、繰り返しが中止されること</dt>
+        <dd><pre><code>
+
+        var x = 0;
+        Ext.Object.each({foo: 'bar', hoge: 123}, function(key, v) {
+
+            if(x == 0) {
+                return false;
+            }
+
+            x++;
+        });
+
+        x.should.equal(0);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.fromQueryString</h1>
+      <dl>
+        <dt>"foo=1&bar=2"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;foo=1&amp;bar=2&quot;);
+
+        ret.foo.should.equal('1');
+        ret.bar.should.equal('2');</code></pre></dd>
+        <dt>再帰フラグを設定して"foo=1&bar=2"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;foo=1&amp;bar=2&quot;, true);
+
+        ret.foo.should.equal('1');
+        ret.bar.should.equal('2');</code></pre></dd>
+        <dt>"foo=&bar=2"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;foo=&amp;bar=2&quot;);
+
+        ret.foo.should.equal('');
+        ret.bar.should.equal('2');</code></pre></dd>
+        <dt>再帰フラグを設定して"foo=&bar=2"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;foo=&amp;bar=2&quot;, true);
+
+        ret.foo.should.equal('');
+        ret.bar.should.equal('2');</code></pre></dd>
+        <dt>"some%20price=%24300"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;some%20price=%24300&quot;);
+
+        ret['some price'].should.equal('$300');</code></pre></dd>
+        <dt>再帰フラグを設定して"some%20price=%24300"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;some%20price=%24300&quot;, true);
+
+        ret['some price'].should.equal('$300');</code></pre></dd>
+        <dt>"colors=red&colors=green&colors=blue"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;colors=red&amp;colors=green&amp;colors=blue&quot;);
+
+        ret.colors[0].should.equal('red');
+        ret.colors[1].should.equal('green');
+        ret.colors[2].should.equal('blue');</code></pre></dd>
+        <dt>再帰フラグを設定して"colors=red&colors=green&colors=blue"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;colors=red&amp;colors=green&amp;colors=blue&quot;);
+
+        ret.colors[0].should.equal('red');
+        ret.colors[1].should.equal('green');
+        ret.colors[2].should.equal('blue');</code></pre></dd>
+        <dt>再帰フラグを設定して"username=Jacky&dateOfBirth[day]=1&dateOfBirth[month]=2&dateOfBirth[year]=1911&hobbies[0]=coding&hobbies[1]=eating&hobbies[2]=sleeping&hobbies[3][0]=nested&hobbies[3][1]=stuff"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;username=Jacky&amp;dateOfBirth[day]=1&amp;dateOfBirth[month]=2&amp;dateOfBirth[year]=1911&amp;hobbies[0]=coding&amp;hobbies[1]=eating&amp;hobbies[2]=sleeping&amp;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff&quot;, true);
+
+        ret.username.should.equal('Jacky');
+        ret.dateOfBirth.day.should.equal('1');
+        ret.dateOfBirth.month.should.equal('2');
+        ret.dateOfBirth.year.should.equal('1911');
+        ret.hobbies[0].should.equal('coding');
+        ret.hobbies[1].should.equal('eating');
+        ret.hobbies[2].should.equal('sleeping');
+        ret.hobbies[3][0].should.equal('nested');
+        ret.hobbies[3][1].should.equal('stuff');</code></pre></dd>
+        <dt>再帰フラグを設定して"hobbies[0]=coding&hobbies[]=eating&hobbies[2]=sleeping&hobbies[3][0]=nested&hobbies[3][1]=stuff"をオブジェクトに変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.Object.fromQueryString(&quot;hobbies[0]=coding&amp;hobbies[]=eating&amp;hobbies[2]=sleeping&amp;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff&quot;, true);
+
+        ret.hobbies[0].should.equal('coding');
+        ret.hobbies[1].should.equal('eating');
+        ret.hobbies[2].should.equal('sleeping');
+        ret.hobbies[3][0].should.equal('nested');
+        ret.hobbies[3][1].should.equal('stuff');</code></pre></dd>
+        <dt>キーの指定が無い場合、例外を発生させること</dt>
+        <dd><pre><code>
+
+        try{
+            Ext.setLocale('en');
+            ret = Ext.Object.fromQueryString(&quot;=&amp;bar=2&quot;, true);
+        } catch(e) {
+            e.sourceClass.should.equal('Ext.Object');
+            e.sourceMethod.should.equal('fromQueryString');
+            e.queryString.should.equal('=&amp;bar=2');
+            e.recursive.should.equal(true);
+            e.msg.should.equal('Malformed query string given, failed parsing name from &quot;=&quot;');
+            e.message.should.equal('Malformed query string given, failed parsing name from &quot;=&quot;');
+        }</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.getKey</h1>
+      <dl>
+        <dt>指定した位置のキーが、取得できること</dt>
+        <dd><pre><code>
+
+        var o = {
+            key1: 1,
+            key2: 2,
+            key3: 3
+        };
+
+        Ext.Object.getKey(o, 1).should.equal('key1');
+        Ext.Object.getKey(o, 2).should.equal('key2');
+        Ext.Object.getKey(o, 3).should.equal('key3');</code></pre></dd>
+        <dt>範囲外の位置が指定された場合、nullを返すこと</dt>
+        <dd><pre><code>
+
+        var o = {
+            key1: 1,
+            key2: 2,
+            key3: 3
+        };
+
+        require('assert').equal(Ext.Object.getKey(o, 5), null);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.getKeys</h1>
+      <dl>
+        <dt>オブジェクトのキーが全て取得できること</dt>
+        <dd><pre><code>
+
+        var o = {
+            foo: 'bar',
+            hoge: 'piyo',
+            fee: 'baz'
+        };
+
+        var ret = Ext.Object.getKeys(o);
+
+        ret[0].should.equal('foo');
+        ret[1].should.equal('hoge');
+        ret[2].should.equal('fee');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.getSize</h1>
+      <dl>
+        <dt>オブジェクトのキー数を取得できること</dt>
+        <dd><pre><code>
+
+        var o = {
+            foo: 'bar',
+            hoge: 'piyo',
+            fee: 'baz'
+        };
+
+        Ext.Object.getSize(o).should.equal(3);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Object.getValues</h1>
+      <dl>
+        <dt>オブジェクトの値が全て取得できること</dt>
+        <dd><pre><code>
+
+        var o = {
+            foo: 'bar',
+            hoge: 'piyo',
+            fee: 'baz'
+        };
+
+        var ret = Ext.Object.getValues(o);
+
+        ret[0].should.equal('bar');
+        ret[1].should.equal('piyo');
+        ret[2].should.equal('baz');
+        ret.length.should.equal(3);</code></pre></dd>
+      </dl>
+    </section>
   </body>
 </html>
