@@ -19,6 +19,13 @@ describe('Ext.String.urlAppend', function() {
         Ext.String.urlAppend('http://www.xenophy.com/', 'hoge').should.equal('http://www.xenophy.com/?hoge');
     });
 
+    it('"http://www.xenophy.com/?foo=bar"に"hoge"を追加すると"http://www.xenophy.com/?hoge"になること', function() {
+        Ext.String.urlAppend('http://www.xenophy.com/?foo=bar', 'hoge').should.equal('http://www.xenophy.com/?foo=bar&hoge');
+    });
+
+    it('"http://www.xenophy.com/"に""を追加すると"http://www.xenophy.com/"になること', function() {
+        Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xenophy.com/');
+    });
 
 });
 

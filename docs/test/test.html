@@ -1578,5 +1578,144 @@ Ext.Object.toQueryString({date: new Date(2011, 0, 1)}).should.equal(&quot;date=2
 Ext.Object.toQueryString({colors: ['red', 'green', 'blue']}).should.equal(&quot;colors=red&amp;colors=green&amp;colors=blue&quot;);</code></pre></dd>
       </dl>
     </section>
+    <section class="suite">
+      <h1>Ext.String.capitalize</h1>
+      <dl>
+        <dt>"extserver"が"Extserver"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.capitalize('extserver').should.equal('Extserver');</code></pre></dd>
+        <dt>"ExtServer"が"ExtServer"と変化がないこと</dt>
+        <dd><pre><code>
+Ext.String.capitalize('ExtServer').should.equal('ExtServer');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.ellipsis</h1>
+      <dl>
+        <dt>"abcdefghijk"が"abc..."に変換されること</dt>
+        <dd><pre><code>
+Ext.String.ellipsis('abcdefghijk', 6).should.equal('abc...');</code></pre></dd>
+        <dt>"This is a pen."が"This is..."に変換されること</dt>
+        <dd><pre><code>
+Ext.String.ellipsis('This is a pen.', 10, true).should.equal('This is...');</code></pre></dd>
+        <dt>"a"が"a"と変化がないこと</dt>
+        <dd><pre><code>
+Ext.String.ellipsis('a', 1).should.equal('a');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.escape</h1>
+      <dl>
+        <dt>"'"が"\'"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.escape(&quot;'&quot;).should.equal(&quot;\\'&quot;);</code></pre></dd>
+        <dt>"\"が"\\"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.escape(&quot;\\&quot;).should.equal(&quot;\\\\&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.htmlDecode</h1>
+      <dl>
+        <dt>"a&amp;b&gt;c&lt;d"が"a&b>c<d"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.htmlDecode('a&amp;amp;b&amp;gt;c&amp;lt;d').should.equal('a&amp;b&gt;c&lt;d');</code></pre></dd>
+        <dt>"&#65;&#66;&#67;"が"ABC"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.htmlDecode('&amp;#65;&amp;#66;&amp;#67;').should.equal('ABC');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.htmlEncode</h1>
+      <dl>
+        <dt>"a&b>c<d"が"a&amp;b&gt;c&lt;d"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.htmlEncode('a&amp;b&gt;c&lt;d').should.equal('a&amp;amp;b&amp;gt;c&amp;lt;d');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.sprintf</h1>
+      <dl>
+        <dt>%s (string)</dt>
+        <dd><pre><code>
+
+        Ext.String.sprintf(&quot;%s&quot;, &quot;Hello world&quot;).should.equal(&quot;Hello world&quot;);
+        Ext.String.sprintf(&quot;%s&quot;, 65.432).should.equal(&quot;65.432&quot;);
+        Ext.String.sprintf(&quot;%s&quot;, 69).should.equal(&quot;69&quot;);
+        Ext.String.sprintf(&quot;%s&quot;, true).should.equal(&quot;true&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.toggle</h1>
+      <dl>
+        <dt>文字列がトグルで取得できること</dt>
+        <dd><pre><code>
+
+        var sort = 'ASC';
+
+        sort = Ext.String.toggle(sort, 'ASC', 'DESC');
+        sort.should.equal('DESC');
+        sort = Ext.String.toggle(sort, 'ASC', 'DESC');
+        sort.should.equal('ASC');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.trim</h1>
+      <dl>
+        <dt>""が""に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('').should.equal('');</code></pre></dd>
+        <dt>"foo"が"foo"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('foo').should.equal('foo');</code></pre></dd>
+        <dt>"    "が""に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('    ').should.equal('');</code></pre></dd>
+        <dt>"  bar  "が"bar"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('  bar  ').should.equal('bar');</code></pre></dd>
+        <dt>"foo   "が"foo"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('foo   ').should.equal('foo');</code></pre></dd>
+        <dt>"   bar"が"bar"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('   bar').should.equal('bar');</code></pre></dd>
+        <dt>"   bar"が"bar"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('foo bar').should.equal('foo bar');</code></pre></dd>
+        <dt>"  foo bar baz   "が"foo bar baz"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('  foo bar baz   ').should.equal('foo bar baz');</code></pre></dd>
+        <dt>"	foo"が"foo"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('\tfoo').should.equal('foo');</code></pre></dd>
+        <dt>"	text    "が"text"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('\ttext    ').should.equal('text');</code></pre></dd>
+        <dt>"text　"(全角スペース)が"text"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('text　').should.equal('text');</code></pre></dd>
+        <dt>"　text "(全角スペース)が"text"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('　text ').should.equal('text');</code></pre></dd>
+        <dt>"　text	"(全角スペース)が"text"に変換されること</dt>
+        <dd><pre><code>
+Ext.String.trim('　text\t').should.equal('text');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.String.urlAppend</h1>
+      <dl>
+        <dt>"http://www.xenophy.com/"に"hoge"を追加すると"http://www.xenophy.com/?hoge"になること</dt>
+        <dd><pre><code>
+Ext.String.urlAppend('http://www.xenophy.com/', 'hoge').should.equal('http://www.xenophy.com/?hoge');</code></pre></dd>
+        <dt>"http://www.xenophy.com/?foo=bar"に"hoge"を追加すると"http://www.xenophy.com/?hoge"になること</dt>
+        <dd><pre><code>
+Ext.String.urlAppend('http://www.xenophy.com/?foo=bar', 'hoge').should.equal('http://www.xenophy.com/?foo=bar&amp;hoge');</code></pre></dd>
+        <dt>"http://www.xenophy.com/"に""を追加すると"http://www.xenophy.com/"になること</dt>
+        <dd><pre><code>
+Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xenophy.com/');</code></pre></dd>
+      </dl>
+    </section>
   </body>
 </html>
