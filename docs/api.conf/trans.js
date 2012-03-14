@@ -6,11 +6,17 @@
  * MIT Licensed
  */
 
+(function() {
+
+    var fs = require('fs'),
+        path = require('path'),
+        dirs;
 
 
 
 
 
+})();
 
 /*
  * Local variables:

@@ -35,7 +35,7 @@ api:
 		--categories ./docs/api.conf/categories.json \
 		--guides ./docs/api.conf/guide.json \
 		--images ./docs/images \
-		--output ./docs/api \
+		--output ./docs/api.base \
 		--footer "<script type=\"text/javascript\">\
 \
   var _gaq = _gaq || [];\
