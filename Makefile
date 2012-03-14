@@ -32,8 +32,8 @@ test-docs:
 api:
 	jsduck ./lib/ext-server \
 		--title "Ext Server API Documentation" \
-		--categories ./docs/api.categories.json \
-		--guides ./docs/api.guide.json \
+		--categories ./docs/api.conf/categories.json \
+		--guides ./docs/api.conf/guide.json \
 		--images ./docs/images \
 		--output ./docs/api \
 		--footer "<script type=\"text/javascript\">\
