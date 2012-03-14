@@ -10,11 +10,29 @@
 
     var fs = require('fs'),
         path = require('path'),
-        dirs;
+        dirs = [];
+
+    process.argv.forEach(function(val, index, array) {
+        if(index > 1) {
+            dirs.push(val);
+        }
+    });
+
+    dirs.forEach(function(dir) {
+
+        var src, dest;
+
+        src = path.normalize(__dirname + '/locale/' + dir);
+        dest = path.normalize(__dirname + '/../api/' + dir);
 
 
 
 
+
+
+
+
+    });
 
 })();
 

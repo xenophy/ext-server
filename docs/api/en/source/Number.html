@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// Ext.Number
+
+<span id='Ext-Number'>/**
+</span> * @class Ext.Number
+ *
+ * 数値を扱うための静的メソッドのセット。
+ *
+ * @singleton
+ */
+module.exports = {
+
+    // {{{ constrain
+
+<span id='Ext-Number-method-constrain'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    constrain: function(number, min, max) {
+
+        number = parseFloat(number);
+
+        if(!isNaN(min)) {
+            number = Math.max(number, min);
+        }
+
+        if(!isNaN(max)) {
+            number = Math.min(number, max);
+        }
+
+        return number;
+    },
+
+    // }}}
+    // {{{ from
+
+<span id='Ext-Number-method-from'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    from: function(value, defaultValue) {
+
+        if(isFinite(value)) {
+            value = parseFloat(value);
+        }
+
+        return !isNaN(value) ? value : defaultValue;
+    },
+
+    // }}}
+    // {{{ snap
+
+<span id='Ext-Number-method-snap'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    snap: function(value, increment, minValue, maxValue) {
+
+        var newValue = value, m;
+
+        if(!(increment &amp;&amp; value)) {
+            return value;
+        }
+
+        m = value % increment;
+
+        if(m !== 0) {
+
+            newValue -= m;
+
+            if(m * 2 &gt;= increment) {
+
+                newValue += increment;
+
+            } else if(m * 2 &lt; -increment) {
+
+                newValue -= increment;
+
+            }
+        }
+
+        return Ext.Number.constrain(newValue, minValue,  maxValue);
+    },
+
+    // }}}
+    // {{{ toFixed
+
+<span id='Ext-Number-method-toFixed'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    toFixed: function(value, precision) {
+        return value.toFixed(precision);
+    }
+
+    // }}}
+
+};
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>

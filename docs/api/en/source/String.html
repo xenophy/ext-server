@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// {{{ Ext.String
+
+<span id='Ext-String'>/**
+</span> * @class Ext.String
+ *
+ * {Ext_String:doc-contents}
+ * 文字列を扱うための静的メソッドのセット。
+ *
+ * @singleton
+ */
+module.exports = {
+
+    // {{{ escapeRe
+
+<span id='Ext-String-property-escapeRe'>    /**
+</span>     * @private
+     */
+    escapeRe: /('|\\)/g,
+
+    // }}}
+    // {{{ escapeRegexRe
+
+<span id='Ext-String-property-escapeRegexRe'>    /**
+</span>     * @private
+     */
+    escapeRegexRe: /([-.*+?^${}()|[\]\/\\])/g,
+
+    // }}}
+    // {{{ formatRe
+
+<span id='Ext-String-property-formatRe'>    /**
+</span>     * @private
+     */
+    formatRe: /\{(\d+)\}/g,
+
+    // }}}
+    // {{{ trimRegex
+
+<span id='Ext-String-property-trimRegex'>    /**
+</span>     * @private
+     */
+    trimRegex: /^[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000]+|[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000]+$/g,
+
+    // }}}
+    // {{{ capitalize
+
+<span id='Ext-String-method-capitalize'>    /**
+</span>     * {Ext_String:method-capitalize:desc}
+     *
+     * @param o {Object} {Ext_String:method-capitalize:param_o}
+     * @return {Object}
+     */
+    capitalize: function(string) {
+        return string.charAt(0).toUpperCase() + string.substr(1);
+    },
+
+    // }}}
+    // {{{ ellipsis
+
+<span id='Ext-String-method-ellipsis'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    ellipsis: function(value, len, word) {
+
+        if(value &amp;&amp; value.length &gt; len) {
+
+            if(word) {
+                var vs = value.substr(0, len - 2),
+                    index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+
+                if(index !== -1 &amp;&amp; index &gt;= (len - 15)) {
+                    return vs.substr(0, index) + &quot;...&quot;;
+                }
+            }
+
+            return value.substr(0, len - 3) + &quot;...&quot;;
+        }
+
+        return value;
+    },
+
+    // }}}
+    // {{{ escape
+
+<span id='Ext-String-method-escape'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    escape: function(string) {
+        return string.replace(Ext.String.escapeRe, &quot;\\$1&quot;);
+    },
+
+    // }}}
+    // {{{ escapeRegex
+
+<span id='Ext-String-method-escapeRegex'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    escapeRegex: function(string) {
+        return string.replace(Ext.String.escapeRegexRe, &quot;\\$1&quot;);
+    },
+
+    // }}}
+    // {{{ format
+
+<span id='Ext-String-method-format'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    format: function(format) {
+        var args = Ext.Array.toArray(arguments, 1);
+        return format.replace(Ext.String.formatRe, function(m, i) {
+            return args[i];
+        });
+    },
+
+    // }}}
+    // {{{ htmlDecode
+
+<span id='Ext-String-method-htmlDecode'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    htmlDecode: (function() {
+
+        var entities = {
+            '&amp;amp;': '&amp;',
+            '&amp;gt;': '&gt;',
+            '&amp;lt;': '&lt;',
+            '&amp;quot;': '&quot;'
+        }, keys = [], p, regex;
+
+        for(p in entities) {
+            keys.push(p);
+        }
+
+        regex = new RegExp('(' + keys.join('|') + '|&amp;#[0-9]{1,5};' + ')', 'g');
+
+        return function(value) {
+
+            return (!value) ? value : String(value).replace(regex, function(match, capture) {
+                if(capture in entities) {
+                    return entities[capture];
+                } else {
+                    return String.fromCharCode(parseInt(capture.substr(2), 10));
+                }
+            });
+
+        };
+
+    })(),
+
+    // }}}
+    // {{{ htmlEncode
+
+<span id='Ext-String-method-htmlEncode'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    htmlEncode: (function() {
+
+        var entities = {
+            '&amp;': '&amp;amp;',
+            '&gt;': '&amp;gt;',
+            '&lt;': '&amp;lt;',
+            '&quot;': '&amp;quot;'
+        }, keys = [], p, regex;
+
+        for(p in entities) {
+            keys.push(p);
+        }
+
+        regex = new RegExp('(' + keys.join('|') + ')', 'g');
+
+        return function(value) {
+            return (!value) ? value : String(value).replace(regex, function(match, capture) {
+                return entities[capture];
+            });
+        };
+
+    })(),
+
+    // }}}
+    // {{{ leftPad
+
+<span id='Ext-String-method-leftPad'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    leftPad: function(string, size, character) {
+
+        var result = String(string);
+
+        character = character || &quot; &quot;;
+
+        while(result.length &lt; size) {
+            result = character + result;
+        }
+
+        return result;
+    },
+
+    // }}}
+    // {{{ replace
+
+<span id='Ext-String-method-replace'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    replace: function(v, findme, repl) {
+
+        findme = Ext.String.escapeRegex(findme);
+
+        var re = new RegExp(findme, 'g');
+
+        return v.replace(re, repl);
+    },
+
+    // }}}
+    // {{{ toggle
+
+<span id='Ext-String-method-toggle'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    toggle: function(string, value, other) {
+        return string === value ? other : value;
+    },
+
+    // }}}
+    // {{{ trim
+
+<span id='Ext-String-method-trim'>    /**
+</span>     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    trim: function(string) {
+        return string.replace(Ext.String.trimRegex, &quot;&quot;);
+    },
+
+    // }}}
+    // {{{ urlAppend
+
+<span id='Ext-String-method-urlAppend'>    /**
+</span>     * @method urlAppend
+     *
+     * &quot;write it&quot;
+     *
+     * @param o {Object} xxx
+     * @return {Object}
+     */
+    urlAppend: function(url, string) {
+
+        if(!Ext.isEmpty(string)) {
+            return url + (url.indexOf('?') === -1 ? '?' : '&amp;') + string;
+        }
+        return url;
+    }
+
+    // }}}
+
+};
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>
