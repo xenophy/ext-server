@@ -6,6 +6,9 @@
  * MIT Licensed
  */
 
+/**
+ * TODO:sourceディレクトリの該当クラスファイルも翻訳
+ */
 (function() {
 
     var fs = require('fs'),
@@ -71,6 +74,13 @@
                 } catch(e) {
                 }
 
+                // return.md
+                try{
+                    file = path.normalize(src + '/' + cls + '/method/' + o.name + '/return.md');
+                    data = fs.readFileSync(file).toString();
+                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':return}</p>')), markdown(data));
+                } catch(e) {
+                }
 
                 try{
                     // params

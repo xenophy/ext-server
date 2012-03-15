@@ -71,8 +71,8 @@ module.exports = {
 <span id='Ext-String-method-capitalize'>    /**
 </span>     * {Ext_String:method-capitalize:desc}
      *
-     * @param o {Object} {Ext_String:method-capitalize:param_o}
-     * @return {Object}
+     * @param {String} string {Ext_String:method-capitalize:param_string}
+     * @return {String} {Ext_String:method-capitalize:return}
      */
     capitalize: function(string) {
         return string.charAt(0).toUpperCase() + string.substr(1);
@@ -82,25 +82,27 @@ module.exports = {
     // {{{ ellipsis
 
 <span id='Ext-String-method-ellipsis'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-ellipsis:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} value {Ext_String:method-ellipsis:param_value}
+     * @param {Number} length {Ext_String:method-ellipsis:param_length}
+     * @param {Boolean} word {Ext_String:method-ellipsis:param_word}
+     * @return {String} {Ext_String:method-ellipsis:return}
      */
-    ellipsis: function(value, len, word) {
+    ellipsis: function(value, length, word) {
 
-        if(value &amp;&amp; value.length &gt; len) {
+        if(value &amp;&amp; value.length &gt; length) {
 
             if(word) {
-                var vs = value.substr(0, len - 2),
+                var vs = value.substr(0, length - 2),
                     index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
 
-                if(index !== -1 &amp;&amp; index &gt;= (len - 15)) {
+                if(index !== -1 &amp;&amp; index &gt;= (length - 15)) {
                     return vs.substr(0, index) + &quot;...&quot;;
                 }
             }
 
-            return value.substr(0, len - 3) + &quot;...&quot;;
+            return value.substr(0, length - 3) + &quot;...&quot;;
         }
 
         return value;
@@ -110,10 +112,10 @@ module.exports = {
     // {{{ escape
 
 <span id='Ext-String-method-escape'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-escape:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-escape:param_string}
+     * @return {String} {Ext_String:method-escape:return}
      */
     escape: function(string) {
         return string.replace(Ext.String.escapeRe, &quot;\\$1&quot;);
@@ -123,10 +125,10 @@ module.exports = {
     // {{{ escapeRegex
 
 <span id='Ext-String-method-escapeRegex'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-escapeRegex:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-escapeRegex:param_string}
+     * @return {String} {Ext_String:method-escapeRegex:return}
      */
     escapeRegex: function(string) {
         return string.replace(Ext.String.escapeRegexRe, &quot;\\$1&quot;);
@@ -136,10 +138,12 @@ module.exports = {
     // {{{ format
 
 <span id='Ext-String-method-format'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-format:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-format:param_string}
+     * @param {String} value1 {Ext_String:method-format:param_value1}
+     * @param {String} value2 {Ext_String:method-format:param_value2}
+     * @return {String} {Ext_String:method-format:return}
      */
     format: function(format) {
         var args = Ext.Array.toArray(arguments, 1);
@@ -152,10 +156,10 @@ module.exports = {
     // {{{ htmlDecode
 
 <span id='Ext-String-method-htmlDecode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-htmlDecode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} value {Ext_String:method-htmlDecode:param_value}
+     * @return {String} {Ext_String:method-htmlDecode:return}
      */
     htmlDecode: (function() {
 
@@ -190,10 +194,10 @@ module.exports = {
     // {{{ htmlEncode
 
 <span id='Ext-String-method-htmlEncode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-htmlEncode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} value {Ext_String:method-htmlEncode:param_value}
+     * @return {String} {Ext_String:method-htmlEncode:return}
      */
     htmlEncode: (function() {
 
@@ -222,10 +226,12 @@ module.exports = {
     // {{{ leftPad
 
 <span id='Ext-String-method-leftPad'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-leftPad:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-leftPad:param_string}
+     * @param {Number} size {Ext_String:method-leftPad:param_size}
+     * @param {String} character {Ext_String:method-leftPad:param_character}
+     * @return {String} {Ext_String:method-leftPad:return}
      */
     leftPad: function(string, size, character) {
 
@@ -244,10 +250,12 @@ module.exports = {
     // {{{ replace
 
 <span id='Ext-String-method-replace'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-replace:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} v {Ext_String:method-replace:param_v}
+     * @param {String} findme {Ext_String:method-replace:param_findme}
+     * @param {String} repl {Ext_String:method-replace:param_repl}
+     * @return {String} {Ext_String:method-replace:return}
      */
     replace: function(v, findme, repl) {
 
@@ -262,10 +270,12 @@ module.exports = {
     // {{{ toggle
 
 <span id='Ext-String-method-toggle'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-toggle:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-toggle:param_string}
+     * @param {String} value {Ext_String:method-toggle:param_value}
+     * @param {String} other {Ext_String:method-toggle:param_other}
+     * @return {String} {Ext_String:method-toggle:return}
      */
     toggle: function(string, value, other) {
         return string === value ? other : value;
@@ -275,10 +285,10 @@ module.exports = {
     // {{{ trim
 
 <span id='Ext-String-method-trim'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_String:method-trim:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} string {Ext_String:method-trim:param_string}
+     * @return {String} {Ext_String:method-trim:return}
      */
     trim: function(string) {
         return string.replace(Ext.String.trimRegex, &quot;&quot;);
@@ -290,10 +300,11 @@ module.exports = {
 <span id='Ext-String-method-urlAppend'>    /**
 </span>     * @method urlAppend
      *
-     * &quot;write it&quot;
+     * {Ext_String:method-urlAppend:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} url {Ext_String:method-urlAppend:param_url}
+     * @param {String} string {Ext_String:method-urlAppend:param_string}
+     * @return {String} {Ext_String:method-urlAppend:return}
      */
     urlAppend: function(url, string) {
 
