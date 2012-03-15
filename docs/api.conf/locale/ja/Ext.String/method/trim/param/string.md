@@ -1,1 +1,1 @@
-The string to escape
+空白を除去される文字列

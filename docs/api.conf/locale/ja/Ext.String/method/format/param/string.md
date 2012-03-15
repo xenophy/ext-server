@@ -1,1 +1,1 @@
-The tokenized string to be formatted
+置換トークンを設置した文字列

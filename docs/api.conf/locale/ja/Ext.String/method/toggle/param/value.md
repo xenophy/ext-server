@@ -1,1 +1,1 @@
-The value to compare to the current string
+現在の文字列と比較する値

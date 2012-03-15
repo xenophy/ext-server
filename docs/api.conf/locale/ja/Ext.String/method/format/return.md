@@ -1,1 +1,1 @@
-The formatted string
+設定したトークンが置換された文字列

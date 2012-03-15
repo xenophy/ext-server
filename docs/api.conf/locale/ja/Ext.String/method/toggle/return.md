@@ -1,1 +1,1 @@
-The new value
+新しい値

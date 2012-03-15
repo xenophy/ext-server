@@ -1,6 +1,5 @@
-Trims whitespace from either end of a string, leaving spaces within the string intact.  Example:
+文字列内のスペースはそのまま残し、文字列の両サイドのホワイトスペースを除去します。 例:
 
-<pre><code>var s = '  foo bar  ';
-alert('-' + s + '-');         //alerts "- foo bar -"
-alert('-' + Ext.String.trim(s) + '-');  //alerts "-foo bar-"
-</code></pre>
+    var s = '  foo bar  ';
+    alert('-' + s + '-');                   // alertで "-  foo bar  -" が表示されます
+    alert('-' + Ext.String.trim(s) + '-');  // alertで "-foo bar-" が表示されます

@@ -1,1 +1,1 @@
-replace specified string
+指定された文字列を置換します。

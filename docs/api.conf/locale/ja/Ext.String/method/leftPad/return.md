@@ -1,1 +1,1 @@
-The padded string
+指定文字で埋められた文字列

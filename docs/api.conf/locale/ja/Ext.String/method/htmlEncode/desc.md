@@ -1,1 +1,1 @@
-Convert certain characters (&, <, >, and ") to their HTML character equivalents for literal display in web pages.
+変換可能な特定の文字 (&, <, >, ') をHTMLエンティティ (&amp;, &lt;, &gt;, &quot) に変換します。

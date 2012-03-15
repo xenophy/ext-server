@@ -1,1 +1,1 @@
-The trimmed string
+空白が除去された文字列

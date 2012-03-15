@@ -1,1 +1,1 @@
-The URL to append to.
+クエリストリングが追加されるURL。

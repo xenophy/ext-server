@@ -1,1 +1,1 @@
-The value to replace token {0}
+トークン{0}と置換する文字列

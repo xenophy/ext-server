@@ -1,10 +1,10 @@
-Utility function that allows you to easily switch a string between two alternating values.  The passed value
-is compared to the current string, and if they are equal, the other value that was passed in is returned.  If
-they are already different, the first value passed in is returned.  Note that this method returns the new value
-but does not change the current string.
-<pre><code>// alternate sort directions
-sort = Ext.String.toggle(sort, 'ASC', 'DESC');
+2つの文字列を交互に切り替えることができるユーティリティ関数です。
+渡された値と比較する値を比較し、これが同じ場合はその他で指定した値を返します。
+異なる場合、渡された値を返します。
+このメソッドで渡された値と異なる値を返された場合、元の文字列に変更はありません。
 
-// instead of conditional logic:
-sort = (sort == 'ASC' ? 'DESC' : 'ASC');
-</code></pre>
+    // ソートの方向
+    sort = Ext.String.toggle(sort, 'ASC', 'DESC');
+
+    // このメソッドの代わり:
+    sort = (sort == 'ASC' ? 'DESC' : 'ASC');

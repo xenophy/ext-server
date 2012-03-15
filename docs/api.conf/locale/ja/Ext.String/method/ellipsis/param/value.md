@@ -1,1 +1,1 @@
-The string to truncate
+トランケートされる文字列

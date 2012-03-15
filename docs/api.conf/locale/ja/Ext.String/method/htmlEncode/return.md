@@ -1,1 +1,1 @@
-The encoded text
+変換された文字

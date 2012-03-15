@@ -1,1 +1,1 @@
-The content to append to the URL.
+URLに追加する内容。

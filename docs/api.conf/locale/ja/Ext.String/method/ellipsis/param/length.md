@@ -1,1 +1,1 @@
-The maximum length to allow before truncating
+トランケートしない文字数。これを超えた分の文字列はトランケートされます。

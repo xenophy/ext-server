@@ -1,1 +1,1 @@
-The escaped string
+エスケープされた文字列

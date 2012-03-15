@@ -1,1 +1,1 @@
-The new value to use if the string already equals the first value passed in
+文字列が比較文字列と同じだった場合に返す値

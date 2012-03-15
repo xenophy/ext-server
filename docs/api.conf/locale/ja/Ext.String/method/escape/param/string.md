@@ -1,1 +1,1 @@
-The string to escape
+エスケープされる文字列

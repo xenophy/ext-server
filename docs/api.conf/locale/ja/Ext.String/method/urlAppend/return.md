@@ -1,1 +1,1 @@
-The resulting URL
+(文字列) クエリストリングが追加されたURL

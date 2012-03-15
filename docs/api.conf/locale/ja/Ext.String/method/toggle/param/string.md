@@ -1,1 +1,1 @@
-The current string
+現在の文字列

@@ -1,1 +1,1 @@
-Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length
+渡された文字列が指定された文字数より長い場合、指定した文字数を超えた分の文字列をトランケートし、省略記号（...）を付加して返します。

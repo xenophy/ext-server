@@ -1,1 +1,1 @@
-The string to encode
+変換される文字列

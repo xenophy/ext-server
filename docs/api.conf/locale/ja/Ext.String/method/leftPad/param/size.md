@@ -1,1 +1,1 @@
-The total length of the output string
+合計の文字列長
