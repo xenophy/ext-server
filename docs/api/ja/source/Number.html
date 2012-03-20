@@ -28,7 +28,7 @@
 <span id='Ext-Number'>/**
 </span> * @class Ext.Number
  *
- * 数値を扱うための静的メソッドのセット。
+ * {Ext_Number:doc-contents}
  *
  * @singleton
  */
@@ -37,10 +37,12 @@ module.exports = {
     // {{{ constrain
 
 <span id='Ext-Number-method-constrain'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Number:method-constrain:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} number {Ext_Number:method-constrain:param_number}
+     * @param {Number} min {Ext_Number:method-constrain:param_min}
+     * @param {Number} max {Ext_Number:method-constrain:param_max}
+     * @return {Number} {Ext_Number:method-constrain:return}
      */
     constrain: function(number, min, max) {
 
@@ -61,10 +63,11 @@ module.exports = {
     // {{{ from
 
 <span id='Ext-Number-method-from'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Number:method-from:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_Number:method-from:param_value}
+     * @param {Number} defaultValue {Ext_Number:method-from:param_defaultValue}
+     * @return {Number} {Ext_Number:method-from:return}
      */
     from: function(value, defaultValue) {
 
@@ -79,10 +82,13 @@ module.exports = {
     // {{{ snap
 
 <span id='Ext-Number-method-snap'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Number:method-snap:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} value {Ext_Number:method-snap:param_value}
+     * @param {Number} increment {Ext_Number:method-snap:param_increment}
+     * @param {Number} minValue {Ext_Number:method-snap:param_minValue}
+     * @param {Number} maxValue {Ext_Number:method-snap:param_maxValue}
+     * @return {Number} {Ext_Number:method-snap:return}
      */
     snap: function(value, increment, minValue, maxValue) {
 
@@ -95,31 +101,26 @@ module.exports = {
         m = value % increment;
 
         if(m !== 0) {
-
             newValue -= m;
 
             if(m * 2 &gt;= increment) {
-
                 newValue += increment;
-
             } else if(m * 2 &lt; -increment) {
-
                 newValue -= increment;
-
             }
         }
 
-        return Ext.Number.constrain(newValue, minValue,  maxValue);
+        return Ext.Number.constrain(newValue, minValue, maxValue);
     },
 
     // }}}
     // {{{ toFixed
 
 <span id='Ext-Number-method-toFixed'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Number:method-toFixed:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} value {Ext_Number:method-toFixed:param_value}
+     * @param {Number} precision {Ext_Number:method-toFixed:param_precision}
      */
     toFixed: function(value, precision) {
         return value.toFixed(precision);
