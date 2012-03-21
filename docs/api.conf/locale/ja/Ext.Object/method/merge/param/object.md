@@ -1,1 +1,1 @@
-Any number of objects to merge.
+マージするオブジェクト(何個でも)

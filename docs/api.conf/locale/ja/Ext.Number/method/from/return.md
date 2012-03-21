@@ -1,1 +1,1 @@
-value, if numeric, defaultValue otherwise
+第一引数が数値でない場合に返される値

@@ -1,1 +1,1 @@
-The maximum number in the range
+範囲の最大値

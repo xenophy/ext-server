@@ -1,1 +1,1 @@
-The number of digits to show after the decimal point
+小数点以下の表示桁数

@@ -1,3 +1,2 @@
-Whether or not to recursively decode the string. This format is supported by
-<br />
-PHP / Ruby on Rails servers and similar.
+(オプション) 文字列を再帰的にデコードします。このフォーマットはPHPやRuby on Railsのサーバなどでサポートされている形式です。
+デフォルトはfalseです。

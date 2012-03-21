@@ -1,1 +1,1 @@
-The execution scope (`this`) of the callback function
+(オプション) コールバック関数実行時のスコープ (this)

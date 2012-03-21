@@ -1,1 +1,1 @@
-The constrained value if outside the range, otherwise the current value
+渡された数値が範囲内であれば渡された値、そうでない場合は範囲の最大値・または最小値の値。

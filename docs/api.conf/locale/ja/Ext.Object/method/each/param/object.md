@@ -1,1 +1,1 @@
-The object to iterate
+反復処理するオブジェクト

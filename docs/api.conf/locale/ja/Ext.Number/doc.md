@@ -1,1 +1,1 @@
-A collection of useful static methods to deal with numbers
+数値を扱うのに便利な、静的メソッドのコレクション。

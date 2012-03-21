@@ -1,9 +1,8 @@
-Converts a `name` - `value` pair to an array of objects with support for nested structures. Useful to construct
-query strings. For example:
+name - valueのペアになったオブジェクトの配列に変換します。 ネスト構造もサポートします。 これはクエリストリングを生成する際に便利です。 例:
 
     var objects = Ext.Object.toQueryObjects('hobbies', ['reading', 'cooking', 'swimming']);
     
-    // objects then equals:
+    // objectsに保存される値は、以下の配列です:
     [
         { name: 'hobbies', value: 'reading' },
         { name: 'hobbies', value: 'cooking' },
@@ -20,7 +19,7 @@ query strings. For example:
         }
     }, true); // Recursive
     
-    // objects then equals:
+    // objectsに保存される値は、以下の配列です:
     [
         { name: 'dateOfBirth[day]', value: 3 },
         { name: 'dateOfBirth[month]', value: 8 },

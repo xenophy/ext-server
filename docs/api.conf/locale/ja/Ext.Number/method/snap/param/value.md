@@ -1,1 +1,1 @@
-The unsnapped value.
+数値。

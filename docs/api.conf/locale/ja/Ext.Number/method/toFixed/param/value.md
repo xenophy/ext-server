@@ -1,1 +1,1 @@
-The number to format
+フォーマットされる値

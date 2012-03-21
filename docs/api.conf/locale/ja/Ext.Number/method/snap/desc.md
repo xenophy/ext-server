@@ -1,1 +1,1 @@
-Snaps the passed number between stopping points based upon a passed increment value.
+増加値で割りきれる数値で、渡された数値に一番近い数値を返します。

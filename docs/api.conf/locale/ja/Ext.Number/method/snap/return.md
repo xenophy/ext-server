@@ -1,1 +1,1 @@
-The value of the nearest snap target.
+渡された数値に一番近い増加値の整数倍値。

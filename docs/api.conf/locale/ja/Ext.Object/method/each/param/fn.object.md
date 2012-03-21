@@ -1,1 +1,1 @@
-The object itself
+第一引数で指定したオブジェクト

@@ -1,17 +1,15 @@
-Iterates through an object and invokes the given callback function for each iteration.
-The iteration can be stopped by returning `false` in the callback function. For example:
+オブジェクトを反復処理し、各要素に対して指定したコールバック関数を呼び出します。 コールバック関数がfalseを返した場合、その時点で反復処理は停止されます。 例:
 
-<pre><code>var person = {
-    name: 'Jacky'
-    hairColor: 'black'
-    loves: ['food', 'sleeping', 'wife']
-};
+    var person = {
+        name: 'Jacky',
+        hairColor: 'black',
+        loves: ['food', 'sleeping', 'wife']
+    };
 
-Ext.Object.each(person, function(key, value, myself) {
-    console.log(key + ":" + value);
+    Ext.Object.each(person, function(key, value, myself) {
+        console.log(key + ":" + value);
 
-    if (key === 'hairColor') {
-        return false; // stop the iteration
-    }
-});
-</code></pre>
+        if (key === 'hairColor') {
+            return false; // 反復処理停止
+        }
+    });

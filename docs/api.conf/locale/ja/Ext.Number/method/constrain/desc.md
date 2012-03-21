@@ -1,3 +1,4 @@
-Checks whether or not the passed number is within a desired range.  If the number is already within the
-range it is returned, otherwise the min or max value is returned depending on which side of the range is
-exceeded. Note that this method returns the constrained value but does not change the current number.
+渡された数値を抑制します。数値が範囲内にある場合、渡された数値をそのまま返します。
+もし、範囲外の場合は数値がはみ出した方の限界の値が返されます。
+最大値を上回った場合はmaxで指定した値を、最小値を下回った場合はminで指定した値を返します。
+指定した範囲外の数値を渡された場合、このメソッドは渡した数値とは異なる値を返しますが、渡された元の数値に変更はありません。

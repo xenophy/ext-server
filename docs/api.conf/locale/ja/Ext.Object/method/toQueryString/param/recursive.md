@@ -1,3 +1,1 @@
-Whether or not to interpret the object in recursive format.
-<br />
-(PHP / Ruby on Rails servers and similar).
+(オプション) 文字列を再帰的にデコードします。 このフォーマットはPHPやRuby on Railsのサーバなどでサポートされている形式です。 デフォルトはfalseです。

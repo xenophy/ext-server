@@ -1,1 +1,1 @@
-An array of values from the object
+オブジェクトの値の配列

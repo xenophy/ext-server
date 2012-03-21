@@ -1,1 +1,1 @@
-queryString
+クエリストリング

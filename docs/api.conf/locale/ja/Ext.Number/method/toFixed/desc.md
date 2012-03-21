@@ -1,1 +1,1 @@
-Formats a number using fixed-point notation
+固定小数点表記で数値をフォーマットします。

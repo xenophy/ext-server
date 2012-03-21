@@ -1,1 +1,1 @@
-The value to find
+検索する値

@@ -1,1 +1,1 @@
-The query string to decode
+デコードされるクエリストリング

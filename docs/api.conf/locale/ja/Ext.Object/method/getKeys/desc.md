@@ -1,7 +1,6 @@
-Gets all keys of the given object as an array.
+渡されたオブジェクトのすべてのキーを配列で返します。
 
-<pre><code>var values = Ext.Object.getKeys({
-    name: 'Jacky',
-    loves: 'food'
-}); // ['name', 'loves']
-</code></pre>
+    var values = Ext.Object.getKeys({
+        name: 'Jacky',
+        loves: 'food'
+    }); // ['name', 'loves'] を返します

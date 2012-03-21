@@ -1,1 +1,1 @@
-The maximum value to which the returned value must be constrained. Overrides the increment.
+返される数値がここで指定した数値を上回る場合、ここで指定した数値に上書きされて返されます。

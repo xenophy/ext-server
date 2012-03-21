@@ -1,4 +1,5 @@
-Merges any number of objects recursively without referencing them or their children.
+ソースコード参照merge( Object object, Object key, Object value ) : Object
+複数のオブジェクトを再帰的に、オブジェクトやオブジェクトの子ノードを参照なしでマージします。
 
     var extjs = {
         companyName: 'Ext JS',

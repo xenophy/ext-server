@@ -1,1 +1,1 @@
-The number to check
+チェックする数値

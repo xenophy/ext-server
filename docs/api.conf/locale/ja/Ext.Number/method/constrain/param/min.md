@@ -1,1 +1,1 @@
-The minimum number in the range
+範囲の最小値

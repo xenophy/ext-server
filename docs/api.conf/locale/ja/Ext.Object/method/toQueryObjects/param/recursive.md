@@ -1,1 +1,1 @@
-True to traverse object recursively
+trueにするとオブジェクトを再帰的に走査します。

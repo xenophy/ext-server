@@ -1,6 +1,6 @@
-Gets the total number of this object's own properties
+オブジェクトが持つ全プロパティ数を返します。
 
     var size = Ext.Object.getSize({
         name: 'Jacky',
         loves: 'food'
-    }); // size equals 2
+    }); // オブジェクトのサイズは 2 です。

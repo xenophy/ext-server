@@ -1,1 +1,1 @@
-merged The object that is created as a result of merging all the objects passed in.
+渡されたすべてのオブジェクトをマージした結果のオブジェクト

@@ -1,1 +1,1 @@
-The value to return if the original value is non-numeric
+第一引数が数値でない場合に返される値
