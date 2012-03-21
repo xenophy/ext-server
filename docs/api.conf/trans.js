@@ -60,8 +60,7 @@
             file = path.normalize(src + '/' + cls + '/doc.md');
             destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':doc-contents}</p>')), markdown(fs.readFileSync(file).toString()));
 
-            // method
-            destjson.members.method.forEach(function(o) {
+            var methodExecute = function(o) {
 
                 var data;
 
@@ -94,8 +93,11 @@
 
                 } catch(e) {
                 }
+            };
 
-            });
+            // method
+            destjson.members.method.forEach(methodExecute);
+            destjson.statics.method.forEach(methodExecute);
 
             fs.writeFileSync(output, 'Ext.data.JsonP.' + cls.replace(/\./, '_') + '(' +JSON.stringify(destjson) + ');', 'utf8');
         });
