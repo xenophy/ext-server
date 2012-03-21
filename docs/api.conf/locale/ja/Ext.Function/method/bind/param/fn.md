@@ -1,1 +1,1 @@
-The function to delegate.
+デリゲートされる関数。

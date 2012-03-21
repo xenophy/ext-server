@@ -1,1 +1,1 @@
-The interval <strong>in milliseconds</strong> on which the passed function is executed.
+渡された関数が実行されるミリ秒間隔の時間。

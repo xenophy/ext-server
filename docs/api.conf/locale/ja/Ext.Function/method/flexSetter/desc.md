@@ -1,23 +1,24 @@
-A very commonly used method throughout the framework. It acts as a wrapper around another method
-which originally accepts 2 arguments for `name` and `value`.
-The wrapped function then allows "flexible" value setting of either:
+フレームワーク全体で非常に一般的に使用されているメソッドです。
+メソッドのラッパーとして使用されます。
+ラップされた関数は、以下のような「柔軟な」値の設定が可能です。
 
-- `name` and `value` as 2 arguments
-- one single object argument with multiple key - value pairs
+- name と value の２つの引数を設定します
+- 一つのオブジェクトに、name - value のペアを複数設定します
 
 For example:
 
     var setValue = Ext.Function.flexSetter(function(name, value) {
         this[name] = value;
     });
-    
-    // Afterwards
-    // Setting a single name - value
+
+    // 次に、
+    // name - value の１つのペアを指定
     setValue('name1', 'value1');
-    
-    // Settings multiple name - value pairs
+
+    // name - value のペアを複数指定
     setValue({
         name1: 'value1',
         name2: 'value2',
         name3: 'value3'
     });
+

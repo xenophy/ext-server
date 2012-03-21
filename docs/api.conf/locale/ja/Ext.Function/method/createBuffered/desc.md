@@ -1,4 +1,2 @@
-Creates a delegate function, optionally with a bound scope which, when called, buffers
-the execution of the passed function for the configured number of milliseconds.
-If called again within that period, the impending invocation will be canceled, and the
-timeout period will begin again.
+デリゲート関数を作成します。必要に応じて実行時のスコープを変更したり、渡された関数の実行をミリ秒単位で遅らせて実行したりすることが可能です。
+実行を遅らせている間に関数が再度呼び出された場合、遅らされていた関数の実行はキャンセルされ、呼び出された関数のタイムアウト期間が開始されます。

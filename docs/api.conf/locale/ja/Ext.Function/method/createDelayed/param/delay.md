@@ -1,1 +1,1 @@
-The number of milliseconds to defer execution by whenever called.
+呼び出される毎に関数実行を遅らせるミリ秒。

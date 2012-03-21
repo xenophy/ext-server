@@ -1,3 +1,2 @@
-(optional) The scope (`this` reference) in which the function is executed.
-<strong>If omitted, defaults to the global.</strong>
-
+(オプション) 関数実行時のスコープ（this参照）。
+<strong>省略された場合、デフォルトはブラウザのwindowオブジェクトになります。</strong>

@@ -1,2 +1,2 @@
-(optional) if True args are appended to call args instead of overriding,
-if a number the args are inserted at the specified position.
+(オプション) trueを設定した場合、オーバーライドする代わりに元の引数にargsで指定した値を追加します。 数値を指定した場合、指定した位置へargsで指定した値を挿入します。
+

@@ -1,1 +1,1 @@
-The new function
+新しい関数

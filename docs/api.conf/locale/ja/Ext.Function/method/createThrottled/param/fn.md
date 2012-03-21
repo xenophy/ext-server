@@ -1,1 +1,1 @@
-The function to execute at a regular time interval.
+一定の時間間隔で実行される関数。

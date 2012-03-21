@@ -1,1 +1,1 @@
-The function to defer.
+遅らせて実行する関数。

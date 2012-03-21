@@ -1,4 +1,3 @@
-The number of milliseconds for the setTimeout call
+setTimeout使用時に設定するミリ秒   
 <br />
-(if less than or equal to 0 the function is executed immediately)
-
+（0を指定した場合、即時実行されます）

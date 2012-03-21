@@ -1,1 +1,1 @@
-The function to sequence
+元の関数の後に呼び出される関数。

@@ -1,1 +1,1 @@
-(optional) Override arguments for the call. (Defaults to the arguments passed by the caller)
+(オプション) 呼び出し時にオーバーライドする引数。（デフォルトは呼び出し元に渡される引数）

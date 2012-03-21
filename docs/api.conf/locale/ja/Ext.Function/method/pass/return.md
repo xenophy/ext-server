@@ -1,1 +1,1 @@
-The new callback function
+新しいコールバック関数

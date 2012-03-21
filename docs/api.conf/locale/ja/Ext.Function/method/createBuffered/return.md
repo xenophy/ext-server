@@ -1,1 +1,1 @@
-A function which invokes the passed function after buffering for the specified time.
+渡された関数を指定時間後に呼び出す関数。

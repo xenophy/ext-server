@@ -1,3 +1,1 @@
-The number of milliseconds by which to buffer the invocation of the
-function.
-
+関数を呼び出す際に遅らせるミリ秒。

@@ -1,2 +1,2 @@
-Create an alias to the provided method property with name `methodName` of `object`.
-Note that the execution scope will still be bound to the provided `object` itself.
+渡されたobjectのmethodNameに、提供されているメソッドのエイリアスを作成します。
+実行時のスコープは、渡されたobjectになることに注意してください。

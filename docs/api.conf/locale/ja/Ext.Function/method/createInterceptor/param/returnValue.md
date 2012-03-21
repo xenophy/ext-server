@@ -1,1 +1,1 @@
-(optional) The value to return if the passed function return false (defaults to null).
+(オプション) 第二引数で渡した関数がfalseを返した場合に、この関数が返す値（デフォルトはnullです）。
