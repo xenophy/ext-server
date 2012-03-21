@@ -70,7 +70,7 @@
                     file = path.normalize(src + '/' + cls + '/method/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
                     destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data, 50)));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0], 50)));
                 } catch(e) {
                 }
 

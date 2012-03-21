@@ -27,8 +27,103 @@
 
 <span id='Ext-Date'>/**
 </span> * @class Ext.Date
+ * 日付を扱うのに便利な、静的メソッドのセット。
+ * Ext.Dateを読み込むと、便宜上すべてのメソッドとプロパティがコピーされることに注意してください。
+ * 
+ * 日付のパースと構文の書式に関しては、PHPのdate()関数に準拠しています。
+ * サポートするフォーマットもPHP版と同等です。
+ * 
+ * 現在サポートされているすべての形式は以下の通りです: 
+&lt;pre class=&quot;&quot;&gt;
+記号	説明	例
+------	-----------------------------------------------------------------------	-----------------------
+  d     日。２桁の数字で、１桁の場合は左に0が付きます。                             01 から 31
+  D     曜日。３文字の短いテキスト形式。                                            Mon から Sun
+  j     日。dと違い、１桁の場合も先頭に0は付きません。                              1 から 31
+  l     曜日。フルスペル形式。                                                      Sunday から Saturday
+  N     ISO-8601 形式の、曜日の数値表現。                                           1（月曜日）から 7（日曜日）
+  S     英語形式の序数を表すサフィックス。2 文字。                                  st, nd, rd または th。
+                                                                                    jと一緒に使用することができる。
+  w     曜日。数値で表現した曜日。                                                  0 (日曜)から 6 (土曜)
+  z     年間の通算日。数字。(ゼロから開始)	0 から 364 (閏年で365)
+  W     ISO-8601 月曜日に始まる年単位の週番号。２桁の数字で、１桁の場合は左に0が
+        付きます。                                                                  01 から 53(例: 42は年の第 42 週目)
+  F     月。フルスペルの文字。                                                      January から December
+  m     月。２桁の数字で、１桁の場合は左に0が付きます。                             01 から 12
+  M     月。３文字の短いテキスト形式。                                              Jan から Dec
+  n     月。mと違い、１桁の場合も先頭に0は付きません。                              1 から 12
+  t     指定した月の日数。                                                          28 から 31
+  L     閏年であるかどうか。                                                        1なら閏年。0なら閏年ではない。
+  o     ISO-8601 形式の年。これは Y ほぼ同じだが、ISO 週番号（W）が前年あるいは
+        翌年に属する場合がある点で異なる。                                          例: 1998 あるいは 2004
+  Y     年。4 桁の数字。                                                            例: 1999 または 2003
+  y     年。2 桁の数字。                                                            例: 99 または 03
+  a     午前または午後（小文字）                                                    am または pm
+  A     午前または午後（大文字）                                                    AM または PM
+  g     時。12時間単位。hと違い、１桁の場合も先頭に0は付きません。                  1 から 12
+  G     時。24時間単位。Hと違い、１桁の場合も先頭に0は付きません。                  0 から 23
+  h     時。12 時間単位。２桁の数字で、１桁の場合は左に0が付きます。                01 から 12
+  H     時。24 時間単位。２桁の数字で、１桁の場合は左に0が付きます。                00 から 23
+  i     分。２桁の数字で、１桁の場合は左に0が付きます。                             00 から 59
+  s     秒。２桁の数字で、１桁の場合は左に0が付きます。                             00 から 59
+  u     ミリ秒	                                                                    例:
+                                                                                    001 (i.e. 0.001s) または
+                                                                                    100 (i.e. 0.100s) または
+                                                                                    999 (i.e. 0.999s) または
+                                                                                    999876543210 (i.e. 0.999876543210s)
+  O     グリニッジ標準時 (GMT) との時差                                             例: +1030
+  P     グリニッジ標準時 (GMT) との時差。時間と分をコロンで区切った形式             例: -08:00
+  T     タイムゾーンの略称                                                          例: EST, MDT, PDT ...
+  Z     タイムゾーンのオフセット秒数。UTC の西側のタイムゾーン用のオフセット
+        は常に負です。そして、 UTC の東側のオフセットは常に正です。                 -43200 から 50400
+  c     ISO 8601 日付	2004-02-12T15:19:21+00:00
+  U     Unix Epoch (1970 年 1 月 1 日 0 時 0 分 0 秒) からの秒数                    1193432466 から -2138434463
+  MS    Microsoft AJAX serialized dates                                             \/Date(1238606590509)\/ 
+                                                                                   (i.e. UTC milliseconds since epoch)
+                                                                                   または
+                                                                                   \/Date(1238606590509+0800)\/
+&lt;/pre&gt;
  *
- * 日付を扱うための静的メソッドのセット。
+ * 使用例: (注意: フォーマット記号と同じ文字列を記述したい場合、'¥'を付けてエスケープする必要があります)
+ * &lt;pre&gt;&lt;code&gt;
+// Sample date:
+// 'Wed Jan 10 2007 15:05:01 GMT-0600 (Central Standard Time)'
+
+var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+console.log(Ext.Date.format(dt, 'Y-m-d'));                          // 2007-01-10
+console.log(Ext.Date.format(dt, 'F j, Y, g:i a'));                  // January 10, 2007, 3:05 pm
+console.log(Ext.Date.format(dt, 'l, \\t\\he jS \\of F Y h:i:s A')); // Wednesday, the 10th of January 2007 03:05:01 PM
+
+&lt;/code&gt;&lt;/pre&gt;
+ * 役立つ標準の日付と時刻のパターンです。
+ * これらはExt.Dateのソースの一部ではありません。
+ * ですが、Ext.Dateを読み込んだ後で、スクリプトコードに以下のコードをコピーするだけで
+ * グローバルのDateオブジェクトでも利用可能になります。
+ * 必要に応じてパターンを追加・削除してください。
+ * &lt;pre&gt;&lt;code&gt;
+Ext.Date.patterns = {
+    ISO8601Long:&quot;Y-m-d H:i:s&quot;,
+    ISO8601Short:&quot;Y-m-d&quot;,
+    ShortDate: &quot;n/j/Y&quot;,
+    LongDate: &quot;l, F d, Y&quot;,
+    FullDateTime: &quot;l, F d, Y g:i:s A&quot;,
+    MonthDay: &quot;F d&quot;,
+    ShortTime: &quot;g:i A&quot;,
+    LongTime: &quot;g:i:s A&quot;,
+    SortableDateTime: &quot;Y-m-d\\TH:i:s&quot;,
+    UniversalSortableDateTime: &quot;Y-m-d H:i:sO&quot;,
+    YearMonth: &quot;F, Y&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+ *
+ * Example usage:
+ * &lt;pre&gt;&lt;code&gt;
+var dt = new Date();
+console.log(Ext.Date.format(dt, Ext.Date.patterns.ShortDate));
+&lt;/code&gt;&lt;/pre&gt;
+ *
+ * カスタムフォーマットは、開発者によって専門的な形式と構文解析機能の両方が提供されるかもしれません。
+ * これらの機能はparseFunctionsとformatFunctionsに格納されます。
  *
  * @singleton
  */
