@@ -28,7 +28,7 @@
 <span id='Ext-Array'>/**
 </span> * @class Ext.Array
  *
- * 配列を扱うための静的メソッドのセット。
+ * {Ext_Array:doc-contents}
  *
  * @singleton
  */
@@ -37,10 +37,10 @@ module.exports = {
     // {{{ clean
 
 <span id='Ext-Array-method-clean'>    /**
-</span>     * 配列をフィルタリングし、Ext.isEmptyで定義される要素を取り除きます。
+</span>     * {Ext_Array:method-clean:desc}
      *
-     * @param {Array} array
-     * @return {Array} 取り除かれた結果
+     * @param {Array} array {Ext_Array:method-clean:param_array}
+     * @return {Array} {Ext_Array:method-clean:return}
      */
     clean: function(array) {
 
@@ -65,12 +65,10 @@ module.exports = {
     // {{{ clone
 
 <span id='Ext-Array-method-clone'>    /**
-</span>     * 一次配列のコピー（参照ではない）を生成します。
-     * このメソッドはExt.cloneと違い、再帰的なコピー処理を行わないという点に注意してください。
-     * これは、単にArray.prototype.slice.call(array)を使いやすくするためのメソッドです。
+</span>     * {Ext_Array:method-clone:desc}
      *
-     * @param {Array} array
-     * @return {Array} コピーされた配列
+     * @param {Array} array {Ext_Array:method-clone:param_array}
+     * @return {Array} {Ext_Array:method-clone:return}
      */
     clone: function(array) {
         return Array.prototype.slice.call(array);
@@ -80,11 +78,11 @@ module.exports = {
     // {{{ contains
 
 <span id='Ext-Array-method-contains'>    /**
-</span>     * 指定した項目（item）が配列（array）に存在するかどうかをチェックします。
+</span>     * {Ext_Array:method-contains:desc}
      *
-     * @param {Array} チェックされる配列
-     * @param {Mixed} 検索する項目
-     * @return {Boolean} 配列に項目が含まれている場合はtrue、そうでない場合はfalse
+     * @param {Array} array {Ext_Array:method-contains:param_array}
+     * @param {Object} item {Ext_Array:method-contains:param_item}
+     * @return {Boolean} {Ext_Array:method-contains:return}
      */
     contains: function(array, item) {
         return array.indexOf(item) !== -1;
@@ -94,33 +92,31 @@ module.exports = {
     // {{{ difference
 
 <span id='Ext-Array-method-difference'>    /**
-</span>     * 配列Aから、配列Bに存在する項目を取り除いた配列を返します。
+</span>     * {Ext_Array:method-difference:desc}
      *
-     * @param {Array} arrayA 配列A
-     * @param {Array} arrayB 配列B
-     * @return {Array} 配列Aから配列Bの項目が取り除かれた配列
+     * @param {Array} arrayA {Ext_Array:method-difference:param_arrayA}
+     * @param {Array} arrayB {Ext_Array:method-difference:param_arrayB}
+     * @return {Array} {Ext_Array:method-difference:return}
      */
     difference: function(arrayA, arrayB) {
 
         var slice = Array.prototype.slice;
+
         var erase = function(array, index, removeCount) {
             array.splice(index, removeCount);
             return array;
         };
+
         var clone = slice.call(arrayA),
-        ln = clone.length,
-        i, j, lnB;
+            ln = clone.length,
+            i, j, lnB;
 
         for(i = 0, lnB = arrayB.length; i &lt; lnB; i++) {
-
             for(j = 0; j &lt; ln; j++) {
-
                 if(clone[j] === arrayB[i]) {
-
                     erase(clone, j, 1);
                     j--;
                     ln--;
-
                 }
             }
         }
@@ -132,53 +128,17 @@ module.exports = {
     // {{{ each
 
 <span id='Ext-Array-method-each'>    /**
-</span>     * @method each
+</span>     * {Ext_Array:method-each:desc}
      *
-     * 配列、または反復が可能な値を反復処理し、各項目に対して指定したコールバック関数を呼び出します。
-     *
-     *     var countries = ['Vietnam', 'Singapore', 'United States', 'Russia'];
-     *
-     *     Ext.Array.each(countries, function(name, index, countriesItSelf) {
-     *         console.log(name);
-     *     });
-     *
-     *     var sum = function() {
-     *         var sum = 0;
-     *
-     *         Ext.Array.each(arguments, function(value) {
-     *             sum += value;
-     *         });
-     *
-     *         return sum;
-     *     };
-     *
-     *     sum(1, 2, 3); // returns 6
-     *
-     * コールバック関数でfalseを返すことで、反復処理を停止させることができます。
-     *
-     *     Ext.Array.each(countries, function(name, index, countriesItSelf) {
-     *         if (name === 'Singapore') {
-     *             return false; // break here
-     *         }
-     *     });
-     *
-     * Ext.eachはExt.Array.eachのエイリアスです。
-     *
-     * @param {Array/NodeList/Mixed} iterable 反復処理させる値。
-     * この引数が反復可能でない場合、コールバック関数が１回呼び出されます。
-     * @param {Function} fn
-     * コールバック関数。 Falseを返した場合、反復処理が停止し、
-     * このメソッドはその時点のインデックス(index)を返します。 
-     * 以下、コールバック関数に渡される引数です。
-     *
-     * - `item` : Mixed - 渡された配列(array)の現在のインデックス(index)にある項目
-     * - `index` : Number - 配列(array)内の現在のインデックス(index)
-     * - `allItems` : Array/NodeList/Mixed - Ext.Array.eachの第一引数として渡された配列(array)
-     *
-     * @param {Object} scope (オプション) 関数のスコープ（thisの参照先）
-     * @param {Boolean} reverse (オプション)反復処理の順番を逆（配列の最後から開始）にします。
-     * デフォルトはfalseです。
-     * @return {Boolean} パラメータfnの説明を参照してください。
+     * @param {Array/NodeList/Object} iterable {Ext_Array:method-each:param_iterable}
+     * @param {Function} fn {Ext_Array:method-each:param_fn}
+     * @param {Object} fn.item {Ext_Array:method-each:param_fn.item}
+     * @param {Number} fn.index {Ext_Array:method-each:param_fn.index}
+     * @param {Array} fn.allItems {Ext_Array:method-each:param_fn.allItems}
+     * @param {Boolean} fn.return {Ext_Array:method-each:param_fn.return}
+     * @param {Object} scope {Ext_Array:method-each:param_scope}
+     * @param {Boolean} reverse {Ext_Array:method-each:param_reverse}
+     * @return {Boolean} {Ext_Array:method-each:return}
      */
     each: function(array, fn, scope, reverse) {
 
@@ -210,12 +170,12 @@ module.exports = {
     // {{{ every
 
 <span id='Ext-Array-method-every'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Array:method-every:desc}
      *
-     * @param {Array} array 
-     * @param {Function} fn 各項目へのコールバック関数
-     * @param {Object} scope コールバック関数のスコープ
-     * @return {Boolean} コールバック関数がfalsyな値を返さなかった場合はtrue
+     * @param {Array} array {Ext_Array:method-every:param_array}
+     * @param {Function} fn {Ext_Array:method-every:param_fn}
+     * @param {Object} scope {Ext_Array:method-every:param_scope}
+     * @return {Boolean} {Ext_Array:method-every:return}
      */
     every: function(array, fn, scope) {
         return array.every(fn, scope);
@@ -225,20 +185,11 @@ module.exports = {
     // {{{ from
 
 <span id='Ext-Array-method-from'>    /**
-</span>     * @method from
+</span>     * {Ext_Array:method-from:desc}
      *
-     * 引数が配列でない場合、配列にして返します。 返却例:
-     * 
-     * - undefinedまたはnullが渡された場合、空の配列を返します。
-     * - 配列が渡された場合、渡された配列をそのまま返します。
-     * - 反復可能な値(iterable)の場合、配列のコピーを返します。（argumentsやノードリストと同様）
-     * - それ以外の場合は、渡された値を１つ持つ配列を返します。
-     * - &quot;write it&quot;
-     *
-     * @param {Array/Mixed} value 配列でない場合、配列に変換される値
-     * @param {Boolean} (オプション) trueを指定した場合、渡された配列のコピーを作成し、
-     * 必要に応じて新しい参照を返します。デフォルトはfalseです。
-     * @return {Array} 配列
+     * @param {Array/Mixed} value {Ext_Array:method-from:param_value}
+     * @param {Boolean} newReference {Ext_Array:method-from:param_newReference}
+     * @return {Array} {Ext_Array:method-from:return}
      */
     from: function(value, newReference) {
 
@@ -263,10 +214,10 @@ module.exports = {
     // {{{ include
 
 <span id='Ext-Array-method-include'>    /**
-</span>     * 指定した項目が配列に含まれていない場合、この項目を配列に含めます。
+</span>     * {Ext_Array:method-include:desc}
      *
-     * @param {Array} array 配列
-     * @param {Mixed} item 含める項目
+     * @param {Array} array {Ext_Array:method-include:param_array}
+     * @param {Object} item {Ext_Array:method-include:param_item}
      */
     include: function(array, item) {
         if(!Ext.Array.contains(array, item)) {
@@ -278,13 +229,12 @@ module.exports = {
     // {{{ indexOf
 
 <span id='Ext-Array-method-indexOf'>    /**
-</span>     * その配列(array)における、渡された項目(item)のインデックスを取得します。
-     * Internet Explorerで存在しないarray.Prototype.indexOfを補完するメソッドです。
+</span>     * {Ext_Array:method-indexOf:desc}
      *
-     * @param {Array} array チェックされる配列
-     * @param {Mixed} item 検索する項目
-     * @param {Number} from (オプション)検索を開始するインデックス
-     * @return {Number} 配列における、項目のインデックス(見つからなかった場合は-1)
+     * @param {Array} array {Ext_Array:method-indexOf:param_array}
+     * @param {Object} item {Ext_Array:method-indexOf:param_item}
+     * @param {Number} from {Ext_Array:method-indexOf:param_from}
+     * @return {Number} {Ext_Array:method-indexOf:return}
      */
     indexOf: function(array, item, from) {
         return array.indexOf(item, from);
@@ -294,12 +244,12 @@ module.exports = {
     // {{{ insert
 
 <span id='Ext-Array-method-insert'>    /**
-</span>     * 配列に項目を挿入します。
+</span>     * {Ext_Array:method-insert:desc}
      *
-     * @param {Array} array 挿入される配列。
-     * @param {Number} index 項目が挿入される、配列の位置インデックス。
-     * @param {Array} items 挿入される項目配列。
-     * @return {Array} 渡された配列。
+     * @param {Array} array {Ext_Array:method-insert:param_array}
+     * @param {Number} index {Ext_Array:method-insert:param_index}
+     * @param {Array} items {Ext_Array:method-insert:param_items}
+     * @return {Array} {Ext_Array:method-insert:return}
      */
     insert: function (array, index, items) {
         return Ext.Array.replace(array, index, 0, items);
@@ -309,12 +259,12 @@ module.exports = {
     // {{{ lastIndexOf
 
 <span id='Ext-Array-method-lastIndexOf'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Array:method-lastIndexOf:desc}
      *
-     * @param {Array} array
-     * @param {Mixed} item
-     * @param {Number} from
-     * @return {Number}
+     * @param {Array} array {Ext_Array:method-lastIndexOf:param_array}
+     * @param {Mixed} item {Ext_Array:method-lastIndexOf:param_item}
+     * @param {Number} from {Ext_Array:method-lastIndexOf:param_from}
+     * @return {Number} {Ext_Array:method-lastIndexOf:return}
      */
     lastIndexOf: function(array, item, from) {
 
@@ -342,32 +292,24 @@ module.exports = {
     // {{{ replace
 
 <span id='Ext-Array-method-replace'>    /**
-</span>     * 配列の項目を置換します。
-     * これは機能的にArrayオブジェクトのspliceメソッドと同等ですが、
-     * IE8のspliceメソッドのバグを回避し、
-     * また、挿入する項目を配列で指定することができるため、可変な引数リストを使用するより便利です。
+</span>     * {Ext_Array:method-replace:desc}
      *
-     * @param {Array} array 置換される配列。
-     * @param {Number} index 置換を開始する配列内の位置インデックス
-     * @param {Number} removeCount 指定した位置インデックスから削除する項目数
-     * （0を指定することも可能です）。
-     * @param {Array} insert 指定した位置インデックスへ挿入する配列。省略可能です。
-     * @return {Array} 渡された配列。
+     * @param {Array} array {Ext_Array:method-replace:param_array}
+     * @param {Number} index {Ext_Array:method-replace:param_index}
+     * @param {Number} removeCount {Ext_Array:method-replace:param_removeCout}
+     * @param {Array} insert {Ext_Array:method-replace:param_insert}
+     * @return {Array} {Ext_Array:method-replace:return}
      */
     replace: function(array, index, removeCount, insert) {
 
         if(insert &amp;&amp; insert.length) {
-
             if(index &lt; array.length) {
                 array.splice.apply(array, [index, removeCount].concat(insert));
             } else {
                 array.push.apply(array, insert);
             }
-
         } else {
-
             array.splice(index, removeCount);
-
         }
 
         return array;
@@ -377,20 +319,12 @@ module.exports = {
     // {{{ slice
 
 <span id='Ext-Array-method-slice'>    /**
-</span>     * 配列の一部の簡易コピーを返します。
-     * これは、ネイティブの&quot;Array.prototype.slice.call(array, begin, end)&quot;を呼び出すことと同等です。
-     * 引数オブジェクトはsliceメソッドを提供しませんが、
-     * コンテキストオブジェクトはArray.prototype.sliceを使用することができますので、
-     * 引数の「array」に引数オブジェクト「arguments」を指定する場合に、このメソッドはよく使用されます。
+</span>     * {Ext_Array:method-slice:desc}
      *
-     * @param {Array} array 配列（または引数オブジェクト）。
-     * @param {Number} begin 開始する位置インデックス。
-     * 負の値を設定した場合、配列の末尾からのオフセットです。
-     * @param {Number} end 終了する位置インデックス。
-     * 最後の項目は、コピーされる項目に含まれません。
-     * 負の値を設定した場合、配列の末尾からのオフセットです。
-     * この引数を省略した場合、配列の末尾までのすべての項目がコピーされます。
-     * @return {Array} 元の配列の一部分がコピーされた配列。
+     * @param {Array} array {Ext_Array:method-slice:param_array}
+     * @param {Number} begin {Ext_Array:method-slice:param_begin}
+     * @param {Number} end {Ext_Array:method-slice:param_end}
+     * @return {Array} {Ext_Array:method-slice:return}
      */
     slice: function(array, begin, end) {
         return Array.prototype.slice.call(array, begin, end);
@@ -400,17 +334,13 @@ module.exports = {
     // {{{ splice
 
 <span id='Ext-Array-method-splice'>    /**
-</span>     * 配列の項目を削除します。
-     * これは機能的にArrayオブジェクトのspliceメソッドと同等ですが、
-     * IE8のspliceメソッドのバグを回避します。
-     * 第一引数に配列を指定する以外は、spliceメソッドと全く同等です。
+</span>     * {Ext_Array:method-splice:desc}
      *
-     * @param {Array} array 項目を削除される配列。
-     * @param {Number} index 削除を開始する位置インデックス。
-     * @param {Number} removeCount 削除を開始する位置インデックス。
-     * @return {Array} 指定した位置インデックスから削除する項目数（0を指定することも可能です）。
+     * @param {Array} array {Ext_Array:method-splice:param_array}
+     * @param {Number} index {Ext_Array:method-splice:param_index}
+     * @param {Number} removeCount {Ext_Array:method-splice:removeCount}
+     * @return {Array} {Ext_Array:method-splice:return}
      */
-
     splice: function(array) {
         return array.splice.apply(array, Ext.Array.slice(Ext.toArray(arguments), 1));
     },
@@ -419,31 +349,12 @@ module.exports = {
     // {{{ toArray
 
 <span id='Ext-Array-method-toArray'>    /**
-</span>     * 反復処理可能なもの（インデックスとlengthプロパティ）を本当の配列に変換します。
+</span>     * {Ext_Array:method-toArray:desc}
      *
-     *     function test() {
-     *         var args = Ext.Array.toArray(arguments),
-     *             fromSecondToLastArgs = Ext.Array.toArray(arguments, 1);
-     *
-     *         alert(args.join(' '));
-     *         alert(fromSecondToLastArgs.join(' '));
-     *     }
-     *
-     *     test('just', 'testing', 'here'); // alerts 'just testing here';
-     *                                      // alerts 'testing here';
-     *
-     *     Ext.Array.toArray(document.getElementsByTagName('div')); // will convert the NodeList into an array
-     *     Ext.Array.toArray('splitted'); // returns ['s', 'p', 'l', 'i', 't', 't', 'e', 'd']
-     *     Ext.Array.toArray('splitted', 0, 3); // returns ['s', 'p', 'l', 'i']
-     *
-     * Ext.toArrayはExt.Array.toArrayのエイリアスです。
-     *
-     * @param {Mixed} iterable 配列に変換したい、反復可能なオブジェクト。
-     * @param {Number} start (オプション)抜き出し開始位置を指定する、0から始まるインデックス。
-     * デフォルトは0です。
-     * @param {Number} end (オプション)抜き出し終了位置を指定する、0から始まるインデックス。
-     * デフォルトは反復可能な値の最後のインデックスです。
-     * @return {Array} 配列
+     * @param {Object} iterable {Ext_Array:method-toArray:param_iterable}
+     * @param {Number} start {Ext_Array:method-toArray:param_start}
+     * @param {Number} end {Ext_Array:method-toArray:param_end}
+     * @return {Array} {Ext_Array:method-toArray:return}
      */
     toArray: function(iterable, start, end) {
 

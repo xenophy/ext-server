@@ -53,6 +53,8 @@
 
             var file, output, html, destjson;
 
+            console.log(cls);
+
             output = path.normalize(dest + '/output/' + cls + '.js');
             destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);/, '').replace((new RegExp('Ext.data.JsonP.' + cls.replace(/\./, '_') + '\\(')), ''));
 
@@ -71,6 +73,7 @@
                     destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
                     destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0], 50)));
                 } catch(e) {
+                    console.log(e);
                 }
 
                 // return.md
