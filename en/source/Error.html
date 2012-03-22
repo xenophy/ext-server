@@ -27,6 +27,9 @@
 
 <span id='Ext-Error'>/**
 </span> * @class Ext.Error
+ *
+ * {Ext_Error:doc-contents}
+ *
  */
 var ExtError = Ext.Error = function(config) {
 
@@ -61,11 +64,11 @@ Ext.apply(Ext.Error, {
     // }}}
     // {{{ handle
 
-<span id='Ext-Error-method-handle'>    /**
-</span>     * &quot;write it&quot;
+<span id='Ext-Error-static-method-handle'>    /**
+</span>     * {Ext_Error:static-method-handle:desc}
      *
      * @param o {Object} xxx
-     * @return {Object}
+     * @static
      */
     handle: function() {
         return Ext.Error.ignore;
@@ -74,11 +77,12 @@ Ext.apply(Ext.Error, {
     // }}}
     // {{{ raise
 
-<span id='Ext-Error-method-raise'>    /**
-</span>     * &quot;write it&quot;
+<span id='Ext-Error-static-method-raise'>    /**
+</span>     * {Ext_Error:static-method-raise:desc}
      *
      * @param o {Object} xxx
      * @return {Object}
+     * @static
      */
     raise: function(err) {
 
@@ -107,7 +111,7 @@ Ext.apply(Ext.Error, {
             var msg = Ext.Error.prototype.toString.call(err);
 
             /*
-             * TODO:
+             TODO:
             Ext.log({
                 msg: msg,
                 level: 'error',

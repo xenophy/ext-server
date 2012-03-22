@@ -26,25 +26,58 @@
 <span id='Ext-JSON'>/**
 </span> * @class Ext.JSON
  *
+ * {Ext_JSON:doc-contents}
+ *
  * @singleton
  */
 module.exports = {
 
+    // {{{ encode
+
 <span id='Ext-JSON-method-encode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_JSON:method-encode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} o {Ext_JSON:method-encode:param_o}
+     * @return {String} {Ext_JSON:method-encode:return}
      */
     encode: JSON.stringify,
 
+    // }}}
+    // {{{ decode
+
 <span id='Ext-JSON-method-decode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_JSON:method-decode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} json {Ext_JSON:method-decode:param_json}
+     * @param {Boolean} safe {Ext_JSON:method-decode:param_safe}
+     * @return {Object} {Ext_JSON:method-decode:return}
      */
-    decode: JSON.parse
+    decode: JSON.parse,
+
+    // }}}
+    // {{{ encodeDate
+
+<span id='Ext-JSON-method-encodeDate'>    /**
+</span>     * {Ext_JSON:method-encodeDate:desc}
+     *
+     * @param {Date} d {Ext_JSON:method-encodeDate:param_d}
+     * @return {String} {Ext_JSON:method-encodeDate:return}
+     */
+    encodeDate: function(o) {
+
+        var pad = function(n) {
+            return n &lt; 10 ? &quot;0&quot; + n : n;
+        };
+
+        return  '&quot;' + o.getFullYear() + &quot;-&quot;
+                    + pad(o.getMonth() + 1) + &quot;-&quot;
+                    + pad(o.getdate()) + &quot;T&quot;
+                    + pad(o.getHours()) + &quot;:&quot;
+                    + pad(o.getMinutes()) + &quot;:&quot;
+                    + pad(o.getSeconds()) + '&quot;';
+    }
+
+    // }}}
 
 };
 
