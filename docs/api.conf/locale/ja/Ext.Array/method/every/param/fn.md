@@ -1,1 +1,1 @@
-Callback function for each item
+各項目へのコールバック関数

@@ -1,1 +1,1 @@
-The array to check
+チェックされる配列

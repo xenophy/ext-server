@@ -1,3 +1,3 @@
-Clone a flat array without referencing the previous one. Note that this is different
-from Ext.clone since it doesn't handle recursive cloning. It's simply a convenient, easy-to-remember method
-for Array.prototype.slice.call(array)
+一次配列のコピー（参照ではない）を生成します。
+このメソッドはExt.cloneと違い、再帰的なコピー処理を行わないという点に注意してください。
+これは、単にArray.prototype.slice.call(array)を使いやすくするためのメソッドです。

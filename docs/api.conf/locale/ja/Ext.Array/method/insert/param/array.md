@@ -1,1 +1,1 @@
-The Array on which to replace.
+挿入される配列。

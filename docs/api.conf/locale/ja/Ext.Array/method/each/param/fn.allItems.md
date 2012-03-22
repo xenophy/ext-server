@@ -1,1 +1,1 @@
-The `array` itself which was passed as the first argument
+Ext.Array.eachの第一引数として渡された配列(array)

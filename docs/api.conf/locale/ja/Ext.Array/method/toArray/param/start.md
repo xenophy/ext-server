@@ -1,1 +1,1 @@
-(Optional) a zero-based index that specifies the start of extraction. Defaults to 0
+(オプション)抜き出し開始位置を指定する、0から始まるインデックス。デフォルトは0です。

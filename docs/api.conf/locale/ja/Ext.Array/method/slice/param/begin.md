@@ -1,2 +1,1 @@
-The index at which to begin. Negative values are offsets from
-the end of the array.
+開始する位置インデックス。負の値を設定した場合、配列の末尾からのオフセットです。

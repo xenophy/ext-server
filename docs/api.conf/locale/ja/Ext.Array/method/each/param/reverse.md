@@ -1,2 +1,1 @@
-(Optional) Reverse the iteration order (loop from the end to the beginning)
-Defaults false
+(オプション)反復処理の順番を逆（配列の最後から開始）にします。デフォルトはfalseです。

@@ -1,1 +1,1 @@
-Callback function scope
+コールバック関数のスコープ

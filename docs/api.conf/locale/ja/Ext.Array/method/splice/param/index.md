@@ -1,1 +1,1 @@
-The index in the array at which to operate.
+削除を開始する位置インデックス。

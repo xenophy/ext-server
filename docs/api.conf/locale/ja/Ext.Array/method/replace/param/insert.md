@@ -1,1 +1,1 @@
-(optional) An array of items to insert at index.
+指定した位置インデックスへ挿入する配列。省略可能です。

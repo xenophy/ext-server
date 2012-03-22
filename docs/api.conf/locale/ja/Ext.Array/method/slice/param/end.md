@@ -1,3 +1,3 @@
-The index at which to end. The copied items do not include
-end. Negative values are offsets from the end of the array. If end is omitted,
-all items up to the end of the array are copied.
+終了する位置インデックス。最後の項目は、コピーされる項目に含まれません。
+負の値を設定した場合、配列の末尾からのオフセットです。
+この引数を省略した場合、配列の末尾までのすべての項目がコピーされます。

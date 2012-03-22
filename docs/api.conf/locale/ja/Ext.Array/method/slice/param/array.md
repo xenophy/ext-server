@@ -1,1 +1,1 @@
-The array (or arguments object).
+配列（または引数オブジェクト）。

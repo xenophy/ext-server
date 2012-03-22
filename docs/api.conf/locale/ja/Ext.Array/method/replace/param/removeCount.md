@@ -1,1 +1,1 @@
-The number of items to remove at index (can be 0).
+指定した位置インデックスから削除する項目数（0を指定することも可能です）。

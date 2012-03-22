@@ -1,1 +1,1 @@
-the iterable object to be turned into a true Array.
+配列に変換したい、反復可能なオブジェクト。

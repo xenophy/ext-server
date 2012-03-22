@@ -1,1 +1,1 @@
-The clone array
+コピーされた配列

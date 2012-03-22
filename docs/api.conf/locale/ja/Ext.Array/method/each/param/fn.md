@@ -1,2 +1,1 @@
-The callback function. If it returns false, the iteration stops and this method returns
-the current `index`.
+コールバック関数。 Falseを返した場合、反復処理が停止し、このメソッドはその時点のインデックス(index)を返します。 以下、コールバック関数に渡される引数です。

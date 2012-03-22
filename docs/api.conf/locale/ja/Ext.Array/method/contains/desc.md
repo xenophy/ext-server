@@ -1,1 +1,1 @@
-Checks whether or not the given `array` contains the specified `item`
+指定した項目（item）が配列（array）に存在するかどうかをチェックします。

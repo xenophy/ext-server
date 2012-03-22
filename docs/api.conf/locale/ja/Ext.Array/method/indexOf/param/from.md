@@ -1,1 +1,1 @@
-(Optional) The index at which to begin the search
+(オプション)検索を開始するインデックス

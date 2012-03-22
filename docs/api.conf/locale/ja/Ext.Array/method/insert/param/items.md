@@ -1,1 +1,1 @@
-The array of items to insert at index.
+挿入される項目配列。

@@ -1,1 +1,1 @@
-Inserts items in to an array.
+配列に項目を挿入します。

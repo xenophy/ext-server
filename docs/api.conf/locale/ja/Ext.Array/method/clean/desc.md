@@ -1,3 +1,3 @@
-Filter through an array and remove empty item as defined in {@link Ext#isEmpty Ext.isEmpty}
+配列をフィルタリングし、{@link Ext#isEmpty Ext.isEmpty}で定義される要素を取り除きます。
 
-See {@link Ext.Array#filter}
+{@link Ext.Array#filter} を参照してください。

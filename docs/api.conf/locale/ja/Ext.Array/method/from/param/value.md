@@ -1,1 +1,1 @@
-The value to convert to an array if it's not already is an array
+配列でない場合、配列に変換される値

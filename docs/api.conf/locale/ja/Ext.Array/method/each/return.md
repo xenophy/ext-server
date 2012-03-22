@@ -1,1 +1,1 @@
-See description for the `fn` parameter.
+パラメータfnの説明を参照してください。

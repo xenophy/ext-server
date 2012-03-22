@@ -1,1 +1,1 @@
-The index in the array at which to operate.
+項目が挿入される、配列の位置インデックス。

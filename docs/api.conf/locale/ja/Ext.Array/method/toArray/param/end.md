@@ -1,2 +1,1 @@
-(Optional) a zero-based index that specifies the end of extraction. Defaults to the last
-index of the iterable value
+(オプション)抜き出し終了位置を指定する、0から始まるインデックス。デフォルトは反復可能な値の最後のインデックスです。

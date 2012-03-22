@@ -1,1 +1,1 @@
-The array
+配列

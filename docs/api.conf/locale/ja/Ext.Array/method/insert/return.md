@@ -1,1 +1,1 @@
-The array passed.
+渡された配列。

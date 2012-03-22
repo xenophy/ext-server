@@ -1,1 +1,1 @@
-The index of item in the array (or -1 if it is not found)
+配列における、項目のインデックス(見つからなかった場合は-1)

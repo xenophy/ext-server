@@ -1,1 +1,1 @@
-The index in the array at which to operate.
+置換を開始する配列内の位置インデックス

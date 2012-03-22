@@ -1,1 +1,1 @@
-The Array on which to replace.
+項目を削除される配列。

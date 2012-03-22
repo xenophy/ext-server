@@ -1,1 +1,1 @@
-The copied piece of the array.
+元の配列の一部分がコピーされた配列。

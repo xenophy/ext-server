@@ -1,1 +1,1 @@
-Get the index of the provided item in the given array, a supplement for the missing arrayPrototype.indexOf in Internet Explorer.
+その配列(array)における、渡された項目(item)のインデックスを取得します。 Internet Explorerで存在しないarray.Prototype.indexOfを補完するメソッドです。

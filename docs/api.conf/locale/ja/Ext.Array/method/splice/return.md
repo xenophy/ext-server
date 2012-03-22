@@ -1,1 +1,1 @@
-An array containing the removed items.
+削除した項目の配列。元の配列は、これらの項目が削除されています。

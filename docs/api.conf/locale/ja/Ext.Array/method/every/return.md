@@ -1,1 +1,1 @@
-True if no false value is returned by the callback function.
+コールバック関数がfalsyな値を返さなかった場合はtrue

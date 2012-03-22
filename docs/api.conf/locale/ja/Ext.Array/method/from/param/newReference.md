@@ -1,2 +1,1 @@
-(Optional) True to clone the given array and return a new reference if necessary,
-defaults to false
+(オプション) trueを指定した場合、渡された配列のコピーを作成し、必要に応じて新しい参照を返します。デフォルトはfalseです。

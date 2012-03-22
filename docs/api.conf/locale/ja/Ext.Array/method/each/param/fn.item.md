@@ -1,1 +1,1 @@
-The item at the current `index` in the passed `array`
+渡された配列(array)の現在のインデックス(index)にある項目

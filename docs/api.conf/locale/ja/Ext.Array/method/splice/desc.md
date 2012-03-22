@@ -1,4 +1,3 @@
-Replaces items in an array. This is equivalent to the splice method of Array, but
-works around bugs in IE8's splice method. The signature is exactly the same as the
-splice method except that the array is the first argument. All arguments following
-removeCount are inserted in the array at index.
+配列の項目を削除します。
+これは機能的にArrayオブジェクトのspliceメソッドと同等ですが、IE8のspliceメソッドのバグを回避します。
+第一引数に配列を指定する以外は、spliceメソッドと全く同等です。

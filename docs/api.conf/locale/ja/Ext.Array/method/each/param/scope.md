@@ -1,1 +1,1 @@
-(Optional) The scope (`this` reference) in which the specified function is executed.
+(オプション) 関数のスコープ（thisの参照先）

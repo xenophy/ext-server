@@ -1,1 +1,1 @@
-True if the array contains the item, false otherwise
+配列に項目が含まれている場合はtrue、そうでない場合はfalse

@@ -1,1 +1,1 @@
-Push an item into the array only if the array doesn't contain it yet
+指定した項目が配列に含まれていない場合、この項目を配列に含めます。
