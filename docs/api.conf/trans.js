@@ -102,6 +102,29 @@
             destjson.members.method.forEach(methodExecute);
             destjson.statics.method.forEach(methodExecute);
 
+            // property
+            destjson.members.property.forEach(function(o) {
+
+                var data;
+
+                /*
+                if(o.name == 'formatFunctions') {
+                    console.log(o);
+                }
+                */
+
+                // desc.md
+                try{
+                    file = path.normalize(src + '/' + cls + '/property/' + o.name + '/desc.md');
+                    data = fs.readFileSync(file).toString();
+                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0], 50)));
+                } catch(e) {
+                    console.log(e);
+                }
+
+            });
+
             fs.writeFileSync(output, 'Ext.data.JsonP.' + cls.replace(/\./, '_') + '(' +JSON.stringify(destjson) + ');', 'utf8');
         });
 

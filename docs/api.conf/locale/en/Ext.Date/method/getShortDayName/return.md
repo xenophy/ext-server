@@ -1,0 +1,1 @@
+The short day name.
