@@ -53,8 +53,6 @@
 
             var file, output, html, destjson;
 
-            console.log(cls);
-
             output = path.normalize(dest + '/output/' + cls + '.js');
             destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);/, '').replace((new RegExp('Ext.data.JsonP.' + cls.replace(/\./, '_') + '\\(')), ''));
 
