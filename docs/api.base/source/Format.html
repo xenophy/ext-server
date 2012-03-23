@@ -26,15 +26,7 @@
 <span id='Ext-util-Format'>/**
 </span> * @class Ext.util.Format
  *
- * このクラスは、ライブラリ内部のフォーマットするための関数を一元管理しているものです。
- * これには、テキスト、日付や数値などのデータをさまざまなタイプの書式設定する関数が含まれています。
- *
- * __ローカライゼーション__
- * このクラスは、ローカライズのためのいくつかのオプションが含まれています。
- * これらはライブラリがロードされると、その時点から関数のすべての呼び出しで指定したロケール設定を使用するように設定することができます。
- * オプションは次の通りです: - thousandSeparator - decimalSeparator - currenyPrecision - currencySign - currencyAtEnd
- *
- * また、このクラスはここで定義されている、デフォルトの日付フォーマットも使用できます:Ext.Date.defaultFormat
+ * {Ext_util_Format:doc-contents}
  *
  * @singleton
  */
@@ -43,7 +35,9 @@ module.exports = {
     // {{{ currencyAtEnd
 
 <span id='Ext-util-Format-property-currencyAtEnd'>    /**
-</span>     * @property currencyAtEnd
+</span>     * @property {Boolean} currencyAtEnd
+     *
+     * {Ext_util_Format:property-currencyAtEnd:desc}
      */
     currencyAtEnd: false,
 
@@ -51,7 +45,9 @@ module.exports = {
     // {{{ currencyPrecision
 
 <span id='Ext-util-Format-property-currencyPrecision'>    /**
-</span>     * @property currencyPrecision
+</span>     * @property {Number} currencyPrecision
+     *
+     * {Ext_util_Format:property-currencyPrecision:desc}
      */
     currencyPrecision: 2,
 
@@ -59,7 +55,9 @@ module.exports = {
     // {{{ currencySign
 
 <span id='Ext-util-Format-property-currencySign'>    /**
-</span>     * @property currencySign
+</span>     * @property {String} currencySign
+     *
+     * {Ext_util_Format:property-currencySign:desc}
      */
     currencySign: '$',
 
@@ -67,7 +65,9 @@ module.exports = {
     // {{{ decimalSeparator
 
 <span id='Ext-util-Format-property-decimalSeparator'>    /**
-</span>     * @property decimalSeparator
+</span>     * @property {String} decimalSeparator
+     *
+     * {Ext_util_Format:property-decimalSeparator:desc}
      */
     decimalSeparator: '.',
 
@@ -75,7 +75,9 @@ module.exports = {
     // {{{ thousandSeparator
 
 <span id='Ext-util-Format-property-thousandSeparator'>    /**
-</span>     * @property thousandSeparator
+</span>     * @property {String} thousandSeparator
+     *
+     * {Ext_util_Format:property-thousandSeparator:desc}
      */
     thousandSeparator: ',',
 

@@ -15,7 +15,19 @@
         path = require('path'),
         markdown = require('node-markdown').Markdown,
         dirs = [],
-        trans, ellipsis;
+        trans, ellipsis, strip_tags;
+
+    strip_tags = function(input, allowed) {
+
+        allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+
+        var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
+            commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+
+        return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
+            return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+        });
+    }
 
     // {{{ ellipsis
 
@@ -54,11 +66,11 @@
             var file, output, html, destjson;
 
             output = path.normalize(dest + '/output/' + cls + '.js');
-            destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);/, '').replace((new RegExp('Ext.data.JsonP.' + cls.replace(/\./, '_') + '\\(')), ''));
+            destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);/, '').replace((new RegExp('Ext.data.JsonP.' + cls.replace(/\./g, '_') + '\\(')), ''));
 
             // doc.md
             file = path.normalize(src + '/' + cls + '/doc.md');
-            destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':doc-contents}</p>')), markdown(fs.readFileSync(file).toString()));
+            destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':doc-contents}</p>')), markdown(fs.readFileSync(file).toString()));
 
             var replaceAll = function(expression, org, dest) {
                 return expression.split(org).join(dest);
@@ -72,9 +84,9 @@
                 try{
                     file = path.normalize(src + '/' + cls + '/method/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
+                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
                 } catch(e) {
                     console.log(e);
                 }
@@ -83,7 +95,7 @@
                 try{
                     file = path.normalize(src + '/' + cls + '/method/' + o.name + '/return.md');
                     data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':return}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':return}</p>')), markdown(data));
                 } catch(e) {
                 }
 
@@ -94,7 +106,7 @@
                     params.forEach(function(p) {
                         file = path.normalize(src + '/' + cls + '/method/' + o.name + '/param/' + p);
                         data = fs.readFileSync(file).toString();
-                        destjson.html = destjson.html.replace((new RegExp('{' + cls.replace(/\./, '_') + ':' + o.id + ':param_' + p.replace('\.md', '') + '}')), data);
+                        destjson.html = destjson.html.replace((new RegExp('{' + cls.replace(/\./g, '_') + ':' + o.id + ':param_' + p.replace('\.md', '') + '}')), data);
                     });
 
                 } catch(e) {
@@ -114,16 +126,16 @@
                 try{
                     file = path.normalize(src + '/' + cls + '/property/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
+                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
                 } catch(e) {
                     console.log(e);
                 }
 
             });
 
-            fs.writeFileSync(output, 'Ext.data.JsonP.' + cls.replace(/\./, '_') + '(' +JSON.stringify(destjson) + ');', 'utf8');
+            fs.writeFileSync(output, 'Ext.data.JsonP.' + cls.replace(/\./g, '_') + '(' +JSON.stringify(destjson) + ');', 'utf8');
         });
 
     };
