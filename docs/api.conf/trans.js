@@ -62,6 +62,10 @@
             file = path.normalize(src + '/' + cls + '/doc.md');
             destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':doc-contents}</p>')), markdown(fs.readFileSync(file).toString()));
 
+            var replaceAll = function(expression, org, dest) {
+                return expression.split(org).join(dest);
+            };
+
             var methodExecute = function(o) {
 
                 var data;
@@ -70,8 +74,9 @@
                 try{
                     file = path.normalize(src + '/' + cls + '/method/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
                     destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0], 50)));
                 } catch(e) {
                     console.log(e);
                 }
@@ -107,18 +112,13 @@
 
                 var data;
 
-                /*
-                if(o.name == 'formatFunctions') {
-                    console.log(o);
-                }
-                */
-
                 // desc.md
                 try{
                     file = path.normalize(src + '/' + cls + '/property/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
+                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(data.split('    ')[0].split("\n")[0], 50)));
                     destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(data.split('    ')[0], 50)));
                 } catch(e) {
                     console.log(e);
                 }
