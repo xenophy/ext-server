@@ -1,13 +1,19 @@
-<p>An object hash in which each property is a date formatting function. The property name is the
-format string which corresponds to the produced formatted date string.</p>
-<p>This object is automatically populated with date formatting functions as
-date formats are requested for Ext standard formatting strings.</p>
-<p>Custom formatting functions may be inserted into this object, keyed by a name which from then on
-may be used as a format string to {@link #format}. Example:</p><pre><code>
-Ext.Date.formatFunctions['x-date-format'] = myDateFormatter;
-</code></pre>
-<p>A formatting function should return a string representation of the passed Date object, and is passed the following parameters:<div class="mdetail-params"><ul>
-<li><code>date</code> : Date<div class="sub-desc">The Date to format.</div></li>
-</ul></div></p>
-<p>To enable date strings to also be <i>parsed</i> according to that format, a corresponding
- parsing function must be placed into the {@link #parseFunctions} property.
+それぞれのプロパティが日付フォーマット関数であるオブジェクトハッシュ。 プロパティ名は、作成される日付文字列に対応するフォーマット文字列です。
+
+日付フォーマット関数がExt標準フォーマット文字列を要求したとき、このオブジェクトへ自動的に日付フォーマット関数が格納されます。
+
+カスタムフォーマット関数はこのオブジェクトに格納し、キー名に関数名を設定することで{@link #format}メソッドによって使用することができます。 例:
+
+    Ext.Date.formatFunctions['x-date-format'] = myDateFormatter;
+
+フォーマット関数は、渡されたDateオブジェクトを文字列で表現されたものを返す必要があります。以下のパラメータが関数に渡されます。
+
+<div class="mdetail-params">
+    <ul>
+        <li>
+        <code>date</code> : Date<div class="sub-desc">フォーマットするDateオブジェクト</div>
+        </li>
+    </ul>
+</div>
+
+また、その形式で *パース* する日付文字列を有効にする場合、対応する関数を{@link #parseFunctions}プロパティに格納する必要があります。

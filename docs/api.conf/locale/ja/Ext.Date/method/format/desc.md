@@ -1,1 +1,1 @@
-Formats a date given the supplied format string.
+渡されたフォーマット文字列から、フォーマットされた日付を返します。

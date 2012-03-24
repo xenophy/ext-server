@@ -1,1 +1,1 @@
-Checks if a date falls on or between the given start and end dates.
+Dateインスタンスが、渡された日付の範囲内かをチェックします。

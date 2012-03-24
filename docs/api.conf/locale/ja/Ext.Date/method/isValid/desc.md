@@ -1,1 +1,1 @@
-Checks if the passed Date parameters will cause a javascript Date "rollover".
+渡された日付が、JavaScriptのロールオーバー問題を引き起こすかどうかチェックします。

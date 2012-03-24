@@ -1,2 +1,1 @@
-True if the format contains information about
-date/day information.
+日付などの情報を含んでいる場合はtrue

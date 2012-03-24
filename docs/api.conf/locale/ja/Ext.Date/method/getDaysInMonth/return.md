@@ -1,1 +1,1 @@
-The number of days in the month.
+今月の日数。

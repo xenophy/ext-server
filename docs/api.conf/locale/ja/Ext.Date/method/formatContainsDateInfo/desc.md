@@ -1,2 +1,1 @@
-Checks if the specified format contains information about
-anything other than the time.
+渡されたフォーマットに、時刻以外の情報（Yやmやdなど）が含まれているかどうかをチェックします。

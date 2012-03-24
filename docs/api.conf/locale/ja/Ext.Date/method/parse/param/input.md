@@ -1,1 +1,1 @@
-The raw date string.
+生の日付文字列。

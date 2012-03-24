@@ -1,1 +1,1 @@
-Returns the number of milliseconds between two dates
+渡された２つの日付の差をミリ秒で返します。閏年にも対応しています。

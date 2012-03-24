@@ -1,1 +1,1 @@
-Start date
+開始日

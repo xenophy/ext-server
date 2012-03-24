@@ -1,1 +1,1 @@
-Checks if the current date falls within a leap year.
+渡されたDateインスタンスが、閏年かどうか判定します。

@@ -1,1 +1,1 @@
-Checks if the current date is affected by Daylight Saving Time (DST).
+渡されたDateインスタンスが、サマータイム（DST）の影響を受けているかどうか調べます。

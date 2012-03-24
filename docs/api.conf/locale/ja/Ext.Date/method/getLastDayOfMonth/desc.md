@@ -1,9 +1,8 @@
-Get the last day of the current month, adjusted for leap year.  The returned value
-is the numeric day index within the week (0-6) which can be used in conjunction with
-the {@link #monthNames} array to retrieve the textual day name.
+渡されたDateインスタンスの月の終了日の曜日を数値で取得します。閏年にも対応しています。
+返される番号（0−6）は{@link dayNames}プロパティを使用して、テキストの曜日名を取得するために使用することができます。
 
-Example:
+例:
 
     var dt = new Date('1/10/2007'),
     lastDay = Ext.Date.getLastDayOfMonth(dt);
-    console.log(Ext.Date.dayNames[lastDay]); //output: 'Wednesday'
+    console.log(Ext.Date.dayNames[lastDay]); // 'Wednesday' を出力します。

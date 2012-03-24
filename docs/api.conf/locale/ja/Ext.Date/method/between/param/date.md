@@ -1,1 +1,1 @@
-The date to check
+チェックするDateインスタンス

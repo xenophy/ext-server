@@ -1,1 +1,1 @@
-A zero-based javascript month number.
+0から始まるJavaScriptの月番号。

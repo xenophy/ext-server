@@ -1,1 +1,1 @@
-True if the current date falls within a leap year, false otherwise.
+閏年ならtrue、そうでない場合はfalse。

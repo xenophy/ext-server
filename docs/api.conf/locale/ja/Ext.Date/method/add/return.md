@@ -1,1 +1,1 @@
-The new Date instance.
+新たに生成されたDateインスタンス。

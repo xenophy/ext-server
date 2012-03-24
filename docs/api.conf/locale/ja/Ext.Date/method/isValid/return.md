@@ -1,1 +1,1 @@
-true if the passed parameters do not cause a Date "rollover", false otherwise.
+ロールオーバーを起こさない場合はtrue、そうでない場合はfalse。

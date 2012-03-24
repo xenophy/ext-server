@@ -1,1 +1,1 @@
-Get the date of the first day of the month in which this date resides.
+渡されたDateインスタンスの月の開始日を取得します。

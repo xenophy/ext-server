@@ -1,7 +1,7 @@
-An array of textual day names.
-Override these values for international dates.
+曜日のテキスト配列。
+曜日名を変更したい場合は、このプロパティの値をオーバーライドします。
 
-Example:
+例:
 
     Ext.Date.dayNames = [
         'SundayInYourLang',

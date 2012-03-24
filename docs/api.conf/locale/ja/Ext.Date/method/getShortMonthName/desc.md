@@ -1,2 +1,2 @@
-Get the short month name for the given month number.
-Override this function for international dates.
+0から始まるJavaScriptの月番号から、短い月名を取得します。
+使用する言語によって月名を変更したい場合、monthNamesプロパティやこのメソッドをオーバーライドします。

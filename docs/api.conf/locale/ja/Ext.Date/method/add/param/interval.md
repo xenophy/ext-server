@@ -1,1 +1,1 @@
-A valid date interval enum value.
+有効な日付定数。

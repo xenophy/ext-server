@@ -1,1 +1,1 @@
-true to create a clone of this date, clear the time and return it (defaults to false).
+trueを設定した場合、Dateインスタンスのクローンを作成して、作成したものをクリアして返します (デフォルトはfalseです)。

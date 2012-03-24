@@ -1,1 +1,1 @@
-1-based month-of-year
+1から始まる月

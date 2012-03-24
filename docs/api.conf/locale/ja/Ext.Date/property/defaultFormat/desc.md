@@ -1,3 +1,5 @@
-The date format string that the {@link Ext.util.Format#dateRenderer}
-and {@link Ext.util.Format#date} functions use.  See {@link Ext.Date} for details.
-This may be overridden in a locale file.
+{@link Ext.util.Format#dateRenderer}
+メソッドと
+{@link Ext.util.Format#date}
+が使用する日付のフォーマット文字列。
+{@link Ext.Date} のクラス詳細を参照してください。

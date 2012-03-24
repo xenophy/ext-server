@@ -1,1 +1,1 @@
-True if the current date is affected by DST.
+影響を受けている場合はtrue。

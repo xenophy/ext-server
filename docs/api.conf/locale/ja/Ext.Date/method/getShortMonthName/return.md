@@ -1,1 +1,1 @@
-The short month name.
+短い月名。

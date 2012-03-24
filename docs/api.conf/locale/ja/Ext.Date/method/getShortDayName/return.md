@@ -1,1 +1,1 @@
-The short day name.
+短い曜日名。

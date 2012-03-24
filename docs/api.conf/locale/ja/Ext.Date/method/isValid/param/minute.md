@@ -1,1 +1,1 @@
-(optional) Minute
+(オプション) 分

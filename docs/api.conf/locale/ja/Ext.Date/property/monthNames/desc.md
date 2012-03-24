@@ -1,11 +1,9 @@
-An object hash of zero-based javascript month numbers (with short month names as keys. note: keys are case-sensitive).
-Override these values for international dates.
+月名配列。 その国の月名に変更したい場合、このプロパティを配列でオーバーライドします。
 
-Example:
-   <pre><code>
-Ext.Date.monthNumbers = {
-    'ShortJanNameInYourLang':0,
-    'ShortFebNameInYourLang':1,
-    ...
-};
-</code></pre>
+例:
+
+    Ext.Date.monthNames = [
+        'JanInYourLang',
+        'FebInYourLang',
+        ...
+    ];

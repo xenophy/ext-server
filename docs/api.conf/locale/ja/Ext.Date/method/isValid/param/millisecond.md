@@ -1,1 +1,1 @@
-(optional) Millisecond
+(オプション) ミリ秒

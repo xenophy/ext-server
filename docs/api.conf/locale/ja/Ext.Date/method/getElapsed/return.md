@@ -1,1 +1,1 @@
-The difference in milliseconds
+２つの日付の差（ミリ秒単位）

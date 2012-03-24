@@ -1,1 +1,1 @@
-The format to check
+チェックするフォーマット

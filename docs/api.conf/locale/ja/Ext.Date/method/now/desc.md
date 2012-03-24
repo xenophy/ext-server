@@ -1,1 +1,1 @@
-Returns the current timestamp
+現在のタイムスタンプを返します。

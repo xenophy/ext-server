@@ -1,1 +1,1 @@
-Get the English ordinal suffix of the current day (equivalent to the format specifier 'S').
+渡されたDateインスタンスから、英語形式の序数を表すサフィックスを取得します（フォーマットで'S'を指定する場合と同じです）。

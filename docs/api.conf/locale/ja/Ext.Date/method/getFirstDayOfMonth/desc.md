@@ -1,9 +1,9 @@
-Get the first day of the current month, adjusted for leap year.  The returned value
-is the numeric day index within the week (0-6) which can be used in conjunction with
-the {@link #monthNames} array to retrieve the textual day name.
+渡されたDateインスタンスの月の開始日の曜日を数値で取得します。閏年にも対応しています。
+返される番号（0−6）はdayNamesプロパティを使用して、テキストの曜日名を取得するために使用することができます。
 
-Example:
+例:
+
 
     var dt = new Date('1/10/2007'),
     firstDay = Ext.Date.getFirstDayOfMonth(dt);
-    console.log(Ext.Date.dayNames[firstDay]); //output: 'Monday'
+    console.log(Ext.Date.dayNames[firstDay]); // 'Monday' を出力します。

@@ -1,1 +1,1 @@
-Get the numeric day number of the year, adjusted for leap year.
+渡されたDateインスタンスが、その年の何日目かを取得します。閏年にも対応しています。

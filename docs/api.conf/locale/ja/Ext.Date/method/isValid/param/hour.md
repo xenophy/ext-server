@@ -1,1 +1,1 @@
-(optional) Hour
+(オプション) 時

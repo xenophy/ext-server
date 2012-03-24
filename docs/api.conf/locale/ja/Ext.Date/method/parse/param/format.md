@@ -1,1 +1,1 @@
-The expected date string format.
+フォーマット文字列。

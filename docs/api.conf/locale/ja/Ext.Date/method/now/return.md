@@ -1,1 +1,1 @@
-The current timestamp
+現在のタイムスタンプ

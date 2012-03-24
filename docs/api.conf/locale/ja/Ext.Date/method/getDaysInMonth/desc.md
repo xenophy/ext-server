@@ -1,1 +1,1 @@
-Get the number of days in the current month, adjusted for leap year.
+渡されたDateインスタンスの月が何日まであるかを取得します。閏年にも対応しています。

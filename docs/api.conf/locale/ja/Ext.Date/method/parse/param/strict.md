@@ -1,2 +1,1 @@
-(optional) True to validate date strings while parsing (i.e. prevents javascript Date "rollover")
-(defaults to false). Invalid date strings will return null when parsed.
+(オプション) 日付妥当性チェックをする場合はtrueを設定します （すなわち、JavaScriptのロールオーバー問題を回避します。）（デフォルトはfalseです）。 無効な日付の場合、nullを返します。

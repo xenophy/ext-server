@@ -1,25 +1,25 @@
-Parses the passed string using the specified date format.
+指定したフォーマット文字列を使用して、渡された文字列をパースします。
 
-Note that this function expects normal calendar dates, meaning that months are 1-based (i.e. 1 = January).
-The {@link #defaults} hash will be used for any date value (i.e. year, month, day, hour, minute, second or millisecond)
-which cannot be found in the passed string. If a corresponding default date value has not been specified in the {@link #defaults} hash,
-the current date's year, month, day or DST-adjusted zero-hour time value will be used instead.
-Keep in mind that the input date string must precisely match the specified format string
-in order for the parse operation to be successful (failed parse operations return a null value).
+この関数は、月の数字がカレンダーと同様であることに注意してください（1なら１月）。
+渡された文字列に不足している分（すなわち、年、月、日、時、分、秒、ミリ秒）は、defaultsのハッシュ値が使用されます。
+対応するdefaultsのハッシュ値が指定されていなかった場合、現在の日付の年、月、日、またはDSTを調整した0時の値を使用します。
+パース操作を成功させるために、日付文字列とフォーマット文字列は正しく入力する必要があります（パース失敗時はnullを返します）。
+
+例:
 
 Example:
 
-    //dt = Fri May 25 2007 (current date)
+    //dt = Fri May 25 2007 (現在の日付)
     var dt = new Date();
-    
-    //dt = Thu May 25 2006 (today&#39;s month/day in 2006)
+
+    //dt = Thu May 25 2006 (2006年の今日の月／日)
     dt = Ext.Date.parse("2006", "Y");
-    
-    //dt = Sun Jan 15 2006 (all date parts specified)
+
+    //dt = Sun Jan 15 2006 (年月日部分をすべて指定)
     dt = Ext.Date.parse("2006-01-15", "Y-m-d");
-    
+
     //dt = Sun Jan 15 2006 15:20:01
     dt = Ext.Date.parse("2006-01-15 3:20:01 PM", "Y-m-d g:i:s A");
-    
-    // attempt to parse Sun Feb 29 2006 03:20:01 in strict mode
-    dt = Ext.Date.parse("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
+
+    // 厳密なモード（日付妥当性チェックあり）で Sun Feb 29 2006 03:20:01 のパースを試みます
+    dt = Ext.Date.parse("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // nullを返します。

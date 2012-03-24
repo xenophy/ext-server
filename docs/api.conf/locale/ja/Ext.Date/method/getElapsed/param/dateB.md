@@ -1,1 +1,1 @@
-(optional) The second date, defaults to now
+(オプション) Dateインスタンス。デフォルトは現在です。

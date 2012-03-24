@@ -1,1 +1,1 @@
-A zero-based javascript day number.
+0から始まるJavaScriptの曜日番号（0-6）。

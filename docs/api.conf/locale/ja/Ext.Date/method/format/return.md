@@ -1,1 +1,1 @@
-The formatted date
+フォーマットされた日付文字列

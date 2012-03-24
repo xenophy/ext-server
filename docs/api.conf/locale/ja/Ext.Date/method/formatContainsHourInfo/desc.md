@@ -1,1 +1,1 @@
-Checks if the specified format contains hour information
+渡されたフォーマットに、時刻の情報（hやiやsなど）が含まれているかどうかをチェックします。

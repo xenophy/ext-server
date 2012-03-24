@@ -1,1 +1,1 @@
-The amount to add to the current date.
+現在の日付に加算する数値。

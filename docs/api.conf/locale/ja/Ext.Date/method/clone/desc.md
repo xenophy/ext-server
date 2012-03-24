@@ -1,18 +1,17 @@
-Creates and returns a new Date instance with the exact same date value as the called instance.
-Dates are copied and passed by reference, so if a copied date variable is modified later, the original
-variable will also be changed.  When the intention is to create a new variable that will not
-modify the original instance, you should create a clone.
+全く同じDateインスタンスを新たに生成します。
+Dateインスタンスをただコピーしただけでは参照渡しとなるため、コピー先のDateインスタンスを変更すると、変更元のインスタンスの値も変更されます。
+参照渡しではないコピーを作成する場合はクローンを生成する必要があります。
 
-Example of correctly cloning a date:
+日付を正しくコピーする例:
 
-    //wrong way:
+    // 間違った方法:
     var orig = new Date('10/1/2006');
     var copy = orig;
     copy.setDate(5);
-    console.log(orig);  //returns 'Thu Oct 05 2006'!
+    console.log(orig);  // 'Thu Oct 05 2006'! を返します。
 
-    //correct way:
+    // 正しい方法:
     var orig = new Date('10/1/2006'),
     copy = Ext.Date.clone(orig);
     copy.setDate(5);
-    console.log(orig);  //returns 'Thu Oct 01 2006'
+    console.log(orig);  // 'Thu Oct 01 2006' を返します。

@@ -1,1 +1,1 @@
-The parsed Date.
+パースされたDateインスタンス。

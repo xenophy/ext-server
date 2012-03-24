@@ -1,1 +1,1 @@
-The 4-character offset string prefixed with + or - (e.g. '-0600').
++か-が先頭についた、４文字の文字列（例：'-0600'）

@@ -1,1 +1,1 @@
-The date to format
+フォーマットされるDateインスタンス

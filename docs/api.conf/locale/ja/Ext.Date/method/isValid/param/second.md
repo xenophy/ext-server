@@ -1,1 +1,1 @@
-(optional) Second
+(オプション) 秒

@@ -1,1 +1,1 @@
-The format string
+フォーマット文字列

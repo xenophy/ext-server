@@ -1,2 +1,2 @@
-Get the numeric ISO-8601 week number of the year.
-(equivalent to the format specifier 'W', but without a leading zero).
+渡されたDateインスタンスから、ISO-8601の月曜日に始まる年単位の週番号を取得します
+（フォーマットで'W'を指定する場合と同じですが、ゼロなしです）。

@@ -1,1 +1,1 @@
-(optional) true to separate the hours and minutes with a colon (defaults to false).
+(オプション) trueを指定した場合、時と分の間をコロンで区切ります（デフォルトはfalseです）

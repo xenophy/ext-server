@@ -1,8 +1,6 @@
-Get the timezone abbreviation of the current date (equivalent to the format specifier 'T').
+渡されたDateインスタンスから、タイムゾーンの略称を取得します（フォーマットで'T'を指定する場合と同じです）。
 
-Note: The date string returned by the javascript Date object's toString() method varies
-between browsers (e.g. FF vs IE) and system region settings (e.g. IE in Asia vs IE in America).
-For a given date string e.g. "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)",
-getTimezone() first tries to et the timezone abbreviation from between a pair of parentheses
-(which may or may not be present), failing which it proceeds to get the timezone abbreviation
-from the GMT offset portion of the date string.
+DateオブジェクトのtoString()メソッドで返される日付文字列は、ブラウザによって異なります。
+例えば、FirefoxとIEでは、システムの地域設定が異なります（アジアとアメリカ）。
+「Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)」の場合、getTimezone()は括弧内の文字列からタイムゾーンの省略形を取得しようとします（存在する場合としない場合があります）。
+存在しない場合、日付文字列のGMTのオフセット部分からタイムゾーンの省略系を取得しようとします。

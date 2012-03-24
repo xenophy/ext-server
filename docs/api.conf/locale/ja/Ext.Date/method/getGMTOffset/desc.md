@@ -1,1 +1,1 @@
-Get the offset from GMT of the current date (equivalent to the format specifier 'O').
+グリニッジ標準時（GMT）と現在の日時の差を取得します（フォーマットで'O'を指定することと同じです）。

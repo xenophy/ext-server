@@ -1,1 +1,1 @@
-The abbreviated timezone name (e.g. 'CST', 'PDT', 'EDT', 'MPST' ...).
+タイムゾーン略称 (例： 'CST', 'PDT', 'EDT', 'MPST' ...)。

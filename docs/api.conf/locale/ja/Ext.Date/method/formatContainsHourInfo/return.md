@@ -1,1 +1,1 @@
-True if the format contains hour information
+時刻の情報が含まれている場合はtrue

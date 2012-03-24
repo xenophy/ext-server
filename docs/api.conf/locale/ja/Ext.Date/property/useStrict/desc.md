@@ -1,5 +1,4 @@
-Global flag which determines if strict date parsing should be used.
-Strict date parsing will not roll-over invalid dates, which is the
-default behaviour of javascript Date objects.
-(see {@link #parse} for more information)
-Defaults to <tt>false</tt>.
+厳密な日付パース処理を行うかどうかを決定するグローバルフラグ。
+厳密な日付パースは無効な日付をロールオーバーしません。これはJavaScriptのDateオブジェクト既定の動作です。
+（詳しくは{@link #parse}を参照してください。）
+初期値はfalseです。

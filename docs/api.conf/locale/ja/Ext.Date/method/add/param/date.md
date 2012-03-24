@@ -1,1 +1,1 @@
-The date to modify
+変更するDateインスタンス

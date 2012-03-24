@@ -1,1 +1,1 @@
-Day of month
+日
