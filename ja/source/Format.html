@@ -26,15 +26,7 @@
 <span id='Ext-util-Format'>/**
 </span> * @class Ext.util.Format
  *
- * このクラスは、ライブラリ内部のフォーマットするための関数を一元管理しているものです。
- * これには、テキスト、日付や数値などのデータをさまざまなタイプの書式設定する関数が含まれています。
- *
- * __ローカライゼーション__
- * このクラスは、ローカライズのためのいくつかのオプションが含まれています。
- * これらはライブラリがロードされると、その時点から関数のすべての呼び出しで指定したロケール設定を使用するように設定することができます。
- * オプションは次の通りです: - thousandSeparator - decimalSeparator - currenyPrecision - currencySign - currencyAtEnd
- *
- * また、このクラスはここで定義されている、デフォルトの日付フォーマットも使用できます:Ext.Date.defaultFormat
+ * {Ext_util_Format:doc-contents}
  *
  * @singleton
  */
@@ -43,7 +35,9 @@ module.exports = {
     // {{{ currencyAtEnd
 
 <span id='Ext-util-Format-property-currencyAtEnd'>    /**
-</span>     * @property currencyAtEnd
+</span>     * @property {Boolean} currencyAtEnd
+     *
+     * {Ext_util_Format:property-currencyAtEnd:desc}
      */
     currencyAtEnd: false,
 
@@ -51,7 +45,9 @@ module.exports = {
     // {{{ currencyPrecision
 
 <span id='Ext-util-Format-property-currencyPrecision'>    /**
-</span>     * @property currencyPrecision
+</span>     * @property {Number} currencyPrecision
+     *
+     * {Ext_util_Format:property-currencyPrecision:desc}
      */
     currencyPrecision: 2,
 
@@ -59,7 +55,9 @@ module.exports = {
     // {{{ currencySign
 
 <span id='Ext-util-Format-property-currencySign'>    /**
-</span>     * @property currencySign
+</span>     * @property {String} currencySign
+     *
+     * {Ext_util_Format:property-currencySign:desc}
      */
     currencySign: '$',
 
@@ -67,7 +65,9 @@ module.exports = {
     // {{{ decimalSeparator
 
 <span id='Ext-util-Format-property-decimalSeparator'>    /**
-</span>     * @property decimalSeparator
+</span>     * @property {String} decimalSeparator
+     *
+     * {Ext_util_Format:property-decimalSeparator:desc}
      */
     decimalSeparator: '.',
 
@@ -75,7 +75,9 @@ module.exports = {
     // {{{ thousandSeparator
 
 <span id='Ext-util-Format-property-thousandSeparator'>    /**
-</span>     * @property thousandSeparator
+</span>     * @property {String} thousandSeparator
+     *
+     * {Ext_util_Format:property-thousandSeparator:desc}
      */
     thousandSeparator: ',',
 
@@ -83,10 +85,10 @@ module.exports = {
     // {{{ capitalize
 
 <span id='Ext-util-Format-method-capitalize'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-capitalize:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#capitalize
      */
     capitalize: Ext.String.capitalize,
 
@@ -94,10 +96,13 @@ module.exports = {
     // {{{ currency
 
 <span id='Ext-util-Format-method-currency'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-currency:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} value {Ext_util_Format:method-currency:param_value}
+     * @param {String} sign {Ext_util_Format:method-currency:param_sign}
+     * @param {Number} decimals {Ext_util_Format:method-currency:param_decimals}
+     * @param {Boolean} end {Ext_util_Format:method-currency:param_end}
+     * @return {String} {Ext_util_Format:method-currency:return}
      */
     currency: function(v, currencySign, decimals, end) {
 
@@ -132,10 +137,11 @@ module.exports = {
     // {{{ date
 
 <span id='Ext-util-Format-method-date'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-date:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String/Date} value {Ext_util_Format:method-date:param_value}
+     * @param {String} format {Ext_util_Format:method-date:param_format}
+     * @return {String} {Ext_util_Format:method-date:return}
      */
     date: function(v, format) {
 
@@ -155,10 +161,10 @@ module.exports = {
     // {{{ dateRenderer
 
 <span id='Ext-util-Format-method-dateRenderer'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-dateRenderer:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} format {Ext_util_Format:method-dateRenderer:param_format}
+     * @return {Function} {Ext_util_Format:method-dateRenderer:return}
      */
     dateRenderer: function(format) {
 
@@ -172,10 +178,11 @@ module.exports = {
     // {{{ defaultValue
 
 <span id='Ext-util-Format-method-defaultValue'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-defaultValue:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_util_Format:method-defaultValue:param_value}
+     * @param {String} defaultValue {Ext_util_Format:method-defaultValue:param_defaultValue}
+     * @return {String} {Ext_util_Format:method-defaultValue:return}
      */
     defaultValue: function(value, defaultValue) {
         return value !== undefined &amp;&amp; value !== '' ? value : defaultValue;
@@ -185,10 +192,10 @@ module.exports = {
     // {{{ ellipsis
 
 <span id='Ext-util-Format-method-ellipsis'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-ellipsis:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#ellipsis
      */
     ellipsis: Ext.String.ellipsis,
 
@@ -196,10 +203,10 @@ module.exports = {
     // {{{ escapeRegex
 
 <span id='Ext-util-Format-method-escapeRegex'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-escapeRegex:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} str {Ext_util_Format:method-escapeRegex:param_str}
+     * @return {String} {Ext_util_Format:method-escapeRegex:return}
      */
     escapeRegex: function(s) {
         return s.replace(/([\-.*+?\^${}()|\[\]\/\\])/g, &quot;\\$1&quot;);
@@ -209,10 +216,10 @@ module.exports = {
     // {{{ fileSize
 
 <span id='Ext-util-Format-method-fileSize'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-fileSize:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} size {Ext_util_Format:method-fileSize:param_size}
+     * @return {String} {Ext_util_Format:method-fileSize:return}
      */
     fileSize: function(size) {
 
@@ -230,10 +237,10 @@ module.exports = {
     // {{{ format
 
 <span id='Ext-util-Format-method-format'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-format:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#format
      */
     format: Ext.String.format,
 
@@ -241,10 +248,10 @@ module.exports = {
     // {{{ htmlDecode
 
 <span id='Ext-util-Format-method-htmlDecode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-htmlDecode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#htmlDecode
      */
     htmlDecode: Ext.String.htmlDecode,
 
@@ -252,10 +259,10 @@ module.exports = {
     // {{{ htmlEncode
 
 <span id='Ext-util-Format-method-htmlEncode'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-htmlEncode:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#htmlEncode
      */
     htmlEncode: Ext.String.htmlEncode,
 
@@ -263,10 +270,10 @@ module.exports = {
     // {{{ jpMoney
 
 <span id='Ext-util-Format-method-jpMoney'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-jpMoney:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} value {Ext_util_Format:method-jpMoney:param_value}
+     * @return {String} {Ext_util_Format:method-jpMoney:return}
      */
     jpMoney: function(v) {
         return &quot;¥&quot; + this.numberFormat(v);
@@ -276,10 +283,10 @@ module.exports = {
     // {{{ leftPad
 
 <span id='Ext-util-Format-method-leftPad'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-leftPad:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#leftPad
      */
     leftPad: Ext.String.leftPad,
 
@@ -287,10 +294,10 @@ module.exports = {
     // {{{ lowercase
 
 <span id='Ext-util-Format-method-lowercase'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-lowercase:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} value {Ext_util_Format:method-lowercase:param_value}
+     * @return {String} {Ext_util_Format:method-lowercase:return}
      */
     lowercase: function(value) {
         return String(value).toLowerCase();
@@ -300,10 +307,9 @@ module.exports = {
     // {{{ math
 
 <span id='Ext-util-Format-method-math'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-math:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @return {Function} {Ext_util_Format:method-math:return}
      */
     math: function() {
 
@@ -324,24 +330,24 @@ module.exports = {
     // {{{ nl2br
 
 <span id='Ext-util-Format-method-nl2br'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-nl2br:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} v {Ext_util_Format:method-nl2br:param_v}
+     * @return {String} {Ext_util_Format:method-nl2br:return}
      */
     nl2br: function(v) {
-        var nl2brRe = /\r?\n/g;
-        return Ext.isEmpty(v) ? '' : v.replace(nl2brRe, '&lt;br /&gt;');
+        return Ext.isEmpty(v) ? '' : v.replace(/\r?\n/g, '&lt;br /&gt;');
     },
 
     // }}}
     // {{{ number
 
 <span id='Ext-util-Format-method-number'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-number:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} v {Ext_util_Format:method-number:param_v}
+     * @param {String} format {Ext_util_Format:method-number:param_format}
+     * @return {String} {Ext_util_Format:method-number:return}
      */
     number: function(v, formatString) {
 
@@ -457,10 +463,10 @@ module.exports = {
     // {{{ numberFormat
 
 <span id='Ext-util-Format-method-numberFormat'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-numberFormat:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} v {Ext_util_Format:method-numberFormat:param_v}
+     * @return {String} {Ext_util_Format:method-numberFormat:return}
      */
     numberFormat: function(v) {
         return v.toString().replace(/([0-9]+?)(?=(?:[0-9]{3})+$)/g, '$1,');
@@ -470,10 +476,10 @@ module.exports = {
     // {{{ numberRenderer
 
 <span id='Ext-util-Format-method-numberRenderer'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-numberRenderer:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} format {Ext_util_Format:method-numberRenderer:param_format}
+     * @return {Function} {Ext_util_Format:method-numberRenderer:return}
      */
     numberRenderer: function(format) {
         return function(v) {
@@ -485,10 +491,10 @@ module.exports = {
     // {{{ parseBox
 
 <span id='Ext-util-Format-method-parseBox'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-parseBox:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} v {Ext_util_Format:method-parseBox:param_v}
+     * @return {Object} {Ext_util_Format:method-parseBox:return}
      */
     parseBox: function(box) {
 
@@ -525,36 +531,25 @@ module.exports = {
     // {{{ plural
 
 <span id='Ext-util-Format-method-plural'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-plural:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} value {Ext_util_Format:method-plural:param_value}
+     * @param {String} singular {Ext_util_Format:method-plural:param_singular}
+     * @param {String} plural {Ext_util_Format:method-plural:param_plural}
      */
     plural: function(v, s, p) {
         return v +' ' + (v == 1 ? s : (p ? p : s+'s'));
     },
 
     // }}}
-    // {{{ replace
-
-<span id='Ext-util-Format-method-replace'>    /**
-</span>     * @method replace
-     *
-     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
-    replace: Ext.String.replace,
-
-    // }}}
     // {{{ round
 
 <span id='Ext-util-Format-method-round'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-round:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} value {Ext_util_Format:method-round:param_value}
+     * @param {Number} precision {Ext_util_Format:method-round:param_precision}
+     * @return {Number} {Ext_util_Format:method-round:return}
      */
     round: function(value, precision) {
 
@@ -572,38 +567,38 @@ module.exports = {
     // {{{ stripScripts
 
 <span id='Ext-util-Format-method-stripScripts'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-stripScripts:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_util_Format:method-stripScripts:param_value}
+     * @return {String} {Ext_util_Format:method-stripScripts:return}
      */
     stripScripts: function(v) {
-        var stripScriptsRe = /(?:&lt;script.*?&gt;)((\n|\r|.)*?)(?:&lt;\/script&gt;)/ig;
-        return !v ? v : String(v).replace(stripScriptsRe, &quot;&quot;);
+        return !v ? v : String(v).replace(/(?:&lt;script.*?&gt;)((\n|\r|.)*?)(?:&lt;\/script&gt;)/ig, &quot;&quot;);
     },
 
     // }}}
     // {{{ stripTags
 
 <span id='Ext-util-Format-method-stripTags'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-stripTags:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_util_Format:method-stripTags:value}
+     * @return {String} {Ext_util_Format:method-stripTags:return}
      */
     stripTags: function(v) {
-        var stripTagsRE = /&lt;\/?[^&gt;]+&gt;/gi;
-        return !v ? v : String(v).replace(stripTagsRE, &quot;&quot;);
+        return !v ? v : String(v).replace(/&lt;\/?[^&gt;]+&gt;/gi, &quot;&quot;);
     },
 
     // }}}
     // {{{ substr
 
 <span id='Ext-util-Format-method-substr'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-substr:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} value {Ext_util_Format:method-substr:param_value}
+     * @param {Number} start {Ext_util_Format:method-substr:param_start}
+     * @param {Number} length {Ext_util_Format:method-substr:param_length}
+     * @return {String} {Ext_util_Format:method-substr:return}
      */
     substr: function(value, start, length) {
         return String(value).substr(start, length);
@@ -613,10 +608,10 @@ module.exports = {
     // {{{ trim
 
 <span id='Ext-util-Format-method-trim'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-trim:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @method
+     * @alias Ext.String#trim
      */
     trim: Ext.String.trim,
 
@@ -624,10 +619,10 @@ module.exports = {
     // {{{ undef
 
 <span id='Ext-util-Format-method-undef'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-undef:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_util_Format:method-undef:param_value}
+     * @return {Object} {Ext_util_Format:method-undef:return}
      */
     undef: function(value) {
         return value !== undefined ? value : &quot;&quot;;
@@ -637,10 +632,10 @@ module.exports = {
     // {{{ uppercase
 
 <span id='Ext-util-Format-method-uppercase'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-uppercase:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Object} value {Ext_util_Format:method-uppercase:param_value}
+     * @return {Object} {Ext_util_Format:method-uppercase:return}
      */
     uppercase: function(value) {
         return String(value).toUpperCase();
@@ -650,13 +645,13 @@ module.exports = {
     // {{{ usMoney
 
 <span id='Ext-util-Format-method-usMoney'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_util_Format:method-usMoney:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number/String} value {Ext_util_Format:method-usMoney:param_value}
+     * @return {String} {Ext_util_Format:method-usMoney:return}
      */
     usMoney: function(v) {
-        return NX.util.Format.currency(v, '$', 2);
+        return Ext.util.Format.currency(v, '$', 2);
     }
 
     // }}}

@@ -27,103 +27,8 @@
 
 <span id='Ext-Date'>/**
 </span> * @class Ext.Date
- * 日付を扱うのに便利な、静的メソッドのセット。
- * Ext.Dateを読み込むと、便宜上すべてのメソッドとプロパティがコピーされることに注意してください。
- * 
- * 日付のパースと構文の書式に関しては、PHPのdate()関数に準拠しています。
- * サポートするフォーマットもPHP版と同等です。
- * 
- * 現在サポートされているすべての形式は以下の通りです: 
-&lt;pre class=&quot;&quot;&gt;
-記号	説明	例
-------	-----------------------------------------------------------------------	-----------------------
-  d     日。２桁の数字で、１桁の場合は左に0が付きます。                             01 から 31
-  D     曜日。３文字の短いテキスト形式。                                            Mon から Sun
-  j     日。dと違い、１桁の場合も先頭に0は付きません。                              1 から 31
-  l     曜日。フルスペル形式。                                                      Sunday から Saturday
-  N     ISO-8601 形式の、曜日の数値表現。                                           1（月曜日）から 7（日曜日）
-  S     英語形式の序数を表すサフィックス。2 文字。                                  st, nd, rd または th。
-                                                                                    jと一緒に使用することができる。
-  w     曜日。数値で表現した曜日。                                                  0 (日曜)から 6 (土曜)
-  z     年間の通算日。数字。(ゼロから開始)	0 から 364 (閏年で365)
-  W     ISO-8601 月曜日に始まる年単位の週番号。２桁の数字で、１桁の場合は左に0が
-        付きます。                                                                  01 から 53(例: 42は年の第 42 週目)
-  F     月。フルスペルの文字。                                                      January から December
-  m     月。２桁の数字で、１桁の場合は左に0が付きます。                             01 から 12
-  M     月。３文字の短いテキスト形式。                                              Jan から Dec
-  n     月。mと違い、１桁の場合も先頭に0は付きません。                              1 から 12
-  t     指定した月の日数。                                                          28 から 31
-  L     閏年であるかどうか。                                                        1なら閏年。0なら閏年ではない。
-  o     ISO-8601 形式の年。これは Y ほぼ同じだが、ISO 週番号（W）が前年あるいは
-        翌年に属する場合がある点で異なる。                                          例: 1998 あるいは 2004
-  Y     年。4 桁の数字。                                                            例: 1999 または 2003
-  y     年。2 桁の数字。                                                            例: 99 または 03
-  a     午前または午後（小文字）                                                    am または pm
-  A     午前または午後（大文字）                                                    AM または PM
-  g     時。12時間単位。hと違い、１桁の場合も先頭に0は付きません。                  1 から 12
-  G     時。24時間単位。Hと違い、１桁の場合も先頭に0は付きません。                  0 から 23
-  h     時。12 時間単位。２桁の数字で、１桁の場合は左に0が付きます。                01 から 12
-  H     時。24 時間単位。２桁の数字で、１桁の場合は左に0が付きます。                00 から 23
-  i     分。２桁の数字で、１桁の場合は左に0が付きます。                             00 から 59
-  s     秒。２桁の数字で、１桁の場合は左に0が付きます。                             00 から 59
-  u     ミリ秒	                                                                    例:
-                                                                                    001 (i.e. 0.001s) または
-                                                                                    100 (i.e. 0.100s) または
-                                                                                    999 (i.e. 0.999s) または
-                                                                                    999876543210 (i.e. 0.999876543210s)
-  O     グリニッジ標準時 (GMT) との時差                                             例: +1030
-  P     グリニッジ標準時 (GMT) との時差。時間と分をコロンで区切った形式             例: -08:00
-  T     タイムゾーンの略称                                                          例: EST, MDT, PDT ...
-  Z     タイムゾーンのオフセット秒数。UTC の西側のタイムゾーン用のオフセット
-        は常に負です。そして、 UTC の東側のオフセットは常に正です。                 -43200 から 50400
-  c     ISO 8601 日付	2004-02-12T15:19:21+00:00
-  U     Unix Epoch (1970 年 1 月 1 日 0 時 0 分 0 秒) からの秒数                    1193432466 から -2138434463
-  MS    Microsoft AJAX serialized dates                                             \/Date(1238606590509)\/ 
-                                                                                   (i.e. UTC milliseconds since epoch)
-                                                                                   または
-                                                                                   \/Date(1238606590509+0800)\/
-&lt;/pre&gt;
  *
- * 使用例: (注意: フォーマット記号と同じ文字列を記述したい場合、'¥'を付けてエスケープする必要があります)
- * &lt;pre&gt;&lt;code&gt;
-// Sample date:
-// 'Wed Jan 10 2007 15:05:01 GMT-0600 (Central Standard Time)'
-
-var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
-console.log(Ext.Date.format(dt, 'Y-m-d'));                          // 2007-01-10
-console.log(Ext.Date.format(dt, 'F j, Y, g:i a'));                  // January 10, 2007, 3:05 pm
-console.log(Ext.Date.format(dt, 'l, \\t\\he jS \\of F Y h:i:s A')); // Wednesday, the 10th of January 2007 03:05:01 PM
-
-&lt;/code&gt;&lt;/pre&gt;
- * 役立つ標準の日付と時刻のパターンです。
- * これらはExt.Dateのソースの一部ではありません。
- * ですが、Ext.Dateを読み込んだ後で、スクリプトコードに以下のコードをコピーするだけで
- * グローバルのDateオブジェクトでも利用可能になります。
- * 必要に応じてパターンを追加・削除してください。
- * &lt;pre&gt;&lt;code&gt;
-Ext.Date.patterns = {
-    ISO8601Long:&quot;Y-m-d H:i:s&quot;,
-    ISO8601Short:&quot;Y-m-d&quot;,
-    ShortDate: &quot;n/j/Y&quot;,
-    LongDate: &quot;l, F d, Y&quot;,
-    FullDateTime: &quot;l, F d, Y g:i:s A&quot;,
-    MonthDay: &quot;F d&quot;,
-    ShortTime: &quot;g:i A&quot;,
-    LongTime: &quot;g:i:s A&quot;,
-    SortableDateTime: &quot;Y-m-d\\TH:i:s&quot;,
-    UniversalSortableDateTime: &quot;Y-m-d H:i:sO&quot;,
-    YearMonth: &quot;F, Y&quot;
-};
-&lt;/code&gt;&lt;/pre&gt;
- *
- * Example usage:
- * &lt;pre&gt;&lt;code&gt;
-var dt = new Date();
-console.log(Ext.Date.format(dt, Ext.Date.patterns.ShortDate));
-&lt;/code&gt;&lt;/pre&gt;
- *
- * カスタムフォーマットは、開発者によって専門的な形式と構文解析機能の両方が提供されるかもしれません。
- * これらの機能はparseFunctionsとformatFunctionsに格納されます。
+ * {Ext_Date:doc-contents}
  *
  * @singleton
  */
@@ -132,7 +37,9 @@ module.exports = {
     // {{{ DAY
 
 <span id='Ext-Date-property-DAY'>    /**
-</span>     * @property DAY
+</span>     * {Ext_Date:property-DAY:desc}
+     *
+     * @type String
      */
     DAY: &quot;d&quot;,
 
@@ -140,7 +47,9 @@ module.exports = {
     // {{{ dayNames
 
 <span id='Ext-Date-property-dayNames'>    /**
-</span>     * @property dayNames
+</span>     * @property {String[]} dayNames
+     *
+     * {Ext_Date:property-dayNames:desc}
      */
     dayNames: [
         &quot;Sunday&quot;,
@@ -156,15 +65,20 @@ module.exports = {
     // {{{ defaultFormat
 
 <span id='Ext-Date-property-defaultFormat'>    /**
-</span>     * @property defaultFormat
+</span>     * @property {String} defaultFormat
+     *
+     * {Ext_Date:property-defaultFormat:desc}
      */
-    defaultFormat: &quot;m/d/Y&quot;,
+    defaultFormat : &quot;m/d/Y&quot;,
 
     // }}}
     // {{{ defaults
 
 <span id='Ext-Date-property-defaults'>    /**
-</span>     * @property defaults
+</span>     * {Ext_Date:property-defaults:desc}
+     *
+     * @property defaults
+     * @type Object
      */
     defaults: {},
 
@@ -172,7 +86,9 @@ module.exports = {
     // {{{ formatCodes
 
 <span id='Ext-Date-property-formatCodes'>    /**
-</span>     * @property
+</span>     * {Ext_Date:property-formatCodes:desc}
+     *
+     * @type Object
      */
     formatCodes: {
         d: &quot;Ext.String.leftPad(this.getDate(), 2, '0')&quot;,
@@ -222,7 +138,10 @@ module.exports = {
     // {{{ formatFunctions
 
 <span id='Ext-Date-property-formatFunctions'>    /**
-</span>     * @property
+</span>     * {Ext_Date:property-formatFunctions:desc}
+     *
+     * @property formatFunctions
+     * @type Object
      */
     formatFunctions: {
         &quot;MS&quot;: function() {
@@ -234,7 +153,9 @@ module.exports = {
     // {{{ HOUR
 
 <span id='Ext-Date-property-HOUR'>    /**
-</span>     * @property HOUR
+</span>     * {Ext_Date:property-HOUR:desc}
+     *
+     * @type String
      */
     HOUR: &quot;h&quot;,
 
@@ -242,7 +163,9 @@ module.exports = {
     // {{{ MILLI
 
 <span id='Ext-Date-property-MILLI'>    /**
-</span>     * @property MILLI
+</span>     * {Ext_Date:property-MILLI:desc}
+     *
+     * @type String
      */
     MILLI: &quot;ms&quot;,
 
@@ -250,7 +173,9 @@ module.exports = {
     // {{{ MINUTE
 
 <span id='Ext-Date-property-MINUTE'>    /**
-</span>     * @property MINUTE
+</span>     * {Ext_Date:property-MINUTE:desc}
+     *
+     * @type String
      */
     MINUTE: &quot;mi&quot;,
 
@@ -258,7 +183,9 @@ module.exports = {
     // {{{ MONTH
 
 <span id='Ext-Date-property-MONTH'>    /**
-</span>     * @property MONTH
+</span>     * {Ext_Date:property-MONTH:desc}
+     *
+     * @type String
      */
     MONTH: &quot;mo&quot;,
 
@@ -266,7 +193,9 @@ module.exports = {
     // {{{ monthNames
 
 <span id='Ext-Date-property-monthNames'>    /**
-</span>     * @property monthNames
+</span>     * @property {String[]} monthNames
+     *
+     * {Ext_Date:property-monthNames:desc}
      */
     monthNames: [
         &quot;January&quot;,
@@ -284,12 +213,12 @@ module.exports = {
     ],
 
     // }}}
-    // {{{ monthNames
+    // {{{ monthNumbers
 
 <span id='Ext-Date-property-monthNumbers'>    /**
-</span>     * @property monthNumbers
+</span>     * {Ext_Date:property-monthNumbers:desc}
      */
-    monthNames: {
+    monthNumbers: {
         Jan: 0,
         Feb: 1,
         Mar: 2,
@@ -307,16 +236,16 @@ module.exports = {
     // }}}
     // {{{ parseRegexes
 
-<span id='Ext-Date-property-parseRegexes'>    /**
-</span>     * @property parseRegexes
-     */
+    // private
     parseRegexes: [],
 
     // }}}
     // {{{ SECOND
 
 <span id='Ext-Date-property-SECOND'>    /**
-</span>     * @property SECOND
+</span>     * {Ext_Date:property-SECOND:desc}
+     *
+     * @type String
      */
     SECOND: &quot;s&quot;,
 
@@ -324,32 +253,52 @@ module.exports = {
     // {{{ useStrict
 
 <span id='Ext-Date-property-useStrict'>    /**
-</span>     * @property useStrict
+</span>     * {Ext_Date:property-useStrict:desc}
+     *
+     * @type Boolean
      */
     useStrict: false,
 
     // }}}
     // {{{ y2kYear
 
-<span id='Ext-Date-property-y2kYear'>    /**
-</span>     * @property y2kYear
-     */
+    // private
     y2kYear: 50,
 
     // }}}
     // {{{ YEAR
 
 <span id='Ext-Date-property-YEAR'>    /**
-</span>     * @property YEAR
+</span>     * {Ext_Date:property-YEAR:desc}
+     *
+     * @type String
      */
     YEAR: &quot;y&quot;,
 
     // }}}
+    // {{{ parseFunctions
+
+<span id='Ext-Date-property-parseFunctions'>    /**
+</span>     * {Ext_Date:property-parseFunctions:desc}
+     *
+     * @type Object
+     */
+    parseFunctions: {
+
+        &quot;MS&quot;: function(input, strict) {
+
+            var re = new RegExp('\\/Date\\(([-+])?(\\d+)(?:[+-]\\d{4})?\\)\\/');
+            var r = (input || '').match(re);
+
+            return r? new Date(((r[1] || '') + r[2]) * 1) : null;
+        }
+
+    },
+
+    // }}}
     // {{{ $xf
 
-<span id='Ext-Date-method-S-xf'>    /**
-</span>     * @private
-     */
+    // private
     $xf: function(format) {
 
         var args = Array.prototype.slice.call(arguments, 1);
@@ -363,10 +312,12 @@ module.exports = {
     // {{{ add
 
 <span id='Ext-Date-method-add'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-add:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-add:param_date}
+     * @param {String} interval {Ext_Date:method-add:param_interval}
+     * @param {Number} value {Ext_Date:method-add:param_value}
+     * @return {Date} {Ext_Date:method-add:return}
      */
     add: function(date, interval, value) {
 
@@ -431,10 +382,12 @@ module.exports = {
     // {{{ between
 
 <span id='Ext-Date-method-between'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-between:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-between:param_date}
+     * @param {Date} start {Ext_Date:method-between:param_start}
+     * @param {Date} end {Ext_Date:method-between:param_end}
+     * @return {Boolean} {Ext_Date:method-between:return}
      */
     between: function(date, start, end) {
 
@@ -447,10 +400,11 @@ module.exports = {
     // {{{ clearTime
 
 <span id='Ext-Date-method-clearTime'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-clearTime:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-clearTime:param_date}
+     * @param {Boolean} clone {Ext_Date:method-clearTime:param_clone}
+     * @return {Date} {Ext_Date:method-clearTime:retrun}
      */
     clearTime: function(date, clone) {
 
@@ -485,10 +439,10 @@ module.exports = {
     // {{{ clone
 
 <span id='Ext-Date-method-clone'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-clone:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-clone:param_date}
+     * @return {Date} {Ext_Date:method-clone:return}
      */
     clone: function(date) {
         return new Date(date.getTime());
@@ -497,12 +451,7 @@ module.exports = {
     // }}}
     // {{{ createFormat
 
-<span id='Ext-Date-method-createFormat'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     createFormat: function(format) {
 
         var code = [],
@@ -535,12 +484,7 @@ module.exports = {
     // }}}
     // {{{ createParser
 
-<span id='Ext-Date-method-createParser'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     createParser: (function() {
 
         var code = [
@@ -646,12 +590,7 @@ module.exports = {
     // }}}
     // {{{ dateFormat
 
-<span id='Ext-Date-method-dateFormat'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     dateFormat: function(date, format) {
         return Ext.Date.format(date, format);
     },
@@ -660,10 +599,11 @@ module.exports = {
     // {{{ format
 
 <span id='Ext-Date-method-format'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-format:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-format:param_date}
+     * @param {String} format {Ext_Date:method-format:param_format}
+     * @return {String} {Ext_Date:method-format:return}
      */
     format: function(date, format) {
 
@@ -679,12 +619,7 @@ module.exports = {
     // }}}
     // {{{ formatCodeToRegex
 
-<span id='Ext-Date-method-formatCodeToRegex'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     formatCodeToRegex: function(character, currentGroup) {
 
         var me = this;
@@ -708,10 +643,10 @@ module.exports = {
     // {{{ formatContainsDateInfo
 
 <span id='Ext-Date-method-formatContainsDateInfo'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-formatContainsDateInfo:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} format {Ext_Date:method-formatContainsDateInfo:param_format}
+     * @return {Boolean} {Ext_Date:method-formatContainsDateInfo:return}
      */
     formatContainsDateInfo: (function(){
 
@@ -727,10 +662,10 @@ module.exports = {
     // {{{ formatContainsHourInfo
 
 <span id='Ext-Date-method-formatContainsHourInfo'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-formatContainsHourInfo:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} format {Ext_Date:method-formatContainsHourInfo:param_format}
+     * @return {Boolean} {Ext_Date:method-formatContainsHourInfo:return}
      */
     formatContainsHourInfo: (function(){
 
@@ -745,13 +680,13 @@ module.exports = {
     // }}}
     // {{{ getDayOfYear
 
-<span id='Ext-Date-method-formatCodes'>    /**
-</span>     * &quot;write it&quot;
+<span id='Ext-Date-method-getDayOfYear'>    /**
+</span>     * {Ext_Date:method-getDayOfYear:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getDayOfYear:param_date}
+     * @return {Number} {Ext_Date:method-getDayOfYear:return}
      */
-    formatCodes: function(date) {
+    getDayOfYear: function(date) {
 
         var num = 0,
             d = Ext.Date.clone(date),
@@ -769,10 +704,10 @@ module.exports = {
     // {{{ getDaysInMonth
 
 <span id='Ext-Date-method-getDaysInMonth'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getDaysInMonth:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getDaysInMonth:param_date}
+     * @return {Number} {Ext_Date:method-getDaysInMonth:return}
      */
     getDaysInMonth: (function() {
 
@@ -789,10 +724,11 @@ module.exports = {
     // {{{ getElapsed
 
 <span id='Ext-Date-method-getElapsed'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getElapsed:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} dateA {Ext_Date:method-getElapsed:param_dateA}
+     * @param {Date} dateB {Ext_Date:method-getElapsed:param_dateB}
+     * @return {Number} {Ext_Date:method-getElapsed:return}
      */
     getElapsed: function(dateA, dateB) {
         return Math.abs(dateA - (dateB || new Date()));
@@ -802,10 +738,10 @@ module.exports = {
     // {{{ getFirstDateOfMonth
 
 <span id='Ext-Date-method-getFirstDateOfMonth'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getFirstDateOfMonth:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getFirstDateOfMonth:param_date}
+     * @return {Date} {Ext_Date:method-getFirstDateOfMonth:return}
      */
     getFirstDateOfMonth: function(date) {
         return new Date(date.getFullYear(), date.getMonth(), 1);
@@ -815,10 +751,10 @@ module.exports = {
     // {{{ getFirstDayOfMonth
 
 <span id='Ext-Date-method-getFirstDayOfMonth'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getFirstDayOfMonth:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getFirstDayOfMonth:param_date}
+     * @return {Number} {Ext_Date:method-getFirstDayOfMonth:return}
      */
     getFirstDayOfMonth: function(date) {
 
@@ -830,6 +766,7 @@ module.exports = {
     // }}}
     // {{{ getFormatCode
 
+    // private
     getFormatCode:function(character) {
 
         var f = Ext.Date.formatCodes[character];
@@ -846,10 +783,11 @@ module.exports = {
     // {{{ getGMTOffset
 
 <span id='Ext-Date-method-getGMTOffset'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getGMTOffset:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getGMTOffset:param_date}
+     * @param {Boolean} colon {Ext_Date:method-getGMTOffset:param_colon}
+     * @return {String} {Ext_Date:method-getGMTOffset:return}
      */
     getGMTOffset: function(date, colon) {
 
@@ -865,10 +803,10 @@ module.exports = {
     // {{{ getLastDateOfMonth
 
 <span id='Ext-Date-method-getLastDateOfMonth'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getLastDateOfMonth:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getLastDateOfMonth:param_date}
+     * @return {Date} {Ext_Date:method-getLastDateOfMonth:return}
      */
     getLastDateOfMonth: function(date) {
         return new Date(date.getFullYear(), date.getMonth(), Ext.Date.getDaysInMonth(date));
@@ -878,10 +816,10 @@ module.exports = {
     // {{{ getLastDayOfMonth
 
 <span id='Ext-Date-method-getLastDayOfMonth'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getLastDayOfMonth:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getLastDayOfMonth:param_date}
+     * @return {Number} {Ext_Date:method-getLastDayOfMonth:return}
      */
     getLastDayOfMonth: function(date) {
         return Ext.Date.getLastDateOfMonth(date).getDay();
@@ -891,10 +829,10 @@ module.exports = {
     // {{{ getMonthNumber
 
 <span id='Ext-Date-method-getMonthNumber'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getMonthNumber:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} name {Ext_Date:method-getMonthNumber:param_name}
+     * @return {Number} {Ext_Date:method-getMonthNumber:return}
      */
     getMonthNumber: function(name) {
         return Ext.Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1, 3).toLowerCase()];
@@ -904,10 +842,10 @@ module.exports = {
     // {{{ getShortDayName
 
 <span id='Ext-Date-method-getShortDayName'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getShortDayName:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} day {Ext_Date:method-getShortDayName:param_day}
+     * @return {String} {Ext_Date:method-getShortDayName:return}
      */
     getShortDayName: function(day) {
         return Ext.Date.dayNames[day].substring(0, 3);
@@ -917,10 +855,10 @@ module.exports = {
     // {{{ getShortMonthName
 
 <span id='Ext-Date-method-getShortMonthName'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getShortMonthName:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} month {Ext_Date:method-getShortMonthName:param_month}
+     * @return {String} {Ext_Date:method-getShortMonthName:return}
      */
     getShortMonthName: function(month) {
         return Ext.Date.monthNames[month].substring(0, 3);
@@ -930,10 +868,10 @@ module.exports = {
     // {{{ getSuffix
 
 <span id='Ext-Date-method-getSuffix'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getSuffix:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getSuffix:param_date}
+     * @return {String} {Ext_Date:method-getSuffix:return}
      */
     getSuffix: function(date) {
 
@@ -958,10 +896,10 @@ module.exports = {
     // {{{ getTimezone
 
 <span id='Ext-Date-method-getTimezone'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getTimezone:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getTimezone:param_date}
+     * @return {String} {Ext_Date:method-getTimezone:return}
      */
     getTimezone: function(date) {
         return date.toString().replace(/^.* (?:\((.*)\)|([A-Z]{1,4})(?:[\-+][0-9]{4})?(?: -?\d+)?)$/, &quot;$1$2&quot;).replace(/[^A-Z]/g, &quot;&quot;);
@@ -971,10 +909,10 @@ module.exports = {
     // {{{ getWeekOfYear
 
 <span id='Ext-Date-method-getWeekOfYear'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-getWeekOfYear:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-getWeekOfYear:param_date}
+     * @return {Number} {Ext_Date:method-getWeekOfYear:return}
      */
     getWeekOfYear: (function() {
 
@@ -994,12 +932,10 @@ module.exports = {
     // {{{ isDST
 
 <span id='Ext-Date-method-isDST'>    /**
-</span>     * @method isDST
+</span>     * {Ext_Date:method-isDST:desc}
      *
-     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-isDST:param_date}
+     * @return {Boolean} {Ext_Date:method-isDST:return}
      */
     isDST: function(date) {
         return new Date(date.getFullYear(), 0, 1).getTimezoneOffset() != date.getTimezoneOffset();
@@ -1009,10 +945,10 @@ module.exports = {
     // {{{ isLeapYear
 
 <span id='Ext-Date-method-isLeapYear'>    /**
-</span>     * &quot;write it&quot;
+</span>     * {Ext_Date:method-isLeapYear:desc}
      *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Date} date {Ext_Date:method-isLeapYear:param_date}
+     * @return {Boolean} {Ext_Date:method-isLeapYear:return}
      */
     isLeapYear: function(date) {
 
@@ -1025,12 +961,16 @@ module.exports = {
     // {{{ isValid
 
 <span id='Ext-Date-method-isValid'>    /**
-</span>     * @method isValid
+</span>     * {Ext_Date:method-isValid:desc}
      *
-     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {Number} year {Ext_Date:method-isValid:param_year}
+     * @param {Number} month {Ext_Date:method-isValid:param_month}
+     * @param {Number} day {Ext_Date:method-isValid:param_day}
+     * @param {Number} hour {Ext_Date:method-isValid:param_hour}
+     * @param {Number} minute {Ext_Date:method-isValid:param_minute}
+     * @param {Number} second {Ext_Date:method-isValid:param_second}
+     * @param {Number} millisecond {Ext_Date:method-isValid:param_millisecond}
+     * @return {Boolean} {Ext_Date:method-isValid:return}
      */
     isValid: function(y, m, d, h, i, s, ms) {
 
@@ -1051,15 +991,27 @@ module.exports = {
     },
 
     // }}}
+    // {{{ now
+
+<span id='Ext-Date-method-now'>    /**
+</span>     * {Ext_Date:method-now:desc}
+     *
+     * @return {Date} {Ext_Date:method-now:return}
+     */
+    now: Date.now || function() {
+        return +new Date();
+    },
+
+    // }}}
     // {{{ parse
 
 <span id='Ext-Date-method-parse'>    /**
-</span>     * @method parse
+</span>     * {Ext_Date:method-parse:desc}
      *
-     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
+     * @param {String} input {Ext_Date:method-parse:input}
+     * @param {String} format {Ext_Date:method-parse:format}
+     * @param {Boolean} strict {Ext_Date:method-parse:strict}
+     * @return {Date} {Ext_Date:method-parse:return}
      */
     parse: function(input, format, strict) {
 
@@ -1075,12 +1027,7 @@ module.exports = {
     // }}}
     // {{{ parseCodes
 
-<span id='Ext-Date-method-parseCodes'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     parseCodes: {
 
         d: {
@@ -1349,35 +1296,9 @@ module.exports = {
     },
 
     // }}}
-    // {{{ parseFunctions
-
-<span id='Ext-Date-method-parseFunctions'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
-    parseFunctions: {
-
-        &quot;MS&quot;: function(input, strict) {
-
-            var re = new RegExp('\\/Date\\(([-+])?(\\d+)(?:[+-]\\d{4})?\\)\\/');
-            var r = (input || '').match(re);
-
-            return r? new Date(((r[1] || '') + r[2]) * 1) : null;
-        }
-
-    },
-
-    // }}}
     // {{{ toString
 
-<span id='Ext-Date-method-toString'>    /**
-</span>     * &quot;write it&quot;
-     *
-     * @param o {Object} xxx
-     * @return {Object}
-     */
+    // private
     toString: function(date) {
 
         var pad = Ext.String.leftPad;
