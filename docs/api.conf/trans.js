@@ -8,6 +8,7 @@
 
 /**
  * TODO:sourceディレクトリの該当クラスファイルも翻訳
+ * TODO:自分のクラス以外の置換処理
  */
 (function() {
 
@@ -84,9 +85,11 @@
                 try{
                     file = path.normalize(src + '/' + cls + '/method/' + o.name + '/desc.md');
                     data = fs.readFileSync(file).toString();
+                    destjson.html = destjson.html.replace((new RegExp('<div class=\'short\'>{' + cls.replace(/\./g, '_') + ':' + o.id.replace(/\-/g, '\\-') + ':desc}[\n|.]+.* \.\.\.</div>')), '<div class="short">' + markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)) +'</div>');
                     destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
                     destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
                     destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
+
                 } catch(e) {
                     console.log(e);
                 }

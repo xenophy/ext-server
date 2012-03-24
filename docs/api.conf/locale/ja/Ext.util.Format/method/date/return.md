@@ -1,0 +1,1 @@
+The formatted date string.
