@@ -1,1 +1,1 @@
-The variable to encode
+エンコードされる値

@@ -1,1 +1,2 @@
-Decodes (parses) a JSON string to an object. If the JSON is invalid, this function throws a SyntaxError unless the safe option is set.
+JSON文字列をオブジェクトに変換（パース）します。
+JSONが無効な場合で第二引数のsafeオプションが設定されていない場合、SyntaxErrorが発生します。

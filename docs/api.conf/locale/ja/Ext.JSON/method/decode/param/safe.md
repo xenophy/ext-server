@@ -1,1 +1,1 @@
-(optional) Whether to return null or throw an exception if the JSON is invalid.
+(オプション) JSONが無効な場合にnullを返すか、例外を投げるか。

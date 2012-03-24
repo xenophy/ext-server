@@ -1,1 +1,1 @@
-The string literal to use in a JSON string.
+JSON文字列で使用するリテラル文字列。

@@ -1,1 +1,1 @@
-The Date to encode
+エンコードするDateオブジェクト

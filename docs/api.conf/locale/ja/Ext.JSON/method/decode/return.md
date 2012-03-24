@@ -1,1 +1,1 @@
-The resulting object
+JSON文字列を変換した結果のオブジェクト

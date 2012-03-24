@@ -1,1 +1,1 @@
-Encodes an Object, Array or other value
+オブジェクト、配列、またはその他の値をJSON文字列に変換します。
