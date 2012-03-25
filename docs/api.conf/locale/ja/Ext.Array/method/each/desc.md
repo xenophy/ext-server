@@ -26,4 +26,7 @@ sum(1, 2, 3); // 6を返す
         }
     });
 
-{@link Ext#each Ext.each} は {@link Ext.Array#each Ext.Array.each} のエイリアスです。
+<a href="#!/api/Ext-method-each" rel="Ext-method-each" class="docClass">Ext.each</a>
+は
+<a href="#!/api/Ext.Array-method-each" rel="Ext.Array-method-each" class="docClass">Ext.Array.each</a>
+のエイリアスです。

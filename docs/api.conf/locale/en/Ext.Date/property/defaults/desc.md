@@ -11,7 +11,9 @@ The following properties are available:
    <li><code>ms</code> : Number<div class="sub-desc">The default millisecond value. (defaults to undefined)</div></li>
 </ul></div>
 
-Override these properties to customize the default date values used by the {@link #parse} method.
+Override these properties to customize the default date values used by the
+<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" id="ext-gen5582">parse</a>
+method.
 <b>Note: In countries which experience Daylight Saving Time (i.e. DST), the <tt>h</tt>, <tt>i</tt>, <tt>s</tt>
 and <tt>ms</tt> properties may coincide with the exact time in which DST takes effect.
 It is the responsiblity of the developer to account for this.</b>

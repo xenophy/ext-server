@@ -1,8 +1,8 @@
 Parses the passed string using the specified date format.
 
 Note that this function expects normal calendar dates, meaning that months are 1-based (i.e. 1 = January).
-The {@link #defaults} hash will be used for any date value (i.e. year, month, day, hour, minute, second or millisecond)
-which cannot be found in the passed string. If a corresponding default date value has not been specified in the {@link #defaults} hash,
+The <a ref="Ext-Date-defaults">defaults</a> hash will be used for any date value (i.e. year, month, day, hour, minute, second or millisecond)
+which cannot be found in the passed string. If a corresponding default date value has not been specified in the <a ref="Ext-Date-defaults">defaults</a> hash,
 the current date's year, month, day or DST-adjusted zero-hour time value will be used instead.
 Keep in mind that the input date string must precisely match the specified format string
 in order for the parse operation to be successful (failed parse operations return a null value).

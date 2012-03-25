@@ -10,7 +10,9 @@ Options include:
 - currenyPrecision
 - currencySign
 - currencyAtEnd
-This class also uses the default date format defined here: {@link Ext.Date#defaultFormat}.
+This class also uses the default date format defined here:
+<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" id="ext-gen5910">Ext.Date.defaultFormat</a>
+.
 
 __Using with renderers__
 There are two helper functions that return a new function that can be used in conjunction with

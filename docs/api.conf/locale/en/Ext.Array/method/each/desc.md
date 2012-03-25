@@ -26,4 +26,6 @@ The iteration can be stopped by returning false in the function callback.
         }
     });
 
-{@link Ext#each Ext.each} is alias for {@link Ext.Array#each Ext.Array.each}
+<a href="#!/api/Ext-method-each" rel="Ext-method-each" class="docClass">Ext.each</a>
+is alias for
+<a href="#!/api/Ext.Array-method-each" rel="Ext.Array-method-each" class="docClass">Ext.Array.each</a>
