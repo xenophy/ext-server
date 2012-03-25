@@ -1,8 +1,10 @@
 TESTS = test/Ext/*.js \
 		test/lang/Array/*.js \
+		test/lang/Date/*.js \
 		test/lang/Number/*.js \
 		test/lang/Object/*.js \
-		test/lang/String/*.js
+		test/lang/String/*.js \
+		test/misc/JSON/*.js
 
 REPORTER = dot
 

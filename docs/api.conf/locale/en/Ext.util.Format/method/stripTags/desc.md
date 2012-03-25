@@ -1,0 +1,1 @@
+Strips all HTML tags

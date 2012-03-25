@@ -1,0 +1,1 @@
+The number of decimals to use for the currency (defaults to <a href="#!/api/Ext.util.Format-property-currencyPrecision" rel="Ext.util.Format-property-currencyPrecision" class="docClass">currencyPrecision</a>)
