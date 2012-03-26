@@ -611,9 +611,7 @@ module.exports = {
             Ext.Date.createFormat(format);
         }
 
-        var result = Ext.Date.formatFunctions[format].call(date);
-
-        return result + '';
+        return Ext.Date.formatFunctions[format].call(date) + '';
     },
 
     // }}}
@@ -918,13 +916,20 @@ module.exports = {
 
         var ms1d = 864e5, ms7d = 7 * ms1d;
 
+
+
         return function(date) {
+
+//#JSCOVERAGE_IF 0
 
             var DC3 = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() + 3) / ms1d,
                 AWN = Math.floor(DC3 / 7), // an Absolute Week Number
                 Wyr = new Date(AWN * ms7d).getUTCFullYear();
 
             return AWN - Math.floor(Date.UTC(Wyr, 0, 7) / ms7d) + 1;
+
+//#JSCOVERAGE_ENDIF
+
         };
     })(),
 
@@ -938,7 +943,13 @@ module.exports = {
      * @return {Boolean} {Ext_Date:method-isDST:return}
      */
     isDST: function(date) {
+
+//#JSCOVERAGE_IF 0
+
         return new Date(date.getFullYear(), 0, 1).getTimezoneOffset() != date.getTimezoneOffset();
+
+//#JSCOVERAGE_ENDIF
+
     },
 
     // }}}
@@ -999,7 +1010,13 @@ module.exports = {
      * @return {Date} {Ext_Date:method-now:return}
      */
     now: Date.now || function() {
+
+//#JSCOVERAGE_IF false
+
         return +new Date();
+
+//#JSCOVERAGE_ENDIF
+
     },
 
     // }}}

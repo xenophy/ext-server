@@ -26,9 +26,7 @@
 <span id='Ext'>/**
 </span> * @class Ext
  *
- * 名前空間 Ext (グローバルなオブジェクト)は、クラス、シングルトン、便利なメソッドを内包するライブラリです。
- * 多くの便利な関数は、Extオブジェクトのプロパティとして提供されます。
- * また、他のクラスメソッドで、頻繁に利用されるメソッドは、Extオブジェクトのショートカットとして提供されます。
+ * {Ext:doc-contents}
  *
  * @singleton
  */
@@ -41,14 +39,12 @@
     // {{{ apply
 
 <span id='Ext-method-apply'>    /**
-</span>     * 設定されたコンフィグオブジェクトをオブジェクトに全てコピーします。
-     * Note:オブジェクトや配列に対して、再帰的なコピーを行わず、
-     * クローンを作成してコピーする場合は、Ext.Object.mergeを利用してください。
+</span>     * {Ext:method-apply:desc}
      *
-     * @param o {Object} 適用されるオブジェクト
-     * @param config {Object} 適用するオブジェクト
-     * @param defaults {Object} 初期値として適用されるオブジェクト
-     * @return {Object} 適用後のオブジェクト
+     * @param {Object} object {Ext:method-apply:param_object}
+     * @param {Object} config {Ext:method-apply:param_config}
+     * @param {Object} defaults {Ext:method-apply:param_defaults}
+     * @return {Object} {Ext:method-apply:return}
      */
     Ext.apply = function(o, config, defaults) {
 
@@ -75,14 +71,13 @@
 
         // {{{ $locale
 
+        // private
         $locale: {},
 
         // }}}
         // {{{ $e
 
-<span id='Ext-method-S-e'>        /**
-</span>         * @private
-         */
+        // private
         $e: function(key) {
 
             var arg = [Ext.$locale[key]];
@@ -100,12 +95,11 @@
         // {{{ applyIf
 
 <span id='Ext-method-applyIf'>        /**
-</span>         * プロパティ値が存在しないものに対して、設定されたコンフィグオブジェクトをオブジェクトにコピーします。
-         * 既に存在するプロパティは上書きしません。
+</span>         * {Ext:method-applyIf:desc}
          *
-         * @param o {Object} 適用されるオブジェクト
-         * @param config {Object} 適用するオブジェクト
-         * @return {Object} 適用後のオブジェクト
+         * @param {Object} object {Ext:method-applyIf:param_object}
+         * @param {Object} config {Ext:method-applyIf:param_config}
+         * @return {Object} {Ext:method-applyIf:return}
          */
         applyIf: function(o, config) {
 
@@ -125,10 +119,10 @@
         // {{{ clone
 
 <span id='Ext-method-clone'>        /**
-</span>         * 配列、オブジェクト、日付型を含むあらゆる変数のクローンを生成します。
+</span>         * {Ext:method-clone:desc}
          *
-         * @param item {Object} クローンを作成する変数
-         * @return {Object} 生成されたクローン
+         * @param {Object} item {Ext:method-clone:desc}
+         * @return {Object} {Ext:method-clone:return}
          */
         clone: function(item) {
 
@@ -171,9 +165,7 @@
         // {{{ emptyFn
 
 <span id='Ext-method-emptyFn'>        /**
-</span>         * 再利用のための空関数オブジェクトです。
-         * 何らかの関数を設定しなくてはならない&amp;#160;場合や、
-         * 継承先のクラスにメソッドを実装してもらうときの抽象メソッド定義などに使用します。
+</span>         * {Ext:method-emptyFn:desc}
          */
         emptyFn: function() {
         },
@@ -181,19 +173,18 @@
         // }}}
         // {{{ functionFactory
 
-<span id='Ext-method-functionFactory'>        /**
-</span>         * @method functionFactory
-         * @private
-         */
+        // privatec
         functionFactory: function() {
 
             var args = Array.prototype.slice.call(arguments);
 
             if(args.length &gt; 0) {
                 args[args.length - 1] = [
+                    /*
                     'var Ext=global.',
                     this.getUniqueGlobalNamespace(),
                     ';',
+                    */
                     args[args.length - 1]
                 ].join('');
             }
@@ -205,11 +196,11 @@
         // {{{ getRandomInt
 
 <span id='Ext-method-getRandomInt'>        /**
-</span>         * minからmaxの間でランダムな整数値を返却します。
+</span>         * {Ext:method-getRandomInt:desc}
          *
-         * @param min {Number} 最小値
-         * @param max {Number} 最大値
-         * @return {Number} ランダム値
+         * @param {Number} min {Ext:method-getRandomInt:param_min}
+         * @param {Number} max {Ext:method-getRandomInt:param_max}
+         * @return {Number} {Ext:method-getRandomInt:return}random value
          */
         getRandomInt: function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -218,9 +209,7 @@
         // }}}
         // {{{ getUniqueGlobalNamespace
 
-<span id='Ext-method-getUniqueGlobalNamespace'>        /**
-</span>         * @private
-         */
+        // private
         getUniqueGlobalNamespace: function() {
 
             var uniqueGlobalNamespace = this.uniqueGlobalNamespace;
@@ -244,10 +233,10 @@
         // {{{ isArray
 
 <span id='Ext-method-isArray'>        /**
-</span>         * テスト対象が配列の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isArray:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} target {Ext:method-isArray:param_target}
+         * @return {Boolean} {Ext:method-isArray:return}
          */
         isArray: Array.isArray,
 
@@ -255,10 +244,10 @@
         // {{{ isBoolean
 
 <span id='Ext-method-isBoolean'>        /**
-</span>         * テスト対象が真偽値の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isBoolean:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isBoolean:param_value}
+         * @return {Boolean} {Ext:method-isBoolean:return}
          */
         isBoolean: function(value) {
             return typeof value === 'boolean';
@@ -268,10 +257,10 @@
         // {{{ isDate
 
 <span id='Ext-method-isDate'>        /**
-</span>         * テスト対象が日付型の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isDate:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} object {Ext:method-isDate:param_object}
+         * @return {Boolean} {Ext:method-isDate:return}
          */
         isDate: function(value) {
             return toString.call(value) === '[object Date]';
@@ -281,10 +270,10 @@
         // {{{ isDefined
 
 <span id='Ext-method-isDefined'>        /**
-</span>         * テスト対象がundefinedでない場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isDefined:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isDefined:param_value}
+         * @return {Boolean} {Ext:method-isDefined:return}
          */
         isDefined: function(value) {
             return typeof value !== 'undefined';
@@ -294,17 +283,11 @@
         // {{{ isEmpty
 
 <span id='Ext-method-isEmpty'>        /**
-</span>         * value値がnullまたは、undefined、または空文字列、空配列の場合、trueを返します。
-         * 空文&amp;#160;字列をEmpty(空)としない場合は、allowBlankにtrueを設定します。
+</span>         * {Ext:method-isEmpty:desc}
          *
-         * - `null`
-         * - `undefined`
-         * - 空配列
-         * - 空文字列(空文字列を空と判定しない場合は、allowEmptyStringをtrueに設定します。)
-         *
-         * @param {Mixed} value テストするオブジェクト
-         * @param {Boolean} allowEmptyString (オプション)空文字列を空としない場合はtrueを設定(初期値:false)
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isEmpty:param_value}
+         * @param {Boolean} allowEmptyString {Ext:method-isEmpty:param_allowEmptyString}
+         * @return {Boolean} {Ext:method-isEmpty:return}
          */
         isEmpty: function(value, allowEmptyString) {
             return (
@@ -319,10 +302,10 @@
         // {{{ isFunction
 
 <span id='Ext-method-isFunction'>        /**
-</span>         * テスト対象が関数オブジェクトの場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isFunction:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isFunction:desc}
+         * @return {Boolean} {Ext:method-isFunction:return}
          */
         isFunction: function(value) {
             return typeof value === 'function';
@@ -332,10 +315,10 @@
         // {{{ isIterable
 
 <span id='Ext-method-isIterable'>        /**
-</span>         * テスト対象がイテレート可能な場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isIterable:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isIterable:param_value}
+         * @return {Boolean} {Ext:method-isIterable:return}
          */
         isIterable: function(value) {
             return (
@@ -349,23 +332,23 @@
         // {{{ isNumber
 
 <span id='Ext-method-isNumber'>        /**
-</span>         * テスト対象が数値型の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isNumber:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isNumber:param_value}
+         * @return {Boolean} {Ext:method-isNumber:return}
          */
         isNumber: function(value) {
             return typeof value === 'number' &amp;&amp; isFinite(value);
         },
 
         // }}}
-        // {{{ Ext.isNumeric
+        // {{{ isNumeric
 
 <span id='Ext-method-isNumeric'>        /**
-</span>         * テスト対象が数字の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isNumeric:desc}
          *
-         * @param {Mixed} value テストするオブジェクト &lt;br /&gt;**例**: 1, '1', '2.34' はtrue
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isNumeric:param_value}
+         * @return {Boolean} {Ext:method-isNumeric:return}
          */
         isNumeric: function(value) {
             return !isNaN(parseFloat(value)) &amp;&amp; isFinite(value);
@@ -375,10 +358,10 @@
         // {{{ isObject
 
 <span id='Ext-method-isObject'>        /**
-</span>         * テスト対象がオブジェクト型の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isPrimitive:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isPrimitive:param_value}
+         * @return {Boolean} {Ext:method-isPrimitive:return}
          */
         isObject: function(value) {
             return toString.call(value) === '[object Object]';
@@ -388,10 +371,10 @@
         // {{{ isPrimitive
 
 <span id='Ext-method-isPrimitive'>        /**
-</span>         * テスト対象が文字列型か数値型か真偽型の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isPrimitive:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isPrimitive:param_value}
+         * @return {Boolean} {Ext:method-isPrimitive:return}
          */
         isPrimitive: function(value) {
 
@@ -408,10 +391,10 @@
         // {{{ isString
 
 <span id='Ext-method-isString'>        /**
-</span>         * テスト対象が文字列型の場合はtrue、そうでない場合はfalseを返します。
+</span>         * {Ext:method-isString:desc}
          *
-         * @param {Mixed} value テストするオブジェクト
-         * @return {Boolean}
+         * @param {Object} value {Ext:method-isString:param_value}
+         * @return {Boolean} {Ext:method-isString:return}
          */
         isString: function(value) {
             return typeof value === 'string';
@@ -421,14 +404,11 @@
         // {{{ iterate
 
 <span id='Ext-method-iterate'>        /**
-</span>         * 配列の各要素か、オブジェクトのプロパティを繰り返します。
+</span>         * {Ext:method-iterate:desc}
          *
-         * @param {Object/Array} object 繰り返しを行うオブジェクトか配列
-         * @param {Function} fn 繰り返し時に呼び出す関数を設定します。
-         * 繰り返しを行うオブジェクトの種別によって、引数が異なります。
-         * 詳しくは、 Ext.Array.eachと Ext.Object.each を参照してください。
-         * @param {Object} scope 呼び出される関数スコープオブジェクトを設定します。
-         * デフォルト値は、繰り返されるオブジェクトです。
+         * @param {Object/Array} object {Ext:method-microtime:param_object}
+         * @param {Function} fn {Ext:method-microtime:param_fn}
+         * @param {Object} scope {Ext:method-microtime:param_scope}
          */
         iterate: function(object, fn, scope) {
 
@@ -455,10 +435,10 @@
         // {{{ microtime
 
 <span id='Ext-method-microtime'>        /**
-</span>         * 現在の Unix タイムスタンプをマイクロ秒で返します。
+</span>         * {Ext:method-microtime:desc}
          *
-         * @param {Boolean} get_as_float trueを指定すると、小数点を含んで値を返します。
-         * @return {Boolean}
+         * @param {Boolean} get_as_float {Ext:method-microtime:return}
+         * @return {Boolean} {Ext:method-microtime:return}
          */
         microtime: function(get_as_float) {
             var now = new Date().getTime() / 1000;
@@ -470,10 +450,10 @@
         // {{{ moduleCacheClear
 
 <span id='Ext-method-moduleCacheClear'>        /**
-</span>         * モジュールキャッシュをクリアします。
+</span>         * {Ext:method-moduleCacheClear:desc}
          *
-         * @param {String} path モジュールパス
-         * @param {Number} mtime ファイル更新日時
+         * @param {String} path {Ext:method-moduleCacheClear:desc}
+         * @param {Number} mtime {Ext:method-moduleCacheClear:desc}
          */
         moduleCacheClear: function(path, mtime) {
 
@@ -500,17 +480,16 @@
         // {{{ setLocale
 
 <span id='Ext-method-setLocale'>        /**
-</span>         * Next JSのロケールを設定します。
-         * 標準は、英語ですが、エラーメッセージなどをロケ&amp;#160;ールに合わせて出力することができます。
+</span>         * {Ext:method-setLocale:desc}
          *
-         * @param {String} locale ロケール (初期値:'en')
-         * @return {Boolean}
+         * @param {String} locale {Ext:method-setLocale:param_locale}
+         * @return {Boolean} {Ext:method-setLocale:return}
          */
         setLocale: function(locale) {
 
             try {
                 locale = locale || 'en';
-                locale = Ext.util.Format.replace(locale, '/', '');
+                locale = Ext.String.replace(locale, '/', '');
                 Ext.apply(
                     Ext.$locale,
                     Ext.JSON.decode(
@@ -528,15 +507,15 @@
         // {{{ uid
 
 <span id='Ext-method-uid'>        /**
-</span>         * ユニークIDを返します。
+</span>         * {Ext:method-uid:desc}
          *
-         * @param {Number} len ID長
-         * @return {String}
+         * @param {Number} len {Ext:method-uid:param_len}
+         * @return {String} {Ext:method-uid:return}
          */
         uid: function(len) {
 
             var buf = [],
-                ret = [];
+                ret = [],
                 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
                 charlen = chars.length;
 
@@ -592,24 +571,12 @@
     // create shorthand
     Ext.apply(Ext, {
 
-        // {{{ sprintf
-
-<span id='Ext-method-sprintf'>        /**
-</span>         * &quot;write it&quot;
-         *
-         * @param o {Object} xxx
-         * @return {Object}
-         */
-        sprintf: Ext.String.sprintf,
-
-        // }}}
         // {{{ toArray
 
 <span id='Ext-method-toArray'>        /**
-</span>         * &quot;write it&quot;
-         *
-         * @param o {Object} xxx
-         * @return {Object}
+</span>         * @method
+         * @member Ext
+         * @alias Ext.Array#toArray
          */
         toArray: function() {
             return Ext.Array.toArray.apply(Ext.Array, arguments);
@@ -619,10 +586,11 @@
         // {{{ merge
 
 <span id='Ext-method-merge'>        /**
-</span>         * &quot;write it&quot;
+</span>         * {Ext:method-merge:desc}
          *
-         * @param o {Object} xxx
-         * @return {Object}
+         * @member Ext
+         * @method merge
+         * @alias Ext.Object#merge
          */
         merge: Ext.Object.merge
 
