@@ -26,9 +26,7 @@
 <span id='Ext'>/**
 </span> * @class Ext
  *
- * 名前空間 Ext (グローバルなオブジェクト)は、クラス、シングルトン、便利なメソッドを内包するライブラリです。
- * 多くの便利な関数は、Extオブジェクトのプロパティとして提供されます。
- * また、他のクラスメソッドで、頻繁に利用されるメソッドは、Extオブジェクトのショートカットとして提供されます。
+ * {Ext:doc-contents}
  *
  * @singleton
  */
@@ -41,14 +39,12 @@
     // {{{ apply
 
 <span id='Ext-method-apply'>    /**
-</span>     * 設定されたコンフィグオブジェクトをオブジェクトに全てコピーします。
-     * Note:オブジェクトや配列に対して、再帰的なコピーを行わず、
-     * クローンを作成してコピーする場合は、Ext.Object.mergeを利用してください。
+</span>     * {Ext:method-apply:desc}
      *
-     * @param o {Object} 適用されるオブジェクト
-     * @param config {Object} 適用するオブジェクト
-     * @param defaults {Object} 初期値として適用されるオブジェクト
-     * @return {Object} 適用後のオブジェクト
+     * @param {Object} object {Ext:method-apply:param_object}
+     * @param {Object} config {Ext:method-apply:param_config}
+     * @param {Object} defaults {Ext:method-apply:param_defaults}
+     * @return {Object} {Ext:method-apply:return}
      */
     Ext.apply = function(o, config, defaults) {
 
@@ -75,14 +71,13 @@
 
         // {{{ $locale
 
+        // private
         $locale: {},
 
         // }}}
         // {{{ $e
 
-<span id='Ext-method-S-e'>        /**
-</span>         * @private
-         */
+        // private
         $e: function(key) {
 
             var arg = [Ext.$locale[key]];
@@ -472,10 +467,10 @@
         // {{{ moduleCacheClear
 
 <span id='Ext-method-moduleCacheClear'>        /**
-</span>         * モジュールキャッシュをクリアします。
+</span>         * {Ext:method-moduleCacheClear:desc}
          *
-         * @param {String} path モジュールパス
-         * @param {Number} mtime ファイル更新日時
+         * @param {String} path {Ext:method-moduleCacheClear:desc}
+         * @param {Number} mtime {Ext:method-moduleCacheClear:desc}
          */
         moduleCacheClear: function(path, mtime) {
 
@@ -502,11 +497,10 @@
         // {{{ setLocale
 
 <span id='Ext-method-setLocale'>        /**
-</span>         * Next JSのロケールを設定します。
-         * 標準は、英語ですが、エラーメッセージなどをロケ&amp;#160;ールに合わせて出力することができます。
+</span>         * {Ext:method-setLocale:desc}
          *
-         * @param {String} locale ロケール (初期値:'en')
-         * @return {Boolean}
+         * @param {String} locale {Ext:method-setLocale:param_locale}
+         * @return {Boolean} {Ext:method-setLocale:return}
          */
         setLocale: function(locale) {
 
@@ -530,15 +524,15 @@
         // {{{ uid
 
 <span id='Ext-method-uid'>        /**
-</span>         * ユニークIDを返します。
+</span>         * {Ext:method-uid:desc}
          *
-         * @param {Number} len ID長
-         * @return {String}
+         * @param {Number} len {Ext:method-uid:param_len}
+         * @return {String} {Ext:method-uid:return}
          */
         uid: function(len) {
 
             var buf = [],
-                ret = [];
+                ret = [],
                 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
                 charlen = chars.length;
 
@@ -594,24 +588,12 @@
     // create shorthand
     Ext.apply(Ext, {
 
-        // {{{ sprintf
-
-<span id='Ext-method-sprintf'>        /**
-</span>         * &quot;write it&quot;
-         *
-         * @param o {Object} xxx
-         * @return {Object}
-         */
-        sprintf: Ext.String.sprintf,
-
-        // }}}
         // {{{ toArray
 
 <span id='Ext-method-toArray'>        /**
-</span>         * &quot;write it&quot;
-         *
-         * @param o {Object} xxx
-         * @return {Object}
+</span>         * @method
+         * @member Ext
+         * @alias Ext.Array#toArray
          */
         toArray: function() {
             return Ext.Array.toArray.apply(Ext.Array, arguments);
@@ -621,10 +603,11 @@
         // {{{ merge
 
 <span id='Ext-method-merge'>        /**
-</span>         * &quot;write it&quot;
+</span>         * {Ext:method-merge:desc}
          *
-         * @param o {Object} xxx
-         * @return {Object}
+         * @member Ext
+         * @method merge
+         * @alias Ext.Object#merge
          */
         merge: Ext.Object.merge
 

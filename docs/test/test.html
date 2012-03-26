@@ -236,6 +236,28 @@
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.getRandomInt</h1>
+      <dl>
+        <dt>ランダム値を取得できること</dt>
+        <dd><pre><code>
+
+        var n;
+
+        n = Ext.getRandomInt(0, 1024);
+        if(n &gt; 1024) { assert.ok(false); }
+
+        n = Ext.getRandomInt(0, 0);
+        if(n &gt; 0) { assert.ok(false); }
+        n.should.equal(0);
+
+        n = Ext.getRandomInt(0, 1);
+        if(n &gt; 1) { assert.ok(false); }
+
+        n = Ext.getRandomInt(1, 0);
+        n.should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.isArray</h1>
       <dl>
         <dt>undefinedを判定してfalseであること</dt>
@@ -646,6 +668,60 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
     <section class="suite">
       <h1>Ext.iterate</h1>
       <dl>
+        <dt>オブジェクトを繰り返して値をコピーできること</dt>
+        <dd><pre><code>
+
+        var dest = {},
+            src = {
+                key1: 'value1',
+                key2: 'value2',
+                key3: 'value3',
+                key4: 'value4',
+                key5: 'value5'
+            };
+
+        Ext.iterate(src, function(key, v, o) {
+            dest[key] = v;
+        });
+
+        dest.key1.should.equal('value1');
+        dest.key2.should.equal('value2');
+        dest.key3.should.equal('value3');
+        dest.key4.should.equal('value4');
+        dest.key5.should.equal('value5');</code></pre></dd>
+        <dt>undefinedを指定した場合、繰り返しを行わず終了すること</dt>
+        <dd><pre><code>
+
+        var dest = {}, assert = require('assert');
+
+        Ext.iterate(undefined, function(key, v, o) {
+            dest[key] = v;
+        });
+
+        assert.equal(dest.key1, undefined, 'Test key=key1 value=undefined');
+        assert.equal(dest.key2, undefined, 'Test key=key2 value=undefined');
+        assert.equal(dest.key3, undefined, 'Test key=key3 value=undefined');
+        assert.equal(dest.key4, undefined, 'Test key=key4 value=undefined');
+        assert.equal(dest.key5, undefined, 'Test key=key5 value=undefined');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.uid</h1>
+      <dl>
+        <dt>ユニークIDを生成すること</dt>
+        <dd><pre><code>
+
+        var ret = [];
+
+        for(var i=0; i&lt;2; i++) {
+
+            var v = Ext.uid(24);
+
+            Ext.Array.contains(ret, v).should.equal(false);
+
+            ret.push(v);
+
+        }</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
@@ -2528,6 +2604,294 @@ Ext.String.urlAppend('http://www.xenophy.com/?foo=bar', 'hoge').should.equal('ht
         <dt>"http://www.xenophy.com/"に""を追加すると"http://www.xenophy.com/"になること</dt>
         <dd><pre><code>
 Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xenophy.com/');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.currency</h1>
+      <dl>
+        <dt>通貨形式に変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.util.Format.currency(1000, &quot;¥&quot;, -1);
+
+        ret.should.equal('¥1,000');
+
+        var ret = Ext.util.Format.currency(1000, '', -1);
+
+        ret.should.equal('$1,000');
+
+        var ret = Ext.util.Format.currency(-1000, '', -1);
+
+        ret.should.equal('-$1,000');
+
+        var ret = Ext.util.Format.currency(1000, '', 5);
+
+        ret.should.equal('$1,000.00000');
+
+        var ret = Ext.util.Format.currency(1000, &quot;円&quot;, -1, true);
+
+        ret.should.equal('1,000円');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.date</h1>
+      <dl>
+        <dt>日付をフォーマットできること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.date().should.equal('');
+        Ext.util.Format.date('2006-01-01').should.equal('01/01/2006');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.dateRender</h1>
+      <dl>
+        <dt>日付をフォーマットする関数を生成できること</dt>
+        <dd><pre><code>
+
+        var f = Ext.util.Format.dateRenderer('Y-m-d');
+        var dt = new Date('2006-01-01');
+        f(dt).should.equal('2006-01-01');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.defaultValue</h1>
+      <dl>
+        <dt>初期値が設定できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.defaultValue(undefined, 500).should.equal(500);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.escapeRegex</h1>
+      <dl>
+        <dt>正規表現をエスケープできること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.escapeRegex('*').should.equal('\\*');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.fileSize</h1>
+      <dl>
+        <dt>ファイルサイズを付加して出力できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.fileSize(500).should.equal('500 bytes');
+        Ext.util.Format.fileSize(5000).should.equal('4.9 KB');
+        Ext.util.Format.fileSize(5000000).should.equal('4.8 MB');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.currency</h1>
+      <dl>
+        <dt>日本円表記に変換できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.util.Format.jpMoney(5000).replace(&quot;Â&quot;, &quot;&quot;);
+        ret.should.equal(&quot;¥5,000&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.lowercase</h1>
+      <dl>
+        <dt>小文字に変換できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.lowercase('Ext Server').should.equal('ext server');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.math</h1>
+      <dl>
+        <dt>テキスト形式の計算式を実行できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.math(500, &quot;* 10&quot;).should.equal(5000);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.nl2br</h1>
+      <dl>
+        <dt>改行を<br />に変換できること</dt>
+        <dd><pre><code>
+
+        var tpl, ret;
+
+        tpl = [
+            'line1',
+            'line2'
+        ].join(&quot;\n&quot;);
+
+        ret = Ext.util.Format.nl2br(tpl);
+
+        ret.should.equal('line1&lt;br /&gt;line2');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.number</h1>
+      <dl>
+        <dt>数値をフォーマットできること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.number(500).should.equal(500);
+        Ext.util.Format.number('a', '0.00').should.equal('');
+        Ext.util.Format.number(500, '0.00').should.equal('500.00');
+        Ext.util.Format.number(500, '0.00/i').should.equal('500.00');
+        Ext.util.Format.number(500, '000/i').should.equal('500');
+        Ext.util.Format.number(-500, '000/i').should.equal('-500');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.numberRender</h1>
+      <dl>
+        <dt>数値をフォーマットする関数オブジェクトを生成できること</dt>
+        <dd><pre><code>
+
+        var f = Ext.util.Format.numberRenderer('0.00');
+        f(500).should.equal('500.00');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.parseBox</h1>
+      <dl>
+        <dt>CSSマージンスタイルを解析できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.util.Format.parseBox('10 10 10 10');
+        ret.top.should.equal(10);
+        ret.bottom.should.equal(10);
+        ret.left.should.equal(10);
+        ret.right.should.equal(10);
+
+        var ret = Ext.util.Format.parseBox('10 10 10');
+        ret.top.should.equal(10);
+        ret.bottom.should.equal(10);
+        ret.left.should.equal(10);
+        ret.right.should.equal(10);
+
+        var ret = Ext.util.Format.parseBox('10 10');
+        ret.top.should.equal(10);
+        ret.bottom.should.equal(10);
+        ret.left.should.equal(10);
+        ret.right.should.equal(10);
+
+        var ret = Ext.util.Format.parseBox('10');
+        ret.top.should.equal(10);
+        ret.bottom.should.equal(10);
+        ret.left.should.equal(10);
+        ret.right.should.equal(10);
+
+        var ret = Ext.util.Format.parseBox(10);
+        ret.top.should.equal(10);
+        ret.bottom.should.equal(10);
+        ret.left.should.equal(10);
+        ret.right.should.equal(10);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.plural</h1>
+      <dl>
+        <dt>値から複数形テキストを作成できること</dt>
+        <dd><pre><code>
+
+        var ret = Ext.util.Format.plural(1, &quot;Comment&quot;);
+        ret.should.equal('1 Comment');
+
+        var ret = Ext.util.Format.plural(2, &quot;Comment&quot;);
+        ret.should.equal('2 Comments');
+
+        var ret = Ext.util.Format.plural(2, &quot;Comment&quot;, &quot;Comment[S]&quot;);
+        ret.should.equal('2 Comment[S]');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.round</h1>
+      <dl>
+        <dt>整数値に丸めることができること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.round(50.14, 1).should.equal(50.1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.stripScripts</h1>
+      <dl>
+        <dt>スクリプトタグを除去できること</dt>
+        <dd><pre><code>
+
+        var str = [
+            '&lt;html&gt;',
+            '&lt;head&gt;',
+            '&lt;script src=&quot;./test.js&quot;&gt;&lt;/script&gt;',
+            '&lt;/head&gt;',
+            '&lt;/html&gt;'
+        ].join(&quot;&quot;);
+
+        var ret = [
+            '&lt;html&gt;',
+            '&lt;head&gt;',
+            '&lt;/head&gt;',
+            '&lt;/html&gt;'
+        ].join(&quot;&quot;);
+
+        Ext.util.Format.stripScripts(str).should.equal(ret);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.stripTags</h1>
+      <dl>
+        <dt>タグを除去できること</dt>
+        <dd><pre><code>
+
+        var str = [
+            '&lt;html&gt;',
+            '&lt;head&gt;',
+            '&lt;script src=&quot;./test.js&quot;&gt;&lt;/script&gt;',
+            '&lt;/head&gt;',
+            '&lt;/html&gt;'
+        ].join(&quot;&quot;);
+
+        var ret = '';
+
+        Ext.util.Format.stripTags(str).should.equal(ret);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.substr</h1>
+      <dl>
+        <dt>文字列を切り出せること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.substr('abcdefg', 2, 10).should.equal(&quot;cdefg&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.undef</h1>
+      <dl>
+        <dt>undefinedが指定されて場合、空テキストを返すこと</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.undef(undefined).should.equal(&quot;&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.undef</h1>
+      <dl>
+        <dt>大文字に変換できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.uppercase('Ext Server').should.equal('EXT SERVER');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.util.Format.usMoney</h1>
+      <dl>
+        <dt>数値をドル表記に変換できること</dt>
+        <dd><pre><code>
+
+        Ext.util.Format.usMoney('5000').should.equal('$5,000.00');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
