@@ -15,7 +15,10 @@ require('../../../index.js');
 
 describe('Ext.Date.formatContainsDateInfo', function() {
 
-    it('こと', function() {
+    it('"Y-m-d"形式と判定できること', function() {
+
+        Ext.Date.formatContainsDateInfo('2006-01-01').should.equal(false);
+        Ext.Date.formatContainsDateInfo('Y-m-d').should.equal(true);
 
     });
 

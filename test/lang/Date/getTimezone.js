@@ -17,6 +17,11 @@ describe('Ext.Date.getTimezone', function() {
 
     it('こと', function() {
 
+        /*
+        var dt = new Date('1/23/2007');
+        NX.Date.getTimezone(dt).should.equal('JST');
+
+*/
     });
 
 });

@@ -15,7 +15,11 @@ require('../../../index.js');
 
 describe('Ext.Date.formatContainsHourInfo', function() {
 
-    it('こと', function() {
+    it('"Y-m-d h:i:s"形式を判定できること', function() {
+
+        Ext.Date.formatContainsHourInfo('2006-01-01').should.equal(false);
+        Ext.Date.formatContainsHourInfo('Y-m-d').should.equal(false);
+        Ext.Date.formatContainsHourInfo('Y-m-d h:i:s').should.equal(true);
 
     });
 

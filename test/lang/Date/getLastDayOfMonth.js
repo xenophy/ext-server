@@ -15,8 +15,13 @@ require('../../../index.js');
 
 describe('Ext.Date.getLastDayOfMonth', function() {
 
-    it('こと', function() {
+    it('2007年1月の最後の週が水曜日であると判定できること', function() {
 
+        var dt = new Date('1/10/2007'),
+
+        lastDay = Ext.Date.getLastDayOfMonth(dt);
+
+        Ext.Date.dayNames[lastDay].should.equal('Wednesday');
     });
 
 });

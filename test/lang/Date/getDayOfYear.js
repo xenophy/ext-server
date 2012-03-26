@@ -15,7 +15,17 @@ require('../../../index.js');
 
 describe('Ext.Date.getDayOfYear', function() {
 
-    it('こと', function() {
+    it('2011-01-15が14であること', function() {
+
+        var dt = new Date('2011-01-15');
+        Ext.Date.getDayOfYear(dt).should.equal(14);
+
+    });
+
+    it('2011-11-11が314であること', function() {
+
+        var dt = new Date('2011-11-11');
+        Ext.Date.getDayOfYear(dt).should.equal(314);
 
     });
 

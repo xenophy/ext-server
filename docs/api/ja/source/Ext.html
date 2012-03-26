@@ -191,9 +191,11 @@
 
             if(args.length &gt; 0) {
                 args[args.length - 1] = [
+                    /*
                     'var Ext=global.',
                     this.getUniqueGlobalNamespace(),
                     ';',
+                    */
                     args[args.length - 1]
                 ].join('');
             }
@@ -510,7 +512,7 @@
 
             try {
                 locale = locale || 'en';
-                locale = Ext.util.Format.replace(locale, '/', '');
+                locale = Ext.String.replace(locale, '/', '');
                 Ext.apply(
                     Ext.$locale,
                     Ext.JSON.decode(

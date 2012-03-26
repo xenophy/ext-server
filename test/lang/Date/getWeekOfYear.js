@@ -17,6 +17,10 @@ describe('Ext.Date.getWeekOfYear', function() {
 
     it('こと', function() {
 
+        /*        var dt = new Date('1/23/2007');
+        NX.Date.getWeekOfYear(dt).should.equal(4);
+
+*/
     });
 
 });

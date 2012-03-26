@@ -1114,6 +1114,487 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.Date.add</h1>
+      <dl>
+        <dt>2006年10月29日に5日追加すると2006年11月3日になること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006'), Ext.Date.DAY, 5);
+
+        dt.getFullYear().should.equal(2006);
+        dt.getDate().should.equal(3);
+        dt.getMonth().should.equal(10);</code></pre></dd>
+        <dt>2006年10月29日に5日引くと2006年9月26日になること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/1/2006'), Ext.Date.DAY, -5);
+
+        dt.getFullYear().should.equal(2006);
+        dt.getDate().should.equal(26);
+        dt.getMonth().should.equal(8);</code></pre></dd>
+        <dt>intervalにnullを指定すると、演算されないこと</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/1/2006'), null, -5);
+
+        dt.getFullYear().should.equal(2006);
+        dt.getDate().should.equal(1);
+        dt.getMonth().should.equal(9);</code></pre></dd>
+        <dt>5ミリ秒追加できること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.MILLI, 5);
+
+        dt.getMilliseconds().should.equal(5);</code></pre></dd>
+        <dt>5秒追加できること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.SECOND, 5);
+
+        dt.getSeconds().should.equal(5);</code></pre></dd>
+        <dt>5分追加できること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.MINUTE, 5);
+
+        dt.getMinutes().should.equal(5);</code></pre></dd>
+        <dt>5時間追加できること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.HOUR, 5);
+
+        dt.getHours().should.equal(5);</code></pre></dd>
+        <dt>5ヶ月追加できること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.MONTH, 5);
+
+        dt.getFullYear().should.equal(2007);
+        dt.getMonth().should.equal(2);</code></pre></dd>
+        <dt>5年追加できること</dt>
+        <dd><pre><code>
+
+        var dt9 = Ext.Date.add(new Date('10/29/2006 00:00:00'), Ext.Date.YEAR, 5);
+
+        dt9.getFullYear().should.equal(2011);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.between</h1>
+      <dl>
+        <dt>2011年5月16日が、2011年5月1日から2011年5月20の間であると判定できること</dt>
+        <dd><pre><code>
+
+        Ext.Date.between(new Date('2011/05/16'), new Date('2011/05/01'), new Date('2011/05/20')).should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.clearTime</h1>
+      <dl>
+        <dt>年月日以外が0に初期化されること</dt>
+        <dd><pre><code>
+
+        var dt = Ext.Date.clearTime(new Date('2011/05/16 09:12:54'));
+
+        dt.getFullYear().should.equal(2011);
+        dt.getMonth().should.equal(4);
+        dt.getDate().should.equal(16);
+        dt.getHours().should.equal(0);
+        dt.getMinutes().should.equal(0);
+        dt.getSeconds().should.equal(0);</code></pre></dd>
+        <dt>初期化前と後で、オブジェクトが別であること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011/05/16 09:12:54');
+
+        dt.getFullYear().should.equal(2011);
+        dt.getMonth().should.equal(4);
+        dt.getDate().should.equal(16);
+        dt.getHours().should.equal(9);
+        dt.getMinutes().should.equal(12);
+        dt.getSeconds().should.equal(54);
+
+        var dt2 = Ext.Date.clearTime(dt, true);
+
+        dt2.getFullYear().should.equal(2011);
+        dt2.getMonth().should.equal(4);
+        dt2.getDate().should.equal(16);
+        dt2.getHours().should.equal(0);
+        dt2.getMinutes().should.equal(0);
+        dt2.getSeconds().should.equal(0);
+
+        dt2.should.not.equal(dt);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.clone</h1>
+      <dl>
+        <dt>別オブジェクトが作成されること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011/05/16 09:12:54');
+        var dt2 = Ext.Date.clone(dt);
+
+        dt2.should.not.equal(dt);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.format</h1>
+      <dl>
+        <dt>"Y-m-d"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'Y-m-d').should.equal('2007-01-11');</code></pre></dd>
+        <dt>"F j, Y, g:i a"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'F j, Y, g:i a').should.equal('January 11, 2007, 6:05 am');</code></pre></dd>
+        <dt>"l, \t\he jS \of F Y h:i:s A"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'l, \\t\\he jS \\of F Y h:i:s A').should.equal('Thursday, the 11th of January 2007 06:05:01 AM');</code></pre></dd>
+        <dt>"c"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'c').should.equal('2007-01-11T06:05:01+09:00');</code></pre></dd>
+        <dt>"MS"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'MS').should.equal(&quot;\\/Date(1168463101000)\\/&quot;);</code></pre></dd>
+        <dt>"D"形式で出力できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
+        Ext.Date.format(dt, 'D').should.equal('Thu');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.formatContainsDateInfo</h1>
+      <dl>
+        <dt>"Y-m-d"形式と判定できること</dt>
+        <dd><pre><code>
+
+        Ext.Date.formatContainsDateInfo('2006-01-01').should.equal(false);
+        Ext.Date.formatContainsDateInfo('Y-m-d').should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.formatContainsHourInfo</h1>
+      <dl>
+        <dt>"Y-m-d h:i:s"形式を判定できること</dt>
+        <dd><pre><code>
+
+        Ext.Date.formatContainsHourInfo('2006-01-01').should.equal(false);
+        Ext.Date.formatContainsHourInfo('Y-m-d').should.equal(false);
+        Ext.Date.formatContainsHourInfo('Y-m-d h:i:s').should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getDayOfYear</h1>
+      <dl>
+        <dt>2011-01-15が14であること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011-01-15');
+        Ext.Date.getDayOfYear(dt).should.equal(14);</code></pre></dd>
+        <dt>2011-11-11が314であること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011-11-11');
+        Ext.Date.getDayOfYear(dt).should.equal(314);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getDaysInMonth</h1>
+      <dl>
+        <dt>2011年01月の日数は31であること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011-01-15');
+        Ext.Date.getDaysInMonth(dt).should.equal(31);</code></pre></dd>
+        <dt>2012年02月の日数は31であること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2012-02-15');
+        Ext.Date.getDaysInMonth(dt).should.equal(29);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getElapsed</h1>
+      <dl>
+        <dt>2011年01月15日から2011年01月17日の間を172800000(ミリ秒)で取得できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2011-01-15');
+        var dt2 = new Date('2011-01-17');
+
+        Ext.Date.getElapsed(dt, dt2).should.equal(172800000);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getFirstDateOfMonth</h1>
+      <dl>
+        <dt>2012年1月10日の月始めの日付オブジェクトを取得できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2012-01-10');
+
+        Ext.Date.getFirstDateOfMonth(dt).getFullYear().should.equal(2012);
+        Ext.Date.getFirstDateOfMonth(dt).getMonth().should.equal(0);
+        Ext.Date.getFirstDateOfMonth(dt).getDate().should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getFirstDayOfMonth</h1>
+      <dl>
+        <dt>2007年1月の最初の週が月曜日であると判定できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007');
+
+        Ext.Date.getFirstDayOfMonth(dt).should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getGMTOffset</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2012-01-10');
+        var x = ((new Date).getTimezoneOffset() * -1)/0.6;
+
+        if(x &gt;= 0) {
+            x = '+' + Ext.String.leftPad(x, 4, '0');
+        } else {
+            x = '-' + Ext.String.leftPad(x, 4, '0');
+        }
+
+        Ext.Date.getGMTOffset(dt).should.equal(x);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getLastDateOfMonth</h1>
+      <dl>
+        <dt>2012年1月10日の月終わりの日付オブジェクトを取得できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('2012-01-10');
+
+        Ext.Date.getLastDateOfMonth(dt).getFullYear().should.equal(2012);
+        Ext.Date.getLastDateOfMonth(dt).getMonth().should.equal(0);
+        Ext.Date.getLastDateOfMonth(dt).getDate().should.equal(31);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getLastDayOfMonth</h1>
+      <dl>
+        <dt>2007年1月の最後の週が水曜日であると判定できること</dt>
+        <dd><pre><code>
+
+        var dt = new Date('1/10/2007'),
+
+        lastDay = Ext.Date.getLastDayOfMonth(dt);
+
+        Ext.Date.dayNames[lastDay].should.equal('Wednesday');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getMonthNumber</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        NX.Date.getMonthNumber('Jan').should.equal(0);
+        NX.Date.getMonthNumber('Feb').should.equal(1);
+        NX.Date.getMonthNumber('Mar').should.equal(2);
+        NX.Date.getMonthNumber('Apr').should.equal(3);
+        NX.Date.getMonthNumber('May').should.equal(4);
+        NX.Date.getMonthNumber('Jun').should.equal(5);
+        NX.Date.getMonthNumber('Jul').should.equal(6);
+        NX.Date.getMonthNumber('Aug').should.equal(7);
+        NX.Date.getMonthNumber('Sep').should.equal(8);
+        NX.Date.getMonthNumber('Oct').should.equal(9);
+        NX.Date.getMonthNumber('Nov').should.equal(10);
+        NX.Date.getMonthNumber('Dec').should.equal(11);*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getShortDayName</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        NX.Date.getShortDayName(0).should.equal('Sun');
+        NX.Date.getShortDayName(1).should.equal('Mon');
+        NX.Date.getShortDayName(2).should.equal('Tue');
+        NX.Date.getShortDayName(3).should.equal('Wed');
+        NX.Date.getShortDayName(4).should.equal('Thu');
+        NX.Date.getShortDayName(5).should.equal('Fri');
+        NX.Date.getShortDayName(6).should.equal('Sat');
+
+*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getShortMonthName</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        NX.Date.getShortMonthName(0).should.equal('Jan');
+        NX.Date.getShortMonthName(1).should.equal('Feb');
+        NX.Date.getShortMonthName(2).should.equal('Mar');
+        NX.Date.getShortMonthName(3).should.equal('Apr');
+        NX.Date.getShortMonthName(4).should.equal('May');
+        NX.Date.getShortMonthName(5).should.equal('Jun');
+        NX.Date.getShortMonthName(6).should.equal('Jul');
+        NX.Date.getShortMonthName(7).should.equal('Aug');
+        NX.Date.getShortMonthName(8).should.equal('Sep');
+        NX.Date.getShortMonthName(9).should.equal('Oct');
+        NX.Date.getShortMonthName(10).should.equal('Nov');
+        NX.Date.getShortMonthName(11).should.equal('Dec');*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getSuffix</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        var dt = new Date('1/10/2007');
+        NX.Date.getSuffix(dt).should.equal('th');
+
+        var dt = new Date('1/31/2007');
+        NX.Date.getSuffix(dt).should.equal('st');
+
+        var dt = new Date('1/22/2007');
+        NX.Date.getSuffix(dt).should.equal('nd');
+
+        var dt = new Date('1/23/2007');
+        NX.Date.getSuffix(dt).should.equal('rd');*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getTimezone</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*
+        var dt = new Date('1/23/2007');
+        NX.Date.getTimezone(dt).should.equal('JST');
+
+*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.getWeekOfYear</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        var dt = new Date('1/23/2007');
+        NX.Date.getWeekOfYear(dt).should.equal(4);
+
+*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.isDST</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*
+        var dt = new Date('1/23/2007');
+        NX.Date.isDST(dt).should.equal(false);
+        */</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.isLeapYear</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code></code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.isValid</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code></code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.now</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code></code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Date.parse</h1>
+      <dl>
+        <dt>こと</dt>
+        <dd><pre><code>
+
+        /*        var dt = new Date();
+
+        dt = NX.Date.parse(&quot;2006&quot;, &quot;Y&quot;);
+        NX.Date.format(dt, 'Y').should.equal('2006');
+
+        dt = NX.Date.parse(&quot;2011/01/01&quot;, &quot;Y/m/d&quot;);
+        NX.Date.format(dt, 'Y/m/d').should.equal('2011/01/01');
+
+        dt = NX.Date.parse('00:01:00 m is month', &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;);
+        NX.Date.format(dt, &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;).should.equal('00:01:00 m is month');
+
+        dt = NX.Date.parse(&quot;2006-01-15&quot;, &quot;Y-m-d&quot;);
+        NX.Date.format(dt, 'Y-m-d').should.equal('2006-01-15');
+
+        dt = NX.Date.parse(&quot;2006-01-15 3:20:01 PM&quot;, &quot;Y-m-d g:i:s A&quot;);
+        NX.Date.format(dt, 'Y-m-d g:i:s A').should.equal('2006-01-15 3:20:01 PM');
+
+        dt = NX.Date.parse(&quot;2006-02-29 03:20:01&quot;, &quot;Y-m-d H:i:s&quot;, true);
+        assert.equal(dt, null);
+
+        dt = NX.Date.parse(&quot;2006-01-01 Sun&quot;, &quot;Y-m-d D&quot;);
+        NX.Date.format(dt, 'Y-m-d D').should.equal('2006-01-01 Sun');
+
+        dt = NX.Date.parse(&quot;2006-01-01 Sunday&quot;, &quot;Y-m-d l&quot;);
+        NX.Date.format(dt, 'Y-m-d l').should.equal('2006-01-01 Sunday');
+
+        dt = NX.Date.parse(&quot;2006 January&quot;, &quot;Y F&quot;);
+        NX.Date.format(dt, 'Y F').should.equal('2006 January');
+
+        dt = NX.Date.parse(&quot;2006 Jan&quot;, &quot;Y M&quot;);
+        NX.Date.format(dt, 'Y M').should.equal('2006 Jan');
+
+        dt = NX.Date.parse(&quot;2006&quot;, &quot;o&quot;);
+        NX.Date.format(dt, 'o').should.equal('2006');
+
+        dt = NX.Date.parse(&quot;2006-01-01 12:43:12&quot;, &quot;Y-m-d h:i:s&quot;);
+        NX.Date.format(dt, 'Y-m-d h:i:s').should.equal('2006-01-01 12:43:12');
+
+        dt = NX.Date.parse(&quot;2006-01-01 12:43:12 +02:00&quot;, &quot;Y-m-d h:i:s P&quot;);
+        NX.Date.format(dt, 'Y-m-d h:i:s P').should.equal('2006-01-01 07:43:12 +09:00');
+
+        dt = NX.Date.parse(&quot;2006-01-01 12:43:12 +0200&quot;, &quot;Y-m-d h:i:s O&quot;);
+        NX.Date.format(dt, 'Y-m-d h:i:s O').should.equal('2006-01-01 07:43:12 +0900');
+
+        dt = NX.Date.parse(&quot;2004-02-12T15:19:21+00:00&quot;, &quot;c&quot;);
+        NX.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');
+
+*/</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.Number.contains</h1>
       <dl>
         <dt>2以上、10以下の範囲で5を判定した場合、5が返されること</dt>
@@ -1703,6 +2184,14 @@ Ext.String.urlAppend('http://www.xenophy.com/?foo=bar', 'hoge').should.equal('ht
         <dt>"http://www.xenophy.com/"に""を追加すると"http://www.xenophy.com/"になること</dt>
         <dd><pre><code>
 Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xenophy.com/');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.JSON.encodeDate</h1>
+      <dl>
+        <dt>"yyyy-mm-ddThh:mm:ss"形式を返すこと</dt>
+        <dd><pre><code>
+Ext.JSON.encodeDate(new Date(1999, 11, 31, 23, 59, 59)).should.equal('&quot;1999-12-31T23:59:59&quot;');</code></pre></dd>
       </dl>
     </section>
   </body>

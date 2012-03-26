@@ -15,7 +15,17 @@ require('../../../index.js');
 
 describe('Ext.Date.getDaysInMonth', function() {
 
-    it('こと', function() {
+    it('2011年01月の日数は31であること', function() {
+
+        var dt = new Date('2011-01-15');
+        Ext.Date.getDaysInMonth(dt).should.equal(31);
+
+    });
+
+    it('2012年02月の日数は31であること', function() {
+
+        var dt = new Date('2012-02-15');
+        Ext.Date.getDaysInMonth(dt).should.equal(29);
 
     });
 

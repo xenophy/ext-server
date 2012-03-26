@@ -15,7 +15,12 @@ require('../../../index.js');
 
 describe('Ext.Date.getElapsed', function() {
 
-    it('こと', function() {
+    it('2011年01月15日から2011年01月17日の間を172800000(ミリ秒)で取得できること', function() {
+
+        var dt = new Date('2011-01-15');
+        var dt2 = new Date('2011-01-17');
+
+        Ext.Date.getElapsed(dt, dt2).should.equal(172800000);
 
     });
 

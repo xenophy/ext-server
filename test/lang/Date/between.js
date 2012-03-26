@@ -15,7 +15,9 @@ require('../../../index.js');
 
 describe('Ext.Date.between', function() {
 
-    it('こと', function() {
+    it('2011年5月16日が、2011年5月1日から2011年5月20の間であると判定できること', function() {
+
+        Ext.Date.between(new Date('2011/05/16'), new Date('2011/05/01'), new Date('2011/05/20')).should.equal(true);
 
     });
 

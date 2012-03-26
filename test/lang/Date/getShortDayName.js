@@ -17,6 +17,16 @@ describe('Ext.Date.getShortDayName', function() {
 
     it('こと', function() {
 
+        /*        NX.Date.getShortDayName(0).should.equal('Sun');
+        NX.Date.getShortDayName(1).should.equal('Mon');
+        NX.Date.getShortDayName(2).should.equal('Tue');
+        NX.Date.getShortDayName(3).should.equal('Wed');
+        NX.Date.getShortDayName(4).should.equal('Thu');
+        NX.Date.getShortDayName(5).should.equal('Fri');
+        NX.Date.getShortDayName(6).should.equal('Sat');
+
+*/
+
     });
 
 });

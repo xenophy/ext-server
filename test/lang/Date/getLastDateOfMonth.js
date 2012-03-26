@@ -15,7 +15,13 @@ require('../../../index.js');
 
 describe('Ext.Date.getLastDateOfMonth', function() {
 
-    it('こと', function() {
+    it('2012年1月10日の月終わりの日付オブジェクトを取得できること', function() {
+
+        var dt = new Date('2012-01-10');
+
+        Ext.Date.getLastDateOfMonth(dt).getFullYear().should.equal(2012);
+        Ext.Date.getLastDateOfMonth(dt).getMonth().should.equal(0);
+        Ext.Date.getLastDateOfMonth(dt).getDate().should.equal(31);
 
     });
 

@@ -611,9 +611,7 @@ module.exports = {
             Ext.Date.createFormat(format);
         }
 
-        var result = Ext.Date.formatFunctions[format].call(date);
-
-        return result + '';
+        return Ext.Date.formatFunctions[format].call(date) + '';
     },
 
     // }}}

@@ -15,7 +15,13 @@ require('../../../index.js');
 
 describe('Ext.Date.getFirstDateOfMonth', function() {
 
-    it('こと', function() {
+    it('2012年1月10日の月始めの日付オブジェクトを取得できること', function() {
+
+        var dt = new Date('2012-01-10');
+
+        Ext.Date.getFirstDateOfMonth(dt).getFullYear().should.equal(2012);
+        Ext.Date.getFirstDateOfMonth(dt).getMonth().should.equal(0);
+        Ext.Date.getFirstDateOfMonth(dt).getDate().should.equal(1);
 
     });
 

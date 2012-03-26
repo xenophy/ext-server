@@ -15,8 +15,11 @@ require('../../../index.js');
 
 describe('Ext.Date.getFirstDayOfMonth', function() {
 
-    it('こと', function() {
+    it('2007年1月の最初の週が月曜日であると判定できること', function() {
 
+        var dt = new Date('1/10/2007');
+
+        Ext.Date.getFirstDayOfMonth(dt).should.equal(1);
     });
 
 });
