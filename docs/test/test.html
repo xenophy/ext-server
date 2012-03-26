@@ -1563,6 +1563,382 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.Function.alias</h1>
+      <dl>
+        <dt>関数オブジェクトのエイリアスを作成できること</dt>
+        <dd><pre><code>
+
+        var testObj1 = {
+            testFunc1 : function(){
+                return 'testFunc1';
+            }
+        }
+        var testObj2= {
+            aliasFunc1 : Ext.Function.alias(testObj1, 'testFunc1')
+        }
+
+        testObj2.aliasFunc1().should.equal('testFunc1');
+        testObj1.testFunc1().should.equal(testObj2.aliasFunc1());</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.bind</h1>
+      <dl>
+        <dt>設定した関数オブジェクトから新しい関数オブジェクトを作成できること</dt>
+        <dd><pre><code>
+
+        var f = function(arg1, arg2, arg3) {
+            return arg1 + ':' + arg2 + ':' + arg3;
+        }
+
+        f(1,2).should.equal('1:2:undefined');
+
+        Ext.Function.bind(f, this, [4,5,6], true)().should.equal('4:5:6');</code></pre></dd>
+        <dt>指定した位置へ引数を設定して実行できること</dt>
+        <dd><pre><code>
+
+        var f = function(arg1, arg2, arg3) {
+            return arg1 + ':' + arg2 + ':' + arg3;
+        }
+
+        f(1,2).should.equal('1:2:undefined');
+
+        Ext.Function.bind(f, this, [6], 1)(5,7).should.equal('5:6:7');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.createBuffered</h1>
+      <dl>
+        <dt>デリゲート関数作成し、遅延実行できること</dt>
+        <dd><pre><code>
+
+        var f = function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(50-1,10000);
+
+            done();
+        };
+
+        var startTime = new Date();
+        Ext.Function.createBuffered(f, 50)();</code></pre></dd>
+        <dt>引数を指定したデリゲート関数作成し実行できること</dt>
+        <dd><pre><code>
+
+        var f = function(arg1, arg2, arg3) {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(50-1,10000);
+
+            arg1.should.equal(4);
+            arg2.should.equal(5);
+            arg3.should.equal(6);
+
+            done();
+        }
+
+        var startTime = new Date();
+        Ext.Function.createBuffered(f, 50, this, [4,5,6])();</code></pre></dd>
+        <dt>関数オブジェクトのエイリアスを作成できること2</dt>
+        <dd><pre><code>
+
+        var x = 0;
+        var f = function(arg1, arg2, arg3) {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(50-1,10000);
+
+            arg1.should.equal(4);
+            arg2.should.equal(5);
+            arg3.should.equal(6);
+
+            if(x &gt; 0) {
+                done();
+            }
+            x++;
+        }
+
+        var startTime = new Date();
+        var buff = Ext.Function.createBuffered(f, 50, this, [4,5,6]);
+        buff();
+        buff();</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.createDelayed</h1>
+      <dl>
+        <dt>指定時間後に実行するコールバック関数を作成できること</dt>
+        <dd><pre><code>
+
+        var startTime = new Date();
+        var f = function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(10-1,10000);
+
+            done();
+        };
+
+        var df = Ext.Function.createDelayed(f, 10);
+        df();</code></pre></dd>
+        <dt>スコープを切り替えることができること</dt>
+        <dd><pre><code>
+
+        var startTime = new Date();
+        var f = function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(10-1,10000);
+            this.foo.should.equal('bar');
+
+            done();
+        };
+
+        var df = Ext.Function.createDelayed(f, 10, {foo: 'bar'});
+        df();</code></pre></dd>
+        <dt>引数を指定した指定時間後に実行するコールバック関数を作成できること</dt>
+        <dd><pre><code>
+
+        var startTime = new Date();
+        var f = function(arg1, arg2, arg3) {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(10-1,10000);
+            arg1.should.equal(1);
+            arg2.should.equal(2);
+            arg3.should.equal(3);
+
+            done();
+        };
+
+        var df = Ext.Function.createDelayed(f, 10, {foo: 'bar'}, [1, 2, 3], true);
+        df();</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.createInterceptor</h1>
+      <dl>
+        <dt>インターセプター関数が作成できること</dt>
+        <dd><pre><code>
+
+        var sayHi = function(name){
+            return 'Hi, ' + name;
+        }
+
+        sayHi('Fred').should.equal('Hi, Fred');
+
+        var sayHiToFriend = Ext.Function.createInterceptor(sayHi, function(name){
+            return name == 'Brian';
+        });
+
+        require('assert').equal(sayHiToFriend('Fred'), null);
+        sayHiToFriend('Brian').should.equal('Hi, Brian');</code></pre></dd>
+        <dt>実行される前に実行される関数がnullを指定してもインターセプター関数が実行できること</dt>
+        <dd><pre><code>
+
+        var sayHi = function(name){
+            return 'Hi, ' + name;
+        }
+
+        sayHi('Fred').should.equal('Hi, Fred');
+
+        var sayHiToFriend = Ext.Function.createInterceptor(sayHi, null);
+
+        sayHiToFriend('Fred').should.equal('Hi, Fred');
+        sayHiToFriend('Brian').should.equal('Hi, Brian');</code></pre></dd>
+        <dt>実行される前に実行されるの判定が、falseの場合に、"return test"が返却されること</dt>
+        <dd><pre><code>
+
+        var returnValue = 'return test';
+        var sayHi = function(name){
+            return 'Hi, ' + name;
+        }
+
+        sayHi('Fred').should.equal('Hi, Fred');
+
+        var sayHiToFriend = Ext.Function.createInterceptor(sayHi, function(name){
+            return name == 'Brian';
+        }, this, returnValue);
+
+        require('assert').equal(sayHiToFriend('Fred'), returnValue);
+        sayHiToFriend('Brian').should.equal('Hi, Brian');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.createSequence</h1>
+      <dl>
+        <dt>新たなシーケンス関数が作成できること</dt>
+        <dd><pre><code>
+
+        var ret = '';
+        var sayHi = function(name){
+            ret = 'Hi, ' + name;
+        }
+
+        sayHi('Fred');
+        ret.should.equal('Hi, Fred');
+
+        var sayGoodbye = Ext.Function.createSequence(sayHi, function(name){
+            ret += ' Bye, ' + name;
+        });
+
+        sayGoodbye('Fred');
+
+        ret.should.equal('Hi, Fred Bye, Fred');</code></pre></dd>
+        <dt>シーケンス関数にnullを指定しても実行できること</dt>
+        <dd><pre><code>
+
+        var ret = '';
+        var sayHi = function(name){
+            ret = 'Hi, ' + name;
+        }
+
+        sayHi('Fred');
+        ret.should.equal('Hi, Fred');
+
+        var sayGoodbye = Ext.Function.createSequence(sayHi, null);
+
+        sayGoodbye('Fred');
+
+        ret.should.equal('Hi, Fred');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.createThrottled</h1>
+      <dl>
+        <dt>実行から指定時間後に再度実行する関数を作成できること</dt>
+        <dd><pre><code>
+
+        var i;
+        var startTime = new Date();
+        var cnt = 0;
+        var nf = Ext.Function.createThrottled(function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(100*cnt-1,1000);
+
+            cnt++;
+
+        }, 100);
+
+        for(i=0; i&lt;100; i++) {
+            nf();
+        }
+
+        cnt.should.equal(1);
+        done();</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.defer</h1>
+      <dl>
+        <dt>指定した関数オブジェクトを遅延させて実行させることができること</dt>
+        <dd><pre><code>
+
+        var startTime = new Date();
+
+        Ext.Function.defer(function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(10-1,10000);
+
+        }, 10).should.not.equal(0);</code></pre></dd>
+        <dt>指定した関数オブジェクトを0秒後(即時)実行させることができること</dt>
+        <dd><pre><code>
+
+        var startTime = new Date();
+
+        Ext.Function.defer(function() {
+
+            var endTime = new Date();
+            var msec = endTime - startTime;
+
+            msec.should.be.within(0,10000);
+
+        }).should.equal(0);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.flexSetter</h1>
+      <dl>
+        <dt>引数のキーと値を設定できる関数オブジェクトを作成できること</dt>
+        <dd><pre><code>
+
+        var cnt = 1;
+        var f = Ext.Function.flexSetter(function(key, v) {
+            key.should.equal('key' + cnt);
+            v.should.equal('v' + cnt);
+            cnt++;
+        });
+
+        var o = {key1: 'v1', key2: 'v2'};
+
+        f(o);</code></pre></dd>
+        <dt>引数にnullを指定してもできること</dt>
+        <dd><pre><code>
+
+        var ret = false;
+        var f = Ext.Function.flexSetter(function(key, v) {
+            ret = true;
+        });
+
+        f(null);
+
+        ret.should.be.not.ok;</code></pre></dd>
+        <dt>オブジェクトではなくプリミティブ値をカンマ区切りで指定して、実行できること</dt>
+        <dd><pre><code>
+
+        var ret = '';
+        var f = Ext.Function.flexSetter(function(key, v) {
+            ret = key + ':' + v;
+        });
+
+        f('hoge', 'foo');
+
+        ret.should.equal('hoge:foo');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Function.pass</h1>
+      <dl>
+        <dt>あらかじめ指定された引数で実行する関数を作成できること</dt>
+        <dd><pre><code>
+
+        var sayHi = function(name) {
+            return 'Hi, ' + name;
+        }
+
+        var f = Ext.Function.pass(sayHi, 'Fred');
+
+        f().should.equal('Hi, Fred');</code></pre></dd>
+        <dt>定義時に引数指定がなくても、実行できること</dt>
+        <dd><pre><code>
+
+        var sayHi = function(t, h) {
+            return t + ':' + h;
+        }
+
+        var f = Ext.Function.pass(sayHi);
+        f('test', 'hoge').should.equal('test:hoge');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.Number.contains</h1>
       <dl>
         <dt>2以上、10以下の範囲で5を判定した場合、5が返されること</dt>

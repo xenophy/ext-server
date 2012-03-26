@@ -1,6 +1,7 @@
 TESTS = test/Ext/*.js \
 		test/lang/Array/*.js \
 		test/lang/Date/*.js \
+		test/lang/Function/*.js \
 		test/lang/Number/*.js \
 		test/lang/Object/*.js \
 		test/lang/String/*.js \
