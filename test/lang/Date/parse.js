@@ -64,6 +64,9 @@ describe('Ext.Date.parse', function() {
         dt = Ext.Date.parse("2004-02-12T15:19:21+00:00", "c");
         Ext.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');
 
+        dt = Ext.Date.parse("/Date(1168463101000)/", "MS");
+        Ext.Date.format(dt, 'MS').should.equal("\\/Date(1168463101000)\\/");
+
     });
 
 });

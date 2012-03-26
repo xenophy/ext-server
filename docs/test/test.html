@@ -1578,6 +1578,14 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.Date.isDST</h1>
+      <dl>
+        <dt>DST判定を行うこと</dt>
+        <dd><pre><code>
+Ext.isBoolean(Ext.Date.isDST(new Date())).should.equal(true);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.Date.isValid</h1>
       <dl>
         <dt>こと</dt>
@@ -1635,7 +1643,10 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
         Ext.Date.format(dt, 'Y-m-d h:i:s O').should.equal('2006-01-01 07:43:12 +0900');
 
         dt = Ext.Date.parse(&quot;2004-02-12T15:19:21+00:00&quot;, &quot;c&quot;);
-        Ext.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');</code></pre></dd>
+        Ext.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');
+
+        dt = Ext.Date.parse(&quot;/Date(1168463101000)/&quot;, &quot;MS&quot;);
+        Ext.Date.format(dt, 'MS').should.equal(&quot;\\/Date(1168463101000)\\/&quot;);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
