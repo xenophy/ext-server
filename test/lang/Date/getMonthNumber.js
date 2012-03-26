@@ -15,20 +15,20 @@ require('../../../index.js');
 
 describe('Ext.Date.getMonthNumber', function() {
 
-    it('こと', function() {
+    it('略記で月番号を取得できることこと', function() {
 
-        /*        NX.Date.getMonthNumber('Jan').should.equal(0);
-        NX.Date.getMonthNumber('Feb').should.equal(1);
-        NX.Date.getMonthNumber('Mar').should.equal(2);
-        NX.Date.getMonthNumber('Apr').should.equal(3);
-        NX.Date.getMonthNumber('May').should.equal(4);
-        NX.Date.getMonthNumber('Jun').should.equal(5);
-        NX.Date.getMonthNumber('Jul').should.equal(6);
-        NX.Date.getMonthNumber('Aug').should.equal(7);
-        NX.Date.getMonthNumber('Sep').should.equal(8);
-        NX.Date.getMonthNumber('Oct').should.equal(9);
-        NX.Date.getMonthNumber('Nov').should.equal(10);
-        NX.Date.getMonthNumber('Dec').should.equal(11);*/
+        Ext.Date.getMonthNumber('Jan').should.equal(0);
+        Ext.Date.getMonthNumber('Feb').should.equal(1);
+        Ext.Date.getMonthNumber('Mar').should.equal(2);
+        Ext.Date.getMonthNumber('Apr').should.equal(3);
+        Ext.Date.getMonthNumber('May').should.equal(4);
+        Ext.Date.getMonthNumber('Jun').should.equal(5);
+        Ext.Date.getMonthNumber('Jul').should.equal(6);
+        Ext.Date.getMonthNumber('Aug').should.equal(7);
+        Ext.Date.getMonthNumber('Sep').should.equal(8);
+        Ext.Date.getMonthNumber('Oct').should.equal(9);
+        Ext.Date.getMonthNumber('Nov').should.equal(10);
+        Ext.Date.getMonthNumber('Dec').should.equal(11);
 
     });
 

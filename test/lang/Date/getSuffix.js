@@ -15,19 +15,20 @@ require('../../../index.js');
 
 describe('Ext.Date.getSuffix', function() {
 
-    it('こと', function() {
+    it('接尾辞が取得できること', function() {
 
-        /*        var dt = new Date('1/10/2007');
-        NX.Date.getSuffix(dt).should.equal('th');
+        var dt = new Date('1/10/2007');
+        Ext.Date.getSuffix(dt).should.equal('th');
 
         var dt = new Date('1/31/2007');
-        NX.Date.getSuffix(dt).should.equal('st');
+        Ext.Date.getSuffix(dt).should.equal('st');
 
         var dt = new Date('1/22/2007');
-        NX.Date.getSuffix(dt).should.equal('nd');
+        Ext.Date.getSuffix(dt).should.equal('nd');
 
         var dt = new Date('1/23/2007');
-        NX.Date.getSuffix(dt).should.equal('rd');*/
+        Ext.Date.getSuffix(dt).should.equal('rd');
+
     });
 
 });

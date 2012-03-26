@@ -15,13 +15,11 @@ require('../../../index.js');
 
 describe('Ext.Date.getTimezone', function() {
 
-    it('こと', function() {
+    it('タイムゾーンが取得できること', function() {
 
-        /*
-        var dt = new Date('1/23/2007');
-        NX.Date.getTimezone(dt).should.equal('JST');
+        Ext.Date.getTimezone('Tue Jan 23 2007 00:00:00 GMT+0900 (JST)').should.equal('JST');
+        Ext.Date.getTimezone('Tue Jan 23 2007 00:00:00 GMT+0800 (WITA)').should.equal('WITA');
 
-*/
     });
 
 });

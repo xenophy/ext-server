@@ -1407,121 +1407,98 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
     <section class="suite">
       <h1>Ext.Date.getMonthNumber</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>略記で月番号を取得できることこと</dt>
         <dd><pre><code>
 
-        /*        NX.Date.getMonthNumber('Jan').should.equal(0);
-        NX.Date.getMonthNumber('Feb').should.equal(1);
-        NX.Date.getMonthNumber('Mar').should.equal(2);
-        NX.Date.getMonthNumber('Apr').should.equal(3);
-        NX.Date.getMonthNumber('May').should.equal(4);
-        NX.Date.getMonthNumber('Jun').should.equal(5);
-        NX.Date.getMonthNumber('Jul').should.equal(6);
-        NX.Date.getMonthNumber('Aug').should.equal(7);
-        NX.Date.getMonthNumber('Sep').should.equal(8);
-        NX.Date.getMonthNumber('Oct').should.equal(9);
-        NX.Date.getMonthNumber('Nov').should.equal(10);
-        NX.Date.getMonthNumber('Dec').should.equal(11);*/</code></pre></dd>
+        Ext.Date.getMonthNumber('Jan').should.equal(0);
+        Ext.Date.getMonthNumber('Feb').should.equal(1);
+        Ext.Date.getMonthNumber('Mar').should.equal(2);
+        Ext.Date.getMonthNumber('Apr').should.equal(3);
+        Ext.Date.getMonthNumber('May').should.equal(4);
+        Ext.Date.getMonthNumber('Jun').should.equal(5);
+        Ext.Date.getMonthNumber('Jul').should.equal(6);
+        Ext.Date.getMonthNumber('Aug').should.equal(7);
+        Ext.Date.getMonthNumber('Sep').should.equal(8);
+        Ext.Date.getMonthNumber('Oct').should.equal(9);
+        Ext.Date.getMonthNumber('Nov').should.equal(10);
+        Ext.Date.getMonthNumber('Dec').should.equal(11);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
       <h1>Ext.Date.getShortDayName</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>日番号から略記を取得できること</dt>
         <dd><pre><code>
 
-        /*        NX.Date.getShortDayName(0).should.equal('Sun');
-        NX.Date.getShortDayName(1).should.equal('Mon');
-        NX.Date.getShortDayName(2).should.equal('Tue');
-        NX.Date.getShortDayName(3).should.equal('Wed');
-        NX.Date.getShortDayName(4).should.equal('Thu');
-        NX.Date.getShortDayName(5).should.equal('Fri');
-        NX.Date.getShortDayName(6).should.equal('Sat');
-
-*/</code></pre></dd>
+        Ext.Date.getShortDayName(0).should.equal('Sun');
+        Ext.Date.getShortDayName(1).should.equal('Mon');
+        Ext.Date.getShortDayName(2).should.equal('Tue');
+        Ext.Date.getShortDayName(3).should.equal('Wed');
+        Ext.Date.getShortDayName(4).should.equal('Thu');
+        Ext.Date.getShortDayName(5).should.equal('Fri');
+        Ext.Date.getShortDayName(6).should.equal('Sat');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
       <h1>Ext.Date.getShortMonthName</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>月番号から略記を取得できること</dt>
         <dd><pre><code>
 
-        /*        NX.Date.getShortMonthName(0).should.equal('Jan');
-        NX.Date.getShortMonthName(1).should.equal('Feb');
-        NX.Date.getShortMonthName(2).should.equal('Mar');
-        NX.Date.getShortMonthName(3).should.equal('Apr');
-        NX.Date.getShortMonthName(4).should.equal('May');
-        NX.Date.getShortMonthName(5).should.equal('Jun');
-        NX.Date.getShortMonthName(6).should.equal('Jul');
-        NX.Date.getShortMonthName(7).should.equal('Aug');
-        NX.Date.getShortMonthName(8).should.equal('Sep');
-        NX.Date.getShortMonthName(9).should.equal('Oct');
-        NX.Date.getShortMonthName(10).should.equal('Nov');
-        NX.Date.getShortMonthName(11).should.equal('Dec');*/</code></pre></dd>
+        Ext.Date.getShortMonthName(0).should.equal('Jan');
+        Ext.Date.getShortMonthName(1).should.equal('Feb');
+        Ext.Date.getShortMonthName(2).should.equal('Mar');
+        Ext.Date.getShortMonthName(3).should.equal('Apr');
+        Ext.Date.getShortMonthName(4).should.equal('May');
+        Ext.Date.getShortMonthName(5).should.equal('Jun');
+        Ext.Date.getShortMonthName(6).should.equal('Jul');
+        Ext.Date.getShortMonthName(7).should.equal('Aug');
+        Ext.Date.getShortMonthName(8).should.equal('Sep');
+        Ext.Date.getShortMonthName(9).should.equal('Oct');
+        Ext.Date.getShortMonthName(10).should.equal('Nov');
+        Ext.Date.getShortMonthName(11).should.equal('Dec');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
       <h1>Ext.Date.getSuffix</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>接尾辞が取得できること</dt>
         <dd><pre><code>
 
-        /*        var dt = new Date('1/10/2007');
-        NX.Date.getSuffix(dt).should.equal('th');
+        var dt = new Date('1/10/2007');
+        Ext.Date.getSuffix(dt).should.equal('th');
 
         var dt = new Date('1/31/2007');
-        NX.Date.getSuffix(dt).should.equal('st');
+        Ext.Date.getSuffix(dt).should.equal('st');
 
         var dt = new Date('1/22/2007');
-        NX.Date.getSuffix(dt).should.equal('nd');
+        Ext.Date.getSuffix(dt).should.equal('nd');
 
         var dt = new Date('1/23/2007');
-        NX.Date.getSuffix(dt).should.equal('rd');*/</code></pre></dd>
+        Ext.Date.getSuffix(dt).should.equal('rd');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
       <h1>Ext.Date.getTimezone</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>タイムゾーンが取得できること</dt>
         <dd><pre><code>
 
-        /*
-        var dt = new Date('1/23/2007');
-        NX.Date.getTimezone(dt).should.equal('JST');
-
-*/</code></pre></dd>
+        Ext.Date.getTimezone('Tue Jan 23 2007 00:00:00 GMT+0900 (JST)').should.equal('JST');
+        Ext.Date.getTimezone('Tue Jan 23 2007 00:00:00 GMT+0800 (WITA)').should.equal('WITA');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
       <h1>Ext.Date.getWeekOfYear</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>2012年2月1日が5週目であると判定できること</dt>
         <dd><pre><code>
 
-        /*        var dt = new Date('1/23/2007');
-        NX.Date.getWeekOfYear(dt).should.equal(4);
+        var dt = new Date('2012-02-01');
+        Ext.Date.getWeekOfYear(dt).should.equal(5);
 
-*/</code></pre></dd>
-      </dl>
-    </section>
-    <section class="suite">
-      <h1>Ext.Date.isDST</h1>
-      <dl>
-        <dt>こと</dt>
-        <dd><pre><code>
-
-        /*
-        var dt = new Date('1/23/2007');
-        NX.Date.isDST(dt).should.equal(false);
-        */</code></pre></dd>
-      </dl>
-    </section>
-    <section class="suite">
-      <h1>Ext.Date.isLeapYear</h1>
-      <dl>
-        <dt>こと</dt>
-        <dd><pre><code></code></pre></dd>
+        var dt = new Date('2013-01-01');
+        Ext.Date.getWeekOfYear(dt).should.equal(1);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
@@ -1532,66 +1509,57 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
-      <h1>Ext.Date.now</h1>
-      <dl>
-        <dt>こと</dt>
-        <dd><pre><code></code></pre></dd>
-      </dl>
-    </section>
-    <section class="suite">
       <h1>Ext.Date.parse</h1>
       <dl>
-        <dt>こと</dt>
+        <dt>日付をフォーマット形式に従って解析できること</dt>
         <dd><pre><code>
 
-        /*        var dt = new Date();
+        var dt = new Date();
 
-        dt = NX.Date.parse(&quot;2006&quot;, &quot;Y&quot;);
-        NX.Date.format(dt, 'Y').should.equal('2006');
+        dt = Ext.Date.parse(&quot;2006&quot;, &quot;Y&quot;);
+        Ext.Date.format(dt, 'Y').should.equal('2006');
 
-        dt = NX.Date.parse(&quot;2011/01/01&quot;, &quot;Y/m/d&quot;);
-        NX.Date.format(dt, 'Y/m/d').should.equal('2011/01/01');
+        dt = Ext.Date.parse(&quot;2011/01/01&quot;, &quot;Y/m/d&quot;);
+        Ext.Date.format(dt, 'Y/m/d').should.equal('2011/01/01');
 
-        dt = NX.Date.parse('00:01:00 m is month', &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;);
-        NX.Date.format(dt, &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;).should.equal('00:01:00 m is month');
+        dt = Ext.Date.parse('00:01:00 m is month', &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;);
+        Ext.Date.format(dt, &quot;H:m:s \\m \\i\\s\ \\m\\o\\n\\t\\h&quot;).should.equal('00:01:00 m is month');
 
-        dt = NX.Date.parse(&quot;2006-01-15&quot;, &quot;Y-m-d&quot;);
-        NX.Date.format(dt, 'Y-m-d').should.equal('2006-01-15');
+        dt = Ext.Date.parse(&quot;2006-01-15&quot;, &quot;Y-m-d&quot;);
+        Ext.Date.format(dt, 'Y-m-d').should.equal('2006-01-15');
 
-        dt = NX.Date.parse(&quot;2006-01-15 3:20:01 PM&quot;, &quot;Y-m-d g:i:s A&quot;);
-        NX.Date.format(dt, 'Y-m-d g:i:s A').should.equal('2006-01-15 3:20:01 PM');
+        dt = Ext.Date.parse(&quot;2006-01-15 3:20:01 PM&quot;, &quot;Y-m-d g:i:s A&quot;);
+        Ext.Date.format(dt, 'Y-m-d g:i:s A').should.equal('2006-01-15 3:20:01 PM');
 
-        dt = NX.Date.parse(&quot;2006-02-29 03:20:01&quot;, &quot;Y-m-d H:i:s&quot;, true);
-        assert.equal(dt, null);
+        dt = Ext.Date.parse(&quot;2006-02-29 03:20:01&quot;, &quot;Y-m-d H:i:s&quot;, true);
+        require('assert').equal(dt, null);
 
-        dt = NX.Date.parse(&quot;2006-01-01 Sun&quot;, &quot;Y-m-d D&quot;);
-        NX.Date.format(dt, 'Y-m-d D').should.equal('2006-01-01 Sun');
+        dt = Ext.Date.parse(&quot;2006-01-01 Sun&quot;, &quot;Y-m-d D&quot;);
+        Ext.Date.format(dt, 'Y-m-d D').should.equal('2006-01-01 Sun');
 
-        dt = NX.Date.parse(&quot;2006-01-01 Sunday&quot;, &quot;Y-m-d l&quot;);
-        NX.Date.format(dt, 'Y-m-d l').should.equal('2006-01-01 Sunday');
+        dt = Ext.Date.parse(&quot;2006-01-01 Sunday&quot;, &quot;Y-m-d l&quot;);
+        Ext.Date.format(dt, 'Y-m-d l').should.equal('2006-01-01 Sunday');
 
-        dt = NX.Date.parse(&quot;2006 January&quot;, &quot;Y F&quot;);
-        NX.Date.format(dt, 'Y F').should.equal('2006 January');
+        dt = Ext.Date.parse(&quot;2006 January&quot;, &quot;Y F&quot;);
+        Ext.Date.format(dt, 'Y F').should.equal('2006 January');
 
-        dt = NX.Date.parse(&quot;2006 Jan&quot;, &quot;Y M&quot;);
-        NX.Date.format(dt, 'Y M').should.equal('2006 Jan');
+        dt = Ext.Date.parse(&quot;2006 Jan&quot;, &quot;Y M&quot;);
+        Ext.Date.format(dt, 'Y M').should.equal('2006 Jan');
 
-        dt = NX.Date.parse(&quot;2006&quot;, &quot;o&quot;);
-        NX.Date.format(dt, 'o').should.equal('2006');
+        dt = Ext.Date.parse(&quot;2006&quot;, &quot;o&quot;);
+        Ext.Date.format(dt, 'o').should.equal('2006');
 
-        dt = NX.Date.parse(&quot;2006-01-01 12:43:12&quot;, &quot;Y-m-d h:i:s&quot;);
-        NX.Date.format(dt, 'Y-m-d h:i:s').should.equal('2006-01-01 12:43:12');
+        dt = Ext.Date.parse(&quot;2006-01-01 12:43:12&quot;, &quot;Y-m-d h:i:s&quot;);
+        Ext.Date.format(dt, 'Y-m-d h:i:s').should.equal('2006-01-01 12:43:12');
 
-        dt = NX.Date.parse(&quot;2006-01-01 12:43:12 +02:00&quot;, &quot;Y-m-d h:i:s P&quot;);
-        NX.Date.format(dt, 'Y-m-d h:i:s P').should.equal('2006-01-01 07:43:12 +09:00');
+        dt = Ext.Date.parse(&quot;2006-01-01 12:43:12 +02:00&quot;, &quot;Y-m-d h:i:s P&quot;);
+        Ext.Date.format(dt, 'Y-m-d h:i:s P').should.equal('2006-01-01 07:43:12 +09:00');
 
-        dt = NX.Date.parse(&quot;2006-01-01 12:43:12 +0200&quot;, &quot;Y-m-d h:i:s O&quot;);
-        NX.Date.format(dt, 'Y-m-d h:i:s O').should.equal('2006-01-01 07:43:12 +0900');
+        dt = Ext.Date.parse(&quot;2006-01-01 12:43:12 +0200&quot;, &quot;Y-m-d h:i:s O&quot;);
+        Ext.Date.format(dt, 'Y-m-d h:i:s O').should.equal('2006-01-01 07:43:12 +0900');
 
-        dt = NX.Date.parse(&quot;2004-02-12T15:19:21+00:00&quot;, &quot;c&quot;);
-        NX.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');
-
-*/</code></pre></dd>
+        dt = Ext.Date.parse(&quot;2004-02-12T15:19:21+00:00&quot;, &quot;c&quot;);
+        Ext.Date.format(dt, 'c').should.equal('2004-02-13T00:19:21+09:00');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">

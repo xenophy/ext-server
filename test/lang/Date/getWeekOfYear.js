@@ -15,12 +15,14 @@ require('../../../index.js');
 
 describe('Ext.Date.getWeekOfYear', function() {
 
-    it('こと', function() {
+    it('2012年2月1日が5週目であると判定できること', function() {
 
-        /*        var dt = new Date('1/23/2007');
-        NX.Date.getWeekOfYear(dt).should.equal(4);
+        var dt = new Date('2012-02-01');
+        Ext.Date.getWeekOfYear(dt).should.equal(5);
 
-*/
+        var dt = new Date('2013-01-01');
+        Ext.Date.getWeekOfYear(dt).should.equal(1);
+
     });
 
 });

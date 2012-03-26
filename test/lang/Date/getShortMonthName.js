@@ -15,20 +15,21 @@ require('../../../index.js');
 
 describe('Ext.Date.getShortMonthName', function() {
 
-    it('こと', function() {
+    it('月番号から略記を取得できること', function() {
 
-        /*        NX.Date.getShortMonthName(0).should.equal('Jan');
-        NX.Date.getShortMonthName(1).should.equal('Feb');
-        NX.Date.getShortMonthName(2).should.equal('Mar');
-        NX.Date.getShortMonthName(3).should.equal('Apr');
-        NX.Date.getShortMonthName(4).should.equal('May');
-        NX.Date.getShortMonthName(5).should.equal('Jun');
-        NX.Date.getShortMonthName(6).should.equal('Jul');
-        NX.Date.getShortMonthName(7).should.equal('Aug');
-        NX.Date.getShortMonthName(8).should.equal('Sep');
-        NX.Date.getShortMonthName(9).should.equal('Oct');
-        NX.Date.getShortMonthName(10).should.equal('Nov');
-        NX.Date.getShortMonthName(11).should.equal('Dec');*/
+        Ext.Date.getShortMonthName(0).should.equal('Jan');
+        Ext.Date.getShortMonthName(1).should.equal('Feb');
+        Ext.Date.getShortMonthName(2).should.equal('Mar');
+        Ext.Date.getShortMonthName(3).should.equal('Apr');
+        Ext.Date.getShortMonthName(4).should.equal('May');
+        Ext.Date.getShortMonthName(5).should.equal('Jun');
+        Ext.Date.getShortMonthName(6).should.equal('Jul');
+        Ext.Date.getShortMonthName(7).should.equal('Aug');
+        Ext.Date.getShortMonthName(8).should.equal('Sep');
+        Ext.Date.getShortMonthName(9).should.equal('Oct');
+        Ext.Date.getShortMonthName(10).should.equal('Nov');
+        Ext.Date.getShortMonthName(11).should.equal('Dec');
+
     });
 
 });
