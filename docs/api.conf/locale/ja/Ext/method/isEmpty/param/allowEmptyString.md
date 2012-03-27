@@ -1,1 +1,1 @@
-(optional) true to allow empty strings (defaults to false)
+(オプション)空文字列を空としない場合はtrueを設定(初期値:false)

@@ -1,5 +1,4 @@
-The Ext namespace (global object) encapsulates all classes, singletons, and utility methods provided by Sencha's libraries.</p>
-Most user interface Components are at a lower level of nesting in the namespace, but many common utility functions are provided
-as direct properties of the Ext namespace.
+名前空間 Ext (グローバルなオブジェクト)は、 クラス、シングルトン、便利なメソッドを内包するSenchaが提供するライブラリです。
 
-For more information about how to use the Ext classes, see
+"大部分のUIコンポーネントは、下層レベルの名前空間として階層化されています。
+しかし、多くの便利な関数は、Extオブジェクトのプロパティとして提供されます。 また、他のクラスメソッドで、頻繁に利用されるメソッドは、Extオブジェクトのショートカットとして提供されます。"

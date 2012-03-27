@@ -1,1 +1,1 @@
-The object or array to be iterated.
+繰り返しを行うオブジェクトか配列

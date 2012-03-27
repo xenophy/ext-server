@@ -1,1 +1,1 @@
-Returns true if the passed value is a JavaScript Object, false otherwise.
+値が、オブジェクト型の場合true、そうでない場合はfalseを返します。

@@ -1,1 +1,1 @@
-The receiver of the properties
+適用されるオブジェクト

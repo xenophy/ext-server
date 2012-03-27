@@ -1,2 +1,1 @@
-(Optional) The scope (`this` reference) in which the specified function is executed.
-Defaults to the object being iterated itself.
+呼び出される関数スコープオブジェクトを設定します。デフォルト値は、繰り返されるオブジェクトです。

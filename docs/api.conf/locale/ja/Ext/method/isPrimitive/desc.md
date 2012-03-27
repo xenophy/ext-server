@@ -1,1 +1,1 @@
-Returns true if the passed value is a JavaScript 'primitive', a string, number or boolean.
+値が、文字列型か数値型か真偽型の場合はtrue、そうでない場合はfalseを返します。

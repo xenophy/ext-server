@@ -1,1 +1,1 @@
-Returns true if the passed value is a number. Returns false for non-finite numbers.
+値が数値型の場合true、そうでない場合はfalseを返します。

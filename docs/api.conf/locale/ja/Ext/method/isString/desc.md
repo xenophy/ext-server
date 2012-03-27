@@ -1,1 +1,1 @@
-Returns true if the passed value is a string.
+値が文字列型の場合はtrue、そうでない場合はfalseを返します。

@@ -1,1 +1,1 @@
-The source of the properties
+適用するオブジェクト

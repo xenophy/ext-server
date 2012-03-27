@@ -1,2 +1,1 @@
-
-
+Ext.Array.toArrayのエリアス。

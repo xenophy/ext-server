@@ -1,1 +1,1 @@
-A different object that will also be applied for default values
+初期値として適用されるオブジェクト

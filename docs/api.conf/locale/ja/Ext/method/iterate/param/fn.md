@@ -1,3 +1,5 @@
-The function to be called for each iteration. See and {@link Ext.Array#each Ext.Array.each} and
-{@link Ext.Object#each Ext.Object.each} for detailed lists of arguments passed to this function depending on the given object
-type that is being iterated.
+繰り返し時に呼び出す関数を設定します。 繰り返しを行うオブジェクトの種別によって、引数が異なります。 詳しくは、 Ext.Array.eachと Ext.Object.each を参照してください。
+<a href="#!/api/Ext.Array-method-each" rel="Ext.Array-method-each" class="docClass" id="ext-gen2463">Ext.Array.each</a>
+と
+<a href="#!/api/Ext.Object-method-each" rel="Ext.Object-method-each" class="docClass" id="ext-gen2462">Ext.Object.each</a>
+を参照してください。

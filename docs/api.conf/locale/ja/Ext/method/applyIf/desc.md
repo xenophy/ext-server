@@ -1,1 +1,1 @@
-Copies all the properties of config to object if they don't already exist.
+プロパティ値が存在しないものに対して、設定されたコンフィグオブジェクトをオブジェクトにコピーします。 既に存在するプロパティは上書きしません。
