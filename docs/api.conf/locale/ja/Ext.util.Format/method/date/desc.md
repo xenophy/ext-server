@@ -1,1 +1,1 @@
-Formats the passed date using the specified format pattern.
+渡された日付を指定されたフォーマットパターンにフォーマットします。

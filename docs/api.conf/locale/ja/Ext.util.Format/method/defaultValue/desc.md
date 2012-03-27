@@ -1,1 +1,1 @@
-Checks a reference and converts it to the default value if it's empty
+参照を確認し、空である場合にデフォルト値に変換します。

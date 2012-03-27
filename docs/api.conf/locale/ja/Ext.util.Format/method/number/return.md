@@ -1,1 +1,1 @@
-The formatted number.
+フォーマットされた文字列。

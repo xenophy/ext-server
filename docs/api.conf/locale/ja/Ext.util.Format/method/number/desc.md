@@ -1,32 +1,33 @@
-Formats the passed number according to the passed format string.
+数値をフォーマット文字列に従って整形します。
 
-The number of digits after the decimal separator character specifies the number of
-decimal places in the resulting string. The <u>local-specific</u> decimal character is used in the result.
+小数点の後の数字の数は結果文字列の中での小数値の桁数を指定します。
 
-The <i>presence</i> of a thousand separator character in the format string specifies that
-the <u>locale-specific</u> thousand separator (if any) is inserted separating thousand groups.
+結果に挿入される小数点の文字には<u>ローカル指定</u>されたものが使われます。
 
-By default, "," is expected as the thousand separator, and "." is expected as the decimal separator.
+千単位の区切り文字がフォーマット文字列の中に入っていると、
+<u>ローカル指定</u>された千単位の区切り文字が3桁毎に挿入されます。
 
-Locale-specific characters are always used in the formatted output when inserting
-thousand and decimal separators.
+デフォルトでは、","が千単位の区切り文字、"."が小数点として扱われます。
 
-The format string must specify separator characters according to US/UK conventions ("," as the
-thousand separator, and "." as the decimal separator)
+千単位の区切りや小数点が挿入されるときには、常にローカル指定の文字が使われます。
 
-To allow specification of format strings according to local conventions for separator characters, add
-the string <code>/i</code> to the end of the format string.
+フォーマット文字列には英米規則に従った文字を指定します。
+(","が千単位の区切り文字、"."が小数点)
 
-examples (123456.789):
+フォーマット文字列での指定にローカル規則に合う文字で指定できるようにするには、
+<code>/i</code>をフォーマット文字列の終わりに追加します。
 
-* 0 - (123456) show only digits, no precision<br>
-* 0.00 - (123456.78) show only digits, 2 precision<br>
-* 0.0000 - (123456.7890) show only digits, 4 precision<br>
-* 0,000 - (123,456) show comma and digits, no precision<br>
-* 0,000.00 - (123,456.78) show comma and digits, 2 precision<br>
-* 0,0.00 - (123,456.78) shortcut method, show comma and digits, 2 precision<br>
+例 (123456.789):
+
+* 0 - (123456) 数字のみ表示、小数はなし<br>
+* 0.00 - (123456.78) 数字のみ表示、小数点以下は 2桁<br>
+* 0.0000 - (123456.7890) 数字のみ表示、小数点以下は 4桁<br>
+* 0,000 - (123,456) コンマと数字を表示、小数はなし<br>
+* 0,000.00 - (123,456.78) コンマと数字を表示、小数点以下は 2桁<br>
+* 0,0.00 - (123,456.78) 短い書き方。コンマと数字を表示、小数点以下は 2桁<br>
 
 To allow specification of the formatting string using UK/US grouping characters (,) and decimal (.) for international numbers, add /i to the end.
+英米の区切り文字(,)や小数点(.)を国際的な表現での指定をする場合は、/iを最後につけます。
 
-For example: 0.000,00/i
+例: 0.000,00/i
 

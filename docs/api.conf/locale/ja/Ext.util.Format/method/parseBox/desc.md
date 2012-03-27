@@ -1,2 +1,4 @@
-Parses a number or string representing margin sizes into an object. Supports CSS-style margin declarations
-(e.g. 10, "10", "10 10", "10 10 10" and "10 10 10 10" are all valid options and would return the same result)
+マージンサイズを表現する数値や文字列をパースしてオブジェクトを返します。
+CSSスタイルのマージン設定をサポートします。
+(例: 10, "10", "10 10", "10 10 10", "10 10 10 10"
+これらは全て正しくて、同じオブジェクトが返されます)

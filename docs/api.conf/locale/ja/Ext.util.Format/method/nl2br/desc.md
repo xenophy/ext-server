@@ -1,1 +1,1 @@
-Converts newline characters to the HTML tag &lt;br/&gt;
+改行文字を<br/>タグに変換します。

@@ -1,1 +1,1 @@
-Format a number as Japanese currency
+数値の日本の通貨にフォーマットします。

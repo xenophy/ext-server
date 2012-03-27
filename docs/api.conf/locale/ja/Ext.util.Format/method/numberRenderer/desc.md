@@ -1,1 +1,1 @@
-Returns a number rendering function that can be reused to apply a number format multiple times efficiently
+数値フォーマットを複数回適用するときに再利用できる数値を描画する関数を返します。

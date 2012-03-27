@@ -1,1 +1,1 @@
-Returns a date rendering function that can be reused to apply a date format multiple times efficiently
+複数回日付フォーマットを適用する場合に効率的な、日付レンダリング関数を返します。

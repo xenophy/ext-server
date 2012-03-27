@@ -1,1 +1,1 @@
-The formatted currency string
+フォーマットされた通貨記号

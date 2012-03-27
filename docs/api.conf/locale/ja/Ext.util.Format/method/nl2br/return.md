@@ -1,1 +1,1 @@
-The string with embedded &lt;br/> tags in place of newlines.
+改行文字を<br/>タグにした文字列

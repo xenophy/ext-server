@@ -1,1 +1,1 @@
-Converts a string to all lower case letters
+文字をすべて小文字に変換します。

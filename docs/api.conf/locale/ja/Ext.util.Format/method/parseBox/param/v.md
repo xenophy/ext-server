@@ -1,1 +1,1 @@
-The encoded margins
+エンコードされたマージン。

@@ -1,1 +1,1 @@
-The formatted file size
+フォーマットされたファイルサイズ

@@ -1,1 +1,1 @@
-Simple format for a file size (xxx bytes, xxx KB, xxx MB)
+ファイルサイズのためのシンプルなフォーマット(xxx bytes, xxx KB, xxx MB)

@@ -1,1 +1,1 @@
-The date formatting function
+日付フォーマット関数

@@ -1,1 +1,1 @@
-Escapes the passed string for use in a regular expression
+正規表現で使用するために、渡された文字列をエスケープします。

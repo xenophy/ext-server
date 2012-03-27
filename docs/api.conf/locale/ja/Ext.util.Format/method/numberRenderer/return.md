@@ -1,1 +1,1 @@
-The number formatting function
+数値フォーマット関数。

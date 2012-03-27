@@ -1,1 +1,1 @@
-The converted text
+変換されたテキスト

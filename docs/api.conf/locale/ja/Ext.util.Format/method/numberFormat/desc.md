@@ -1,1 +1,1 @@
-Formats a number with grouped thousands
+数値を千単位のグループ区切りをつけてフォーマットします。

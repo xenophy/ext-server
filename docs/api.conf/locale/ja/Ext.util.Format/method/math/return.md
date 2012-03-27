@@ -1,1 +1,1 @@
-A function that operates on the passed value.
+渡された値が関数によって評価された値。

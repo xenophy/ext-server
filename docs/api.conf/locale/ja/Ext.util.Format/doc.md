@@ -1,20 +1,22 @@
-This class is a centralized place for formatting functions. It includes
-functions to format various different types of data, such as text, dates and numeric values.
+このクラスは、ライブラリ内部のフォーマットするための関数を一元管理しているものです。
+これには、テキスト、日付や数値などのデータをさまざまなタイプの書式設定する関数が含まれています。
 
-__Localization__
-This class contains several options for localization. These can be set once the library has loaded,
-all calls to the functions from that point will use the locale settings that were specified.
-Options include:
+__ローカライゼーション__
+このクラスは、ローカライズのためのいくつかのオプションが含まれています。
+これらはライブラリがロードされると、その時点から関数のすべての呼び出しで指定したロケール設定を使用するように設定することができます。
+オプションは次の通りです:
+
 - thousandSeparator
 - decimalSeparator
 - currenyPrecision
 - currencySign
 - currencyAtEnd
-This class also uses the default date format defined here: {@link Ext.Date#defaultFormat}.
 
-__Using with renderers__
-There are two helper functions that return a new function that can be used in conjunction with
-grid renderers:
+また、このクラスはここで定義されている、デフォルトの日付フォーマットも使用できます:
+<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" id="ext-gen7079">Ext.Date.defaultFormat</a>.
+
+__rendererでの使用__
+gridのrendererと組み合わせて使用することができる新しい関数を返す、２つのヘルパー関数があります:
 
     columns: [{
         dataIndex: 'date',
@@ -24,7 +26,8 @@ grid renderers:
         renderer: Ext.util.Format.numberRenderer('0.000')
     }]
 
-Functions that only take a single argument can also be passed directly:
+単一の引数を取る関数を直接渡すことができます:
+
     columns: [{
         dataIndex: 'cost',
         renderer: Ext.util.Format.usMoney
@@ -33,8 +36,8 @@ Functions that only take a single argument can also be passed directly:
         renderer: Ext.util.Format.uppercase
     }]
 
-__Using with XTemplates__
-XTemplates can also directly use Ext.util.Format functions:
+__XTemplateでの使用__
+XTemplateは直接Ext.util.Formatを使用することができます:
 
     new Ext.XTemplate([
         'Date: {startDate:date("Y-m-d")}',

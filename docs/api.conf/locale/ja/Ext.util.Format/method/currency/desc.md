@@ -1,1 +1,1 @@
-Format a number as a currency
+数値を通貨としてフォーマットします。

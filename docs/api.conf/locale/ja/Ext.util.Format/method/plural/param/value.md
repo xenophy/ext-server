@@ -1,1 +1,1 @@
-TThe value to compare againsthe encoded margins
+The value to compare against
