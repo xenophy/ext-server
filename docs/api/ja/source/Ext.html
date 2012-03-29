@@ -32,6 +32,9 @@
  */
 (function() {
 
+    var objectPrototype = Object.prototype,
+        toString = objectPrototype.toString;
+
     if(typeof global.Ext === 'undefined') {
         global.Ext = { global: global };
     }
@@ -69,6 +72,24 @@
 
     Ext.apply(Ext, {
 
+        // {{{ name
+
+<span id='Ext-property-name'>        /**
+</span>         * @property {String} [name='Ext']
+         *
+         * {Ext:property-name:desc}
+         */
+        name: Ext.sandboxName || 'Ext',
+
+        // }}}
+        // {{{ emptyString
+
+<span id='Ext-property-emptyString'>        /**
+</span>         * {Ext:property-emptyString:desc}
+         */
+        emptyString: new String(),
+
+        // }}}
         // {{{ $locale
 
         // private
@@ -89,6 +110,17 @@
             });
 
             return Ext.String.format.apply(this, arg);
+        },
+
+        // }}}
+        // {{{ emptyFn
+
+<span id='Ext-method-emptyFn'>        /**
+</span>         * {Ext:method-emptyFn:desc}
+         *
+         * @method
+         */
+        emptyFn: function() {
         },
 
         // }}}
@@ -116,117 +148,215 @@
         },
 
         // }}}
-        // {{{ clone
+        // {{{ iterate
 
-<span id='Ext-method-clone'>        /**
-</span>         * {Ext:method-clone:desc}
+<span id='Ext-method-iterate'>        /**
+</span>         * {Ext:method-iterate:desc}
          *
-         * @param {Object} item {Ext:method-clone:desc}
-         * @return {Object} {Ext:method-clone:return}
+         * @param {Object/Array} object {Ext:method-microtime:param_object}
+         * @param {Function} fn {Ext:method-microtime:param_fn}
+         * @param {Object} scope {Ext:method-microtime:param_scope}
          */
-        clone: function(item) {
+        iterate: function(object, fn, scope) {
 
-            if(item === null || item === undefined) {
-                return item;
+            if(Ext.isEmpty(object)) {
+                return;
             }
 
-            var type = toString.call(item);
-
-            if(type === '[object Date]') {
-                return new Date(item.getTime());
+            if(scope === undefined) {
+                scope = object;
             }
 
-            var i, j, k, clone, key;
+            if(Ext.isIterable(object)) {
 
-            if(type === '[object Array]') {
+                Ext.Array.each.call(Ext.Array, object, fn, scope);
 
-                i = item.length;
-                clone = [];
+            } else {
 
-                while(i--) {
-                    clone[i] = Ext.clone(item[i]);
+                Ext.Object.each.call(Ext.Object, object, fn, scope);
+
+            }
+        }
+
+        // }}}
+
+    });
+
+
+    Ext.apply(Ext, {
+
+        // {{{ extend
+
+<span id='Ext-method-extend'>        /**
+</span>         * @private
+         * @method
+         */
+        extend: (function() {
+
+            var objectConstructor = objectPrototype.constructor,
+                inlineOverrides;
+
+            inlineOverrides = function(o) {
+                for(var m in o) {
+                    if(!o.hasOwnProperty(m)) {
+                        continue;
+                    }
+                    this[m] = o[m];
+                }
+            };
+
+            return function(subclass, superclass, overrides) {
+
+                if(Ext.isObject(superclass)) {
+                    overrides = superclass;
+                    superclass = subclass;
+                    subclass = overrides.constructor !== objectConstructor ? overrides.constructor : function() {
+                        superclass.apply(this, arguments);
+                    };
                 }
 
-            } else if(type === '[object Object]' &amp;&amp; item.constructor === Object) {
-
-                clone = {};
-
-                for(key in item) {
-                    clone[key] = Ext.clone(item[key]);
+                if(!superclass) {
+                    Ext.Error.raise({
+                        sourceClass: 'Ext',
+                        sourceMethod: 'extend',
+                        msg: 'Attempting to extend from a class which has not been loaded on the page.'
+                    });
                 }
 
-            }
+                var F = function() {},
+                    subclassProto, superclassProto = superclass.prototype;
 
-            return clone || item;
+                F.prototype = superclassProto;
+                subclassProto = subclass.prototype = new F();
+                subclassProto.constructor = subclass;
+                subclass.superclass = superclassProto;
 
-        },
+                if(superclassProto.constructor === objectConstructor) {
+                    superclassProto.constructor = superclass;
+                }
+
+                subclass.override = function(overrides) {
+                    Ext.override(subclass, overrides);
+                };
+
+                subclassProto.override = inlineOverrides;
+                subclassProto.proto = subclassProto;
+
+                subclass.override(overrides);
+                subclass.extend = function(o) {
+                    return Ext.extend(subclass, o);
+                };
+
+                return subclass;
+            };
+        }()),
 
         // }}}
-        // {{{ emptyFn
+        // {{{ override
 
-<span id='Ext-method-emptyFn'>        /**
-</span>         * {Ext:method-emptyFn:desc}
+<span id='Ext-method-override'>        /**
+</span>         * @private
          */
-        emptyFn: function() {
-        },
-
-        // }}}
-        // {{{ functionFactory
-
-        // privatec
-        functionFactory: function() {
-
-            var args = Array.prototype.slice.call(arguments);
-
-            if(args.length &gt; 0) {
-                args[args.length - 1] = [
-                    /*
-                    'var Ext=global.',
-                    this.getUniqueGlobalNamespace(),
-                    ';',
-                    */
-                    args[args.length - 1]
-                ].join('');
+        override: function(cls, overrides) {
+            if (cls.$isClass) {
+                return cls.override(overrides);
             }
-
-            return Function.prototype.constructor.apply(Function.prototype, args);
-        },
+            else {
+                Ext.apply(cls.prototype, overrides);
+            }
+        }
 
         // }}}
-        // {{{ getRandomInt
 
-<span id='Ext-method-getRandomInt'>        /**
-</span>         * {Ext:method-getRandomInt:desc}
+    });
+
+    Ext.apply(Ext, {
+
+        // {{{ valueFrom
+
+<span id='Ext-method-valueFrom'>        /**
+</span>         * {Ext:method-valueFrom:desc}
          *
-         * @param {Number} min {Ext:method-getRandomInt:param_min}
-         * @param {Number} max {Ext:method-getRandomInt:param_max}
-         * @return {Number} {Ext:method-getRandomInt:return}random value
+         * @param {Object} value {Ext:method-valueFrom:param_value}
+         * @param {Object} defaultValue {Ext:method-valueFrom:param_defaultValue}
+         * @param {Boolean} allowBlank {Ext:method-valueFrom:param_allowBlank}
+         * @return {Object} {Ext:method-valueFrom:return}
          */
-        getRandomInt: function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        valueFrom: function(value, defaultValue, allowBlank){
+            return Ext.isEmpty(value, allowBlank) ? defaultValue : value;
         },
 
         // }}}
-        // {{{ getUniqueGlobalNamespace
+        // {{{ typeOf
 
-        // private
-        getUniqueGlobalNamespace: function() {
+<span id='Ext-method-typeOf'>        /**
+</span>         * {Ext:method-typeOf:desc}
+         *
+         * @param {Object} value {Ext:method-typeOf:param_value}
+         * @return {String} {Ext:method-typeOf:return}
+         */
+        typeOf: function(value) {
 
-            var uniqueGlobalNamespace = this.uniqueGlobalNamespace;
+            var type,
+                typeToString;
 
-            if(uniqueGlobalNamespace === undefined) {
-
-                var i = 0;
-
-                do {
-                    uniqueGlobalNamespace = 'ExtBox' + (++i);
-                } while (Ext.global[uniqueGlobalNamespace] !== undefined);
-
-                Ext.global[uniqueGlobalNamespace] = Ext;
-                this.uniqueGlobalNamespace = uniqueGlobalNamespace;
+            if(value === null) {
+                return 'null';
             }
 
-            return uniqueGlobalNamespace;
+            type = typeof value;
+
+            if(type === 'undefined' || type === 'string' || type === 'number' || type === 'boolean') {
+                return type;
+            }
+
+            typeToString = toString.call(value);
+
+            switch(typeToString) {
+                case '[object Array]':
+                    return 'array';
+                case '[object Date]':
+                    return 'date';
+                case '[object Boolean]':
+                    return 'boolean';
+                case '[object Number]':
+                    return 'number';
+                case '[object RegExp]':
+                    return 'regexp';
+            }
+
+            if(type === 'function') {
+                return 'function';
+            }
+
+            if(type === 'object') {
+                if(value.nodeType !== undefined) {
+                    if(value.nodeType === 3) {
+                        return (/\S/).test(value.nodeValue) ? 'textnode' : 'whitespace';
+                    } else {
+                        return 'element';
+                    }
+                }
+
+                return 'object';
+            }
+
+            Ext.Error.raise({
+                sourceClass: 'Ext',
+                sourceMethod: 'typeOf',
+                msg: 'Failed to determine the type of the specified value &quot;' + value + '&quot;. This is most likely a bug.'
+            });
+
+        },
+
+        // }}}
+        // {{{ isSimpleObject
+
+<span id='Ext-method-isSimpleObject'>        /**
+</span>         * @private
+         */
+        isSimpleObject: function(value) {
+            return value instanceof Object &amp;&amp; value.constructor === Object;
         },
 
         // }}}
@@ -398,37 +528,116 @@
          */
         isString: function(value) {
             return typeof value === 'string';
+        }
+
+        // }}}
+
+    });
+
+    Ext.apply(Ext, {
+
+        // {{{ clone
+
+<span id='Ext-method-clone'>        /**
+</span>         * {Ext:method-clone:desc}
+         *
+         * @param {Object} item {Ext:method-clone:desc}
+         * @return {Object} {Ext:method-clone:return}
+         */
+        clone: function(item) {
+
+            if(item === null || item === undefined) {
+                return item;
+            }
+
+            var type = toString.call(item);
+
+            if(type === '[object Date]') {
+                return new Date(item.getTime());
+            }
+
+            var i, j, k, clone, key;
+
+            if(type === '[object Array]') {
+
+                i = item.length;
+                clone = [];
+
+                while(i--) {
+                    clone[i] = Ext.clone(item[i]);
+                }
+
+            } else if(type === '[object Object]' &amp;&amp; item.constructor === Object) {
+
+                clone = {};
+
+                for(key in item) {
+                    clone[key] = Ext.clone(item[key]);
+                }
+
+            }
+
+            return clone || item;
+
         },
 
         // }}}
-        // {{{ iterate
+        // {{{ functionFactory
 
-<span id='Ext-method-iterate'>        /**
-</span>         * {Ext:method-iterate:desc}
+        // privatec
+        functionFactory: function() {
+
+            var args = Array.prototype.slice.call(arguments);
+
+            if(args.length &gt; 0) {
+                args[args.length - 1] = [
+                    /*
+                    'var Ext=global.',
+                    this.getUniqueGlobalNamespace(),
+                    ';',
+                    */
+                    args[args.length - 1]
+                ].join('');
+            }
+
+            return Function.prototype.constructor.apply(Function.prototype, args);
+        },
+
+        // }}}
+        // {{{ getRandomInt
+
+<span id='Ext-method-getRandomInt'>        /**
+</span>         * {Ext:method-getRandomInt:desc}
          *
-         * @param {Object/Array} object {Ext:method-microtime:param_object}
-         * @param {Function} fn {Ext:method-microtime:param_fn}
-         * @param {Object} scope {Ext:method-microtime:param_scope}
+         * @param {Number} min {Ext:method-getRandomInt:param_min}
+         * @param {Number} max {Ext:method-getRandomInt:param_max}
+         * @return {Number} {Ext:method-getRandomInt:return}random value
          */
-        iterate: function(object, fn, scope) {
+        getRandomInt: function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
 
-            if(Ext.isEmpty(object)) {
-                return;
+        // }}}
+        // {{{ getUniqueGlobalNamespace
+
+        // private
+        getUniqueGlobalNamespace: function() {
+
+            var uniqueGlobalNamespace = this.uniqueGlobalNamespace;
+
+            if(uniqueGlobalNamespace === undefined) {
+
+                var i = 0;
+
+                do {
+                    uniqueGlobalNamespace = 'ExtBox' + (++i);
+                } while (Ext.global[uniqueGlobalNamespace] !== undefined);
+
+                Ext.global[uniqueGlobalNamespace] = Ext;
+                this.uniqueGlobalNamespace = uniqueGlobalNamespace;
             }
 
-            if(scope === undefined) {
-                scope = object;
-            }
-
-            if(Ext.isIterable(object)) {
-
-                Ext.Array.each.call(Ext.Array, object, fn, scope);
-
-            } else {
-
-                Ext.Object.each.call(Ext.Object, object, fn, scope);
-
-            }
+            return uniqueGlobalNamespace;
         },
 
         // }}}
@@ -524,6 +733,35 @@
             }
 
             return buf.join('');
+        },
+
+        // }}}
+        // {{{ globalEval
+
+<span id='Ext-method-globalEval'>        /**
+</span>         * @private
+         */
+        globalEval: function(code) {
+            (function(){
+                eval(code);
+            }());
+        },
+
+        // }}}
+        // {{{ Logger
+
+<span id='Logger'>        /**
+</span>         * @private
+         */
+        Logger: {
+            verbose: Ext.emptyFn,
+            log: Ext.emptyFn,
+            info: Ext.emptyFn,
+            warn: Ext.emptyFn,
+            error: function(message) {
+                throw new Error(message);
+            },
+            deprecate: Ext.emptyFn
         }
 
         // }}}
