@@ -236,6 +236,96 @@
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.extend</h1>
+      <dl>
+        <dt>継承したクラスを作成できること</dt>
+        <dd><pre><code>
+
+        var ret = '', f, c;
+
+        f = function() {
+            ret = 'f called.';
+        };
+
+        c = Ext.extend(f, {
+            constructor: function() {
+                c.superclass.constructor.call(this);
+                ret += ', c called.'
+            }
+        });
+
+        new c();
+
+        ret.should.equal('f called., c called.');</code></pre></dd>
+        <dt>オブジェクト継承したクラスを作成できること</dt>
+        <dd><pre><code>
+
+        var ret = '', c;
+
+        c = Ext.extend(Object, {
+            constructor: function() {
+                ret += 'c called.'
+            }
+        });
+
+        new c();
+
+        ret.should.equal('c called.');</code></pre></dd>
+        <dt>継承したクラスからさらに継承を作成できること</dt>
+        <dd><pre><code>
+
+        var ret = '', f, g, c;
+
+        f = function() {
+            ret = 'f called.';
+        };
+
+        c = Ext.extend(f, {
+            constructor: function() {
+                c.superclass.constructor.call(this);
+                ret += ', c called.'
+            }
+        });
+
+        g = c.extend({
+            hoge: function() {
+                return 'g.hoge called.';
+            }
+        });
+
+        (new g()).hoge().should.equal('g.hoge called.');</code></pre></dd>
+        <dt>したクラスを作成し、インラインでオーバーライドできること</dt>
+        <dd><pre><code>
+
+        var ret = '', f, c, cls;
+
+        f = function() {
+        };
+
+        c = Ext.extend(f, {
+            myfunc: function() {
+                ret = 'call myfunc.';
+            }
+        });
+
+        cls = new c();
+
+        cls.myfunc();
+
+        ret.should.equal('call myfunc.');
+
+        cls.override({
+            myfunc: function() {
+                ret = 'call overrided myfunc.';
+            }
+        });
+
+        cls.myfunc();
+
+        ret.should.equal('call overrided myfunc.');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.getRandomInt</h1>
       <dl>
         <dt>ランダム値を取得できること</dt>
@@ -255,6 +345,23 @@
 
         n = Ext.getRandomInt(1, 0);
         n.should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.globalEval</h1>
+      <dl>
+        <dt>スコープが隔離されて実行できること</dt>
+        <dd><pre><code>
+
+        var ret;
+
+        Ext.globalEval([
+            '(function(){',
+            '    Ext.$Ext_globalEvalTest = true;',
+            '})(Ext);'
+        ].join(''));
+
+        Ext.$Ext_globalEvalTest.should.be.ok;</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
@@ -633,6 +740,19 @@ Ext.isPrimitive(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.isSimpleObject</h1>
+      <dl>
+        <dt>オブジェクトをtrueと判定できること</dt>
+        <dd><pre><code>
+
+        Ext.isSimpleObject({}).should.be.ok;</code></pre></dd>
+        <dt>関数オブジェクトをfalseと判定できること</dt>
+        <dd><pre><code>
+
+        Ext.isSimpleObject(function() {}).should.not.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.isString</h1>
       <dl>
         <dt>undefinedを判定してfalseであること</dt>
@@ -706,6 +826,71 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
+      <h1>Ext.moduleCacheClear</h1>
+      <dl>
+        <dt>モジュールキャッシュをクリアできること</dt>
+        <dd><pre><code>
+
+        var filename = require('path').normalize(__dirname + '/../shared/req1.js');
+
+        var src = [
+            'module.exports = {',
+            '    foo: &quot;bar&quot;',
+            '};'
+        ].join('');
+
+        // ファイル書き込み
+        require('fs').writeFileSync(filename, src);
+
+        var o = require(filename);
+
+        o.foo.should.equal('bar');
+
+        var src = [
+            'module.exports = {',
+            '    foo: &quot;bar2&quot;',
+            '};'
+        ].join('');
+
+        // ファイル書き込み
+        require('fs').writeFileSync(filename, src);
+
+        var o = require(filename);
+
+        o.foo.should.equal('bar');
+
+        var stat = require('fs').statSync(filename);
+
+        Ext.moduleCacheClear(filename, stat.mtime);
+
+        var o = require(filename);
+
+        o.foo.should.equal('bar2');
+
+        require('fs').unlinkSync(filename);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.typeOf</h1>
+      <dl>
+        <dt>型を判定して文字列として取得できること</dt>
+        <dd><pre><code>
+
+        Ext.typeOf(null).should.equal('null');
+        Ext.typeOf(undefined).should.equal('undefined');
+        Ext.typeOf('abc').should.equal('string');
+        Ext.typeOf(123).should.equal('number');
+        Ext.typeOf(true).should.equal('boolean');
+
+        Ext.typeOf([]).should.equal('array');
+        Ext.typeOf((new Date())).should.equal('date');
+        Ext.typeOf((new Boolean(true))).should.equal('boolean');
+        Ext.typeOf((new Number(456))).should.equal('number');
+        Ext.typeOf((new RegExp(&quot;DEF&quot;, &quot;i&quot;))).should.equal('regexp');
+        Ext.typeOf(function() {}).should.equal('function');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
       <h1>Ext.uid</h1>
       <dl>
         <dt>ユニークIDを生成すること</dt>
@@ -722,6 +907,15 @@ Ext.isString(new Date()).should.equal(false);</code></pre></dd>
             ret.push(v);
 
         }</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.valueFrom</h1>
+      <dl>
+        <dt>値が空の時初期値を取得できること</dt>
+        <dd><pre><code>
+
+        Ext.valueFrom(undefined, 500).should.equal(500);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">

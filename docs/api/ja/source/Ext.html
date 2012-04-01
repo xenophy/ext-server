@@ -90,6 +90,12 @@
         emptyString: new String(),
 
         // }}}
+        // {{{ $requires
+
+        // private
+        $requires: {},
+
+        // }}}
         // {{{ $locale
 
         // private
@@ -198,9 +204,6 @@
 
             inlineOverrides = function(o) {
                 for(var m in o) {
-                    if(!o.hasOwnProperty(m)) {
-                        continue;
-                    }
                     this[m] = o[m];
                 }
             };
@@ -217,9 +220,9 @@
 
                 if(!superclass) {
                     Ext.Error.raise({
-                        sourceClass: 'Ext',
-                        sourceMethod: 'extend',
-                        msg: 'Attempting to extend from a class which has not been loaded on the page.'
+                        sourceClass     : 'Ext',
+                        sourceMethod    : 'extend',
+                        msg             : 'Attempting to extend from a class which has not been loaded on the page.'
                     });
                 }
 
@@ -328,24 +331,6 @@
             if(type === 'function') {
                 return 'function';
             }
-
-            if(type === 'object') {
-                if(value.nodeType !== undefined) {
-                    if(value.nodeType === 3) {
-                        return (/\S/).test(value.nodeValue) ? 'textnode' : 'whitespace';
-                    } else {
-                        return 'element';
-                    }
-                }
-
-                return 'object';
-            }
-
-            Ext.Error.raise({
-                sourceClass: 'Ext',
-                sourceMethod: 'typeOf',
-                msg: 'Failed to determine the type of the specified value &quot;' + value + '&quot;. This is most likely a bug.'
-            });
 
         },
 
@@ -620,6 +605,7 @@
         // }}}
         // {{{ getUniqueGlobalNamespace
 
+        /*
         // private
         getUniqueGlobalNamespace: function() {
 
@@ -639,21 +625,7 @@
 
             return uniqueGlobalNamespace;
         },
-
-        // }}}
-        // {{{ microtime
-
-<span id='Ext-method-microtime'>        /**
-</span>         * {Ext:method-microtime:desc}
-         *
-         * @param {Boolean} get_as_float {Ext:method-microtime:return}
-         * @return {Boolean} {Ext:method-microtime:return}
-         */
-        microtime: function(get_as_float) {
-            var now = new Date().getTime() / 1000;
-            var s = parseInt(now, 10);
-            return (get_as_float) ? now : (Math.round((now - s) * 1000) / 1000) + ' ' + s;
-        },
+        */
 
         // }}}
         // {{{ moduleCacheClear
