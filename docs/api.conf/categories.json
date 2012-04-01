@@ -3,7 +3,8 @@
     "groups": [{
         "name": "クラスシステム",
         "classes": [
-            "Ext"
+            "Ext",
+            "Ext.Base"
         ]
     }]
 },{
