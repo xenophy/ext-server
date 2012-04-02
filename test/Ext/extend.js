@@ -52,6 +52,7 @@ describe('Ext.extend', function() {
 
     });
 
+    /*
     it('継承したクラスからさらに継承を作成できること', function() {
 
         var ret = '', f, g, c;
@@ -67,15 +68,16 @@ describe('Ext.extend', function() {
             }
         });
 
-        g = c.extend({
+        g = Ext.extend('Ext.test.g', c, {
             hoge: function() {
                 return 'g.hoge called.';
             }
         });
 
-        (new g()).hoge().should.equal('g.hoge called.');
+        (new ()).hoge().should.equal('g.hoge called.');
 
     });
+    */
 
     /*
     it('', function() {

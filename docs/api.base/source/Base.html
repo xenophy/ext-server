@@ -42,23 +42,17 @@
         $className: 'Ext.Base',
 
         // }}}
+        // {{{ $isClass
 
         $isClass: true,
 
+        // }}}
+        // {{{ create
+
 <span id='Ext-Base-static-method-create'>        /**
-</span>         * Create a new instance of this Class.
+</span>         * {Ext_Base:method-create:desc}
          *
-         *     Ext.define('My.cool.Class', {
-         *         ...
-         *     });
-         *
-         *     My.cool.Class.create({
-         *         someConfig: true
-         *     });
-         *
-         * All parameters are passed to the constructor of the class.
-         *
-         * @return {Object} the created instance.
+         * @return {Object} {Ext_Base:method-create:return}
          * @static
          * @inheritable
          */
@@ -66,11 +60,15 @@
             return Ext.create.apply(Ext, [this].concat(Array.prototype.slice.call(arguments, 0)));
         },
 
+        // }}}
+        // {{{ extend
+
 <span id='Ext-Base-method-extend'>        /**
 </span>         * @private
          * @param config
          */
         extend: function(parent) {
+
             var parentPrototype = parent.prototype,
                 basePrototype, prototype, i, ln, name, statics;
 
@@ -79,11 +77,12 @@
 
             this.superclass = prototype.superclass = parentPrototype;
 
-            if (!parent.$isClass) {
+            if(!parent.$isClass) {
+
                 basePrototype = Ext.Base.prototype;
 
-                for (i in basePrototype) {
-                    if (i in prototype) {
+                for(i in basePrototype) {
+                    if(i in prototype) {
                         prototype[i] = basePrototype[i];
                     }
                 }
@@ -116,11 +115,17 @@
             //&lt;/feature&gt;
         },
 
+        // }}}
+        // {{{ $onExtended
+
 <span id='Ext-Base-method-S-onExtended'>        /**
 </span>         * @private
          * @param config
          */
         '$onExtended': [],
+
+        // }}}
+        // {{{ triggerExtended
 
 <span id='Ext-Base-method-triggerExtended'>        /**
 </span>         * @private
@@ -139,6 +144,9 @@
             }
         },
 
+        // }}}
+        // {{{ onExtended
+
 <span id='Ext-Base-method-onExtended'>        /**
 </span>         * @private
          * @param config
@@ -151,6 +159,9 @@
 
             return this;
         },
+
+        // }}}
+        // {{{ addConfig
 
 <span id='Ext-Base-method-addConfig'>        /**
 </span>         * @private
@@ -192,6 +203,9 @@
             prototype.configClass = Ext.Object.classify(defaultConfig);
         },
 
+        // }}}
+        // {{{ addStatics
+
 <span id='Ext-Base-static-method-addStatics'>        /**
 </span>         * Add / override static properties of this class.
          *
@@ -227,6 +241,9 @@
 
             return this;
         },
+
+        // }}}
+        // {{{ addInheritableStatics
 
 <span id='Ext-Base-method-addInheritableStatics'>        /**
 </span>         * @private
@@ -265,6 +282,9 @@
 
             return this;
         },
+
+        // }}}
+        // {{{ addMembers
 
 <span id='Ext-Base-static-method-addMembers'>        /**
 </span>         * Add methods / properties to the prototype of this class.
@@ -323,6 +343,9 @@
             return this;
         },
 
+        // }}}
+        // {{{ addMember
+
 <span id='Ext-Base-method-addMember'>        /**
 </span>         * @private
          * @param name
@@ -342,12 +365,18 @@
             return this;
         },
 
+        // }}}
+        // {{{ implement
+
 <span id='Ext-Base-method-implement'>        /**
 </span>         * @private
          */
         implement: function() {
             this.addMembers.apply(this, arguments);
         },
+
+        // }}}
+        // {{{ borrow
 
 <span id='Ext-Base-static-method-borrow'>        /**
 </span>         * Borrow another class' members to the prototype of this class.
@@ -413,6 +442,9 @@
 
             return this;
         },
+
+        // }}}
+        // {{{ override
 
 <span id='Ext-Base-static-method-override'>        /**
 </span>         * Override members of this class. Overridden methods can be invoked via
@@ -532,6 +564,9 @@
             return this;
         },
 
+        // }}}
+        // {{{ callParent
+
         // Documented downwards
         callParent: function(args) {
             var method;
@@ -541,6 +576,9 @@
                   ((method = method.$owner ? method : method.caller) &amp;&amp;
                         method.$owner.superclass.$class[method.$name])).apply(this, args || noArgs);
         },
+
+        // }}}
+        // {{{ mixin
 
         //&lt;feature classSystem.mixins&gt;
 <span id='Ext-Base-method-mixin'>        /**
@@ -585,6 +623,7 @@
         },
         //&lt;/feature&gt;
 
+        // }}}
         // {{{ getName
 
 <span id='Ext-Base-static-method-getName'>        /**
