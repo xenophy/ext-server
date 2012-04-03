@@ -6,6 +6,7 @@ TESTS = test/Ext/*.js \
 		test/lang/Object/*.js \
 		test/lang/String/*.js \
 		test/util/Format/*.js \
+		test/class/ClassManager/*.js \
 		test/misc/JSON/*.js
 
 REPORTER = dot
