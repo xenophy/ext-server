@@ -271,29 +271,6 @@
         new c();
 
         ret.should.equal('c called.');</code></pre></dd>
-        <dt>継承したクラスからさらに継承を作成できること</dt>
-        <dd><pre><code>
-
-        var ret = '', f, g, c;
-
-        f = function() {
-            ret = 'f called.';
-        };
-
-        c = Ext.extend(f, {
-            constructor: function() {
-                c.superclass.constructor.call(this);
-                ret += ', c called.'
-            }
-        });
-
-        g = c.extend({
-            hoge: function() {
-                return 'g.hoge called.';
-            }
-        });
-
-        (new g()).hoge().should.equal('g.hoge called.');</code></pre></dd>
         <dt>したクラスを作成し、インラインでオーバーライドできること</dt>
         <dd><pre><code>
 
@@ -3097,6 +3074,295 @@ Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xen
         <dd><pre><code>
 
         Ext.util.Format.usMoney('5000').should.equal('$5,000.00');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.ClassManager.create</h1>
+      <dl>
+        <dt>クラスを定義できること</dt>
+        <dd><pre><code>
+
+        Ext.ClassManager.create('Ext.test.ClassManager.case1');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.compare</h1>
+      <dl>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.2&quot;).should.equal(1);</code></pre></dd>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, 1).should.equal(1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, 2).should.equal(-1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.4&quot;).should.equal(-1);</code></pre></dd>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3dev&quot;).should.equal(1);</code></pre></dd>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3alpha&quot;).should.equal(1);</code></pre></dd>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3a&quot;).should.equal(1);</code></pre></dd>
+        <dt>should return 0</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3b&quot;).should.equal(0);</code></pre></dd>
+        <dt>should return 0</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3beta&quot;).should.equal(0);</code></pre></dd>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3alpha&quot;).should.equal(1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3RC&quot;).should.equal(-1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3rc&quot;).should.equal(-1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3#&quot;).should.equal(-1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3pl&quot;).should.equal(-1);</code></pre></dd>
+        <dt>should return -1</dt>
+        <dd><pre><code>
+Ext.Version.compare(&quot;1.2.3beta&quot;, &quot;1.2.3p&quot;).should.equal(-1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.constructor</h1>
+      <dl>
+        <dt>Ext.Versionオブジェクトを指定して生成すると、同じオブジェクトが返却されること</dt>
+        <dd><pre><code>
+
+        (new Ext.Version(version)).should.equal(version);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.deprecate</h1>
+      <dl>
+        <dt>バージョンごとに処理を切り替えられること</dt>
+        <dd><pre><code>
+
+        var trace;
+
+        Ext.setVersion(&quot;test&quot;, &quot;1.0.1&quot;);
+
+        Ext.deprecate('test', '1.0.1', function() {
+            trace = true;
+        });
+
+        trace.should.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.equals</h1>
+      <dl>
+        <dt>should equals 1.2.3beta</dt>
+        <dd><pre><code>
+version.equals(&quot;1.2.3beta&quot;).should.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getBuild</h1>
+      <dl>
+        <dt>should return 0</dt>
+        <dd><pre><code>
+(version.getBuild()).should.equal(0);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getComponentValue</h1>
+      <dl>
+        <dt>should return 0</dt>
+        <dd><pre><code>
+Ext.Version.getComponentValue(undefined).should.equal(0);</code></pre></dd>
+        <dt>should return -2</dt>
+        <dd><pre><code>
+Ext.Version.getComponentValue(-2).should.equal(-2);</code></pre></dd>
+        <dt>should return 2</dt>
+        <dd><pre><code>
+Ext.Version.getComponentValue(&quot;2&quot;).should.equal(2);</code></pre></dd>
+        <dt>should return -5</dt>
+        <dd><pre><code>
+Ext.Version.getComponentValue(&quot;alpha&quot;).should.equal(-5);</code></pre></dd>
+        <dt>should return unknown</dt>
+        <dd><pre><code>
+Ext.Version.getComponentValue(&quot;unknown&quot;).should.equal(&quot;unknown&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getMajor</h1>
+      <dl>
+        <dt>should return 1</dt>
+        <dd><pre><code>
+(version.getMajor()).should.equal(1);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getMajor</h1>
+      <dl>
+        <dt>should return 2</dt>
+        <dd><pre><code>
+(version.getMinor()).should.equal(2);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getPatch</h1>
+      <dl>
+        <dt>should return 3</dt>
+        <dd><pre><code>
+(version.getPatch()).should.equal(3);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getRelease</h1>
+      <dl>
+        <dt>should return beta</dt>
+        <dd><pre><code>
+(version.getRelease()).should.equal(&quot;beta&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.getShortVersion</h1>
+      <dl>
+        <dt>should return 123</dt>
+        <dd><pre><code>
+(version.getShortVersion()).should.equal(&quot;123&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.isGreaterThan</h1>
+      <dl>
+        <dt>should be greater than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.isGreaterThan(&quot;1.2.3alpha&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be greater than 1.2.3RC</dt>
+        <dd><pre><code>
+version.isGreaterThan(&quot;1.2.3RC&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should be greater than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.gt(&quot;1.2.3alpha&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be greater than 1.2.3RC</dt>
+        <dd><pre><code>
+version.gt(&quot;1.2.3RC&quot;).should.not.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.isGreaterThanOrEqual</h1>
+      <dl>
+        <dt>should be greater than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.isGreaterThanOrEqual(&quot;1.2.3alpha&quot;).should.be.ok;</code></pre></dd>
+        <dt>should be greater than 1.2.3beta</dt>
+        <dd><pre><code>
+version.isGreaterThanOrEqual(&quot;1.2.3beta&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be greater than 1.2.3RC</dt>
+        <dd><pre><code>
+version.isGreaterThanOrEqual(&quot;1.2.3RC&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should be greater than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.gtEq(&quot;1.2.3alpha&quot;).should.be.ok;</code></pre></dd>
+        <dt>should be greater than 1.2.3beta</dt>
+        <dd><pre><code>
+version.gtEq(&quot;1.2.3beta&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be greater than 1.2.3RC</dt>
+        <dd><pre><code>
+version.gtEq(&quot;1.2.3RC&quot;).should.not.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.isLessThan</h1>
+      <dl>
+        <dt>should not be smaller than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.isLessThan(&quot;1.2.3alpha&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should be smaller than 1.2.3RC</dt>
+        <dd><pre><code>
+version.isLessThan(&quot;1.2.3RC&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be smaller than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.lt(&quot;1.2.3alpha&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should be smaller than 1.2.3RC</dt>
+        <dd><pre><code>
+version.lt(&quot;1.2.3RC&quot;).should.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.isLessThanOrEqual</h1>
+      <dl>
+        <dt>should not be smaller than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.isLessThanOrEqual(&quot;1.2.3alpha&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should not be smaller than 1.2.3beta</dt>
+        <dd><pre><code>
+version.isLessThanOrEqual(&quot;1.2.3beta&quot;).should.be.ok;</code></pre></dd>
+        <dt>should be smaller than 1.2.3RC</dt>
+        <dd><pre><code>
+version.isLessThanOrEqual(&quot;1.2.3RC&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not be smaller than 1.2.3alpha</dt>
+        <dd><pre><code>
+version.ltEq(&quot;1.2.3alpha&quot;).should.not.be.ok;</code></pre></dd>
+        <dt>should not be smaller than 1.2.3beta</dt>
+        <dd><pre><code>
+version.ltEq(&quot;1.2.3beta&quot;).should.be.ok;</code></pre></dd>
+        <dt>should be smaller than 1.2.3RC</dt>
+        <dd><pre><code>
+version.ltEq(&quot;1.2.3RC&quot;).should.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.match</h1>
+      <dl>
+        <dt>should match integer 1</dt>
+        <dd><pre><code>
+version.match(1).should.be.ok;</code></pre></dd>
+        <dt>should match float 1.2</dt>
+        <dd><pre><code>
+version.match(1.2).should.be.ok;</code></pre></dd>
+        <dt>should match string 1.2.3</dt>
+        <dd><pre><code>
+version.match(&quot;1.2.3&quot;).should.be.ok;</code></pre></dd>
+        <dt>should not match string 1.2.3alpha</dt>
+        <dd><pre><code>
+version.match(&quot;1.2.3alpha&quot;).should.not.be.ok;</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.setVersion</h1>
+      <dl>
+        <dt>should return an instance of Ext.Version</dt>
+        <dd><pre><code>
+
+        Ext.setVersion(&quot;test&quot;, &quot;1.0.1&quot;);
+        (Ext.getVersion(&quot;test&quot;) instanceof Ext.Version).should.equal(true);
+
+        Ext.getVersion().toString().should.equal(&quot;1.0.1&quot;);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.toArray</h1>
+      <dl>
+        <dt>should return [1, 2, 3, 0, 'beta']</dt>
+        <dd><pre><code>
+[1, 2, 3, 0, 'beta'].forEach(function(v, c) {
+    version.toArray()[c].should.equal(v);
+});</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Version.toString</h1>
+      <dl>
+        <dt>should cast to string</dt>
+        <dd><pre><code>
+(version+&quot;&quot;).should.equal(&quot;1.2.3beta&quot;);
+(version.toString()).should.equal(&quot;1.2.3beta&quot;);</code></pre></dd>
       </dl>
     </section>
     <section class="suite">

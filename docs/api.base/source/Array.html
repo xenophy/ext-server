@@ -203,8 +203,10 @@ module.exports = {
             return (newReference) ? slice.call(value) : value;
         }
 
-        if(value &amp;&amp; value.length !== undefined &amp;&amp; typeof value !== 'string') {
-            return Ext.toArray(value);
+        var type = typeof value;
+
+        if (value &amp;&amp; value.length !== undefined &amp;&amp; type !== 'string' &amp;&amp; (type !== 'function' || !value.apply)) {
+            return Ext.Array.toArray(value);
         }
 
         return [value];
@@ -251,7 +253,7 @@ module.exports = {
      * @param {Array} items {Ext_Array:method-insert:param_items}
      * @return {Array} {Ext_Array:method-insert:return}
      */
-    insert: function (array, index, items) {
+    insert: function(array, index, items) {
         return Ext.Array.replace(array, index, 0, items);
     },
 

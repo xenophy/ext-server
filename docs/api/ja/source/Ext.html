@@ -188,91 +188,6 @@
 
     });
 
-
-    Ext.apply(Ext, {
-
-        // {{{ extend
-
-<span id='Ext-method-extend'>        /**
-</span>         * @private
-         * @method
-         */
-        extend: (function() {
-
-            var objectConstructor = objectPrototype.constructor,
-                inlineOverrides;
-
-            inlineOverrides = function(o) {
-                for(var m in o) {
-                    this[m] = o[m];
-                }
-            };
-
-            return function(subclass, superclass, overrides) {
-
-                if(Ext.isObject(superclass)) {
-                    overrides = superclass;
-                    superclass = subclass;
-                    subclass = overrides.constructor !== objectConstructor ? overrides.constructor : function() {
-                        superclass.apply(this, arguments);
-                    };
-                }
-
-                if(!superclass) {
-                    Ext.Error.raise({
-                        sourceClass     : 'Ext',
-                        sourceMethod    : 'extend',
-                        msg             : 'Attempting to extend from a class which has not been loaded on the page.'
-                    });
-                }
-
-                var F = function() {},
-                    subclassProto, superclassProto = superclass.prototype;
-
-                F.prototype = superclassProto;
-                subclassProto = subclass.prototype = new F();
-                subclassProto.constructor = subclass;
-                subclass.superclass = superclassProto;
-
-                if(superclassProto.constructor === objectConstructor) {
-                    superclassProto.constructor = superclass;
-                }
-
-                subclass.override = function(overrides) {
-                    Ext.override(subclass, overrides);
-                };
-
-                subclassProto.override = inlineOverrides;
-                subclassProto.proto = subclassProto;
-
-                subclass.override(overrides);
-                subclass.extend = function(o) {
-                    return Ext.extend(subclass, o);
-                };
-
-                return subclass;
-            };
-        }()),
-
-        // }}}
-        // {{{ override
-
-<span id='Ext-method-override'>        /**
-</span>         * @private
-         */
-        override: function(cls, overrides) {
-            if (cls.$isClass) {
-                return cls.override(overrides);
-            }
-            else {
-                Ext.apply(cls.prototype, overrides);
-            }
-        }
-
-        // }}}
-
-    });
-
     Ext.apply(Ext, {
 
         // {{{ valueFrom
@@ -708,18 +623,6 @@
         },
 
         // }}}
-        // {{{ globalEval
-
-<span id='Ext-method-globalEval'>        /**
-</span>         * @private
-         */
-        globalEval: function(code) {
-            (function(){
-                eval(code);
-            }());
-        },
-
-        // }}}
         // {{{ Logger
 
 <span id='Logger'>        /**
@@ -824,9 +727,30 @@
 
     // require core files
     require('./class/Base.js');
-
+    require('./class/Class.js');
+    require('./class/ClassManager.js');
+    require('./class/Loader.js');
+    require('./version/Version.js');
 
 })();
+
+// {{{ globalEval
+
+/*
+ * This method evaluates the given code free of any local variable. In some browsers this
+ * will be at global scope, in others it will be in a function.
+ *
+ * @parma {String} code The code to evaluate.
+ * @private
+ * @method
+ */
+Ext.globalEval = function($$code) {
+    (function(){
+        eval($$code);
+    }());
+};
+
+// }}}
 
 /*
  * Local variables:
