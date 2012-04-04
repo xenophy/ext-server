@@ -17,6 +17,7 @@ test:
 		--require should \
 		--reporter $(REPORTER) \
 		--timeout 100 \
+		--ignore-leaks \
 		--growl \
 		$(TESTS)
 
