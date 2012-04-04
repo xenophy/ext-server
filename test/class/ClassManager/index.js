@@ -99,14 +99,13 @@ describe('Ext.ClassManager', function() {
         });
     });
 
-    /*
     describe("loader preprocessor", function() {
 
         beforeEach(function() {
             cls = function(){};
         });
 
-        it("should load and replace string class names with objects", function() {
+        it("should load and replace string class names with objects", function(done) {
 
             var data = {
                     extend: 'My.awesome.Class',
@@ -124,19 +123,19 @@ describe('Ext.ClassManager', function() {
                 },
                 classNames;
 
-            spyOn(Ext.Loader, 'require').andCallFake(function(classes, fn) {
-                classNames = classes;
-                fn();
+            Ext.Class.getPreprocessor('loader').fn(cls, data, emptyFn, function(me, cls, data, hooks) {
+
+                cls.extend.should.equal(expected.extend);
+                cls.mixins.name1.should.equal(expected.mixins.name1);
+                cls.mixins.name2.should.equal(expected.mixins.name2);
+
+                done();
             });
 
-            Ext.Class.getPreprocessor('loader').fn(cls, data, emptyFn, emptyFn);
+            Ext.Loader.require();
 
-            expect(Ext.Loader.require).toHaveBeenCalled();
-            expect(classNames).toEqual(['My.awesome.Class', 'My.cool.AnotherClass1']);
-            expect(data).toEqual(expected);
         });
     });
-    */
 
     describe("create", function() {
 
@@ -464,16 +463,12 @@ describe('Ext.ClassManager', function() {
 
     });
 
-    /*
     describe("post-processors", function() {
 
-        xdescribe("uses", function() {
-            //expect(Something.Cool).toBeDefined();
-            //expect(Something.Cool instanceof test).toBeTruthy();
-        });
-
         describe("singleton", function() {
+
             it("should create the instance namespace and return the class", function() {
+
                 var test = Ext.define('Something.Cool', {
                     singleton: true,
                     someMethod: function() {
@@ -482,23 +477,28 @@ describe('Ext.ClassManager', function() {
                     someProperty: 'something'
                 });
 
-                expect(Something.Cool).toBeDefined();
-                expect(Something.Cool instanceof test).toBeTruthy();
+                Ext.isDefined(Something.Cool).should.be.ok;
+                Ext.isDefined(Something.Cool instanceof test).should.be.ok;
             });
+
         });
 
         describe("alias xtype", function() {
+
             it("should set xtype as a static class property", function() {
                 var test = Ext.define('Something.Cool', {
                     alias: 'widget.cool'
                 });
 
-                expect(Something.Cool.xtype).toEqual('cool');
+                Something.Cool.xtype.should.equal('cool');
             });
+
         });
 
         describe("alternate", function() {
+
             it("should create the alternate with a string for alternateClassName property", function() {
+
                 Ext.define('Something.Cool', {
                     alternateClassName: 'Something.CoolAsWell',
 
@@ -509,22 +509,22 @@ describe('Ext.ClassManager', function() {
                     someProperty: 'something'
                 });
 
-                expect(Something.CoolAsWell).toBeDefined();
-                expect(Something.CoolAsWell).toBe(Something.Cool);
+                Ext.isDefined(Something.CoolAsWell).should.be.ok;
+                Something.CoolAsWell.should.equal(Something.Cool);
             });
 
             it("should create the alternate with an array for alternateClassName property", function() {
+
                 Ext.define('Something.Cool', {
                     alternateClassName: ['Something.CoolAsWell', 'Something.AlsoCool']
                 });
 
-                expect(Something.CoolAsWell).toBe(Something.Cool);
-                expect(Something.AlsoCool).toBe(Something.Cool);
+                Something.CoolAsWell.should.equal(Something.Cool);
+                Something.AlsoCool.should.equal(Something.Cool);
             });
         });
-    });
 
-    */
+    });
 
     describe("createNamespaces", function() {
 
