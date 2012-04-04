@@ -9,6 +9,7 @@ TESTS = test/Ext/*.js \
 		test/class/Base/*.js \
 		test/class/Class/*.js \
 		test/class/ClassManager/*.js \
+		test/class/Loader/*.js \
 		test/version/Version/*.js \
 		test/misc/JSON/*.js
 
