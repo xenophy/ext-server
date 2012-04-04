@@ -7,6 +7,7 @@ TESTS = test/Ext/*.js \
 		test/lang/String/*.js \
 		test/util/Format/*.js \
 		test/class/Base/*.js \
+		test/class/Class/*.js \
 		test/class/ClassManager/*.js \
 		test/version/Version/*.js \
 		test/misc/JSON/*.js
