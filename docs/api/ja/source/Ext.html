@@ -705,7 +705,43 @@
          * @method merge
          * @alias Ext.Object#merge
          */
-        merge: Ext.Object.merge
+        merge: Ext.Object.merge,
+
+        // }}}
+        // {{{ margeIf
+
+<span id='Logger-property-mergeIf'>        /**
+</span>         * @private
+         */
+        mergeIf: Ext.Object.mergeIf,
+
+        // }}}
+        // {{{ each
+
+<span id='Logger-property-each'>        /**
+</span>         * @inheritdoc Ext.Array#each
+         */
+        each: Ext.Array.each,
+
+        // }}}
+        // {{{ union
+
+<span id='Logger-property-union'>        /**
+</span>         * @inheritdoc Ext.Array#merge
+         */
+        union: Ext.Array.merge,
+
+        // }}}
+        // {{{ toArray
+
+<span id='Ext-method-toArray'>        /**
+</span>         * @method
+         * @member Ext
+         * @inheritdoc Ext.Array#toArray
+         */
+        toArray: function() {
+            return Ext.Array.toArray.apply(Ext.Array, arguments);
+        }
 
         // }}}
 

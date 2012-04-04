@@ -324,6 +324,107 @@ module.exports = {
         return function() {
             return fn.apply(scope, args.concat(Ext.Array.toArray(arguments)));
         };
+    },
+
+    // }}}
+    // {{{ interceptBefore
+
+<span id='Ext-Function-method-interceptBefore'>    /**
+</span>     * Adds behavior to an existing method that is executed before the
+     * original behavior of the function.  For example:
+     * 
+     *     var soup = {
+     *         contents: [],
+     *         add: function(ingredient) {
+     *             this.contents.push(ingredient);
+     *         }
+     *     };
+     *     Ext.Function.interceptBefore(soup, &quot;add&quot;, function(ingredient){
+     *         if (!this.contents.length &amp;&amp; ingredient !== &quot;water&quot;) {
+     *             // Always add water to start with
+     *             this.contents.push(&quot;water&quot;);
+     *         }
+     *     });
+     *     soup.add(&quot;onions&quot;);
+     *     soup.add(&quot;salt&quot;);
+     *     soup.contents; // will contain: water, onions, salt
+     * 
+     * @param {Object} object The target object
+     * @param {String} methodName Name of the method to override
+     * @param {Function} fn Function with the new behavior.  It will
+     * be called with the same arguments as the original method.  The
+     * return value of this function will be the return value of the
+     * new method.
+     * @param {Object} [scope] The scope to execute the interceptor function. Defaults to the object.
+     * @return {Function} The new function just created.
+     */
+    interceptBefore: function(object, methodName, fn, scope) {
+
+        var method = object[methodName] || Ext.emptyFn;
+
+        return (object[methodName] = function() {
+
+            var ret = fn.apply(scope || this, arguments);
+
+            method.apply(this, arguments);
+
+            return ret;
+        });
+    },
+
+    // }}}
+    // {{{ interceptAfter
+
+<span id='Ext-Function-method-interceptAfter'>    /**
+</span>     * Adds behavior to an existing method that is executed after the
+     * original behavior of the function.  For example:
+     * 
+     *     var soup = {
+     *         contents: [],
+     *         add: function(ingredient) {
+     *             this.contents.push(ingredient);
+     *         }
+     *     };
+     *     Ext.Function.interceptAfter(soup, &quot;add&quot;, function(ingredient){
+     *         // Always add a bit of extra salt
+     *         this.contents.push(&quot;salt&quot;);
+     *     });
+     *     soup.add(&quot;water&quot;);
+     *     soup.add(&quot;onions&quot;);
+     *     soup.contents; // will contain: water, salt, onions, salt
+     * 
+     * @param {Object} object The target object
+     * @param {String} methodName Name of the method to override
+     * @param {Function} fn Function with the new behavior.  It will
+     * be called with the same arguments as the original method.  The
+     * return value of this function will be the return value of the
+     * new method.
+     * @param {Object} [scope] The scope to execute the interceptor function. Defaults to the object.
+     * @return {Function} The new function just created.
+     */
+    interceptAfter: function(object, methodName, fn, scope) {
+        var method = object[methodName] || Ext.emptyFn;
+
+        return (object[methodName] = function() {
+            method.apply(this, arguments);
+            return fn.apply(scope || this, arguments);
+        });
+    },
+
+    // }}}
+    // {{{ clone
+
+<span id='Ext-Function-method-clone'>    /**
+</span>     * Create a &quot;clone&quot; of the provided method. The returned method will call the given
+     * method passing along all arguments and the &quot;this&quot; pointer and return its result.
+     *
+     * @param {Function} method
+     * @return {Function} cloneFn
+     */
+    clone: function(method) {
+        return function() {
+            return method.apply(this, arguments);
+        };
     }
 
     // }}}

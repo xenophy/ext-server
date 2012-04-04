@@ -3077,12 +3077,859 @@ Ext.String.urlAppend('http://www.xenophy.com/', '').should.equal('http://www.xen
       </dl>
     </section>
     <section class="suite">
-      <h1>Ext.ClassManager.create</h1>
+      <h1>Ext.Base</h1>
       <dl>
-        <dt>クラスを定義できること</dt>
+        <section class="suite">
+          <h1>borrow</h1>
+          <dl>
+            <dt>should borrow methods</dt>
+            <dd><pre><code>
+Test.Bar.borrow(Test.Foo, ['b', 'c']);
+
+var bar = new Test.Bar();
+bar.a().should.equal('bar a');
+bar.b().should.equal('foo b');
+bar.c().should.equal('foo c');</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Class</h1>
+      <dl>
+        <section class="suite">
+          <h1>preprocessors</h1>
+          <dl>
+            <section class="suite">
+              <h1>extend</h1>
+              <dl>
+                <dt>should extend from Base if no 'extend' property found</dt>
+                <dd><pre><code>
+
+                var data = {};
+
+                Ext.Class.preprocessors.extend.fn(cls, data, emptyFn, {}, emptyFn);
+
+                ((new cls) instanceof Ext.Base).should.be.ok;</code></pre></dd>
+                <dt>should extend from given parent class</dt>
+                <dd><pre><code>
+var data = {
+    extend: My.awesome.Class
+};
+
+Ext.Class.preprocessors.extend.fn(cls, data, emptyFn, {}, emptyFn);
+
+((new cls) instanceof My.awesome.Class).should.be.ok;</code></pre></dd>
+                <dt>should have superclass reference</dt>
+                <dd><pre><code>
+var data = {
+    extend: My.awesome.Class
+};
+
+var parentPrototype = My.awesome.Class.prototype;
+
+Ext.Class.preprocessors.extend.fn(cls, data, emptyFn, {}, emptyFn);
+
+(cls.superclass).should.equal(parentPrototype);
+((new cls).superclass).should.equal(parentPrototype);</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>other preprocessors</h1>
+              <dl>
+                <section class="suite">
+                  <h1>config</h1>
+                  <dl>
+                    <dt>should create getter if not exists</dt>
+                    <dd><pre><code>
+var data = {
+    config: {
+        someName: 'someValue'
+    }
+};
+
+Ext.Class.preprocessors.config.fn(cls, data, emptyFn, {}, emptyFn);
+
+Ext.isDefined(data.getSomeName).should.be.ok;</code></pre></dd>
+                    <dt>should NOT create getter if already exists</dt>
+                    <dd><pre><code>
+var data = {
+    config: {
+        someName: 'someValue'
+    }
+};
+
+var called = false;
+cls.prototype.getSomeName = function() {
+    called = true;
+};
+
+Ext.Class.preprocessors.config.fn(cls, data, emptyFn, {}, emptyFn);
+
+Ext.isDefined(data.getSomeName).should.not.be.ok;</code></pre></dd>
+                    <dt>should create setter if not exists</dt>
+                    <dd><pre><code>
+var data = {
+    config: {
+        someName: 'someValue'
+    }
+};
+
+Ext.Class.preprocessors.config.fn(cls, data, emptyFn, {}, emptyFn);
+
+Ext.isDefined(data.setSomeName).should.be.ok;</code></pre></dd>
+                    <dt>should NOT create setter if already exists</dt>
+                    <dd><pre><code>
+var data = {
+    config: {
+        someName: 'someValue'
+    }
+};
+
+var called = false;
+
+cls.prototype.setSomeName = function() {
+    called = true;
+};
+
+Ext.Class.preprocessors.config.fn(cls, data, emptyFn, {}, emptyFn);
+
+Ext.isDefined(data.setSomeName).should.not.be.ok;</code></pre></dd>
+                  </dl>
+                </section>
+                <section class="suite">
+                  <h1>statics</h1>
+                  <dl>
+                    <dt>should copy static properties to the class</dt>
+                    <dd><pre><code>
+
+                    var data = {
+                        statics: {
+                            someName: 'someValue',
+                            someMethod: Ext.emptyFn
+                        }
+                    };
+
+                    Ext.Class.preprocessors.statics.fn(cls, data, emptyFn, {}, emptyFn);
+
+                    var obj = new cls;
+
+                    Ext.isDefined(data.statics).should.not.be.ok;
+                    cls.someName.should.equal('someValue');
+                    cls.someMethod.should.equal(Ext.emptyFn);</code></pre></dd>
+                  </dl>
+                </section>
+                <section class="suite">
+                  <h1>inheritableStatics</h1>
+                  <dl>
+                    <dt>should store names of inheritable static properties</dt>
+                    <dd><pre><code>
+var data = {
+    inheritableStatics: {
+        someName: 'someValue',
+        someMethod: Ext.emptyFn
+    }
+};
+
+Ext.Class.preprocessors.inheritableStatics.fn(cls, data, emptyFn, {}, emptyFn);
+
+var obj = new cls;
+
+Ext.isDefined(obj.inheritableStatics).should.not.be.ok;
+cls.someName.should.equal('someValue');
+['someName', 'someMethod'].forEach(function(v, c) {
+    cls.prototype.$inheritableStatics[c].should.equal(v);
+});
+cls.someMethod.should.equal(Ext.emptyFn);</code></pre></dd>
+                    <dt>should inherit inheritable statics</dt>
+                    <dd><pre><code>
+var data = {
+    inheritableStatics: {
+        someName: 'someValue',
+        someMethod: Ext.emptyFn
+    }
+}, cls2 = Ext.Class.create(null, {});
+
+Ext.Class.preprocessors.inheritableStatics.fn(cls, data, emptyFn, {}, emptyFn);
+Ext.Class.preprocessors.extend.fn(cls2, { extend: cls }, emptyFn, {}, emptyFn);
+
+cls2.someName.should.equal('someValue');
+cls2.someMethod.should.equal(Ext.emptyFn);</code></pre></dd>
+                    <dt>should NOT inherit inheritable statics if the class already has it</dt>
+                    <dd><pre><code>
+var data = {
+    inheritableStatics: {
+        someName: 'someValue',
+        someMethod: Ext.emptyFn
+    }
+}, cls2 = Ext.Class.create(null, {});
+
+cls2.someName = 'someOtherValue';
+cls2.someMethod = function(){};
+
+Ext.Class.preprocessors.inheritableStatics.fn(cls, data, emptyFn, {}, emptyFn);
+Ext.Class.preprocessors.extend.fn(cls2, { extend: cls }, emptyFn, {}, emptyFn);
+
+cls2.someName.should.equal('someOtherValue');
+cls2.someMethod.should.not.equal(Ext.emptyFn);</code></pre></dd>
+                  </dl>
+                </section>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>Instantiation</h1>
+          <dl>
+            <section class="suite">
+              <h1>addStatics</h1>
+              <dl>
+                <dt>single with name - value arguments</dt>
+                <dd><pre><code>
+var called = false;
+
+subClass.addStatics({
+    staticMethod: function(){
+        called = true;
+    }
+});
+
+Ext.isDefined(subClass.staticMethod).should.be.ok;
+subClass.staticMethod();
+called.should.equal(true);</code></pre></dd>
+                <dt>multiple with object map argument</dt>
+                <dd><pre><code>
+subClass.addStatics({
+    staticProperty: 'something',
+    staticMethod: function(){}
+});
+
+subClass.staticProperty.should.equal('something');
+Ext.isDefined(subClass.staticMethod).should.be.ok;</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>override</h1>
+              <dl>
+                <dt>should override</dt>
+                <dd><pre><code>
+subClass.override({
+    myOwnMethod: function(){
+        this.isOverridden = true;
+
+        this.callParent(arguments);
+    }
+});
+
+var obj = new subClass;
+obj.myOwnMethod();
+
+(obj.isOverridden).should.equal(true);
+(obj.myOwnMethodCalled).should.equal(true);</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>define override</h1>
+              <dl>
+                <dt>should call the createdFn</dt>
+                <dd><pre><code>
+(createFnsCalled.length).should.equal(2);
+(createFnsCalled[0]).should.equal('Foo.Singleton');
+(createFnsCalled[1]).should.equal('Foo.SomeClass');</code></pre></dd>
+                <dt>can add new methods</dt>
+                <dd><pre><code>
+(obj.method2()).should.equal('two');</code></pre></dd>
+                <dt>can add new static methods</dt>
+                <dd><pre><code>
+(Foo.SomeClass.newStatic()).should.equal('boo');</code></pre></dd>
+                <dt>callParent should work for instance methods</dt>
+                <dd><pre><code>
+(obj.method1(21)).should.equal('ab42c');</code></pre></dd>
+                <dt>callParent should work for static methods</dt>
+                <dd><pre><code>
+(Foo.SomeClass.staticMethod(21)).should.equal('AB42C');</code></pre></dd>
+                <dt>works with singletons</dt>
+                <dd><pre><code>
+(Foo.Singleton.foo(21)).should.equal(42);</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>mixin</h1>
+              <dl>
+                <dt>should have all properties of mixins</dt>
+                <dd><pre><code>
+var obj = new subClass;
+(obj.mixinProperty1).should.equal('mixinProperty1');
+(obj.mixinProperty2).should.equal('mixinProperty2');
+Ext.isDefined(obj.mixinMethod1).should.be.ok;
+Ext.isDefined(obj.mixinMethod2).should.be.ok;
+obj.config.mixinConfig.should.equal('mixinConfig');</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>config</h1>
+              <dl>
+                <dt>should merge properly</dt>
+                <dd><pre><code>
+
+                var obj = new subClass;
+
+                obj.config.mixinConfig.should.equal('mixinConfig');
+                obj.config.name.should.equal('subClass');
+                obj.config.isCool.should.equal(true);
+                obj.config.members.abe.should.equal('Abraham Elias');
+                obj.config.members.ed.should.equal('Ed Spencer');
+                obj.config.members.jacky.should.equal('Jacky Nguyen');
+                obj.config.members.tommy.should.equal('Tommy Maintz');
+
+                ['sleeping', 'eating', 'movies'].forEach(function(v, c) {
+                    obj.config.hobbies[c].should.equal(v);
+                });
+
+                obj.config.isSpecial.should.equal(true);</code></pre></dd>
+                <dt>should apply default config</dt>
+                <dd><pre><code>
+
+                var obj = new subClass;
+
+                obj.getName().should.equal('subClass');
+                obj.getIsCool().should.equal(true);
+
+                ['sleeping', 'eating', 'movies'].forEach(function(v, c) {
+                    obj.getHobbies()[c].should.equal(v);
+                });</code></pre></dd>
+                <dt>should apply with supplied config</dt>
+                <dd><pre><code>
+
+                var obj = new subClass({
+                    name: 'newName',
+                    isCool: false,
+                    members: {
+                        aaron: 'Aaron Conran'
+                    }
+                });
+
+                (obj.getName()).should.equal('newName');
+                (obj.getIsCool()).should.equal(false);
+                (obj.getMembers().aaron).should.equal('Aaron Conran');</code></pre></dd>
+                <dt>should not share the same config</dt>
+                <dd><pre><code>
+var obj1 = new subClass({
+    name: 'newName',
+    isCool: false,
+    members: {
+        aaron: 'Aaron Conran'
+    }
+});
+
+var obj2 = new subClass();
+
+obj2.getName().should.not.equal('newName');</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>overriden methods</h1>
+              <dl>
+                <dt>should call self constructor</dt>
+                <dd><pre><code>
+var obj = new subClass;
+obj.subConstrutorCalled.should.be.ok;</code></pre></dd>
+                <dt>should call parent constructor</dt>
+                <dd><pre><code>
+var obj = new subClass;
+obj.parentConstructorCalled.should.be.ok;</code></pre></dd>
+                <dt>should call mixins constructors</dt>
+                <dd><pre><code>
+var obj = new subClass;
+obj.mixinConstructor1Called.should.be.ok;
+obj.mixinConstructor2Called.should.be.ok;</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.ClassManager</h1>
+      <dl>
+        <section class="suite">
+          <h1>parseNamespace</h1>
+          <dl>
+            <dt>should return the broken-down namespace</dt>
+            <dd><pre><code>
+
+            var parts = manager.parseNamespace('Some.strange.alien.Namespace');
+
+            [Ext.global, 'Some', 'strange', 'alien', 'Namespace'].forEach(function(v, c) {
+                parts[c].should.equal(v);
+            });</code></pre></dd>
+            <dt>should return the broken-down namespace with object rewrites</dt>
+            <dd><pre><code>
+
+            var parts = manager.parseNamespace('Ext.some.Namespace');
+
+            [Ext, 'some', 'Namespace'].forEach(function(v, c) {
+                parts[c].should.equal(v);
+            });</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>exist</h1>
+          <dl>
+            <dt>should return whether a single class exists</dt>
+            <dd><pre><code>
+manager.isCreated('My.notexisting.Class').should.equal(false);
+manager.isCreated('My.awesome.Class').should.equal(true);</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>loader preprocessor</h1>
+          <dl>
+            <dt>should load and replace string class names with objects</dt>
+            <dd><pre><code>
+
+            var data = {
+                    extend: 'My.awesome.Class',
+                    mixins: {
+                        name1: My.cool.AnotherClass,
+                        name2: 'My.cool.AnotherClass1'
+                    }
+                },
+                expected = {
+                    extend: My.awesome.Class,
+                    mixins: {
+                        name1: My.cool.AnotherClass,
+                        name2: My.cool.AnotherClass1
+                    }
+                },
+                classNames;
+
+            Ext.Class.getPreprocessor('loader').fn(cls, data, emptyFn, function(me, cls, data, hooks) {
+
+                cls.extend.should.equal(expected.extend);
+                cls.mixins.name1.should.equal(expected.mixins.name1);
+                cls.mixins.name2.should.equal(expected.mixins.name2);
+
+                done();
+            });
+
+            Ext.Loader.require();</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>create</h1>
+          <dl>
+            <dt>should create the namespace</dt>
+            <dd><pre><code>
+Ext.isDefined(I).should.be.ok;
+Ext.isDefined(I.am).should.be.ok;
+Ext.isDefined(I.am.the).should.be.ok;
+Ext.isDefined(I.am.the.SubClass).should.be.ok;</code></pre></dd>
+            <dt>should get className</dt>
+            <dd><pre><code>
+Ext.getClassName(subClass).should.equal('I.am.the.SubClass');</code></pre></dd>
+            <section class="suite">
+              <h1>addStatics</h1>
+              <dl>
+                <dt>single with name - value arguments</dt>
+                <dd><pre><code>
+
+                var called = false;
+
+                subClass.addStatics({
+                    staticMethod: function(){
+                        called = true;
+                    }
+                });
+
+                Ext.isDefined(subClass.staticMethod).should.be.ok;
+                subClass.staticMethod();
+
+                called.should.be.ok;</code></pre></dd>
+                <dt>multiple with object map argument</dt>
+                <dd><pre><code>
+
+                subClass.addStatics({
+                    staticProperty: 'something',
+                    staticMethod: function(){}
+                });
+
+                subClass.staticProperty.should.equal('something');
+                Ext.isDefined(subClass.staticMethod).should.be.ok;</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>mixin</h1>
+              <dl>
+                <dt>should have all properties of mixins</dt>
+                <dd><pre><code>
+
+                var obj = new subClass();
+                obj.mixinProperty1.should.equal('mixinProperty1');
+                obj.mixinProperty2.should.equal('mixinProperty2');
+                Ext.isDefined(obj.mixinMethod1).should.be.ok;
+                Ext.isDefined(obj.mixinMethod2).should.be.ok;
+                obj.config.mixinConfig.should.equal('mixinConfig');</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>config</h1>
+              <dl>
+                <dt>should merge properly</dt>
+                <dd><pre><code>
+
+                var obj = new subClass();
+
+                obj.config.mixinConfig.should.equal('mixinConfig');
+                obj.config.name.should.equal('subClass');
+                obj.config.isCool.should.equal(true);
+                obj.config.members.abe.should.equal('Abraham Elias');
+                obj.config.members.ed.should.equal('Ed Spencer');
+                obj.config.members.jacky.should.equal('Jacky Nguyen');
+                obj.config.members.tommy.should.equal('Tommy Maintz');
+
+                ['sleeping', 'eating', 'movies'].forEach(function(v, c) {
+                    obj.config.hobbies[c].should.equal(v);
+                });
+
+                obj.config.isSpecial.should.equal(true);</code></pre></dd>
+                <dt>should apply default config</dt>
+                <dd><pre><code>
+
+                var obj = new subClass();
+
+                obj.getName().should.equal('subClass');
+                obj.getIsCool().should.equal(true);
+
+                ['sleeping', 'eating', 'movies'].forEach(function(v, c) {
+                    obj.getHobbies()[c].should.equal(v);
+                });</code></pre></dd>
+                <dt>should apply with supplied config</dt>
+                <dd><pre><code>
+
+                var obj = new subClass({
+                    name: 'newName',
+                    isCool: false,
+                    members: {
+                        aaron: 'Aaron Conran'
+                    }
+                });
+
+                obj.getName().should.equal('newName');
+                obj.getIsCool().should.equal(false);
+                obj.getMembers().aaron.should.equal('Aaron Conran');</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>overriden methods</h1>
+              <dl>
+                <dt>should call self constructor</dt>
+                <dd><pre><code>
+var obj = new subClass();
+obj.subConstrutorCalled.should.be.ok;</code></pre></dd>
+                <dt>should call parent constructor</dt>
+                <dd><pre><code>
+var obj = new subClass();
+obj.parentConstructorCalled.should.be.ok;</code></pre></dd>
+                <dt>should call mixins constructors</dt>
+                <dd><pre><code>
+var obj = new subClass();
+obj.mixinConstructor1Called.should.be.ok;
+obj.mixinConstructor2Called.should.be.ok;</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>alias</h1>
+              <dl>
+                <dt>should store alias</dt>
+                <dd><pre><code>
+manager.getByAlias('subclass').should.equal(subClass);</code></pre></dd>
+                <dt>should store multiple aliases</dt>
+                <dd><pre><code>
+manager.getByAlias('parentclass').should.equal(parentClass);
+manager.getByAlias('superclass').should.equal(parentClass);</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>instantiate</h1>
+          <dl>
+            <dt>should create the instance by full class name</dt>
+            <dd><pre><code>
+
+            var me = manager.instantiate('Test.stuff.Person', 'Jacky', 24, 'male');
+            (me instanceof Test.stuff.Person).should.equal(true);</code></pre></dd>
+            <dt>should create the instance by alias</dt>
+            <dd><pre><code>
+
+            var me = manager.instantiateByAlias('person', 'Jacky', 24, 'male');
+            (me instanceof Test.stuff.Person).should.equal(true);</code></pre></dd>
+            <dt>should pass all arguments to the constructor</dt>
+            <dd><pre><code>
+
+            var me = manager.instantiateByAlias('person', 'Jacky', 24, 'male');
+            me.name.should.equal('Jacky');
+            me.age.should.equal(24);
+            me.sex.should.equal('male');</code></pre></dd>
+            <dt>should have all methods in prototype</dt>
+            <dd><pre><code>
+
+            var me = manager.instantiateByAlias('person', 'Jacky', 24, 'male');
+
+            me.eat('rice');
+
+            me.eatenFood.should.equal('rice');</code></pre></dd>
+            <dt>should works with inheritance</dt>
+            <dd><pre><code>
+
+            var me = manager.instantiateByAlias('developer', true, 'Jacky', 24, 'male');
+
+            me.code('javascript');
+
+            me.languageCoded.should.equal('javascript');
+            me.eatenFood.should.equal('bugs');</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>post-processors</h1>
+          <dl>
+            <section class="suite">
+              <h1>singleton</h1>
+              <dl>
+                <dt>should create the instance namespace and return the class</dt>
+                <dd><pre><code>
+
+                var test = Ext.define('Something.Cool', {
+                    singleton: true,
+                    someMethod: function() {
+                        this.someMethodCalled = true;
+                    },
+                    someProperty: 'something'
+                });
+
+                Ext.isDefined(Something.Cool).should.be.ok;
+                Ext.isDefined(Something.Cool instanceof test).should.be.ok;</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>alias xtype</h1>
+              <dl>
+                <dt>should set xtype as a static class property</dt>
+                <dd><pre><code>
+var test = Ext.define('Something.Cool', {
+    alias: 'widget.cool'
+});
+
+Something.Cool.xtype.should.equal('cool');</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>alternate</h1>
+              <dl>
+                <dt>should create the alternate with a string for alternateClassName property</dt>
+                <dd><pre><code>
+
+                Ext.define('Something.Cool', {
+                    alternateClassName: 'Something.CoolAsWell',
+
+                    someMethod: function() {
+                        this.someMethodCalled = true;
+                    },
+
+                    someProperty: 'something'
+                });
+
+                Ext.isDefined(Something.CoolAsWell).should.be.ok;
+                Something.CoolAsWell.should.equal(Something.Cool);</code></pre></dd>
+                <dt>should create the alternate with an array for alternateClassName property</dt>
+                <dd><pre><code>
+
+                Ext.define('Something.Cool', {
+                    alternateClassName: ['Something.CoolAsWell', 'Something.AlsoCool']
+                });
+
+                Something.CoolAsWell.should.equal(Something.Cool);
+                Something.AlsoCool.should.equal(Something.Cool);</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>createNamespaces</h1>
+          <dl>
+            <dt>should have an alias Ext.namespace</dt>
+            <dd><pre><code>
+
+            Ext.namespace('a', 'b', 'c');
+
+            Ext.isDefined(a).should.be.ok;
+            Ext.isDefined(b).should.be.ok;
+            Ext.isDefined(c).should.be.ok;</code></pre></dd>
+            <dt>should create a single top level namespace</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest1');
+            Ext.isDefined(w.FooTest1).should.be.ok;
+
+            delete w.FooTest1;</code></pre></dd>
+            <dt>should create multiple top level namespace</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest2', 'FooTest3', 'FooTest4');
+
+            Ext.isDefined(w.FooTest2).should.be.ok;
+            Ext.isDefined(w.FooTest3).should.be.ok;
+            Ext.isDefined(w.FooTest4).should.be.ok;
+
+            delete w.FooTest2;
+            delete w.FooTest3;
+            delete w.FooTest4;</code></pre></dd>
+            <dt>should create a chain of namespaces, starting from a top level</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest5', 'FooTest5.ns1', 'FooTest5.ns1.ns2', 'FooTest5.ns1.ns2.ns3');
+
+            Ext.isDefined(w.FooTest5).should.be.ok;
+            Ext.isDefined(w.FooTest5.ns1).should.be.ok;
+            Ext.isDefined(w.FooTest5.ns1.ns2).should.be.ok;
+            Ext.isDefined(w.FooTest5.ns1.ns2.ns3).should.be.ok;
+
+            delete w.FooTest5;</code></pre></dd>
+            <dt>should create lower level namespaces without first defining the top level</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest6.ns1', 'FooTest7.ns2');
+
+            Ext.isDefined(w.FooTest6).should.be.ok;
+            Ext.isDefined(w.FooTest6.ns1).should.be.ok;
+            Ext.isDefined(w.FooTest7).should.be.ok;
+            Ext.isDefined(w.FooTest7.ns2).should.be.ok;
+
+            delete w.FooTest6;
+            delete w.FooTest7;</code></pre></dd>
+            <dt>should create a lower level namespace without defining the middle level</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest8', 'FooTest8.ns1.ns2');
+
+            Ext.isDefined(w.FooTest8).should.be.ok;
+            Ext.isDefined(w.FooTest8.ns1).should.be.ok;
+            Ext.isDefined(w.FooTest8.ns1.ns2).should.be.ok;
+
+            delete w.FooTest8;</code></pre></dd>
+            <dt>should not overwritte existing namespace</dt>
+            <dd><pre><code>
+
+            Ext.ClassManager.createNamespaces('FooTest9');
+
+            FooTest9.prop1 = 'foo';
+
+            Ext.ClassManager.createNamespaces('FooTest9');
+
+            FooTest9.prop1.should.equal(&quot;foo&quot;);
+
+            delete w.FooTest9;</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Loader.getPath</h1>
+      <dl>
+        <dt>get loader path</dt>
         <dd><pre><code>
 
-        Ext.ClassManager.create('Ext.test.ClassManager.case1');</code></pre></dd>
+        Ext.Loader.setConfig('paths', {
+            'getPath#pattern1': '/foo'
+        });
+        Ext.Loader.getPath('getPath#pattern1').should.equal('/foo');</code></pre></dd>
+        <dt>get loader path</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig('paths', {
+            'getPath#pattern1': '/foo'
+        });
+
+        Ext.Loader.getPath('getPath#pattern1.Web').should.equal('/foo/Web.js');</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>Ext.Loader.require</h1>
+      <dl>
+        <dt>require pattern1</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'My': __dirname + '/../../shared/src/Loader/'
+            }
+        });
+
+        var ret = Ext.Loader.require('My.Test');
+        var ret = Ext.Loader.require('My.Test2');
+
+        cls = new My.Test();
+        cls.foo().should.equal('My.Test.foo');
+
+        cls = new My.Test2();
+        cls.foo().should.equal('My.Test2.foo');</code></pre></dd>
+        <dt>test require#pattern2</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'My': __dirname + '/../../shared/src/Loader/'
+            }
+        });
+
+        var cls = Ext.create('My.extend.Test2');
+        cls.foo().should.equal('My.extend.Test2.foo');
+        cls.bar().should.equal('My.extend.Test.bar');</code></pre></dd>
+        <dt>test require#pattern3</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'My': __dirname + '/../../shared/src/Loader/'
+            }
+        });
+
+        var cls = Ext.create('My.extend2.Test3');
+        cls.foo().should.equal('My.extend2.Test3.foo');
+        cls.bar().should.equal('My.extend2.Test2.bar');
+        cls.baz().should.equal('My.extend2.Test.baz');</code></pre></dd>
+        <dt>test require#pattern4</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'My': __dirname + '/../../shared/src/Loader/'
+            }
+        });
+
+        var cls = Ext.create('My.mixins.Test');
+
+        cls.foo().should.equal('My.mixins.Test.foo');
+        cls.bar().should.equal('My.mixins.Test.bar');
+        cls.mix1().should.equal('My.mixins.Mix1.mix1');
+        cls.mix2().should.equal('My.mixins.Mix2.mix2');</code></pre></dd>
+        <dt>test require#pattern6</dt>
+        <dd><pre><code>
+
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'My': __dirname + '/../../shared/src/Loader/'
+            }
+        });
+
+        var cls = Ext.create('My.requires2.Test');
+        cls.foo().should.equal('My.requires2.Req1.req1');</code></pre></dd>
       </dl>
     </section>
     <section class="suite">
