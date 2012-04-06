@@ -77,6 +77,36 @@ describe('Ext.server.Connect.basicAuth', function() {
 
     test(app, 'connect.basicAuth(user, pass)');
 
+    var app = Ext.create('Ext.server.Connect');
+
+    app.use(Ext.server.Connect.basicAuth(function(user, pass){
+        return 'tj' == user && 'tobi' == pass;
+    }));
+
+    app.use(function(req, res, next){
+        req.user.should.equal('tj');
+        res.end('secret!');
+    });
+
+    test(app, 'connect.basicAuth(callback)');
+
+
+    var app = Ext.create('Ext.server.Connect');
+
+    app.use(Ext.server.Connect.basicAuth(function(user, pass, fn){
+        var ok = 'tj' == user && 'tobi' == pass;
+        fn(null, ok
+        ? { name: 'tj' }
+        : null);
+    }));
+
+    app.use(function(req, res, next){
+        req.user.name.should.equal('tj');
+        res.end('secret!');
+    });
+
+    test(app, 'connect.basicAuth(callback) async');
+
 });
 
 // }}}
