@@ -15,7 +15,7 @@ require('../../../index.js');
 
 function test(app, signature) {
 
-    describe(signature, function(){
+    describe(signature, function() {
 
         describe('when missing Authorization', function() {
             it('should respond with 401 and WWW-Authenticate', function(done) {
@@ -29,13 +29,12 @@ function test(app, signature) {
             });
         });
 
-        /*
-        describe('when valid', function(){
-            it('should next()', function(done){
+        describe('when valid', function() {
+            it('should next()', function(done) {
                 app.request()
                 .get('/')
                 .set('Authorization', 'Basic dGo6dG9iaQ==')
-                .end(function(res){
+                .end(function(res) {
                     res.statusCode.should.equal(200);
                     res.body.should.equal('secret!');
                     done();
@@ -43,13 +42,12 @@ function test(app, signature) {
             });
         });
 
-        /*
-        describe('when invalid', function(){
-            it('should respond with 401', function(done){
+        describe('when invalid', function() {
+            it('should respond with 401', function(done) {
                 app.request()
                 .get('/')
                 .set('Authorization', 'Basic dGo69iaQ==')
-                .end(function(res){
+                .end(function(res) {
                     res.statusCode.should.equal(401);
                     res.headers['www-authenticate'].should.equal('Basic realm="Authorization Required"');
                     res.body.should.equal('Unauthorized');
@@ -57,7 +55,6 @@ function test(app, signature) {
                 });
             });
         });
-        */
     });
 };
 
@@ -79,11 +76,11 @@ describe('Ext.server.Connect.basicAuth', function() {
 
     var app = Ext.create('Ext.server.Connect');
 
-    app.use(Ext.server.Connect.basicAuth(function(user, pass){
+    app.use(Ext.server.Connect.basicAuth(function(user, pass) {
         return 'tj' == user && 'tobi' == pass;
     }));
 
-    app.use(function(req, res, next){
+    app.use(function(req, res, next) {
         req.user.should.equal('tj');
         res.end('secret!');
     });
@@ -93,14 +90,14 @@ describe('Ext.server.Connect.basicAuth', function() {
 
     var app = Ext.create('Ext.server.Connect');
 
-    app.use(Ext.server.Connect.basicAuth(function(user, pass, fn){
+    app.use(Ext.server.Connect.basicAuth(function(user, pass, fn) {
         var ok = 'tj' == user && 'tobi' == pass;
         fn(null, ok
         ? { name: 'tj' }
         : null);
     }));
 
-    app.use(function(req, res, next){
+    app.use(function(req, res, next) {
         req.user.name.should.equal('tj');
         res.end('secret!');
     });

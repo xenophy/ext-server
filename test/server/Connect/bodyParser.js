@@ -13,49 +13,49 @@ require('../../../index.js');
 // }}}
 // {{{ describe
 
-describe('connect.bodyParser()', function(){
+describe('connect.bodyParser()', function() {
 
     var app = Ext.create('Ext.server.Connect');
 
     app.use(Ext.server.Connect.bodyParser());
 
-    app.use(function(req, res){
+    app.use(function(req, res) {
         res.end(JSON.stringify(req.body));
     });
 
-    it('should default to {}', function(done){
+    it('should default to {}', function(done) {
         app.request()
         .post('/')
-        .end(function(res){
+        .end(function(res) {
             res.body.should.equal('{}');
             done();
         });
     });
 
-    it('should parse JSON', function(done){
+    it('should parse JSON', function(done) {
         app.request()
         .post('/')
         .set('Content-Type', 'application/json')
         .write('{"user":"tobi"}')
-        .end(function(res){
+        .end(function(res) {
             res.body.should.equal('{"user":"tobi"}');
             done();
         });
     });
 
-    it('should parse x-www-form-urlencoded', function(done){
+    it('should parse x-www-form-urlencoded', function(done) {
         app.request()
         .post('/')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .write('user=tobi')
-        .end(function(res){
+        .end(function(res) {
             res.body.should.equal('{"user":"tobi"}');
             done();
         });
     });
 
-    describe('with multipart/form-data', function(){
-        it('should populate req.body', function(done){
+    describe('with multipart/form-data', function() {
+        it('should populate req.body', function(done) {
             app.request()
             .post('/')
             .set('Content-Type', 'multipart/form-data; boundary=foo')
@@ -64,18 +64,18 @@ describe('connect.bodyParser()', function(){
             .write('\r\n')
             .write('Tobi')
             .write('\r\n--foo--')
-            .end(function(res){
+            .end(function(res) {
                 res.body.should.equal('{"user":"Tobi"}');
                 done();
             });
         });
 
-        it('should support files', function(done){
+        it('should support files', function(done) {
             var app = Ext.create('Ext.server.Connect');
 
             app.use(Ext.server.Connect.bodyParser());
 
-            app.use(function(req, res){
+            app.use(function(req, res) {
                 req.body.user.should.eql({ name: 'Tobi' });
                 req.files.text.path.should.not.include('.txt');
                 req.files.text.constructor.name.should.equal('File');
@@ -94,13 +94,13 @@ describe('connect.bodyParser()', function(){
             .write('\r\n')
             .write('some text here')
             .write('\r\n--foo--')
-            .end(function(res){
+            .end(function(res) {
                 res.body.should.equal('foo.txt');
                 done();
             });
         });
 
-        it('should expose options to formidable', function(done){
+        it('should expose options to formidable', function(done) {
 
             var app = Ext.create('Ext.server.Connect');
 
@@ -108,7 +108,7 @@ describe('connect.bodyParser()', function(){
                 keepExtensions: true
                 }));
 
-                app.use(function(req, res){
+                app.use(function(req, res) {
                     req.body.user.should.eql({ name: 'Tobi' });
                     req.files.text.path.should.include('.txt');
                     req.files.text.constructor.name.should.equal('File');
@@ -127,13 +127,13 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('some text here')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     res.body.should.equal('foo.txt');
                     done();
                 });
             });
 
-            it('should work with multiple fields', function(done){
+            it('should work with multiple fields', function(done) {
                 app.request()
                 .post('/')
                 .set('Content-Type', 'multipart/form-data; boundary=foo')
@@ -146,13 +146,13 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('1')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     res.body.should.equal('{"user":"Tobi","age":"1"}');
                     done();
                 });
             });
 
-            it('should support nesting', function(done){
+            it('should support nesting', function(done) {
                 app.request()
                 .post('/')
                 .set('Content-Type', 'multipart/form-data; boundary=foo')
@@ -173,7 +173,7 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('ferret')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     var obj = JSON.parse(res.body);
                     obj.user.age.should.equal('1');
                     obj.user.name.should.eql({ first: 'tobi', last: 'holowaychuk' });
@@ -182,13 +182,13 @@ describe('connect.bodyParser()', function(){
                 });
             });
 
-            it('should support multiple files of the same name', function(done){
+            it('should support multiple files of the same name', function(done) {
 
                 var app = Ext.create('Ext.server.Connect');
 
                 app.use(Ext.server.Connect.bodyParser());
 
-                app.use(function(req, res){
+                app.use(function(req, res) {
                     req.files.text.should.have.length(2);
                     req.files.text[0].constructor.name.should.equal('File');
                     req.files.text[1].constructor.name.should.equal('File');
@@ -207,18 +207,18 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('some more text stuff')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     res.statusCode.should.equal(200);
                     done();
                 });
             });
 
-            it('should support nested files', function(done){
+            it('should support nested files', function(done) {
                 var app = Ext.create('Ext.server.Connect');
 
                 app.use(Ext.server.Connect.bodyParser());
 
-                app.use(function(req, res){
+                app.use(function(req, res) {
                     Object.keys(req.files.docs).should.have.length(2);
                     req.files.docs.foo.name.should.equal('foo.txt');
                     req.files.docs.bar.name.should.equal('bar.txt');
@@ -237,24 +237,24 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('some more text stuff')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     res.statusCode.should.equal(200);
                     done();
                 });
             });
 
-            it('should next(err) on multipart failure', function(done){
+            it('should next(err) on multipart failure', function(done) {
 
                 var app = Ext.create('Ext.server.Connect');
 
                 app.use(Ext.server.Connect.bodyParser());
 
 
-                app.use(function(req, res){
+                app.use(function(req, res) {
                     res.end('whoop');
                 });
 
-                app.use(function(err, req, res, next){
+                app.use(function(err, req, res, next) {
                     err.message.should.equal('parser error, 16 of 28 bytes parsed');
                     res.statusCode = 500;
                     res.end();
@@ -271,7 +271,7 @@ describe('connect.bodyParser()', function(){
                 .write('\r\n')
                 .write('some more text stuff')
                 .write('\r\n--foo--')
-                .end(function(res){
+                .end(function(res) {
                     res.statusCode.should.equal(500);
                     done();
 

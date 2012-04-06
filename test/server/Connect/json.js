@@ -28,44 +28,44 @@ describe('Ext.server.Connect.json', function() {
         res.end(err.message);
     });
 
-    (function(o){
+    (function(o) {
         it('should default to {}', function(done) {
             o.request()
             .post('/')
-            .end(function(res){
+            .end(function(res) {
                 res.body.should.equal('{}');
                 done();
             })
         })
     })(app);
 
-    it('should parse JSON', function(done){
+    it('should parse JSON', function(done) {
         app.request()
         .post('/')
         .set('Content-Type', 'application/json')
         .write('{"user":"tobi"}')
-        .end(function(res){
+        .end(function(res) {
             res.body.should.equal('{"user":"tobi"}');
             done();
         });
     });
 
-    it('should fail gracefully', function(done){
+    it('should fail gracefully', function(done) {
         app.request()
         .post('/')
         .set('Content-Type', 'application/json')
         .write('{"user"')
-        .end(function(res){
+        .end(function(res) {
             res.body.should.equal('Unexpected end of input');
             done();
         });
     });
 
-    it('should 400 on malformed JSON', function(done){
+    it('should 400 on malformed JSON', function(done) {
         var app = Ext.create('Ext.server.Connect');
         app.use(Ext.server.Connect.json());
 
-        app.use(function(req, res){
+        app.use(function(req, res) {
             res.end(JSON.stringify(req.body));
         });
 
@@ -101,7 +101,7 @@ describe('Ext.server.Connect.json', function() {
             var app = Ext.create('Ext.server.Connect');
             app.use(Ext.server.Connect.json({ strict: false }));
 
-            app.use(function(req, res){
+            app.use(function(req, res) {
                 res.end(JSON.stringify(req.body));
             });
 
@@ -119,7 +119,7 @@ describe('Ext.server.Connect.json', function() {
             var app = Ext.create('Ext.server.Connect');
             app.use(Ext.server.Connect.json());
 
-            app.use(function(req, res){
+            app.use(function(req, res) {
                 res.end(JSON.stringify(req.body));
             });
 
