@@ -33,6 +33,28 @@ describe('Ext.server.*', function() {
 
     });
 
+    it('Ext.server.Server.create onLaunch', function(done) {
+
+        Ext.service({
+            port: ++port,
+            onLaunch: function() {
+                done();
+            }
+        });
+
+    });
+
+    it('Ext.server.Server.create static', function(done) {
+
+        Ext.service({
+            port: ++port,
+            onLaunch: function() {
+                done();
+            }
+        });
+
+    });
+
 });
 
 // }}}
