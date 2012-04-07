@@ -2,7 +2,10 @@
 require('../../../index.js');
 
 Ext.service({
-    //cluster: false,
-    public: './public'
+    //cluster: true,
+    public: './public',
+    session: {
+//        type: 'redis'
+    }
 });
 

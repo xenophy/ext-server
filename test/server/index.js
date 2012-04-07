@@ -36,7 +36,6 @@ describe('Ext.server.*', function() {
     it('Ext.server.Server.create onLaunch', function(done) {
 
         Ext.service({
-            cluster : false,
             port    : ++port,
             onLaunch: function() {
                 done();
@@ -50,7 +49,6 @@ describe('Ext.server.*', function() {
         var fixtures = require('path').normalize(__dirname + '/../shared/fixtures');
 
         Ext.service({
-            cluster : false,
             public: fixtures,
             port: ++port,
             onLaunch: function() {
