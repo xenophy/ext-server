@@ -15,7 +15,11 @@ Ext.define('My.controller.Index', {
 
         this.control({
 
+            '/': function(req, res, next) {
 
+                res.end('Hello World!');
+
+            }
 
         });
 
