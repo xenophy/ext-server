@@ -1,7 +1,8 @@
 
 require('../../../index.js');
 
-Ext.service({
+Ext.application({
+    name: 'My',
     //cluster: true,
     public: './public',
     session: {
