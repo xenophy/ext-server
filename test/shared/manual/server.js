@@ -4,9 +4,12 @@ require('../../../index.js');
 Ext.application({
     name: 'My',
     //cluster: true,
-    public: './public',
+    public: './public', // TODO:あとでテンプレートバインドできてからよく考える
     session: {
 //        type: 'redis'
-    }
+    },
+    controllers: [
+        'Index'
+    ]
 });
 

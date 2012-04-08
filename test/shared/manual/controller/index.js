@@ -1,8 +1,27 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-// {{{
+// {{{ My.controller.Index
 
-Ext.define('Ext.app.controller.Abstract', {
+Ext.define('My.controller.Index', {
+
+    // {{{ extend
+
+    extend: 'Ext.app.Controller',
+
+    // }}}
+    // {{{ init
+
+    init: function() {
+
+        this.control({
+
+
+
+        });
+
+    }
+
+    // }}}
 
 });
 
