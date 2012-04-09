@@ -1,0 +1,1 @@
+The newly created class
