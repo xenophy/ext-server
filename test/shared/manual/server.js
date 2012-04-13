@@ -8,8 +8,5 @@ Ext.application({
     session: {
 //        type: 'redis'
     },
-    controllers: [
-        'Index'
-    ]
 });
 
