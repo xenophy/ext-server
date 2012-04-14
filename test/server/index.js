@@ -11,6 +11,17 @@
 require('../../index.js');
 
 // }}}
+// {{{ requires
+
+Ext.Loader.setConfig({
+    paths: {
+        Ext: '../../../lib/ext-server/'
+    }
+});
+
+Ext.Loader.require('Ext.server.Server');
+
+// }}}
 // {{{ describe
 
 describe('Ext.server.*', function() {
