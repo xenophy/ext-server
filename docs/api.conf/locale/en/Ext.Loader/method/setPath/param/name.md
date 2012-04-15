@@ -1,1 +1,2 @@
-See {@link Ext.Function#flexSetter flexSetter}
+See
+<a href="#!/api/Ext.Function-method-flexSetter" rel="Ext.Function-method-flexSetter" class="docClass">flexSetter</a>

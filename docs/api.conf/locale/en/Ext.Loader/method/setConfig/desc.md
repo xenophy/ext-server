@@ -18,4 +18,6 @@ is included in the page, and before Ext.onReady. i.e:
         });
     </script>
 
-Refer to config options of {@link Ext.Loader} for the list of possible properties
+Refer to config options of
+<a href="#!/api/Ext.Loader" rel="Ext.Loader" class="docClass">Ext.Loader</a>
+for the list of possible properties

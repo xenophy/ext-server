@@ -1,4 +1,5 @@
-Get the reference to the class from which this object was instantiated. Note that unlike {@link Ext.Base#self},
+Get the reference to the class from which this object was instantiated. Note that unlike
+<a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass" id="ext-gen1639">self</a>
 `this.statics()` is scope-independent and it always returns the class from which it was called, regardless of what
 `this` points to during run-time
 
