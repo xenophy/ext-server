@@ -2,7 +2,7 @@
 
 module.exports = function() {
 
-    // logic
+    console.log("index trace.");
 
 
 };
