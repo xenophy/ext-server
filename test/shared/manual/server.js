@@ -5,7 +5,9 @@ Ext.application({
     name: 'My',
     // cluster: true,
     app: {
-        public: './public',
+        paths: {
+            public: './public',
+        }
     },
     session: {
 //        type: 'redis'
