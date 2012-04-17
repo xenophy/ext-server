@@ -1,6 +1,6 @@
 
 
-module.exports = function() {
+module.exports = function(done) {
 
     console.log("index trace.");
 
