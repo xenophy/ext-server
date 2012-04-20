@@ -93,9 +93,9 @@ Ext ServerではExt.defineでクラスの定義をします。クラスを作成
 
     Ext.define({String} className, {Object} members, {Function} createdCallback);
 
--   className: クラス名
+-   `className`: クラス名
 -   `members`はキーと値のペアでクラスメンバのコレクションを表わすオブジェクトです。
--   `createCallbackはオプション関数で、このクラスのすべての依存関係が解決され、クラス自身が完全に生成された時にコールバックされます。クラス作成は非同期的に動作しますのでこのコールバックは多くの状況で役に立ちます。`
+-   `createCallback`はオプション関数で、このクラスのすべての依存関係が解決され、クラス自身が完全に生成された時にコールバックされます。クラス作成は非同期的に動作しますのでこのコールバックは多くの状況で役に立ちます。
 
 **例:**
 
@@ -171,20 +171,20 @@ setterが実行されるタイミングで呼び出されるので、任意の�
 
 この機能により、
 
--   My.own.Windowクラスのコード量が減り、機能的になりました。
+-   My.test.Classクラスのコード量が減り、機能的になりました。
 -   コンフィグレーションは他のクラスのメンバーから完全にカプセル化されます。
 -   すでに定義済みでなければクラスが生成されるときに、すべてのコンフィグプロパティに対するsetterとgetterが、クラスのプロトタイプの中に自動的に生成されます。
 
 ### Statics
 
-staticsというキーにオブジェクトリテラルを定義すると、
+staticsコンフィグオプションにオブジェクトリテラルを定義すると、
 静的メンバーを定義することができます。
 
     Ext.define('Computer', {
         statics: {
             instanceCount: 0,
             factory: function(brand) {
-                // 'this' in static methods refer to the class itself
+                // 静的メソッド内でのthisはクラス自身を参照します
                 return new this({brand: brand});
             }
         },
@@ -196,7 +196,7 @@ staticsというキーにオブジェクトリテラルを定義すると、
         constructor: function(config) {
             this.initConfig(config);
 
-            // the 'self' property of an instance refers to its class
+            // インスタンスのselfプロパティはそのクラスを参照します
             this.self.instanceCount ++;
 
             return this;
@@ -206,9 +206,33 @@ staticsというキーにオブジェクトリテラルを定義すると、
     var dellComputer = Computer.factory('Dell');
     var appleComputer = Computer.factory('Mac');
 
-    console.log(appleComputer.getBrand()); // using the auto-generated getter to get the value of a config property. Alerts "Mac"
+    // 自動生成されたgetterメソッドでコンフィグの値を取り出す
+    console.log(appleComputer.getBrand());
 
     console.log(Computer.instanceCount); // Alerts "2"
+
+### シングルトン
+
+クラスのインスタンスが1つしか作成されないことを保証する、
+シングルトン パターンを実現するための機能があります。
+
+    Ext.define('My.Singleton', {
+        singleton: true,
+        statics: {
+            staticMethod: function () {
+                console.log('staticMethod called.');
+            }
+        },
+        dynamicMethod: function() {
+            console.log('dynamicMethod called.');
+        }
+    });
+    My.Singleton.dynamicMethod();
+    // My.Singleton.staticMethod(); // 静的メンバにアクセスできない
+
+オブジェクト リテラルにsingleton: trueと設定するだけです。
+クラスのインスタンス化もする必要はありません。
+シングルトンでは、静的メンバにあくせすすることはできません。
 
 ### 継承
 
@@ -229,13 +253,27 @@ extendコンフィグに継承元のクラス名を文字列で指定します�
 
 この例では、My.ClassはExt.Baseを継承しています。
 継承しているのを確認するために、
-console.log(My.Class.getName()); と、Ext.Baseが持っているStaticメソッドを呼び出しています。
+`console.log(My.Class.getName());` と、Ext.Baseが持っているStaticメソッドを呼び出しています。
+
+継承元のクラスのメソッドを呼び出すにはcallParentを使います。
+
+    MyClass.callParent(arguments);
 
 
-V. ダイナミック ローディング
+### Mixin
+
+Mixinでは、再利用可能な振る舞いと設定の一式を定義し、既存のクラスに「ミックス」することができます。この機能をクラスで使うには、クラスを定義する際にMixinコンフィグを記述するだけです。
+例えば、あるクラスにイベント リスナー機能を持たせたい場合には、
+Ext.util.Observable Mixinを指定します。
+
+    mixin: ['Ext.util.Observable'],
+
+クラスに適用できるMixinの数には制限はないので、多重継承を実現する方法として利用できます。
+
+IV. ダイナミック ローディング
 ----------------------------
 
-直前の例で、Ext.Baseを継承したクラスを作りましたが、
+前出の継承の例では、Ext.Baseを継承したクラスを作りましたが、
 その中でExt.Baseの定義をしているソースファイルを読み込んでいないことにお気づきだったでしょうか。
 ソースファイルを読み込んでいないに、どうしてExe.Baseを継承することができたのでしょう。
 
