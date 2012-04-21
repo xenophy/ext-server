@@ -4,5 +4,9 @@
          "name": "getting_started",
          "title": "Getting Started with Ext Server",
          "description": "This introduction to Ext Server explains how you can get started."
+     },{
+         "name": "class",
+         "title": "Class System",
+         "description": "Class System Overview."
      }]
 }]

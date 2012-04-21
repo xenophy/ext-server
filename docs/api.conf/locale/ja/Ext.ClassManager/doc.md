@@ -1,6 +1,5 @@
-Ext.ClassManager manages all classes and handles mapping from string class name to
-actual class objects throughout the whole framework. It is not generally accessed directly, rather through
-these convenient shorthands:
+Ext.ClassManagerは、すべてのクラスを管理し、フレームワーク全体に渡って実際のクラスオブジェクトに対しクラス名文字列をマッピングします。
+直接ではなく、以下の便利なショートハンドを介してアクセスします。
 
 - <a href="#/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>
 - <a href="#/api/Ext-method-create" rel="Ext-method-create" class="docClass">Ext.create</a>
@@ -8,13 +7,14 @@ these convenient shorthands:
 - <a href="#/api/Ext-method-getClass" rel="Ext-method-getClass" class="docClass">Ext.getClass</a>
 - <a href="#/api/Ext-method-getClassName" rel="Ext-method-getClassName" class="docClass">Ext.getClassName</a>
 
-# Basic syntax:
+# 基本的な文法:
 
     Ext.define(className, properties);
 
-in which `properties` is an object represent a collection of properties that apply to the class. See
+`properties`は、クラスに適用されるプロパティを記述したオブジェクトです。
+詳しくは
 <a href="#!/api/Ext.ClassManager-method-create" rel="Ext.ClassManager-method-create" class="docClass">create</a>
-for more detailed instructions.
+をご覧ください。
 
     Ext.define('Person', {
          name: 'Unknown',
@@ -38,12 +38,14 @@ for more detailed instructions.
     aaron.eat("Sandwich"); // alert("I'm eating: Sandwich");
 
 <a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a>
-Ext.Class has a powerful set of extensible
+にはパワフルで拡張性のある
 <a href="#!/api/Ext.Class-static-method-registerPreprocessor" rel="Ext.Class-static-method-registerPreprocessor" class="docClass">pre-processors</a>
-which takes care of
-everything related to class creation, including but not limited to inheritance, mixins, configuration, statics, etc.
+がいくつかあります。
+それらは、
+インクルード(継承に限らず)、ミックスイン、コンフィグ、静的メンバなど、
+クラス生成に関連する全てについて世話取りします。
 
-# Inheritance:
+# 継承:
 
     Ext.define('Developer', {
          extend: 'Person',
@@ -71,11 +73,11 @@ everything related to class creation, including but not limited to inheritance, 
     jacky.code("JavaScript"); // alert("I'm coding in: JavaScript");
                               // alert("I'm eating: Bugs");
 
-See
+スーパークラスのメソッドをコールする方法については、
 <a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass">Ext.Base.callParent</a>
-for more details on calling superclass' methods
+を参照してください。
 
-# Mixins:
+# ミックスイン:
 
     Ext.define('CanPlayGuitar', {
          playGuitar: function() {
@@ -129,7 +131,7 @@ for more details on calling superclass' methods
                // alert("[Playing guitar at the same time...]");
                // alert("F#...G...D...A");
 
-# Config:
+# コンフィグ:
 
     Ext.define('SmartPhone', {
          config: {
@@ -179,7 +181,7 @@ for more details on calling superclass' methods
     iPhone.setOperatingSystem('AlienOS');
     iPhone.getOperatingSystem(); // 'Other'
 
-# Statics:
+# 静的メンバー:
 
     Ext.define('Computer', {
          statics: {
@@ -194,10 +196,9 @@ for more details on calling superclass' methods
 
     var dellComputer = Computer.factory('Dell');
 
-Also see
+静的メンバーへのアクセスについては
 <a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">Ext.Base.statics</a>
-and
+や
 <a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass">Ext.Base.self</a>
-for more details on accessing
-static properties within class methods
+を参照してください。
 
