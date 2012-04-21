@@ -11,9 +11,10 @@ TESTS = test/Ext/*.js \
 		test/class/ClassManager/*.js \
 		test/class/Loader/*.js \
 		test/version/Version/*.js \
-		test/server/*.js \
 		test/server/Connect/*.js \
 		test/misc/JSON/*.js
+
+#		test/server/*.js \
 
 REPORTER = dot
 
