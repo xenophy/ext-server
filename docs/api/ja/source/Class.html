@@ -58,15 +58,13 @@
         return constructor;
     }
 
-<span id='Ext-Class-method-constructor'>    /**
-</span>     * @method constructor
-     * Create a new anonymous class.
+<span id='Ext-Class'>    /**
+</span>     * {Ext_Class:method-create:desc}
      *
-     * @param {Object} data An object represent the properties of this class
-     * @param {Function} onCreated Optional, the callback function to be executed when this class is fully created.
-     * Note that the creation process can be asynchronous depending on the pre-processors used.
+     * @param {Object} data {Ext_Class:method-create:param_data}
+     * @param {Function} onCreated {Ext_Class:method-create:param_onCreated}
      *
-     * @return {Ext.Base} The newly created class
+     * @return {Ext.Base} {Ext_Class:method-create:return}
      */
     Ext.Class = ExtClass = function(Class, data, onCreated) {
 
@@ -206,26 +204,14 @@
 </span>        preprocessors: {},
 
 <span id='Ext-Class-static-method-registerPreprocessor'>        /**
-</span>         * Register a new pre-processor to be used during the class creation process
+</span>         * {Ext_Class:method-registerPreprocessor:desc}
          *
-         * @param {String} name The pre-processor's name
-         * @param {Function} fn The callback function to be executed. Typical format:
-         *
-         *     function(cls, data, fn) {
-         *         // Your code here
-         *
-         *         // Execute this when the processing is finished.
-         *         // Asynchronous processing is perfectly ok
-         *         if(fn) {
-         *             fn.call(this, cls, data);
-         *         }
-         *     });
-         *
-         * @param {Function} fn.cls The created class
-         * @param {Object} fn.data The set of properties passed in {@link Ext.Class} constructor
-         * @param {Function} fn.fn The callback function that **must** to be executed when this
-         * pre-processor finishes, regardless of whether the processing is synchronous or aynchronous.
-         * @return {Ext.Class} this
+         * @param {String} name {Ext_Class:method-registerPreprocessor:param_name}
+         * @param {Function} fn {Ext_Class:method-registerPreprocessor:param_fn}
+         * @param {Function} fn.cls {Ext_Class:method-registerPreprocessor:param_fn.cls}
+         * @param {Object} fn.data {Ext_Class:method-registerPreprocessor:param_fn.data}
+         * @param {Function} fn.fn {Ext_Class:method-registerPreprocessor:param_fn.fn}
+         * @return {Ext.Class} {Ext_Class:method-registerPreprocessor:return} 
          * @private
          * @static
          */
@@ -250,10 +236,10 @@
         },
 
 <span id='Ext-Class-static-method-getPreprocessor'>        /**
-</span>         * Retrieve a pre-processor callback function by its name, which has been registered before
+</span>         * {Ext_Class:method-getPreprocessor:desc}
          *
-         * @param {String} name
-         * @return {Function} preprocessor
+         * @param {String} name {Ext_Class:method-getPreprocessor:param_name}
+         * @return {Function} {Ext_Class:method-getPreprocessor:return}
          * @private
          * @static
          */
@@ -274,8 +260,8 @@
         defaultPreprocessors: [],
 
 <span id='Ext-Class-static-method-getDefaultPreprocessors'>        /**
-</span>         * Retrieve the array stack of default pre-processors
-         * @return {Function[]} defaultPreprocessors
+</span>         * {Ext_Class:method-getDefaultPreprocessors:desc}
+         * @return {Function[]} defaultPreprocessors {Ext_Class:method-getDefaultPreprocessors:return}
          * @private
          * @static
          */
@@ -284,11 +270,11 @@
         },
 
 <span id='Ext-Class-static-method-setDefaultPreprocessors'>        /**
-</span>         * Set the default array stack of default pre-processors
+</span>         * {Ext_Class:method-setDefaultPreprocessors:desc}
          *
          * @private
-         * @param {Array} preprocessors
-         * @return {Ext.Class} this
+         * @param {Array} preprocessors {Ext_Class:method-setDefaultPreprocessors:param_preprocesors}
+         * @return {Ext.Class} {Ext_Class:method-setDefaultPreprocessors:return}
          * @static
          */
         setDefaultPreprocessors: function(preprocessors) {
@@ -374,16 +360,7 @@
 
 <span id='Ext-Class-cfg-extend'>    /**
 </span>     * @cfg {String} extend
-     * The parent class that this class extends. For example:
-     *
-     *     Ext.define('Person', {
-     *         say: function(text) { alert(text); }
-     *     });
-     *
-     *     Ext.define('Developer', {
-     *         extend: 'Person',
-     *         say: function(text) { this.callParent([&quot;print &quot;+text]); }
-     *     });
+     * {Ext_Class:config-extend:desc}
      */
     ExtClass.registerPreprocessor('extend', function(Class, data) {
         var Base = Ext.Base,
@@ -424,20 +401,7 @@
     //&lt;feature classSystem.statics&gt;
 <span id='Ext-Class-cfg-statics'>    /**
 </span>     * @cfg {Object} statics
-     * List of static methods for this class. For example:
-     *
-     *     Ext.define('Computer', {
-     *          statics: {
-     *              factory: function(brand) {
-     *                  // 'this' in static methods refer to the class itself
-     *                  return new this(brand);
-     *              }
-     *          },
-     *
-     *          constructor: function() { ... }
-     *     });
-     *
-     *     var dellComputer = Computer.factory('Dell');
+     * {Ext_Class:config-statics:desc}
      */
     ExtClass.registerPreprocessor('statics', function(Class, data) {
         Class.addStatics(data.statics);
@@ -449,8 +413,7 @@
     //&lt;feature classSystem.inheritableStatics&gt;
 <span id='Ext-Class-cfg-inheritableStatics'>    /**
 </span>     * @cfg {Object} inheritableStatics
-     * List of inheritable static methods for this class.
-     * Otherwise just like {@link #statics} but subclasses inherit these methods.
+     * {Ext_Class:config-inheritableStatics:desc}
      */
     ExtClass.registerPreprocessor('inheritableStatics', function(Class, data) {
         Class.addInheritableStatics(data.inheritableStatics);
@@ -462,28 +425,7 @@
     //&lt;feature classSystem.config&gt;
 <span id='Ext-Class-cfg-config'>    /**
 </span>     * @cfg {Object} config
-     * List of configuration options with their default values, for which automatically
-     * accessor methods are generated.  For example:
-     *
-     *     Ext.define('SmartPhone', {
-     *          config: {
-     *              hasTouchScreen: false,
-     *              operatingSystem: 'Other',
-     *              price: 500
-     *          },
-     *          constructor: function(cfg) {
-     *              this.initConfig(cfg);
-     *          }
-     *     });
-     *
-     *     var iPhone = new SmartPhone({
-     *          hasTouchScreen: true,
-     *          operatingSystem: 'iOS'
-     *     });
-     *
-     *     iPhone.getPrice(); // 500;
-     *     iPhone.getOperatingSystem(); // 'iOS'
-     *     iPhone.getHasTouchScreen(); // true;
+     * {Ext_Class:config-config:desc}
      */
     ExtClass.registerPreprocessor('config', function(Class, data) {
         var config = data.config,
@@ -581,38 +523,7 @@
     //&lt;feature classSystem.mixins&gt;
 <span id='Ext-Class-cfg-mixins'>    /**
 </span>     * @cfg {String[]/Object} mixins
-     * List of classes to mix into this class. For example:
-     *
-     *     Ext.define('CanSing', {
-     *          sing: function() {
-     *              alert(&quot;I'm on the highway to hell...&quot;)
-     *          }
-     *     });
-     *
-     *     Ext.define('Musician', {
-     *          mixins: ['CanSing']
-     *     })
-     *
-     * In this case the Musician class will get a `sing` method from CanSing mixin.
-     *
-     * But what if the Musician already has a `sing` method? Or you want to mix
-     * in two classes, both of which define `sing`?  In such a cases it's good
-     * to define mixins as an object, where you assign a name to each mixin:
-     *
-     *     Ext.define('Musician', {
-     *          mixins: {
-     *              canSing: 'CanSing'
-     *          },
-     * 
-     *          sing: function() {
-     *              // delegate singing operation to mixin
-     *              this.mixins.canSing.sing.call(this);
-     *          }
-     *     })
-     *
-     * In this case the `sing` method of Musician will overwrite the
-     * mixed in `sing` method. But you can access the original mixed in method
-     * through special `mixins` property.
+     * {Ext_Class:config-mixins:desc}
      */
     ExtClass.registerPreprocessor('mixins', function(Class, data, hooks) {
         var mixins = data.mixins,

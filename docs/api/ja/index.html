@@ -9,28 +9,27 @@
   <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
   <link rel="stylesheet" href="resources/css/app.css" type="text/css" />
   <link rel="stylesheet" href="resources/prettify/prettify.css" type="text/css" />
-  <!--[if IE]>
-    <link rel="stylesheet" href="resources/css/ie.css" type="text/css" />
-    <link rel="stylesheet" href="resources/css/welcome_ie6.css" type="text/css" />
-  <![endif]-->
 
   <!-- Async script to not block while loading TypeKit fonts -->
+  <!-- TypeKit font-set is only registered for sencha.com and localhost -->
   <script type="text/javascript">
   (function() {
-    var TypekitConfig = {
-      kitId: 'uxj6dew'
-    };
-    var tk = document.createElement('script');
-    tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
-    tk.type = 'text/javascript';
-    tk.async = 'true';
-    tk.onload = tk.onreadystatechange = function() {
-      var rs = this.readyState;
-      if (rs && rs != 'complete' && rs != 'loaded') return;
-      try { Typekit.load(TypekitConfig); } catch (e) {}
-    };
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(tk, s);
+    if (/sencha.com$|localhost$/.test(window.location.hostname)) {
+      var TypekitConfig = {
+        kitId: 'uxj6dew'
+      };
+      var tk = document.createElement('script');
+      tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
+      tk.type = 'text/javascript';
+      tk.async = 'true';
+      tk.onload = tk.onreadystatechange = function() {
+        var rs = this.readyState;
+        if (rs && rs != 'complete' && rs != 'loaded') return;
+        try { Typekit.load(TypekitConfig); } catch (e) {}
+      };
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(tk, s);
+    }
   })();
   </script>
 
@@ -100,6 +99,7 @@
             <h3>Ext Sever Guides</h3>
 <ul>
 <li><a href='#!/guide/getting_started'>Getting Started with Ext Server</a></li>
+<li><a href='#!/guide/class'>Class System</a></li>
 </ul>
         </div>
 

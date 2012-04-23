@@ -59,10 +59,7 @@ Ext.Loader = new function() {
         // {{{ history
 
 <span id='Ext-Loader-property-history'>        /**
-</span>         * An array of class names to keep track of the dependency loading order.
-         * This is not guaranteed to be the same everytime due to the asynchronous
-         * nature of the Loader.
-         *
+</span>         * {Ext_Loader:property-history:desc}
          * @property {Array} history
          */
         history: history,
@@ -80,7 +77,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-enabled'>            /**
 </span>             * @cfg {Boolean} enabled
-             * Whether or not to enable the dynamic dependency loading feature.
+             * {Ext_Loader:config-enabled:desc}
              */
             enabled: false,
 
@@ -89,17 +86,15 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptChainDelay'>            /**
 </span>             * @cfg {Boolean} scriptChainDelay
-             * millisecond delay between asynchronous script injection (prevents stack overflow on some user agents)
-             * 'false' disables delay but potentially increases stack load.
+             * {Ext_Loader:config-scriptChainDelay:desc}
              */
             scriptChainDelay : false,
 
             // }}}
-            // {{{ disableCaching:w
+            // {{{ disableCaching
 
 <span id='Ext-Loader-cfg-disableCaching'>            /**
 </span>             * @cfg {Boolean} disableCaching
-             * Appends current timestamp to script files to prevent caching.
              */
             disableCaching: true,
 
@@ -127,19 +122,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-paths'>            /**
 </span>             * @cfg {Object} paths
-             * The mapping from namespaces to file paths
-             *
-             *     {
-             *         'Ext': '.', // This is set by default, Ext.layout.container.Container will be
-             *                     // loaded from ./layout/Container.js
-             *
-             *         'My': './src/my_own_folder' // My.layout.Container will be loaded from
-             *                                     // ./src/my_own_folder/layout/Container.js
-             *     }
-             *
-             * Note that all relative paths are relative to the current HTML document.
-             * If not being specified, for example, &lt;code&gt;Other.awesome.Class&lt;/code&gt;
-             * will simply be loaded from &lt;code&gt;./Other/awesome/Class.js&lt;/code&gt;
+             * {Ext_Loader:config-paths:desc}
              */
             paths: {
                 'Ext': '.'
@@ -150,8 +133,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-preserveScripts'>            /**
 </span>             * @cfg {Boolean} preserveScripts
-             * False to remove and optionally {@link #garbageCollect garbage-collect} asynchronously loaded scripts,
-             * True to retain script element for browser debugger compatibility and improved load performance.
+             * {Ext_Loader:config-preserveScripts:desc}
              */
             preserveScripts : true,
 
@@ -160,7 +142,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptCharset'>            /**
 </span>             * @cfg {String} scriptCharset
-             * Optional charset to specify encoding of dynamic script content.
+             * {Ext_Loader:config-scriptCharset:desc}
              */
             scriptCharset : undefined
 
@@ -172,30 +154,10 @@ Ext.Loader = new function() {
         // {{{ setConfig
 
 <span id='Ext-Loader-method-setConfig'>        /**
-</span>         * Set the configuration for the loader. This should be called right after ext-(debug).js
-         * is included in the page, and before Ext.onReady. i.e:
+</span>         * {Ext_Loader:method-setConfig:desc}
          *
-         *     &lt;script type=&quot;text/javascript&quot; src=&quot;ext-core-debug.js&quot;&gt;&lt;/script&gt;
-         *     &lt;script type=&quot;text/javascript&quot;&gt;
-         *         Ext.Loader.setConfig({
-         *           enabled: true,
-         *           paths: {
-         *               'My': 'my_own_path'
-         *           }
-         *         });
-         *     &lt;/script&gt;
-         *     &lt;script type=&quot;text/javascript&quot;&gt;
-         *         Ext.require(...);
-         *
-         *         Ext.onReady(function() {
-         *           // application code here
-         *         });
-         *     &lt;/script&gt;
-         *
-         * Refer to config options of {@link Ext.Loader} for the list of possible properties
-         *
-         * @param {Object} config The config object to override the default values
-         * @return {Ext.Loader} this
+         * @param {Object} config {Ext_Loader:method-setConfig:param_config}
+         * @return {Ext.Loader} {Ext_Loader:method-setConfig:return}
          */
         setConfig: function(name, value) {
             if(Ext.isObject(name) &amp;&amp; arguments.length === 1) {
@@ -212,9 +174,9 @@ Ext.Loader = new function() {
         // {{{ getConfig
 
 <span id='Ext-Loader-method-getConfig'>        /**
-</span>         * Get the config value corresponding to the specified name. If no name is given, will return the config object
-         * @param {String} name The config property name
-         * @return {Object}
+</span>         * {Ext_Loader:method-getConfig:desc}
+         * @param {String} name {Ext_Loader:method-getConfig:param_name}
+         * @return {Object} {Ext_Loader:method-getConfig:return}
          */
         getConfig: function(name) {
 
@@ -229,14 +191,11 @@ Ext.Loader = new function() {
         // {{{ setPath
 
 <span id='Ext-Loader-method-setPath'>        /**
-</span>         * Sets the path of a namespace.
-         * For Example:
+</span>         * {Ext_Loader:method-setPath:desc}
          *
-         *     Ext.Loader.setPath('Ext', '.');
-         *
-         * @param {String/Object} name See {@link Ext.Function#flexSetter flexSetter}
-         * @param {String} path See {@link Ext.Function#flexSetter flexSetter}
-         * @return {Ext.Loader} this
+         * @param {String/Object} name {Ext_Loader:method-setPath:desc}
+         * @param {String} path {Ext_Loader:method-setPath:desc}
+         * @return {Ext.Loader} {Ext_Loader:method-setPath:desc}
          * @method
          */
         setPath: flexSetter(function(name, path) {
@@ -249,31 +208,10 @@ Ext.Loader = new function() {
         // {{{ getPath
 
 <span id='Ext-Loader-method-getPath'>        /**
-</span>         * Translates a className to a file path by adding the
-         * the proper prefix and converting the .'s to /'s. For example:
+</span>         * {Ext_Loader:method-getPath:desc}
          *
-         *     Ext.Loader.setPath('My', '/path/to/My');
-         *
-         *     alert(Ext.Loader.getPath('My.awesome.Class')); // alerts '/path/to/My/awesome/Class.js'
-         *
-         * Note that the deeper namespace levels, if explicitly set, are always resolved first. For example:
-         *
-         *     Ext.Loader.setPath({
-         *         'My': '/path/to/lib',
-         *         'My.awesome': '/other/path/for/awesome/stuff',
-         *         'My.awesome.more': '/more/awesome/path'
-         *     });
-         *
-         *     alert(Ext.Loader.getPath('My.awesome.Class')); // alerts '/other/path/for/awesome/stuff/Class.js'
-         *
-         *     alert(Ext.Loader.getPath('My.awesome.more.Class')); // alerts '/more/awesome/path/Class.js'
-         *
-         *     alert(Ext.Loader.getPath('My.cool.Class')); // alerts '/path/to/lib/cool/Class.js'
-         *
-         *     alert(Ext.Loader.getPath('Unknown.strange.Stuff')); // alerts 'Unknown/strange/Stuff.js'
-         *
-         * @param {String} className
-         * @return {String} path
+         * @param {String} className {Ext_Loader:method-getPath:desc}
+         * @return {String} {Ext_Loader:method-getPath:desc}
          */
         getPath: function(className) {
             var path = '',
@@ -300,7 +238,8 @@ Ext.Loader = new function() {
         // {{{ getPrefix
 
 <span id='Ext-Loader-method-getPrefix'>        /**
-</span>         * @private
+</span>         * {Ext_Loader:method-getPrefix:desc}
+         * @private
          * @param {String} className
          */
         getPrefix: function(className) {
@@ -326,12 +265,11 @@ Ext.Loader = new function() {
         // {{{ require
 
 <span id='Ext-Loader-method-require'>        /**
-</span>         * Loads all classes by the given names and all their direct dependencies; optionally executes the given callback function when
-         * finishes, within the optional scope. This method is aliased by {@link Ext#require Ext.require} for convenience
-         * @param {String/Array} expressions Can either be a string or an array of string
-         * @param {Function} fn (Optional) The callback function
-         * @param {Object} scope (Optional) The execution scope (`this`) of the callback function
-         * @param {String/Array} excludes (Optional) Classes to be excluded, useful when being used with expressions
+</span>         * {Ext_Loader:method-require:desc}
+         * @param {String/Array} expressions {Ext_Loader:method-require:param_expressions}
+         * @param {Function} fn {Ext_Loader:method-require:param_fn}
+         * @param {Object} scope {Ext_Loader:method-require:param_scope}
+         * @param {String/Array} excludes {Ext_Loader:method-require:param_excludes}
          */
         require: function(expressions, fn, scope, excludes) {
             if(fn) {
@@ -343,11 +281,11 @@ Ext.Loader = new function() {
         // {{{ syncRequire
 
 <span id='Ext-Loader-method-syncRequire'>        /**
-</span>         * Synchronously loads all classes by the given names and all their direct dependencies; optionally executes the given callback function when finishes, within the optional scope. This method is aliased by {@link Ext#syncRequire} for convenience
-         * @param {String/Array} expressions Can either be a string or an array of string
-         * @param {Function} fn (Optional) The callback function
-         * @param {Object} scope (Optional) The execution scope (`this`) of the callback function
-         * @param {String/Array} excludes (Optional) Classes to be excluded, useful when being used with expressions
+</span>         * {Ext_Loader:method-syncRequire:desc}
+         * @param {String/Array} expressions {Ext_Loader:method-syncRequire:param_expressions}
+         * @param {Function} fn {Ext_Loader:method-syncRequire:param_fn}
+         * @param {Object} scope {Ext_Loader:method-syncRequire:param_scope}
+         * @param {String/Array} excludes {Ext_Loader:method-syncRequire:param_excludes}
          */
         syncRequire: function() {},
 
@@ -355,15 +293,9 @@ Ext.Loader = new function() {
         // {{{ exclude
 
 <span id='Ext-Loader-method-exclude'>        /**
-</span>         * Explicitly exclude files from being loaded. Useful when used in conjunction with a broad include expression.
-         * Can be chained with more `require` and `exclude` methods, eg:
-         *
-         *     Ext.exclude('Ext.data.*').require('*');
-         *
-         *     Ext.exclude('widget.button*').require('widget.*');
-         *
-         * @param {Array} excludes
-         * @return {Object} object contains `require` method for chaining
+</span>         * {Ext_Loader:method-exclude:desc}
+         * @param {Array} excludes {Ext_Loader:method-exclude:param_excludes}
+         * @return {Object} {Ext_Loader:method-exclude:return}
          */
         exclude: function(excludes) {
             return {
@@ -396,7 +328,7 @@ Ext.Loader = new function() {
         // {{{ isLoading
 
 <span id='Ext-Loader-property-isLoading'>        /**
-</span>         * Flag indicating whether there are still files being loaded
+</span>         * {Ext_Loader:property-isLoading:desc}
          * @private
          */
         isLoading: false,
@@ -405,12 +337,7 @@ Ext.Loader = new function() {
         // {{{ queue
 
 <span id='Ext-Loader-property-queue'>        /**
-</span>         * Maintain the queue for all dependencies. Each item in the array is an object of the format:
-         *
-         *     {
-         *          requires: [...], // The required classes for this queue item
-         *          callback: function() { ... } // The function to execute when all classes specified in requires exist
-         *     }
+</span>         * {Ext_Loader:property-queue:desc}
          *
          * @private
          */
@@ -420,7 +347,7 @@ Ext.Loader = new function() {
         // {{{ isClassFileLoaded
 
 <span id='Ext-Loader-property-isClassFileLoaded'>        /**
-</span>         * Maintain the list of files that have already been handled so that they never get double-loaded
+</span>         * {Ext_Loader:method-isClassFileLoaded:desc}
          * @private
          */
         isClassFileLoaded: isClassFileLoaded,
@@ -431,19 +358,19 @@ Ext.Loader = new function() {
         isFileLoaded: isFileLoaded,
 
 <span id='Ext-Loader-property-readyListeners'>        /**
-</span>         * Maintain the list of listeners to execute when all required scripts are fully loaded
+</span>         * {Ext_Loader:method-readyListeners:desc}
          * @private
          */
         readyListeners: readyListeners,
 
 <span id='Ext-Loader-property-optionalRequires'>        /**
-</span>         * Contains classes referenced in `uses` properties.
+</span>         * {Ext_Loader:method-optionalRequires:desc}
          * @private
          */
         optionalRequires: usedClasses,
 
 <span id='Ext-Loader-property-requiresMap'>        /**
-</span>         * Map of fully qualified class names to an array of dependent classes.
+</span>         * {Ext_Loader:method-requiresMap:desc}
          * @private
          */
         requiresMap: requiresMap,
@@ -474,9 +401,7 @@ Ext.Loader = new function() {
         scriptElements: scriptElements,
 
 <span id='Ext-Loader-method-refreshQueue'>        /**
-</span>         * Refresh all items in the queue. If all dependencies for an item exist during looping,
-         * it will execute the callback and call refreshQueue again. Triggers onReady when the queue is
-         * empty
+</span>         * {Ext_Loader:method-refreshQueue:desc}
          * @private
          */
         refreshQueue: function() {
@@ -732,9 +657,10 @@ Ext.Loader = new function() {
         // {{{ onFileLoaded
 
 <span id='Ext-Loader-method-onFileLoaded'>        /**
-</span>         * @private
-         * @param {String} className
-         * @param {String} filePath
+</span>         * {Ext_Loader:method-onFileLoaded:desc}
+         * @private
+         * @param {String} className {Ext_Loader:method-onFileLoaded:param_className}
+         * @param {String} filePath {Ext_Loader:method-onFileLoaded:param_filePath}
          */
         onFileLoaded: function(className, filePath) {
 
@@ -829,8 +755,9 @@ Ext.Loader = new function() {
         // {{{ historyPush
 
 <span id='Ext-Loader-method-historyPush'>        /**
-</span>         * @private
-         * @param {String} className
+</span>         * {Ext_Loader:method-historyPush:desc}
+         * @private
+         * @param {String} className {Ext_Loader:method-historyPush:param_className}
          */
         historyPush: function(className) {
             if(className &amp;&amp; isClassFileLoaded.hasOwnProperty(className) &amp;&amp; !isInHistory[className]) {
@@ -875,23 +802,21 @@ Ext.Loader = new function() {
     });
 
 <span id='Ext-method-require'>    /**
-</span>     * Convenient alias of {@link Ext.Loader#require}. Please see the introduction documentation of
-     * {@link Ext.Loader} for examples.
+</span>     * {Ext:method-require:desc}
      * @member Ext
      * @method require
      */
     Ext.require = alias(Loader, 'require');
 
 <span id='Ext-method-syncRequire'>    /**
-</span>     * Synchronous version of {@link Ext#require}, convenient alias of {@link Ext.Loader#syncRequire}.
-     *
+</span>     * {Ext_Loader:method-syncRequire:desc}
      * @member Ext
      * @method syncRequire
      */
     Ext.syncRequire = alias(Loader, 'syncRequire');
 
 <span id='Ext-method-exclude'>    /**
-</span>     * Convenient shortcut to {@link Ext.Loader#exclude}
+</span>     * {Ext_Loader:method-exclude:desc}
      * @member Ext
      * @method exclude
      */
@@ -908,16 +833,7 @@ Ext.Loader = new function() {
 <span id='Ext-Class-cfg-requires'>    /**
 </span>     * @cfg {String[]} requires
      * @member Ext.Class
-     * List of classes that have to be loaded before instantiating this class.
-     * For example:
-     *
-     *     Ext.define('Mother', {
-     *         requires: ['Child'],
-     *         giveBirth: function() {
-     *             // we can be sure that child class is available.
-     *             return new Child();
-     *         }
-     *     });
+     * {Ext_Class:config-requires:desc}
      */
     Class.registerPreprocessor('loader', function(cls, data, hooks, continueFn) {
         var me = this,
@@ -1075,20 +991,7 @@ Ext.Loader = new function() {
 <span id='Ext-Class-cfg-uses'>    /**
 </span>     * @cfg {String[]} uses
      * @member Ext.Class
-     * List of optional classes to load together with this class. These aren't neccessarily loaded before
-     * this class is created, but are guaranteed to be available before Ext.onReady listeners are
-     * invoked. For example:
-     *
-     *     Ext.define('Mother', {
-     *         uses: ['Child'],
-     *         giveBirth: function() {
-     *             // This code might, or might not work:
-     *             // return new Child();
-     *
-     *             // Instead use Ext.create() to load the class at the spot if not loaded already:
-     *             return Ext.create('Child');
-     *         }
-     *     });
+     * {Ext_Class:config-uses:desc}
      */
     Manager.registerPostprocessor('uses', function(name, cls, data) {
         var uses = data.uses,

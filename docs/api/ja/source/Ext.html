@@ -32,8 +32,17 @@
  */
 (function() {
 
-    var objectPrototype = Object.prototype,
+    var path = require('path'),
+        objectPrototype = Object.prototype,
         toString = objectPrototype.toString;
+
+    // Ext Server Enviroment
+    process.ExtEnv = {
+        lang        : 'ja_JP',
+        dirname     : path.dirname(process.argv[1]),
+        basename    : path.dirname(process.argv[1]),
+        libdir      : __dirname
+    };
 
     if(typeof global.Ext === 'undefined') {
         global.Ext = { global: global };
@@ -773,14 +782,34 @@
 
         // {{{ connect
 
-        connect: require('connect')
+        connect: require('connect'),
+
+        //connect: require('/Users/kotsutsumi/UserDir/connect/lib/connect')
+
+        // }}}
+        // {{{ async
+
+        async: require('async')
 
         // }}}
 
     };
 
+    // Loader Setting
+    Ext.Loader.setConfig({
+        enabled: true,
+        paths: {
+            Ext: process.ExtEnv.libdir
+        }
+    });
+
     // require classes
-    require('./server/Server');
+    [
+        'Ext.app.Application'
+
+    ].forEach(function(item) {
+        Ext.Loader.require(item);
+    });
 
 })();
 
