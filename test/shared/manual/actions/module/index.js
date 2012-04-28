@@ -16,6 +16,8 @@ module.exports = {
 
     execute: function() {
 
+        console.log(this.Module1.func1());
+
     }
 
 };
