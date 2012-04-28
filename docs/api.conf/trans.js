@@ -67,7 +67,7 @@
             var file, output, html, destjson;
 
             output = path.normalize(dest + '/output/' + cls + '.js');
-            destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);/, '').replace((new RegExp('Ext.data.JsonP.' + cls.replace(/\./g, '_') + '\\(')), ''));
+            destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);$/, '').replace((new RegExp('^Ext.data.JsonP.' + cls.replace(/\./g, '_') + '\\(')), ''));
 
             // doc.md
             file = path.normalize(src + '/' + cls + '/doc.md');
