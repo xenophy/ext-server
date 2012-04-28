@@ -6,16 +6,12 @@
  * MIT Licensed
  */
 
-// {{{ index.js
+// {{{ Module1.js
 
 module.exports = {
 
-    uses: [
-        'Module1'
-    ],
-
-    execute: function() {
-
+    func1: function() {
+        return 'func1';
     }
 
 };
