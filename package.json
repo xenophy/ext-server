@@ -7,11 +7,13 @@
     "repository"    : "git://github.com/xenophy/ext-server.git",
     "main"          : "./lib/ext-server",
     "engines": {
-        "node": ">= 0.6.14"
+        "node": ">= 0.6.15"
     },
     "dependencies"  : {
-        "connect": ">= 2.1.0",
-        "connect-redis": ">= 1.3.0",
-        "mime": ">= 1.2.5"
+        "connect"       : ">= 2.2.0",
+        "connect-redis" : ">= 1.3.0",
+        "mime"          : ">= 1.2.5",
+        "mysql"         : ">= 0.9.5",
+        "mongodb"       : ">= 1.0.0"
     }
 }

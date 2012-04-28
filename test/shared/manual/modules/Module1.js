@@ -10,8 +10,8 @@
 
 module.exports = {
 
-    func1: function() {
-        return 'func1';
+    func: function() {
+        return 'func';
     }
 
 };
