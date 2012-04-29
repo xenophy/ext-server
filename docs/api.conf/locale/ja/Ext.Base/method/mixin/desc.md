@@ -1,1 +1,1 @@
-Mixinのプリプロセッサーが内部的に使います。
+Used internally by the mixins pre-processor

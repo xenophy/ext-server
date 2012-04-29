@@ -1,1 +1,1 @@
-クラス名。
+className

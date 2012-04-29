@@ -1,1 +1,1 @@
-キー／値のプロトタイプ。
+mixins The mixin prototypes as key - value pairs

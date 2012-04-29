@@ -1,4 +1,4 @@
-現在のクラス名を文字列形式で取得します。
+Get the current class' name in string format.
 
     Ext.define('My.cool.Class', {
         constructor: function() {

@@ -18,6 +18,8 @@
         dirs = [],
         trans, ellipsis, strip_tags;
 
+    // {{{ strip_tags
+
     strip_tags = function(input, allowed) {
 
         allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
@@ -30,7 +32,56 @@
         });
     }
 
-    // {{{ ellipsis
+    // }}}
+    // {{{ createFullPath
+
+    var createFullPath = function createFullPath(fullPath, callback) {
+        var parts = path.dirname(path.normalize(fullPath)).split("/"),
+            working = '/',
+            pathList = [];
+
+        for(var i = 0, max = parts.length; i < max; i++) {
+            working = path.join(working, parts[i]);
+            
+            pathList.push(working);
+        }
+        
+        var recursePathList = function recursePathList(paths) {
+            if(0 === paths.length) {
+                callback(null);
+                return ;
+            }
+        
+            var working = paths.shift();
+            
+            try {
+                path.exists(working, function(exists) {
+                    if(!exists) {
+                        try {
+                            fs.mkdir(working, 0755, function() {
+                                recursePathList(paths);
+                            });
+                        }
+                        catch(e) {
+                            callback(new Error("Failed to create path: " + working + " with " + e.toString()));
+                        }
+                    }
+                    else {
+                        recursePathList(paths);				
+                    }
+                });
+            }
+            catch(e) {
+                callback(new Error("Invalid path specified: " + working));
+            }
+        }
+        
+        if(0 === pathList.length)
+            callback(new Error("Path list was empty"));
+        else
+            recursePathList(pathList);
+    }
+
 
     ellipsis = function(value, len, word) {
 
@@ -64,56 +115,97 @@
 
         classes.forEach(function(cls) {
 
-            var file, output, html, destjson;
+            var file, output, html, js, ptn, destjson, cont;
 
+            // Extruct Json Object
             output = path.normalize(dest + '/output/' + cls + '.js');
-            destjson = JSON.parse(fs.readFileSync(output).toString().replace(/\);$/, '').replace((new RegExp('^Ext.data.JsonP.' + cls.replace(/\./g, '_') + '\\(')), ''));
+            js = fs.readFileSync(output).toString();
+            ptn = '^Ext.data.JsonP.' + cls.replace(/\./g, '_') + '\\(';
+            js = js.replace(new RegExp(ptn), '');
+            ptn = '\\);$';
+            js = js.replace(new RegExp(ptn), '');
+            destjson = JSON.parse(js);
 
             // doc.md
             file = path.normalize(src + '/' + cls + '/doc.md');
-            destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':doc-contents}</p>')), markdown(fs.readFileSync(file).toString()));
+            ptn = '<p>{' + cls.replace(/\./g, '_') + ':doc-contents}</p>';
+            cont = path.existsSync(file) ? markdown(fs.readFileSync(file).toString()): '';
+            destjson.html = destjson.html.replace((new RegExp(ptn)), cont);
 
             var replaceAll = function(expression, org, dest) {
                 return expression.split(org).join(dest);
             };
 
-            var methodExecute = function(o) {
+            // Read Locale document file. if not exists then create one.
+            readLocale = function(file) {
+                if( path.existsSync(file) ) {
+                    return fs.readFileSync(file).toString();
+                } else {
+                    createFullPath(file, function () {
+                        var fd = fs.openSync(file, 'w');
+                        fs.close(fd);
+                    });
+                    return '';
+                }
+            };
 
-                var data;
+            // Repalece desc.md document
+            var descExecute = function(type, o) {
+                var data, srctag, ptn, long ,short;
 
                 // desc.md
+                file = path.normalize(src + '/' + cls + '/' + type + '/' + o.name + '/desc.md');
+                srctag = '{' + cls.replace(/\./g, '_') + ':' + o.id.replace(/\-/g, '\\-') + ':desc}';
                 try{
-                    file = path.normalize(src + '/' + cls + '/method/' + o.name + '/desc.md');
-                    data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('<div class=\'short\'>{' + cls.replace(/\./g, '_') + ':' + o.id.replace(/\-/g, '\\-') + ':desc}[\n|.]+.* \.\.\.</div>')), '<div class="short">' + markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)) +'</div>');
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
+                data = readLocale(file);
+                } catch(e) {
+                    console.log(e);
+                    data = '';
+                }
+                short = markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50));
+                long = markdown(data);
+                ptn = '(<div class=\'short\'>)' + srctag + '[\n|.]+.* (\.\.\.</div>)';
+                destjson.html = destjson.html.replace((new RegExp(ptn)), '$1' + short +'$2');
+                ptn = '(>)' + srctag + '(\.\.\.)';
+                destjson.html = destjson.html.replace((new RegExp(ptn)), '$1' + short + '$2');
+                ptn = '(<p>)' + srctag + '(</p>)';
+                destjson.html = destjson.html.replace((new RegExp(ptn)), '$1' + long + '$2');
+            };
 
+            // Replace method document.
+            var methodExecute = function(o) {
+
+                var data, srctag, ptn, long ,short, p;
+
+                // desc.md
+                descExecute('method', o);
+
+                // return.md
+                try {
+                    file = path.normalize(src + '/' + cls + '/method/' + o.name + '/return.md');
+                    data = readLocale(file);
+                    ptn = '(<p>){' + cls.replace(/\./g, '_') + ':' + o.id + ':return}(</p>)';
+                    destjson.html = destjson.html.replace((new RegExp(ptn)), '$1' + markdown(data) + '$2');
                 } catch(e) {
                     console.log(e);
                 }
 
-                // return.md
-                try{
-                    file = path.normalize(src + '/' + cls + '/method/' + o.name + '/return.md');
-                    data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':return}</p>')), markdown(data));
-                } catch(e) {
-                }
-
-                try{
-                    // params
-                    params = fs.readdirSync(path.normalize(src + '/' + cls + '/method/' + o.name + '/param/'));
+                // params
+                try {
+                    p = path.normalize(src + '/' + cls + '/method/' + o.name + '/param/');
+                    createFullPath(p + 'dummy.md', function () {});
+                    params = fs.readdirSync(p);
 
                     params.forEach(function(p) {
                         file = path.normalize(src + '/' + cls + '/method/' + o.name + '/param/' + p);
-                        data = fs.readFileSync(file).toString();
-                        destjson.html = destjson.html.replace((new RegExp('{' + cls.replace(/\./g, '_') + ':' + o.id + ':param_' + p.replace('\.md', '') + '}')), data);
+                        data = readLocale(file);
+                        ptn = '{' + cls.replace(/\./g, '_') + ':' + o.id + ':param_' + p.replace('\.md', '') + '}';
+                        destjson.html = destjson.html.replace((new RegExp(ptn)), data);
                     });
-
                 } catch(e) {
+                    console.log(e);
                 }
+
             };
 
             // method
@@ -122,20 +214,16 @@
 
             // property
             destjson.members.property.forEach(function(o) {
+                var data, ptn;
 
-                var data;
+                descExecute('property', o);
+            });
 
-                // desc.md
-                try{
-                    file = path.normalize(src + '/' + cls + '/property/' + o.name + '/desc.md');
-                    data = fs.readFileSync(file).toString();
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc} ...')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
-                    destjson.html = destjson.html.replace((new RegExp('<p>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(data));
-                    destjson.html = destjson.html.replace((new RegExp('>{' + cls.replace(/\./g, '_') + ':' + o.id + ':desc}</p>')), markdown(ellipsis(strip_tags(data).split('    ')[0].split("\n")[0], 50)));
-                } catch(e) {
-                    console.log(e);
-                }
+            // config
+            destjson.members.cfg.forEach(function(o) {
+                var data, ptn;
 
+                descExecute('config', o);
             });
 
             fs.writeFileSync(output, 'Ext.data.JsonP.' + cls.replace(/\./g, '_') + '(' +JSON.stringify(destjson) + ');', 'utf8');
@@ -158,7 +246,7 @@
         src = path.normalize(__dirname + '/locale/' + dir);
         dest = path.normalize(__dirname + '/../api/' + dir);
 
-        try {
+//        try {
 
             classes = fs.readdirSync(src);
 
@@ -168,11 +256,11 @@
                 classes: classes
             });
 
-        } catch(e) {
-
-            console.log(e);
-
-        }
+//        } catch(e) {
+//
+//            console.log(e);
+//
+//        }
 
     });
 

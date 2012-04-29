@@ -1,1 +1,1 @@
-元のメソッドの名前。
+The original method name

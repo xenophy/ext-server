@@ -1,1 +1,1 @@
-生成されたインスタンス。
+the created instance.

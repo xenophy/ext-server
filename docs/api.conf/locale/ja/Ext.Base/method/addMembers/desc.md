@@ -1,4 +1,4 @@
-このクラスのプロトタイプにメソッドやプロパティを追加します。
+Add methods / properties to the prototype of this class.
 
     Ext.define('My.awesome.Cat', {
         constructor: function() {

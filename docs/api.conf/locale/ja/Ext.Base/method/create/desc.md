@@ -1,4 +1,4 @@
-このクラスの新しいインスタンスを生成します。
+Create a new instance of this Class.
 
     Ext.define('My.cool.Class', {
         ...

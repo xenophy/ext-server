@@ -1,4 +1,4 @@
-静的メンバーの追加・上書きをします。
+Add / override static properties of this class.
 
     Ext.define('My.cool.Class', {
         ...

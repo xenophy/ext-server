@@ -4,7 +4,8 @@
         "name": "クラスシステム",
         "classes": [
             "Ext",
-            "Ext.Base"
+            "Ext.Base",
+            "Ext.Class"
         ]
     }]
 },{
