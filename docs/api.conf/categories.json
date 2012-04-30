@@ -5,7 +5,9 @@
         "classes": [
             "Ext",
             "Ext.Base",
-            "Ext.Class"
+            "Ext.Class",
+            "Ext.ClassManager",
+            "Ext.Loader"
         ]
     }]
 },{
@@ -25,7 +27,8 @@
     }, {
         "name": "ユーティリティ",
         "classes": [
-            "Ext.util.Format"
+            "Ext.util.Format",
+            "Ext.util.Observable"
         ]
     }]
 }]

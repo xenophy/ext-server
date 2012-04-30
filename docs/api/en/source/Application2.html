@@ -41,6 +41,12 @@ Ext.define('Ext.app.config.Application', {
 
     constructor: function(config) {
 
+        var me, node;
+
+        me = this;
+        node = {
+            fs: require('fs')
+        };
         config = config || {};
         config.files = config.files || {};
         config.paths = config.paths || {};
@@ -55,14 +61,22 @@ Ext.define('Ext.app.config.Application', {
                 extent: config.files.extent || 'extent.action.js'
             },
             paths: {
-                actions     : config.actions || './actions',
-                modules     : config.modules || './modules'
+                actions     : config.paths.actions || './actions',
+                modules     : config.paths.modules || './modules'
             },
             template_exts: ['html', 'htm']
         });
 
         Ext.applyIf(this, {
-            actionName: 'index'
+            actionName: 'index',
+            directoryIndex: ['index.html', 'index.htm'],
+            maxAge: 0
+        });
+
+        Ext.iterate(this.paths, function(item) {
+            try {
+                me.paths[item] = node.fs.realpathSync(me.paths[item]);
+            } catch(e) {};
         });
 
     }

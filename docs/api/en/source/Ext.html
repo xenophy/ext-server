@@ -33,6 +33,7 @@
 (function() {
 
     var path = require('path'),
+        fs = require('fs'),
         objectPrototype = Object.prototype,
         toString = objectPrototype.toString;
 
@@ -41,7 +42,8 @@
         lang        : 'ja_JP',
         dirname     : path.dirname(process.argv[1]),
         basename    : path.dirname(process.argv[1]),
-        libdir      : __dirname
+        libdir      : __dirname,
+        resourcedir : fs.realpathSync(__dirname + '/../resources')
     };
 
     if(typeof global.Ext === 'undefined') {
@@ -493,7 +495,7 @@
         // }}}
         // {{{ functionFactory
 
-        // privatec
+        // private
         functionFactory: function() {
 
             var args = Array.prototype.slice.call(arguments);
@@ -784,12 +786,10 @@
 
         connect: require('connect'),
 
-        //connect: require('/Users/kotsutsumi/UserDir/connect/lib/connect')
-
         // }}}
-        // {{{ async
+        // {{{ mime
 
-        async: require('async')
+        mime: require('mime')
 
         // }}}
 
@@ -805,7 +805,8 @@
 
     // require classes
     [
-        'Ext.app.Application'
+        'Ext.app.Application',
+        'Ext.database.Manager'
 
     ].forEach(function(item) {
         Ext.Loader.require(item);

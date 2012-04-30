@@ -41,14 +41,31 @@ Ext.define('Ext.server.config.Application', {
 
     constructor: function(config) {
 
+        var me, node;
+
+        me = this;
+
         this.callParent(arguments);
 
-        config = config || {};
-        config.paths = config.paths || {};
+        node = {
+            fs: require('fs')
+        };
+        this.errors     = config.errors || {};
 
         Ext.apply(this.paths, {
-            public      : config.public || './public',
-            templates   : config.templates || './templates'
+            public      : config.paths.public || './public',
+            templates   : config.paths.templates || './templates'
+        });
+
+        Ext.iterate(this.paths, function(item) {
+            try {
+                me.paths[item] = node.fs.realpathSync(me.paths[item]);
+            } catch(e) {};
+        });
+
+        Ext.applyIf(this.errors, {
+            not_found: node.fs.readFileSync(process.ExtEnv.resourcedir + '/error/HTTP_NOT_FOUND.html').toString(),
+            internal_server_error: node.fs.readFileSync(process.ExtEnv.resourcedir + '/error/HTTP_INTERNAL_SERVER_ERROR.html').toString()
         });
 
     }

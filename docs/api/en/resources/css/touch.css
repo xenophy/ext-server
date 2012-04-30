@@ -5754,6 +5754,97 @@ input[type="search"]::-webkit-search-cancel-button {
   z-index: 1;
 }
 
+/* line 7, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox {
+  min-width: 15em;
+  max-width: 20em;
+  padding: 0.8em;
+  margin: .5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 0.1em 0.5em;
+  -webkit-border-radius: 0.3em;
+  border-radius: 0.3em;
+  border: 0.15em solid #1985d0;
+}
+/* line 16, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-icon {
+  margin-left: 1.3em;
+}
+/* line 20, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-title {
+  font-size: .9em;
+  line-height: 1.4em;
+}
+/* line 25, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-body {
+  background: transparent !important;
+}
+/* line 29, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-toolbar {
+  background: transparent none;
+  -webkit-box-shadow: none;
+}
+/* line 33, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-toolbar.x-docked-top {
+  border-bottom: 0;
+  height: 1.3em;
+}
+/* line 38, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-toolbar.x-docked-bottom {
+  border-top: 0;
+}
+/* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-field {
+  min-height: 2em;
+  background: #fff;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+/* line 49, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-form-field {
+  min-height: 1.5em;
+  padding-right: 0 !important;
+  -webkit-appearance: none;
+}
+/* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox .x-field-input {
+  padding-right: 2.2em;
+}
+
+/* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-text {
+  text-align: center;
+  padding: 6px 0;
+  line-height: 1.4em;
+}
+
+/* line 66, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-buttons {
+  padding: 0.4em 0;
+  height: auto;
+}
+/* line 70, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-buttons .x-button {
+  min-width: 4.5em;
+}
+/* line 74, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-buttons .x-button-normal span {
+  opacity: .7;
+}
+
+/* line 85, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-dark .x-msgbox-text {
+  color: rgba(190, 224, 247, 0.9);
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+}
+/* line 89, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
+.x-msgbox-dark .x-msgbox-input {
+  background-color: rgba(190, 224, 247, 0.9);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(144, 202, 242, 0.9)), color-stop(10%, rgba(167, 213, 244, 0.9)), color-stop(65%, rgba(190, 224, 247, 0.9)), color-stop(100%, rgba(192, 225, 247, 0.9)));
+  background-image: -webkit-linear-gradient(rgba(144, 202, 242, 0.9), rgba(167, 213, 244, 0.9) 10%, rgba(190, 224, 247, 0.9) 65%, rgba(192, 225, 247, 0.9));
+  background-image: linear-gradient(rgba(144, 202, 242, 0.9), rgba(167, 213, 244, 0.9) 10%, rgba(190, 224, 247, 0.9) 65%, rgba(192, 225, 247, 0.9));
+  border: 0.1em solid rgba(25, 133, 208, 0.9);
+}
+
 /* line 20, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_loading-spinner.scss */
 .x-loading-spinner {
   font-size: 250%;
@@ -6000,7 +6091,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 22, ../touch-sass/touch.scss */
-.x-html pre {
+pre, code {
   white-space: pre-wrap;
 }
 
@@ -6473,7 +6564,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 7, ../sass/_touch_welcome.scss */
 #touch-welcome .top {
   height: 408px;
-  background: url(../../../touch/resources/images/welcome.png) no-repeat center;
+  background: url(../../touch/resources/images/welcome.png) no-repeat center;
 }
 
 /* line 11, ../sass/_touch_welcome.scss */
@@ -6521,7 +6612,7 @@ input[type="search"]::-webkit-search-cancel-button {
   display: inline-block;
   width: 22px;
   height: 22px;
-  background: url(../../../touch/resources/images/icon3.png) no-repeat;
+  background: url(../../touch/resources/images/icon3.png) no-repeat;
   position: relative;
   top: 4px;
   margin-left: 7px;
@@ -6558,7 +6649,7 @@ input[type="search"]::-webkit-search-cancel-button {
 #touch-welcome table th > span {
   width: 19px;
   height: 19px;
-  background: url(../../../touch/resources/images/icon1.png) no-repeat;
+  background: url(../../touch/resources/images/icon1.png) no-repeat;
   position: relative;
   top: 2px;
   margin-right: 7px;
@@ -6567,14 +6658,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* line 81, ../sass/_touch_welcome.scss */
 #touch-welcome table th > span.bulb {
-  background: url(../../../touch/resources/images/icon4.png) no-repeat;
+  background: url(../../touch/resources/images/icon4.png) no-repeat;
 }
 
 /* line 84, ../sass/_touch_welcome.scss */
 #touch-welcome table th a span {
   width: 9px;
   height: 12px;
-  background: url(../../../touch/resources/images/icon2.png) no-repeat;
+  background: url(../../touch/resources/images/icon2.png) no-repeat;
   position: relative;
   top: 0;
   margin-left: 2px;
@@ -6589,137 +6680,6 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 15px;
 }
 
-/*
-#touch-welcome {
-  width: 900px;
-  margin: 30px auto;
-  position: relative;
-
-  h1 {
-    font-size: 280%; }
-  h2 {
-    font-size: 200%;
-    margin-top: 10px; }
-
-  h2, h3 {
-    color: #314E64; }
-  h3 {
-    font-weight: bold; }
-  .klavika {
-    font-family: "Klavika", klavika-web-1, klavika-web-2, sans-serif;
-    font-weight: 200 !important; }
-
-  a.api-docs {
-    color: #516F83;
-    text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-    border: 1px solid #c2c2c2;
-    @include border-radius(3px);
-    @include vertical-gradient(#ffffff, #e8e8e8);
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 20px;
-    font-size: 110%;
-    font-weight: bold;
-    padding: 5px 10px;
-    span {
-      padding-right: 20px;
-      background: url(../images/link-arrow-next.png) no-repeat right center; } }
-
-  a.more-icon {
-    background: url(../images/more.png) no-repeat right center;
-    color: #126499;
-    font-size: 12px;
-    font-weight: bold;
-    padding-right: 16px;
-    white-space: nowrap; }
-
-  .header {
-    padding: 30px 0; }
-
-  .divider {
-    height: 1px;
-    margin: 20px 0;
-    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(222,222,222,1) 50%, rgba(255,255,255,1) 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(222,222,222,1)), color-stop(100%,rgba(255,255,255,1))); }
-
-  .get-started {
-    width: 470px;
-    float: left;
-
-    a.video {
-      float: left;
-      margin-right: 20px;
-      img {
-        width: 240px;
-        height: 180px; } }
-    ul {
-      margin: 5px 0 10px 0; } }
-
-  .whats-new {
-    background-color: #ECF5FC;
-    border: 1px solid #C7D1D8;
-    @include border-radius(5px);
-    margin-left: 520px;
-    padding: 0 20px 20px 20px;
-
-    h3 {
-      padding-bottom: 15px; }
-
-    img {
-      float: left;
-      width: 140px; }
-
-    .right {
-      margin-left: 160px;
-      ul {
-        margin-bottom: 10px;
-      } } }
-
-  .content-list {
-    position: relative;
-    width: 420px;
-    height: 190px;
-    h3 {
-      padding-bottom: 15px; }
-    a.more-icon {
-      position: absolute;
-      top: 15px;
-      right: 10px; }
-    .item {
-      font-weight: bold;
-      float: left;
-      margin: 0 10px;
-      text-align: center;
-      .thumb {
-        width: 120px;
-        height: 90px;
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-        @include vertical-gradient(#ffffff, #f9f9f9);
-        display: block;
-        img {
-          max-width: 118px;
-          max-height: 88px;
-        } } }
-    &.sample-apps,
-    &.components {
-      float: left;
-      .item {
-        .thumb {
-          img {
-            margin-top: 8px; } } } }
-    &.guides,
-    &.videos {
-      margin-left: 500px;
-      .item {
-        .thumb {
-          border: 0; } } } }
-
-  #sencha-stamp {
-    display: block;
-    margin: 20px auto; } }
-*/
 /* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-tab .x-button-icon.list,
 .x-button .x-button-icon.x-icon-mask.list {
@@ -6823,40 +6783,40 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 39, ../touch-sass/touch.scss */
+/* line 38, ../touch-sass/touch.scss */
 #touch-welcome {
   margin: -50px auto 0 auto;
 }
-/* line 41, ../touch-sass/touch.scss */
+/* line 40, ../touch-sass/touch.scss */
 #touch-welcome .top h1 {
   margin-bottom: 0;
 }
-/* line 43, ../touch-sass/touch.scss */
+/* line 42, ../touch-sass/touch.scss */
 #touch-welcome .top h2 {
   margin-top: -10px;
   margin-bottom: 10px;
 }
-/* line 46, ../touch-sass/touch.scss */
+/* line 45, ../touch-sass/touch.scss */
 #touch-welcome table {
   margin-top: 20px;
 }
 
-/* line 49, ../touch-sass/touch.scss */
+/* line 48, ../touch-sass/touch.scss */
 a {
   color: #083772;
   text-decoration: none;
 }
-/* line 52, ../touch-sass/touch.scss */
+/* line 51, ../touch-sass/touch.scss */
 a:hover {
   color: #0464bb;
 }
 
-/* line 55, ../touch-sass/touch.scss */
+/* line 54, ../touch-sass/touch.scss */
 pre, code, kbd, samp, tt {
   font-family: "Menlo", "Courier New", "Courier", monospace;
 }
 
-/* line 58, ../touch-sass/touch.scss */
+/* line 57, ../touch-sass/touch.scss */
 .class-overview, .guide-container, .comment-index {
   background: #fff;
   -webkit-font-smoothing: antialiased;
@@ -6864,85 +6824,85 @@ pre, code, kbd, samp, tt {
   color: #484848;
   padding: 20px;
 }
-/* line 68, ../touch-sass/touch.scss */
+/* line 67, ../touch-sass/touch.scss */
 .class-overview a, .guide-container a, .comment-index a {
   color: #083772;
   text-decoration: none;
 }
-/* line 71, ../touch-sass/touch.scss */
+/* line 70, ../touch-sass/touch.scss */
 .class-overview a:hover, .guide-container a:hover, .comment-index a:hover {
   color: #0464bb;
 }
-/* line 74, ../touch-sass/touch.scss */
+/* line 73, ../touch-sass/touch.scss */
 .class-overview pre, .class-overview code, .class-overview kbd, .class-overview samp, .class-overview tt, .guide-container pre, .guide-container code, .guide-container kbd, .guide-container samp, .guide-container tt, .comment-index pre, .comment-index code, .comment-index kbd, .comment-index samp, .comment-index tt {
   font-family: "Menlo", "Courier New", "Courier", monospace;
 }
-/* line 77, ../touch-sass/touch.scss */
+/* line 76, ../touch-sass/touch.scss */
 .class-overview .clr, .guide-container .clr, .comment-index .clr {
   clear: both;
 }
-/* line 79, ../touch-sass/touch.scss */
+/* line 78, ../touch-sass/touch.scss */
 .class-overview p, .class-overview ul, .class-overview ol, .guide-container p, .guide-container ul, .guide-container ol, .comment-index p, .comment-index ul, .comment-index ol {
   color: #484848;
   max-width: 900px;
 }
-/* line 82, ../touch-sass/touch.scss */
+/* line 81, ../touch-sass/touch.scss */
 .class-overview p, .guide-container p, .comment-index p {
   padding: 0;
   margin: 0 0 1em;
 }
-/* line 85, ../touch-sass/touch.scss */
+/* line 84, ../touch-sass/touch.scss */
 .class-overview p:last-child, .guide-container p:last-child, .comment-index p:last-child {
   margin: 0;
 }
-/* line 87, ../touch-sass/touch.scss */
+/* line 86, ../touch-sass/touch.scss */
 .class-overview ul, .guide-container ul, .comment-index ul {
   margin: 0 0 1em 2em;
 }
-/* line 89, ../touch-sass/touch.scss */
+/* line 88, ../touch-sass/touch.scss */
 .class-overview ul li, .guide-container ul li, .comment-index ul li {
   list-style: disc outside;
 }
-/* line 91, ../touch-sass/touch.scss */
+/* line 90, ../touch-sass/touch.scss */
 .class-overview ol, .guide-container ol, .comment-index ol {
   margin: 0 0 1em 2em;
 }
-/* line 93, ../touch-sass/touch.scss */
+/* line 92, ../touch-sass/touch.scss */
 .class-overview ol li, .guide-container ol li, .comment-index ol li {
   list-style: decimal outside;
 }
-/* line 95, ../touch-sass/touch.scss */
+/* line 94, ../touch-sass/touch.scss */
 .class-overview em, .guide-container em, .comment-index em {
   font-style: italic;
 }
-/* line 97, ../touch-sass/touch.scss */
+/* line 96, ../touch-sass/touch.scss */
 .class-overview strong, .guide-container strong, .comment-index strong {
   font-weight: bold;
 }
-/* line 99, ../touch-sass/touch.scss */
+/* line 98, ../touch-sass/touch.scss */
 .class-overview h3, .guide-container h3, .comment-index h3 {
   font-weight: bold;
   font-size: 1.1em;
 }
-/* line 102, ../touch-sass/touch.scss */
+/* line 101, ../touch-sass/touch.scss */
 .class-overview h4, .guide-container h4, .comment-index h4 {
   font-weight: bold;
 }
-/* line 104, ../touch-sass/touch.scss */
+/* line 103, ../touch-sass/touch.scss */
 .class-overview table, .guide-container table, .comment-index table {
   margin-bottom: 10px;
 }
-/* line 107, ../touch-sass/touch.scss */
+/* line 106, ../touch-sass/touch.scss */
 .class-overview table tr:first-child td, .guide-container table tr:first-child td, .comment-index table tr:first-child td {
   color: #000;
   font-weight: bold;
 }
-/* line 110, ../touch-sass/touch.scss */
+/* line 109, ../touch-sass/touch.scss */
 .class-overview table td, .guide-container table td, .comment-index table td {
   color: #484848;
   padding: 2px 20px 2px 0;
 }
-/* line 113, ../touch-sass/touch.scss */
+/* line 112, ../touch-sass/touch.scss */
 .class-overview pre, .guide-container pre, .comment-index pre {
   background-color: #f7f7f7;
   border: solid 1px #e8e8e8;
@@ -6957,25 +6917,25 @@ pre, code, kbd, samp, tt {
   overflow-x: auto;
   overflow-y: hidden;
 }
-/* line 125, ../touch-sass/touch.scss */
+/* line 124, ../touch-sass/touch.scss */
 .class-overview pre code, .guide-container pre code, .comment-index pre code {
   font-family: "Menlo", "Courier New", "Courier", monospace;
 }
-/* line 127, ../touch-sass/touch.scss */
+/* line 126, ../touch-sass/touch.scss */
 .class-overview pre i, .class-overview pre em, .guide-container pre i, .guide-container pre em, .comment-index pre i, .comment-index pre em {
   font-style: normal;
 }
-/* line 129, ../touch-sass/touch.scss */
+/* line 128, ../touch-sass/touch.scss */
 .class-overview pre.prettyprint, .guide-container pre.prettyprint, .comment-index pre.prettyprint {
   padding: 10px 12px;
 }
 
-/* line 133, ../touch-sass/touch.scss */
+/* line 132, ../touch-sass/touch.scss */
 #center-container .guide-container {
   padding: 20px;
   font-size: 14px;
 }
-/* line 138, ../touch-sass/touch.scss */
+/* line 137, ../touch-sass/touch.scss */
 #center-container .guide-container .toc {
   float: right;
   background-color: #f7f7f7;
@@ -6985,7 +6945,7 @@ pre, code, kbd, samp, tt {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 145, ../touch-sass/touch.scss */
+/* line 144, ../touch-sass/touch.scss */
 #center-container .guide-container h1 {
   background: url(../images/doc-m.png) no-repeat -5px -5px;
   padding: 10px 0 10px 55px;
@@ -6995,7 +6955,7 @@ pre, code, kbd, samp, tt {
   font-size: 2.3em;
   color: #66ab16;
 }
-/* line 153, ../touch-sass/touch.scss */
+/* line 152, ../touch-sass/touch.scss */
 #center-container .guide-container h2 {
   font-family: "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
   letter-spacing: -1px;
@@ -7007,7 +6967,7 @@ pre, code, kbd, samp, tt {
   margin: 30px 0 15px;
   padding-bottom: 5px;
 }
-/* line 155, ../touch-sass/touch.scss */
+/* line 154, ../touch-sass/touch.scss */
 #center-container .guide-container h3 {
   font-weight: bold;
   color: #314e64;
@@ -7017,29 +6977,29 @@ pre, code, kbd, samp, tt {
   line-height: 16px;
   margin-bottom: 4px;
 }
-/* line 157, ../touch-sass/touch.scss */
+/* line 156, ../touch-sass/touch.scss */
 #center-container .guide-container hr {
   display: none;
 }
 
-/* line 163, ../touch-sass/touch.scss */
+/* line 162, ../touch-sass/touch.scss */
 p.screenshot img {
   display: block;
   margin: 0 auto;
 }
-/* line 166, ../touch-sass/touch.scss */
+/* line 165, ../touch-sass/touch.scss */
 p.screenshot span {
   display: block;
   text-align: center;
   font-size: smaller;
 }
 
-/* line 173, ../touch-sass/touch.scss */
+/* line 172, ../touch-sass/touch.scss */
 #video object, #video p, #video h1 {
   margin: 15px;
 }
 
-/* line 179, ../touch-sass/touch.scss */
+/* line 178, ../touch-sass/touch.scss */
 #exampleindex,
 #videoindex,
 #guideindex,
@@ -7047,12 +7007,33 @@ p.screenshot span {
   padding: 15px 10px 10px 10px;
 }
 
-/* line 183, ../touch-sass/touch.scss */
+/* line 181, ../touch-sass/touch.scss */
 .x-panel-body-default {
   border-width: 0;
 }
 
-/* line 190, ../touch-sass/touch.scss */
+/* line 184, ../touch-sass/touch.scss */
+.x-landscape img {
+  max-width: 980px;
+}
+
+/* line 186, ../touch-sass/touch.scss */
+.x-portrait img {
+  max-width: 720px;
+}
+
+@media screen and (max-width: 768px) {
+  /* line 190, ../touch-sass/touch.scss */
+  #touch-welcome {
+    width: auto;
+    margin-left: 20px;
+  }
+  /* line 193, ../touch-sass/touch.scss */
+  #touch-welcome .top {
+    background-position-x: 0px;
+  }
+}
+/* line 197, ../touch-sass/touch.scss */
 .navList span {
   width: 20px;
   height: 20px;
@@ -7062,7 +7043,7 @@ p.screenshot span {
   margin-right: 8px;
 }
 
-/* line 202, ../touch-sass/touch.scss */
+/* line 206, ../touch-sass/touch.scss */
 .search-dropdown .item {
   position: relative;
   display: block;
@@ -7112,7 +7093,7 @@ p.screenshot span {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 205, ../touch-sass/touch.scss */
+/* line 208, ../touch-sass/touch.scss */
 .search-dropdown .icon {
   position: absolute;
   float: left;
@@ -7121,7 +7102,7 @@ p.screenshot span {
   width: 18px;
   height: 18px;
 }
-/* line 208, ../touch-sass/touch.scss */
+/* line 210, ../touch-sass/touch.scss */
 .search-dropdown .meta {
   position: absolute;
   top: 6px;
@@ -7164,4 +7145,28 @@ p.screenshot span {
 /* line 139, ../sass/_mixins.scss */
 .search-dropdown .meta .signature.protected {
   background-color: #9B86FC;
+}
+
+/* line 213, ../touch-sass/touch.scss */
+.x-list .x-list-item.example {
+  background: #fff;
+}
+/* line 215, ../touch-sass/touch.scss */
+.x-list .x-list-item.example .x-list-item-label {
+  min-height: 72px;
+}
+/* line 216, ../touch-sass/touch.scss */
+.x-list .x-list-item.example .x-list-item-label img {
+  max-width: 50px;
+  float: left;
+}
+/* line 219, ../touch-sass/touch.scss */
+.x-list .x-list-item.example .x-list-item-label .title {
+  margin-left: 65px;
+  font-weight: bold;
+}
+/* line 222, ../touch-sass/touch.scss */
+.x-list .x-list-item.example .x-list-item-label .description {
+  margin-left: 65px;
+  color: #B2B2B2;
 }
