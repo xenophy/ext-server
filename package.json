@@ -2,7 +2,7 @@
     "name"          : "ext-server",
     "description"   : "An application server having the class system which is compatible with Ext JS",
     "keywords"      : ["framework", "web", "Web Server", "Application Server", "Ext JS", "Sencha Touch"],
-    "version"       : "0.0.6",
+    "version"       : "0.0.7",
     "author"        : "Kazuhiro Kotsutsumi <kotsutsumi@xenophy.com>",
     "repository"    : "git://github.com/xenophy/ext-server.git",
     "main"          : "./lib/ext-server",
