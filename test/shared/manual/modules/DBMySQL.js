@@ -31,8 +31,7 @@ module.exports = {
 
     func: function(done) {
         this.find({}, function(err, fields) {
-            console.log(fields);
-            done();
+            done(fields);
         });
     }
 

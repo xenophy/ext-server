@@ -7,7 +7,8 @@ Ext.application({
     app: {
         paths: {
             public: './public',
-        }
+        },
+        // template_engine: 'ejs'
     },
     db: {
         default: {
