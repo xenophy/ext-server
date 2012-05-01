@@ -14,9 +14,9 @@ module.exports = {
         'DBMySQL'
     ],
 
-    execute: function() {
+    execute: function(done) {
 
-
+        this.DBMySQL.func(done);
 
     }
 
