@@ -23,7 +23,7 @@ An application server having the class system which is compatible with Ext JS
 ### **current version: version 0.0.8**
 * checked action spec, session, database, All which has been implemented so far.
 
-Version 0.1.x
+### Version 0.1.x
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
 * Socket.IO support.
@@ -34,15 +34,15 @@ Version 0.1.x
 * SSL support.
 * The switch of the document root by Virtual Host.
 
-Version 0.2.x
+### Version 0.2.x
 * Ext Classs System, watch a required file and update it automatically.
 * special dir "(-_-)v" support, and make an error page beautiful.
 
-Version 0.3.x
+### Version 0.3.x
 * create Ext.shell.Shell base action execute enviroment.
 * create REST Controller.
 
-higher versions.
+### higher versions.
 * Ext.media.PDF class implement, used by "PDFKit".
 * Ext.media.Excel/Ext.media.Word/Ext.media.PowerPoint, implement it in reference to "PHP Excel" etc.
 * Ext.canvas.Canvas implement, used by "node-canvas" and combination with socket.io.
