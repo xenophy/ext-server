@@ -9,6 +9,16 @@ Ext.application({
             public: './public',
         }
     },
+    db: {
+        default: {
+            adapter : 'mysql',
+            host    : '127.0.0.1',
+            user    : 'root',
+            password: '',
+            database: 'extserver2',
+            port    : '3306'
+        }
+    },
     session: {
 //        type: 'redis'
     },
