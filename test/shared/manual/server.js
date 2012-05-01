@@ -17,6 +17,13 @@ Ext.application({
             password: '',
             database: 'extserver',
             port    : '3306'
+        },
+        conn2: {
+            adapter : 'mongodb',
+            host    : '127.0.0.1',
+//            user    : 'root',
+//            password: '',
+            database: 'extserver'
         }
     },
     session: {
