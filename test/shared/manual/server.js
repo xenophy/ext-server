@@ -8,7 +8,17 @@ Ext.application({
         paths: {
             public: './public',
         },
-        // template_engine: 'ejs'
+        // template_engine: 'ejs',
+        session: {
+            type: 'redis',
+            redis: {
+                //host: '',
+                //port: '',
+                //db: '',
+                //pass: '',
+                //prefix: 'session:'
+            }
+        }
     },
     db: {
         default: {
@@ -26,9 +36,6 @@ Ext.application({
 //            password: '',
             database: 'extserver'
         }
-    },
-    session: {
-//        type: 'redis'
-    },
+    }
 });
 
