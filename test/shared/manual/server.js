@@ -15,7 +15,7 @@ Ext.application({
             host    : '127.0.0.1',
             user    : 'root',
             password: '',
-            database: 'extserver2',
+            database: 'extserver',
             port    : '3306'
         }
     },
