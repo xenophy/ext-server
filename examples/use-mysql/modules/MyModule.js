@@ -1,5 +1,8 @@
 module.exports = {
+    useTable: 'users',
     func: function(done) {
-        done('this value set by modules/MyModule.js');
+        this.find({}, function(err, fields) {
+            done(fields);
+        });
     }
 };

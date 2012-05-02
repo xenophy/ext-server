@@ -13,8 +13,25 @@
 
         <p>use this DDL.</p>
 
+        <pre><code>SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+BEGIN;
+INSERT INTO `users` VALUES ('1', 'Kotsutsumi'), ('2', 'Jack'), ('3', 'Smith'), ('4', 'Bob'), ('5', 'New Person');
+COMMIT;
+SET FOREIGN_KEY_CHECKS = 1;</code></pre>
+
         <h2>result</h2>
-        <p>result:{{result}}</p>
+        {% for user in users %}
+        <li{% if loop.index <= 0 %} class="first"{% endif %}>{{ user.name }}</li>
+        {% else %}
+        <li>There are no authors.</li>
+        {% endfor %}
     </section>
 </body>
 </html>
