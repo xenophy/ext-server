@@ -23,6 +23,7 @@ An application server having the class system which is compatible with Ext JS
 
 ### Version 0.1.x
 * checked action spec, session, database, All which has been implemented so far.
+* this.redirect in action.
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
 * Socket.IO support.
