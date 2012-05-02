@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ext Server - Simple Web Server</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <section id="content">
+        <h1>
+            <span class="h1ext">Ext</span> Server - Simple Web Server
+        </h1>
+        <p>only call <strong>"Ext.application"</strong>, and a Web server starts. describe the next code, and any file can start a server.</p>
+        <p>We often use the name called <strong>"server.js"</strong> for a file name to describe Ext.application.</p>
+        <p>can call the return value of require('ext-server') directly to become the Ext object.</p>
+
+        <pre><code>require(<span style="color:#009900;">'ext-server'</span>).application();</code></pre>
+
+        <p>The document root of the Web server is by default <strong>"public"</strong> directory. and the index that this file is stored away by <strong>"public"</strong> is html.</p>
+        <p>When you access <strong>http://localhost:8124</strong> by a browser, index can see html.</p>
+
+        <h2>Server Settings</h2>
+        <p>The setting of the server specifies Object Literal in an argument of Ext.application and performs it.</p>
+        <p>The default value is the same as the next specification.</p>
+
+        <pre><code>Ext.application({
+    name    : <span style="color:#009900;">'App'</span>,
+    port    : <span style="color:#009900;">8124</span>,
+    cluster : <span style="color:#000099;">false</span>,
+    onLaunch: Ext.emptyFn
+    app     : {
+        <span style="color:#990000;">// application setting objects.</span>
+    }
+});</code></pre>
+
+        <p><strong>"name"</strong> is the high-end name of the namespace that your application uses.</p>
+        <p>A worker of the number of the CPU cores starts when I set <strong>"cluster"</strong> in true and works as a kernel base load balancer.</p>
+        <p>Please specify the number of the workers with a number not true when you specify the number of workers.</p>
+        <p>onLaunch is the callback function that is called after listen of the server was completed. Not the request from a client, only once is called at the time of the start of the server.</p>
+        <p><strong>"app"</strong> does the working setting of the application framework.</p>
+
+        <h2>Application Settings</h2>
+
+
+    </section>
+</body>
+</html>
