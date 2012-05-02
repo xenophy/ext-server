@@ -23,6 +23,7 @@ or
 
     require('ext-server').application(); // require return "Ext" Object.
 
+you can browse '**http://localhost:8124**'.
 
 ## API Documentation
 
