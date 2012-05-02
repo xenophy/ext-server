@@ -9,9 +9,20 @@ An application server having the class system which is compatible with Ext JS
 ## Usage
 
     require('ext-server');
-
+    
     // global.Ext Object is Available
     Ext.emptyFn();
+
+and when use it as WebServer, you write it as follows.
+
+    require('ext-server');
+    
+    Ext.application({ /* server settings */ });
+
+or
+
+    require('ext-server').application(); // require return "Ext" Object.
+
 
 ## API Documentation
 
