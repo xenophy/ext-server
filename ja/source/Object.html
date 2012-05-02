@@ -34,6 +34,25 @@
  */
 module.exports = {
 
+    // {{{ chain
+
+<span id='Ext-Object-method-chain'>    /**
+</span>     * Returns a new object with the given object as the prototype chain.
+     * @param {Object} object The prototype chain for the new object.
+     */
+    chain: function(object) {
+
+        var TemplateClass = function(){},
+            result;
+
+        TemplateClass.prototype = object;
+        result = new TemplateClass();
+        TemplateClass.prototype = null;
+
+        return result;
+    },
+
+    // }}}
     // {{{ each
 
 <span id='Ext-Object-method-each'>    /**
@@ -399,6 +418,85 @@ module.exports = {
         }
 
         return params.join('&amp;');
+    },
+
+    // }}}
+    // {{{ classify
+
+<span id='Ext-Object-method-classify'>    /**
+</span>     * @private
+     */
+    classify: function(object) {
+
+        var prototype = object,
+            objectProperties = [],
+            propertyClassesMap = {},
+            objectClass, key, value;
+
+        objectClass = function() {
+
+            var i = 0,
+                ln = objectProperties.length,
+                property;
+
+            for(; i &lt; ln; i++) {
+                property = objectProperties[i];
+                this[property] = new propertyClassesMap[property]();
+            }
+
+        }
+
+        for(key in object) {
+
+            if(object.hasOwnProperty(key)) {
+
+                value = object[key];
+
+                if(value &amp;&amp; value.constructor === Object) {
+                    objectProperties.push(key);
+                    propertyClassesMap[key] = Ext.Object.classify(value);
+                }
+            }
+
+        }
+
+        objectClass.prototype = prototype;
+
+        return objectClass;
+    },
+
+    // }}}
+    // {{{ mergeIf
+
+<span id='Ext-Object-method-mergeIf'>    /**
+</span>     * @private
+     * @param source
+     */
+    mergeIf: function(source) {
+
+        var i = 1,
+            ln = arguments.length,
+            cloneFn = Ext.clone,
+            object, key, value;
+
+        for (; i &lt; ln; i++) {
+            object = arguments[i];
+
+            for (key in object) {
+                if (!(key in source)) {
+                    value = object[key];
+
+                    if (value &amp;&amp; value.constructor === Object) {
+                        source[key] = cloneFn(value);
+                    }
+                    else {
+                        source[key] = value;
+                    }
+                }
+            }
+        }
+
+        return source;
     }
 
     // }}}
