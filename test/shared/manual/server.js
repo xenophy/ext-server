@@ -38,6 +38,12 @@ Ext.application({
         }
     },
     smtp: {
+    },
+    ssl: {
+        // enable access to https://localhost:8125/
+        port: 8125,
+        key: require('fs').readFileSync('ssl.key/ryans-key.pem'),
+        cert: require('fs').readFileSync('ssl.key/ryans-cert.pem')
     }
 });
 

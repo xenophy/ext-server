@@ -7,4 +7,5 @@
   * Add     implemented send mail method in action execute,
             ex.) this.mail({ ... }), specify nodemailer message config.
             transport config is specify Ext.application({smtp: { /* here */ }});
+  * Add     SSL support, SSL config is specify Ext.application({ssl: { /* here */ }});
 

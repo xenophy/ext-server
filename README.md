@@ -35,7 +35,6 @@ you can browse '**http://localhost:8124**'.
 ## Road Map
 
 ### Version 0.1.x
-* SSL support.
 * special dir "(-_-)v" support, and make an error page beautiful.
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
