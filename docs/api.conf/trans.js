@@ -269,6 +269,10 @@
                 descExecute('cfg', o);
             });
 
+            if( o.dir === 'ja' ){
+                destjson.html = destjson.html.replace(/Defaults to:/g, 'デフォルトは:');
+            }
+
             fs.writeFileSync(
                 output,
                 'Ext.data.JsonP.' + cls.replace(/\./g, '_') + '(' +
@@ -301,7 +305,8 @@
             trans({
                 src: src,
                 dest: dest,
-                classes: classes
+                classes: classes,
+                dir: dir
             });
 
 //        } catch(e) {

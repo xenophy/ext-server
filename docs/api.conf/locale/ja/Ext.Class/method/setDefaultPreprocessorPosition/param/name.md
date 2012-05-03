@@ -1,0 +1,1 @@
+pre-processorの名前。 指定する名前が、これより前にregisterPreprocessorによって登録されている必要があります。

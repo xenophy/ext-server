@@ -217,7 +217,7 @@
         // {{{ parseNamespace
 
 <span id='Ext-ClassManager-method-parseNamespace'>        /**
-</span>         * Supports namespace rewriting
+</span>         * 
          * @private
          */
         parseNamespace: function(namespace) {
@@ -507,8 +507,8 @@
 <span id='Ext-ClassManager-method-getName'>        /**
 </span>         * {Ext_ClassManager:method-getName:desc}
          *
-         * @param {Ext.Class/Object} object {Ext_ClassManager:method-getName:desc}
-         * @return {String} {Ext_ClassManager:method-getName:desc}
+         * @param {Ext.Class/Object} object {Ext_ClassManager:method-getName:param_object}
+         * @return {String} {Ext_ClassManager:method-getName:return}
          */
         getName: function(object) {
             return object &amp;&amp; object.$className || '';
@@ -886,8 +886,8 @@
 </span>         * {Ext_ClassManager:method-setDefaultPostprocessors:desc}
          *
          * @private
-         * @param {String/Array} postprocessors {Ext_ClassManager:method-setDefaultPostprocessors:desc}
-         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessors:desc}
+         * @param {String/Array} postprocessors {Ext_ClassManager:method-setDefaultPostprocessors:param_postprocessors}
+         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessors:return}
          */
         setDefaultPostprocessors: function(postprocessors) {
             this.defaultPostprocessors = arrayFrom(postprocessors);
@@ -902,8 +902,8 @@
 </span>         * {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
          *
          * @private
-         * @param {String} name {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
-         * @param {String} offset {Ext_ClassManager:method-setDefaultPostprocessorPosition:paraam_offset}
+         * @param {String} name {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_name}
+         * @param {String} offset {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_offset}
          * @param {String} relativeName {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_relativeName}
          * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessorPosition:return}
          */
@@ -1111,9 +1111,9 @@
         // {{{ getDisplayName
 
 <span id='Ext-ClassManager-method-getDisplayName'>        /**
-</span>         * {Ext:method-getDisplayName:desc}
-         * @param {Object} object {Ext:mmethod-getDisplayName:param_object}
-         * @return {String} {Ext:mmethod-getDisplayName:return}
+</span>         * {Ext_ClassManager:method-getDisplayName:desc}
+         * @param {Object} object {Ext_ClassManager:method-getDisplayName:param_object}
+         * @return {String} {Ext_ClassManager:method-getDisplayName:return}
          */
         getDisplayName: function(object) {
             if(object) {

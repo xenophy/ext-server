@@ -16,4 +16,4 @@
         alert('Anonymous');
     }, 100);
 
-<a href="#/api/Ext-method-defer" rel="Ext-method-defer" class="docClass" >Ext.defer</a> は <a href="#/api/Ext.Function-method-defer" rel="Ext.Function-method-defer" class="docClass" id="ext-gen1357">Ext.Function.defer</a>のエイリアスです。
+<a href="#/api/Ext-method-defer" rel="Ext-method-defer" class="docClass" >Ext.defer</a> は <a href="#/api/Ext.Function-method-defer" rel="Ext.Function-method-defer" class="docClass" >Ext.Function.defer</a>のエイリアスです。
