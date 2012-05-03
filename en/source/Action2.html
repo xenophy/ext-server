@@ -59,6 +59,8 @@ Ext.define('Ext.server.action.Action', {
                 get = require('querystring').parse(p.search.substr(1));
             };
 
+            // {{{ redirect
+
             redirect = function(url) {
 
                 next({
@@ -68,24 +70,35 @@ Ext.define('Ext.server.action.Action', {
 
             };
 
+            // }}}
+            // {{{ User-Agent apply to action
+
+            Ext.create('Ext.server.UserAgent', config.req.headers['user-agent']).apply(action);
+
+            // }}}
+            // {{{ callback
+
             callback = function() {
                 config.res.actionresult = Ext.merge(config.res.actionresult || {}, action.result);
                 next();
             };
 
+            // }}}
+
             Ext.apply(action, {
 
                 // TODO mail: NX.app.action.Abstract.$mail,
 
-                req     : config.req,
-                res     : config.res,
-                paths   : config.config.app.paths,
-                result  : {},
-                post    : config.req.body,
-                get     : get,
-                request : config.req.body,
-                session : config.req.session,
-                redirect: redirect
+                mail        : action.$bindMail(config.config.smtp),
+                req         : config.req,
+                res         : config.res,
+                paths       : config.config.app.paths,
+                result      : {},
+                post        : config.req.body,
+                get         : get,
+                request     : config.req.body,
+                session     : config.req.session,
+                redirect    : redirect
             });
 
             if(this.execute.length === 0) {

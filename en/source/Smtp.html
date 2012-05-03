@@ -34,10 +34,20 @@ Ext.define('Ext.app.config.Smtp', {
 
     // {{{ extend
 
-    extend: 'Ext.app.config.Config'
+    extend: 'Ext.app.config.Config',
 
     // }}}
+    // {{{ constructor
 
+    constructor: function(config) {
+
+        Ext.apply(this, config);
+        Ext.applyIf(this, {
+        });
+
+    }
+
+    // }}}
 });
 
 // }}}
