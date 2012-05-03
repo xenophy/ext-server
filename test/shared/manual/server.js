@@ -36,6 +36,8 @@ Ext.application({
 //            password: '',
             database: 'extserver'
         }
+    },
+    smtp: {
     }
 });
 
