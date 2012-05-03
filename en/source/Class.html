@@ -360,7 +360,7 @@
 
 <span id='Ext-Class-cfg-extend'>    /**
 </span>     * @cfg {String} extend
-     * {Ext_Class:config-extend:desc}
+     * {Ext_Class:cfg-extend:desc}
      */
     ExtClass.registerPreprocessor('extend', function(Class, data) {
         var Base = Ext.Base,
@@ -401,7 +401,7 @@
     //&lt;feature classSystem.statics&gt;
 <span id='Ext-Class-cfg-statics'>    /**
 </span>     * @cfg {Object} statics
-     * {Ext_Class:config-statics:desc}
+     * {Ext_Class:cfg-statics:desc}
      */
     ExtClass.registerPreprocessor('statics', function(Class, data) {
         Class.addStatics(data.statics);
@@ -413,7 +413,7 @@
     //&lt;feature classSystem.inheritableStatics&gt;
 <span id='Ext-Class-cfg-inheritableStatics'>    /**
 </span>     * @cfg {Object} inheritableStatics
-     * {Ext_Class:config-inheritableStatics:desc}
+     * {Ext_Class:cfg-inheritableStatics:desc}
      */
     ExtClass.registerPreprocessor('inheritableStatics', function(Class, data) {
         Class.addInheritableStatics(data.inheritableStatics);
@@ -425,7 +425,7 @@
     //&lt;feature classSystem.config&gt;
 <span id='Ext-Class-cfg-config'>    /**
 </span>     * @cfg {Object} config
-     * {Ext_Class:config-config:desc}
+     * {Ext_Class:cfg-config:desc}
      */
     ExtClass.registerPreprocessor('config', function(Class, data) {
         var config = data.config,
@@ -523,7 +523,7 @@
     //&lt;feature classSystem.mixins&gt;
 <span id='Ext-Class-cfg-mixins'>    /**
 </span>     * @cfg {String[]/Object} mixins
-     * {Ext_Class:config-mixins:desc}
+     * {Ext_Class:cfg-mixins:desc}
      */
     ExtClass.registerPreprocessor('mixins', function(Class, data, hooks) {
         var mixins = data.mixins,
