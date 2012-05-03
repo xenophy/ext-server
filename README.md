@@ -35,15 +35,14 @@ you can browse '**http://localhost:8124**'.
 ## Road Map
 
 ### Version 0.1.x
+* Ext.String.markdown/Ext.markdown implement, used by "node-markdown"
+* this.mail method in action, used by "emailjs".
+* SSL support.
 * special dir "(-_-)v" support, and make an error page beautiful.
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
 * Socket.IO support.
 * Ext Direct supprt(for Ext JS 4.1 and Sencha Touch 2.0).
-* this.mail method in action, used by "emailjs".
-* implement UserAgent util.
-* Ext.String.markdown/Ext.markdown implement, used by "node-markdown"
-* SSL support.
 * The switch of the document root by Virtual Host.
 
 ### Version 0.2.x
