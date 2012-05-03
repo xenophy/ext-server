@@ -1,5 +1,7 @@
 ![Ext Server](http://xenophy.github.com/ext-server/resources/images/ext-server-logo.jpg)
 
+# Ext Server
+
 An application server having the class system which is compatible with Ext JS
 
 ## Getting it
