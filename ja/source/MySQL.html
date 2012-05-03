@@ -41,7 +41,28 @@ Ext.define('Ext.database.MySQL', {
 
     constructor: function(config) {
 
+        var driver;
+
         config = config || {};
+
+        driver = Ext.database.Manager.get(config);
+
+        if(driver === undefined) {
+
+            // TODO: そのまま渡さないでちゃんと再設計
+
+            driver = Ext.$dependencies.mysql.createClient(config);
+            Ext.database.Manager.set(config, driver);
+
+        }
+
+        Ext.apply(this, config);
+        Ext.applyIf(this, {
+            driver: driver
+        });
+
+        // スーパークラスメソッドコール
+        this.callParent(arguments);
 
     },
 
@@ -50,6 +71,24 @@ Ext.define('Ext.database.MySQL', {
 
     connect: function(next) {
 
+        if(this.database) {
+
+            this.driver.query('USE ' + this.database, function(err, results, fields) {
+
+                if(err) {
+
+                    // TODO: SQL Error. ex.)not exists database.
+                    next();
+                    return;
+
+                }
+
+                next();
+            });
+
+        } else {
+            next();
+        }
     },
 
     // }}}
@@ -280,7 +319,8 @@ Ext.define('Ext.database.MySQL', {
 
     commit: function(fn) {
 
-        var me = this, sql = ''; 
+        var me = this, sql = '';
+
         // {{{ コミット
 
         me.driver.query('commit', function(err) {

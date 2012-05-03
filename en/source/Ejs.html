@@ -23,26 +23,30 @@
  * MIT Licensed
  */
 
-// {{{ Ext.server.middleware.Favicon
+// {{{ Ext.template.Ejs
 
-<span id='Ext-server-middleware-Favicon'>/**
-</span> * @class Ext.server.middleware.Favicon
+<span id='Ext-template-Ejs'>/**
+</span> * @class Ext.template.Ejs
  *
- * {Ext_server_middleware_Favicon:doc-contents}
+ * {Ext_template_Ejs:doc-contents}
  */
-Ext.define('Ext.server.middleware.Favicon', {
+Ext.define('Ext.template.Ejs', {
 
-    // {{{ alias
+    // {{{ extend
 
-    alternateClassName: 'Ext.server.Favicon',
+    extend: 'Ext.template.Template',
 
     // }}}
-    // {{{ init
+    // {{{ render
 
-    init: function(config) {
+    render: function(source, data, options) {
 
-        // TODO:setting custom path.
-        return Ext.server.Connect.favicon(process.ExtEnv.resourcedir + '/images/favicon.ico');
+        console.log(&quot;kokokana?&quot;);
+        var ejs = Ext.$dependencies.ejs;
+
+        Ext.apply(ejs, options);
+
+        return ejs.render(source, data);
     }
 
     // }}}

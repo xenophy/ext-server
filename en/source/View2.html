@@ -449,20 +449,39 @@ Ext.define('Ext.server.view.View', {
 
         me = this;
 
-        this.req            = config.req;
-        this.res            = config.res;
-        this.url            = node.url.parse(this.req.url);
-        this.path           = decodeURIComponent(this.url.pathname);
-        this.config         = config.config;
-        this.paths          = this.config.app.paths;
-        this.ext            = node.path.extname(this.req.url);
-        this.directoryIndex = this.config.app.directoryIndex;
-        this.template_exts  = this.config.app.template_exts;
-        this.mime           = Ext.$dependencies.mime;
+        this.req                = config.req;
+        this.res                = config.res;
+        this.url                = node.url.parse(this.req.url);
+        this.path               = decodeURIComponent(this.url.pathname);
+        this.config             = config.config;
+        this.paths              = this.config.app.paths;
+        this.ext                = node.path.extname(node.url.parse(config.req.url, true).pathname);
+        this.directoryIndex     = this.config.app.directoryIndex;
+        this.template_exts      = this.config.app.template_exts;
+        this.mime               = Ext.$dependencies.mime;
+        this.actionResultConfig = config.actionResultConfig;
 
         // TODO: redirect
 
+        if(this.actionResultConfig.abort) {
 
+            var res = this.res;
+
+            if(this.actionResultConfig.redirect) {
+
+                res.statusCode = 302;
+                res.setHeader('Location', this.actionResultConfig.redirect);
+                res.end('Redirecting to ' + this.actionResultConfig.redirect);
+
+            } else {
+
+                res.statusCode = 200;
+                res.end();
+
+            }
+
+            return;
+        }
 
 
         chain = [];
@@ -546,6 +565,7 @@ Ext.define('Ext.server.view.View', {
             stat = o.stat;
             req  = me.req;
             res  = me.res;
+            conf = me.config.app;
 
             node.fs.readFile(file, function(err, data) {
 
@@ -562,7 +582,7 @@ Ext.define('Ext.server.view.View', {
                 headers = {
                     &quot;Content-Type&quot;  : mime.lookup(file),
                     //&quot;Content-Length&quot;: Buffer.byteLength(data.toString(), 'utf8'),
-                    &quot;Content-Length&quot;: stat.size,
+                    //&quot;Content-Length&quot;: stat.size,
                     &quot;Last-Modified&quot; : stat.mtime.toUTCString(),
                     &quot;Expires&quot;       : &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;,
                     &quot;Cache-Control&quot; : &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;,
@@ -573,10 +593,20 @@ Ext.define('Ext.server.view.View', {
                 // テンプレート処理
                 if(me.isTemplate()) {
 
-                    // テンプレート処理後、コンテンツサイズを再計算してcontent-lengthへ設定
+                    var engineName, engine;
 
+                    if(Ext.isString(conf.template_engine)) {
+                        engineName = conf.template_engine;
+                    } else if(Ext.isObject(conf.template_engine)){
+                        engineName = conf.template_engine.name;
+                    } else {
+                        // TODO: Error
+                    }
 
-
+                    engineName = Ext.String.capitalize(engineName.toString());
+                    engine = Ext.create(Ext.String.format('Ext.template.{0}', engineName));
+                    data = engine.render(data.toString(), res.actionresult, {filename: file});
+                    res.setHeader('Content-Length', Buffer.byteLength(data.toString(), 'utf8'));
 
                 } else {
 

@@ -77,7 +77,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-enabled'>            /**
 </span>             * @cfg {Boolean} enabled
-             * {Ext_Loader:cfg-enabled:desc}
+             * {Ext_Loader:config-enabled:desc}
              */
             enabled: false,
 
@@ -86,7 +86,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptChainDelay'>            /**
 </span>             * @cfg {Boolean} scriptChainDelay
-             * {Ext_Loader:cfg-scriptChainDelay:desc}
+             * {Ext_Loader:config-scriptChainDelay:desc}
              */
             scriptChainDelay : false,
 
@@ -122,7 +122,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-paths'>            /**
 </span>             * @cfg {Object} paths
-             * {Ext_Loader:cfg-paths:desc}
+             * {Ext_Loader:config-paths:desc}
              */
             paths: {
                 'Ext': '.'
@@ -133,7 +133,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-preserveScripts'>            /**
 </span>             * @cfg {Boolean} preserveScripts
-             * {Ext_Loader:cfg-preserveScripts:desc}
+             * {Ext_Loader:config-preserveScripts:desc}
              */
             preserveScripts : true,
 
@@ -142,7 +142,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptCharset'>            /**
 </span>             * @cfg {String} scriptCharset
-             * {Ext_Loader:cfg-scriptCharset:desc}
+             * {Ext_Loader:config-scriptCharset:desc}
              */
             scriptCharset : undefined
 
@@ -833,7 +833,7 @@ Ext.Loader = new function() {
 <span id='Ext-Class-cfg-requires'>    /**
 </span>     * @cfg {String[]} requires
      * @member Ext.Class
-     * {Ext_Class:cfg-requires:desc}
+     * {Ext_Class:config-requires:desc}
      */
     Class.registerPreprocessor('loader', function(cls, data, hooks, continueFn) {
         var me = this,
@@ -991,7 +991,7 @@ Ext.Loader = new function() {
 <span id='Ext-Class-cfg-uses'>    /**
 </span>     * @cfg {String[]} uses
      * @member Ext.Class
-     * {Ext_Class:cfg-uses:desc}
+     * {Ext_Class:config-uses:desc}
      */
     Manager.registerPostprocessor('uses', function(name, cls, data) {
         var uses = data.uses,

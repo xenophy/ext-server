@@ -42,6 +42,11 @@ Ext.define('Ext.app.action.Action', {
     uses: [],
 
     // }}}
+    // {{{ result
+
+    result: {},
+
+    // }}}
     // {{{ constructor
 
     constructor: function(param) {
@@ -55,8 +60,7 @@ Ext.define('Ext.app.action.Action', {
         // TODO: this.executeがisFunctionではない場合、例外処理を発生させる
 
 
-
-
+        this.result = {};
 
     },
 
@@ -172,7 +176,7 @@ Ext.define('Ext.app.action.Action', {
                     item.define = Ext.create('Ext.app.module.Module', require(item.path));
 
                     // コネクション名設定
-                    // item.define.setConnName(item.conn);
+                    item.define.setConnName(item.conn);
 
                     // 初期化
                     item.define.init(config, function() {
@@ -187,6 +191,25 @@ Ext.define('Ext.app.action.Action', {
             });
 
         });
+
+    },
+
+    // }}}
+    // {{{ set
+
+    set: function(name, value) {
+
+        var result = this.result;
+
+        if(Ext.isString(name)) {
+            result[name] = value;
+        } else if(Ext.isObject(name)) {
+            Ext.apply(result, name);
+        } else {
+            return false;
+        }
+
+        return result;
 
     }
 

@@ -23,26 +23,28 @@
  * MIT Licensed
  */
 
-// {{{ Ext.server.middleware.Favicon
+// {{{ Ext.template.Swig
 
-<span id='Ext-server-middleware-Favicon'>/**
-</span> * @class Ext.server.middleware.Favicon
+<span id='Ext-template-Swig'>/**
+</span> * @class Ext.template.Swig
  *
- * {Ext_server_middleware_Favicon:doc-contents}
+ * {Ext_template_Swig:doc-contents}
  */
-Ext.define('Ext.server.middleware.Favicon', {
+Ext.define('Ext.template.Swig', {
 
-    // {{{ alias
+    // {{{ extend
 
-    alternateClassName: 'Ext.server.Favicon',
+    extend: 'Ext.template.Template',
 
     // }}}
-    // {{{ init
+    // {{{ render
 
-    init: function(config) {
+    render: function(source, data, options) {
 
-        // TODO:setting custom path.
-        return Ext.server.Connect.favicon(process.ExtEnv.resourcedir + '/images/favicon.ico');
+        Ext.$dependencies.swig.init({cache: false, autoescape: false});
+
+        return Ext.$dependencies.swig.compile(source, options)(data).toString();
+
     }
 
     // }}}

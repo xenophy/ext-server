@@ -62,8 +62,9 @@ Ext.define('Ext.app.Application', {
 
         // default value setting
         Ext.applyIf(config, {
-            type: 'server',  // shell or server
-            controllers: []
+            type        : 'server', // shell or server
+            controllers : [],
+            name        : 'App'     // Default name space &quot;App&quot;
         });
 
         type = config.type;
