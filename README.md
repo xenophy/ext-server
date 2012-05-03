@@ -35,7 +35,6 @@ you can browse '**http://localhost:8124**'.
 ## Road Map
 
 ### Version 0.1.x
-* Ext.String.markdown/Ext.markdown implement, used by "node-markdown"
 * this.mail method in action, used by "emailjs".
 * SSL support.
 * special dir "(-_-)v" support, and make an error page beautiful.
