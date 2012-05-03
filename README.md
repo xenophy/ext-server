@@ -1,5 +1,7 @@
 # Ext Server
 
+![Ext Server Logo](http://xenophy.github.com/ext-server/resources/images/ext-server-logo.jpg)
+
 An application server having the class system which is compatible with Ext JS
 
 ## Getting it
@@ -34,7 +36,7 @@ you can browse '**http://localhost:8124**'.
 
 
 ### Version 0.1.x
-* checked action spec, session, database, All which has been implemented so far.
+* special dir "(-_-)v" support, and make an error page beautiful.
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
 * Socket.IO support.
@@ -47,7 +49,6 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.2.x
 * Ext Classs System, watch a required file and update it automatically.
-* special dir "(-_-)v" support, and make an error page beautiful.
 
 ### Version 0.3.x
 * create Ext.shell.Shell base action execute enviroment.
