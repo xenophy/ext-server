@@ -1,6 +1,4 @@
-# Ext Server
-
-![Ext Server Logo](http://xenophy.github.com/ext-server/resources/images/ext-server-logo.jpg)
+![Ext Server](http://xenophy.github.com/ext-server/resources/images/ext-server-logo.jpg)
 
 An application server having the class system which is compatible with Ext JS
 
