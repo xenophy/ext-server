@@ -1,2 +1,1 @@
-The function which will be called on a delay when the returned function is called.
-Optionally, a replacement (or additional) argument list may be specified.
+返される関数を呼び出すと、ここで指定した関数が指定時間遅れて実行されます。 必要に応じて、引数リストを追加・置換してください。

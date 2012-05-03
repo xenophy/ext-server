@@ -1,1 +1,1 @@
-The function to invoke on a buffered timer.
+タイマーによって呼び出される関数。

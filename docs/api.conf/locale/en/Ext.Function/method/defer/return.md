@@ -1,1 +1,1 @@
-The timeout id that can be used with clearTimeout
+clearTimeoutで使用可能なタイムアウトID

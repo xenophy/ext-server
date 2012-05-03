@@ -1,1 +1,1 @@
-A function which invokes the passed function at the specified interval.
+指定時間後に繰り返し呼び出される関数。

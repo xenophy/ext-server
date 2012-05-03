@@ -1,1 +1,1 @@
-Returns a new object with the given object as the prototype chain.
+プロトタイプ チェーンとして与えられたオブジェクトととみに新しいオブジェクトを返します。

@@ -1,1 +1,1 @@
-The function to call before the original
+元の関数が実行される前に実行される関数（判定などの関数で、戻り値が真偽型）

@@ -1,1 +1,1 @@
-The prototype chain for the new object.
+新しいオブジェクトのプロトタイプ チェーン

@@ -1,6 +1,3 @@
-Creates a throttled version of the passed function which, when called repeatedly and
-rapidly, invokes the passed function only after a certain interval has elapsed since the
-previous invocation.
+前回の実行から指定時間後に再度実行する関数を作成します。 指定時間内にコールされた関数は実行されず、最後にコールされた関数のみが指定時間後に実行されます。
 
-This is useful for wrapping functions which may be called repeatedly, such as
-a handler of a mouse move event when the processing is expensive.
+これはマウスのmoveイベントをハンドリングするような、繰り返し呼び出されることが想定される処理に対して役立ちます。

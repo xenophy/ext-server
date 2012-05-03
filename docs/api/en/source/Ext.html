@@ -687,6 +687,9 @@
 
     Ext.apply(Ext.util, {
 
+        // Ext.util.Markdown
+        Markdown: require('./util/Markdown'),
+
         // Ext.util.Format
         Format: require('./util/Format')
 
@@ -752,7 +755,12 @@
          */
         toArray: function() {
             return Ext.Array.toArray.apply(Ext.Array, arguments);
-        }
+        },
+
+        // }}}
+        // {{{ markdown
+
+        markdown: Ext.util.Markdown.parse
 
         // }}}
 
@@ -814,7 +822,12 @@
         // }}}
         // {{{ ejs
 
-        ejs: require('ejs')
+        ejs: require('ejs'),
+
+        // }}}
+        // {{{ nodemailer
+
+        nodemailer: require('nodemailer')
 
         // }}}
 

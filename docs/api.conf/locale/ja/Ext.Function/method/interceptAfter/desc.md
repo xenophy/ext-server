@@ -1,0 +1,18 @@
+既存のメソッドに動作を追加します。
+オリジナルの動作が終わった後に実行されます。
+
+例:
+
+    var soup = {
+        contents: [],
+        add: function(ingredient) {
+            this.contents.push(ingredient);
+        }
+    };
+    Ext.Function.interceptAfter(soup, "add", function(ingredient){
+        // Always add a bit of extra salt
+        this.contents.push("salt");
+    });
+    soup.add("water");
+    soup.add("onions");
+    soup.contents; // will contain: water, salt, onions, salt

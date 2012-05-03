@@ -1,1 +1,1 @@
-A collection of useful static methods to deal with function callbacks
+関数のコールバックを扱うのに便利な、静的メソッドのコレクション。

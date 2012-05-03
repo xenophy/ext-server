@@ -1,2 +1,2 @@
-(optional) The scope (`this` reference) in which
-the passed function is executed. If omitted, defaults to the scope specified by the caller.
+(オプション) 渡された関数呼び出し時のスコープ （this）。
+指定しない場合、デフォルトは呼び出し元の関数のスコープとなります。

@@ -1,1 +1,1 @@
-The arguments to pass to new callback
+コールバック関数へ渡される引数

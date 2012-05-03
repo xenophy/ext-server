@@ -1,1 +1,1 @@
-(optional) The scope (`this` reference) used by the function at execution time.
+(オプション) 関数実行時のスコープ（this）。

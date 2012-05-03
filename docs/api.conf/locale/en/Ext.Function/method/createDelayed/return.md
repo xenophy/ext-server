@@ -1,1 +1,1 @@
-A function which, when called, executes the original function after the specified delay.
+この関数が呼び出されると、渡された関数を指定時間後に実行します。

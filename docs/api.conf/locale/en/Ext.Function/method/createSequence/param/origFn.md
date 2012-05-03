@@ -1,1 +1,1 @@
-The original function.
+元の関数。

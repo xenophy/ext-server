@@ -1,1 +1,1 @@
-Creates a delegate (callback) which, when called, executes after a specific delay.
+呼び出されたときに指定時間後に実行するコールバック関数を作成します。
