@@ -1,8 +1,9 @@
-Globally handle any Ext errors that may be raised, optionally providing custom logic to
-handle different errors individually. Return true from the function to bypass throwing the
-error to the browser, otherwise the error will be thrown and execution will halt.
+グローバルにエラーをハンドリングします。
+エラー毎にハンドリングを変えるカスタムロジックを提供することもできます。
+関数がtrueを返すとエラーがスローされるのをバイパスし、
+そうでなければ実行時にエラーが発生して実行は停止します。
 
-Example usage:
+使用例:
 
     Ext.Error.handle = function(err) {
         if (err.someProperty == 'NotReallyAnError') {

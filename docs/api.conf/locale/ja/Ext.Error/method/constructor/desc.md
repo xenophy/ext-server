@@ -1,1 +1,1 @@
-Creates new Error object.
+新しいErrorオブジェクトを生成します。
