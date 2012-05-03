@@ -998,7 +998,7 @@
 <span id='Ext-Class-cfg-alias'>    /**
 </span>     * @cfg {String[]} alias
      * @member Ext.Class
-     * {Ext_Class:cfg-alias:desc}
+     * {Ext_Class:config-alias:desc}
      */
     Manager.registerPostprocessor('alias', function(name, cls, data) {
         var aliases = data.alias,
@@ -1017,7 +1017,7 @@
 <span id='Ext-Class-cfg-singleton'>    /**
 </span>     * @cfg {Boolean} singleton
      * @member Ext.Class
-     * {Ext_Class:cfg-singleton:desc}
+     * {Ext_Class:config-singleton:desc}
      */
     Manager.registerPostprocessor('singleton', function(name, cls, data, fn) {
         fn.call(this, name, new cls(), data);
@@ -1029,7 +1029,7 @@
 <span id='Ext-Class-cfg-alternateClassName'>    /**
 </span>     * @cfg {String/String[]} alternateClassName
      * @member Ext.Class
-     * {Ext_Class:cfg-alternateClassName:desc}
+     * {Ext_Class:config-alternateClassName:desc}
      */
     Manager.registerPostprocessor('alternateClassName', function(name, cls, data) {
         var alternates = data.alternateClassName,

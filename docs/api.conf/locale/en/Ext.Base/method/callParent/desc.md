@@ -1,6 +1,6 @@
 Call the "parent" method of the current method. That is the method previously
 overridden by derivation or by an override (see
-<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass" id="ext-gen1602">Ext.define</a>
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass" >Ext.define</a>
 ).
 
      Ext.define('My.Base', {

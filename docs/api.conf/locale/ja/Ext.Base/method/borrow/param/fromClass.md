@@ -1,1 +1,1 @@
-The class to borrow members from
+メンバーを借用するクラス。

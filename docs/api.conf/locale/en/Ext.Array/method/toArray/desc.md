@@ -15,7 +15,7 @@ Converts any iterable (numeric indices and a length property) into a true array.
     Ext.Array.toArray('splitted'); // returns ['s', 'p', 'l', 'i', 't', 't', 'e', 'd']
     Ext.Array.toArray('splitted', 0, 3); // returns ['s', 'p', 'l', 'i']
 
-<a href="#!/api/Ext-method-toArray" rel="Ext-method-toArray" class="docClass" id="ext-gen4680">Ext.toArray</a>
+<a href="#!/api/Ext-method-toArray" rel="Ext-method-toArray" class="docClass" >Ext.toArray</a>
 is alias for 
-<a href="#!/api/Ext.Array-method-toArray" rel="Ext.Array-method-toArray" class="docClass" id="ext-gen4679">Ext.Array.toArray</a>
+<a href="#!/api/Ext.Array-method-toArray" rel="Ext.Array-method-toArray" class="docClass" >Ext.Array.toArray</a>
 Ext.Array.toArray</a>

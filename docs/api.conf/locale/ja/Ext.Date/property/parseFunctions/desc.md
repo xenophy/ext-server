@@ -4,7 +4,7 @@
 日付パース関数がExt標準フォーマット文字列を要求したとき、このオブジェクトへ自動的に日付パース関数が格納されます。
 
 カスタムパース関数はこのオブジェクトに格納し、キー名に関数名を設定することで
-<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" id="ext-gen5626">parse</a>.
+<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" >parse</a>.
 メソッドによって使用することができます。
 
 例:
@@ -25,6 +25,6 @@
 
 その形式に従って日付がフォーマットされることを有効にするために、
 対応するフォーマット関数は
-<a href="#!/api/Ext.Date-property-formatFunctions" rel="Ext.Date-property-formatFunctions" class="docClass" id="ext-gen5628">formatFunctions</a>
+<a href="#!/api/Ext.Date-property-formatFunctions" rel="Ext.Date-property-formatFunctions" class="docClass" >formatFunctions</a>
 プロパティに格納する必要があります。
 

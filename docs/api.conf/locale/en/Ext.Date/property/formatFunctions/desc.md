@@ -4,7 +4,7 @@ format string which corresponds to the produced formatted date string.</p>
 date formats are requested for Ext standard formatting strings.</p>
 <p>Custom formatting functions may be inserted into this object, keyed by a name which from then on
 may be used as a format string to
-<a href="#!/api/Ext.Date-method-format" rel="Ext.Date-method-format" class="docClass" id="ext-gen5592">format</a>.
+<a href="#!/api/Ext.Date-method-format" rel="Ext.Date-method-format" class="docClass" >format</a>.
 
 Example:</p><pre><code>
 Ext.Date.formatFunctions['x-date-format'] = myDateFormatter;
@@ -14,4 +14,4 @@ Ext.Date.formatFunctions['x-date-format'] = myDateFormatter;
 </ul></div></p>
 <p>To enable date strings to also be <i>parsed</i> according to that format, a corresponding
  parsing function must be placed into the
-<a href="#!/api/Ext.Date-property-parseFunctions" rel="Ext.Date-property-parseFunctions" class="docClass" id="ext-gen5596">parseFunctions</a> property.
+<a href="#!/api/Ext.Date-property-parseFunctions" rel="Ext.Date-property-parseFunctions" class="docClass" >parseFunctions</a> property.

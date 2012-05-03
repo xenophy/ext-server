@@ -1,7 +1,7 @@
-Get the reference to the class from which this object was instantiated. Note that unlike
-<a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass" id="ext-gen1639">self</a>
-`this.statics()` is scope-independent and it always returns the class from which it was called, regardless of what
-`this` points to during run-time
+インスタンス化されたオブジェクトの参照を取得します。
+
+<a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass" >self</a>
+とは違い、 `this.statics()`のスコープは独立しています。 実行時の`this`に関係なく、いつも呼び出されたクラスが返却されます。
 
     Ext.define('My.Cat', {
         statics: {

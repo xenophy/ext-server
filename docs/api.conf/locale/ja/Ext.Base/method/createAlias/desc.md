@@ -1,4 +1,5 @@
-Create aliases for existing prototype methods. Example:
+既存のプロトタイプメソッドのエリアスを生成します。
+例:
 
     Ext.define('My.cool.Class', {
         method1: function() { ... },

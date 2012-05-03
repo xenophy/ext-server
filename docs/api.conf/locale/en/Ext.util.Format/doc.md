@@ -11,7 +11,7 @@ Options include:
 - currencySign
 - currencyAtEnd
 This class also uses the default date format defined here:
-<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" id="ext-gen5910">Ext.Date.defaultFormat</a>
+<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" >Ext.Date.defaultFormat</a>
 .
 
 __Using with renderers__

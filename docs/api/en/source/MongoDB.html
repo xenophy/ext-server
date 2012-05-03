@@ -41,20 +41,48 @@ Ext.define('Ext.database.MongoDB', {
 
     constructor: function(config) {
 
+        var driver;
+
         config = config || {};
 
+        driver = Ext.database.Manager.get(config);
+
+        if(driver === undefined) {
+
+            driver = {
+                mongodb: Ext.$dependencies.mongodb
+            };
+
+            Ext.applyIf(config, {
+                host: '127.0.0.1',
+                port: driver.mongodb.Connection.DEFAULT_PORT
+            });
+
+            driver.server = new driver.mongodb.Server(config.host, config.port, {});
+
+            Ext.database.Manager.set(config, driver);
+
+        }
+
+        Ext.apply(this, config);
+        Ext.applyIf(this, {
+            driver: driver
+        });
+
+        // スーパークラスメソッドコール
+        this.callParent(arguments);
     },
 
     // }}}
     // {{{ connect
 
-    connect: function(fn) {
+    connect: function(next) {
 
         var me = this,
-        driver = me.driver,
-        mongodb = me.driver.mongodb,
-        server = me.driver.server,
-        database = me.database;
+            driver = me.driver,
+            mongodb = me.driver.mongodb,
+            server = me.driver.server,
+            database = me.database;
 
         new mongodb.Db(database, server, {}).open(function (err, client) {
 
@@ -63,11 +91,8 @@ Ext.define('Ext.database.MongoDB', {
             }
 
             driver.client = client;
-
-            fn();
-
+            next();
         });
-
     },
 
     // }}}
@@ -76,9 +101,9 @@ Ext.define('Ext.database.MongoDB', {
     find: function(table, args) {
 
         var me = this,
-        driver = me.conn.driver,
-        mongodb = driver.mongodb,
-        client = driver.client;
+            driver = me.conn.driver,
+            mongodb = driver.mongodb,
+            client = driver.client;
 
         var collection = new mongodb.Collection(client, table);
 
@@ -91,9 +116,9 @@ Ext.define('Ext.database.MongoDB', {
     insert: function(table, args) {
 
         var me = this,
-        driver = me.conn.driver,
-        mongodb = driver.mongodb,
-        client = driver.client;
+            driver = me.conn.driver,
+            mongodb = driver.mongodb,
+            client = driver.client;
 
         var collection = new mongodb.Collection(client, table);
 

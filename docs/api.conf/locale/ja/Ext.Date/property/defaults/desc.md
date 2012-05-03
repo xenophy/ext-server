@@ -13,7 +13,7 @@
 </ul></div>
 
 これらのデフォルト値は、
-<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" id="ext-gen5582">parse</a>
+<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" >parse</a>
 メソッドを使用してオーバーライドします
 
 <b>注意：サマータイム（DST）が存在する国では、DSTに切り替わる時間と時間に関するプロパティ（<tt>h</tt>, <tt>i</tt>, <tt>s</tt>, <tt>ms</tt>）の設定が同じタイミングである可能性があります。 これを考慮することは開発者の役割です。</b>

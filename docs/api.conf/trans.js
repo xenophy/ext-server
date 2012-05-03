@@ -130,18 +130,37 @@
                 if( path.existsSync(file) ) {
                     return fs.readFileSync(file).toString();
                 } else {
-                    mkdirp(file);
+                    mkdirp(path.dirname(file));
                     fd = fs.openSync(file, 'w');
                     fs.close(fd);
                     return '';
                 }
             };
+
+            //}}}
+            //{{{ deprecatedExecute
+
+            var deprecatedExecute = function(type, o, id) {
+                file = path.normalize(src + '/' + cls + '/' + type + '/' + o.name + '/deprecated.md');
+                try{
+                    data = readLocale(file);
+                } catch(e) {
+                    console.log(e);
+                    data = '';
+                }
+                srctag = '{' + cls.replace(/\./g, '_') + ':' + id + ':deprecated}';
+                destjson.html = destjson.html.replace(
+                    srctag,
+                    markdown(data)
+                );
+            };
+
             //}}}
             //{{{ descExecute
 
             // Repalece desc.md document
             var descExecute = function(type, o) {
-                var data, srctag, ptn, long ,short,
+                var data, srctag, long ,short,
                     id = type + '\-' + o.name;
 
                 // desc.md
@@ -173,6 +192,9 @@
                     '(<p>)' + srctag + '(</p>)',
                     long, '$1', '$2'
                 );
+                if( o.meta.deprecated ){
+                    deprecatedExecute(type, o, id);
+                }
             };
             //}}}
             //{{{ methodExecute

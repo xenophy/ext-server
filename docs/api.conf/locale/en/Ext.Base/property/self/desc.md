@@ -1,7 +1,7 @@
 Get the reference to the current class from which this object was instantiated. Unlike
-<a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass" id="ext-gen1668">statics</a>,
+<a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>,
 `this.self` is scope-dependent and it's meant to be used for dynamic inheritance. See
-<a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass" id="ext-gen1668">statics</a>
+<a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>
 for a detailed comparison
 
     Ext.define('My.Cat', {

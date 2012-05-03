@@ -12,7 +12,7 @@ The following properties are available:
 </ul></div>
 
 Override these properties to customize the default date values used by the
-<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" id="ext-gen5582">parse</a>
+<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" >parse</a>
 method.
 <b>Note: In countries which experience Daylight Saving Time (i.e. DST), the <tt>h</tt>, <tt>i</tt>, <tt>s</tt>
 and <tt>ms</tt> properties may coincide with the exact time in which DST takes effect.

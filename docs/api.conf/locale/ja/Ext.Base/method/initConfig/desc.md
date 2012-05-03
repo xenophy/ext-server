@@ -1,4 +1,4 @@
-Initialize configuration for this class. a typical example:
+コンフィグを初期化します。良くある例:
 
     Ext.define('My.awesome.Class', {
         // The default config

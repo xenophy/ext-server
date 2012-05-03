@@ -6,7 +6,7 @@ date formats are requested for Ext standard formatting strings.
 
 Custom parsing functions may be inserted into this object, keyed by a name which from then on
 may be used as a format string to
-<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" id="ext-gen5626">parse</a>.
+<a href="#!/api/Ext.Date-method-parse" rel="Ext.Date-method-parse" class="docClass" >parse</a>.
 
 Example:
 
@@ -23,5 +23,5 @@ Invalid date strings should return null when parsed.</div></li>
 
 To enable Dates to also be <i>formatted</i> according to that format, a corresponding
 formatting function must be placed into the
-<a href="#!/api/Ext.Date-property-formatFunctions" rel="Ext.Date-property-formatFunctions" class="docClass" id="ext-gen5628">formatFunctions</a>
+<a href="#!/api/Ext.Date-property-formatFunctions" rel="Ext.Date-property-formatFunctions" class="docClass" >formatFunctions</a>
 property.

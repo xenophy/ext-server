@@ -1,4 +1,4 @@
-Borrow another class' members to the prototype of this class.
+他のクラスのメンバーをこのクラスのプロトタイプに借用します。
 
     Ext.define('Bank', {
         money: '$$$',

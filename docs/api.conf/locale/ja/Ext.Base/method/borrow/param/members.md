@@ -1,1 +1,1 @@
-The names of the members to borrow
+借用するメンバーの名前。

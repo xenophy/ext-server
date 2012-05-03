@@ -13,7 +13,7 @@ __ローカライゼーション__
 - currencyAtEnd
 
 また、このクラスはここで定義されている、デフォルトの日付フォーマットも使用できます:
-<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" id="ext-gen7079">Ext.Date.defaultFormat</a>.
+<a href="#!/api/Ext.Date-property-defaultFormat" rel="Ext.Date-property-defaultFormat" class="docClass" >Ext.Date.defaultFormat</a>.
 
 __rendererでの使用__
 gridのrendererと組み合わせて使用することができる新しい関数を返す、２つのヘルパー関数があります:

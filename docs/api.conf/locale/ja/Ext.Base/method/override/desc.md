@@ -1,5 +1,6 @@
-Override members of this class. Overridden methods can be invoked via
-<a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass" id="ext-gen1623">callParent</a>.
+プロトタイプメンバーをオーバーライドします。 オーバーライドされたメソッドは、
+<a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass" >callParent</a>.
+で呼び出すことができます。
 
     Ext.define('My.Cat', {
         constructor: function() {
@@ -21,9 +22,9 @@ Override members of this class. Overridden methods can be invoked via
                               // alerts "I'm a cat!"
                               // alerts "Meeeeoooowwww"
 
-As of 4.1, direct use of this method is deprecated. Use
-<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass" id="ext-gen1625">Ext.define</a>
-instead:
+このメソッドを使うことを推奨されません。代わりに
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass" >Ext.define</a>
+を使ってください。
 
     Ext.define('My.CatOverride', {
         override: 'My.Cat',
@@ -36,9 +37,8 @@ instead:
         }
     });
 
-The above accomplishes the same result but can be managed by the
-<a href="#!/api/Ext.Loader" rel="Ext.Loader" class="docClass" id="ext-gen1627">Ext.Loader</a>
-which can properly order the override and its target class and the build process
-can determine whether the override is needed based on the required state of the
-target class (My.Cat).
-
+上記は同じ目的ですが、
+<a href="#!/api/Ext.Loader" rel="Ext.Loader" class="docClass" >Ext.Loader</a>
+で管理できます。
+Loaderは、対象となるクラスを適切な順番でオーバーライドし、
+ビルドプロセスにおいて、対象クラスの依存情報を元にしてどのオーバーラードが必要かを特定することができます。
