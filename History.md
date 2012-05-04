@@ -8,4 +8,6 @@
             ex.) this.mail({ ... }), specify nodemailer message config.
             transport config is specify Ext.application({smtp: { /* here */ }});
   * Add     SSL support, SSL config is specify Ext.application({ssl: { /* here */ }});
+  * Add     set a time limit for the execute time of the action.
+  * Add     display all error indication about Ext.Server for a browser.
 
