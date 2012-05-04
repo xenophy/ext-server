@@ -1,1 +1,1 @@
-The version to compare with
+比較するバージョン

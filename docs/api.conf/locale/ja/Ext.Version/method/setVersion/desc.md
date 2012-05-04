@@ -1,1 +1,1 @@
-Set version number for the given package name.
+指定したパッケージ名のバージョン番号を設定します。

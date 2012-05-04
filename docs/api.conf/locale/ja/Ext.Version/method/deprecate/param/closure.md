@@ -1,1 +1,2 @@
-The callback function to be executed with the specified version is less than the current version
+指定されたバージョンが現在のバージョンよりも小さいときに実行される
+コールバック関数。

@@ -1,1 +1,1 @@
-The value to convert
+変換する値。

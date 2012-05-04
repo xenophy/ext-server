@@ -1,4 +1,4 @@
-Returns whether this version matches the supplied argument. Example:
+このバージョンが引数で指定したバージョンと一致するかどうかを返します。例:
 
     var version = new Ext.Version('1.0.2beta');
     console.log(version.match(1)); // True

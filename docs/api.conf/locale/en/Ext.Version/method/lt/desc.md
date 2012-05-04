@@ -1,1 +1,1 @@
-Convenient alias to {@link Ext.Version#isLessThan isLessThan}
+Convenient alias to <a href="#!/api/Ext.Version-method-isLessThan" rel="Ext.Version-method-isLessThan" class="docClass">isLessThan</a>

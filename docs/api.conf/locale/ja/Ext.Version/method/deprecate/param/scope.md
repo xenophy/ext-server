@@ -1,1 +1,1 @@
-The execution scope (<tt>this</tt>) if the closure
+実行時のスコープ

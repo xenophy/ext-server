@@ -1,1 +1,1 @@
-Returns whether this version if greater than the supplied argument
+バージョンが指定されたものよりも大きいかどうかを返します。

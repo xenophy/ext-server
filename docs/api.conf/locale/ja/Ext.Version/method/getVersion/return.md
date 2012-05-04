@@ -1,1 +1,1 @@
-The version
+バージョン

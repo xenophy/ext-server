@@ -1,1 +1,1 @@
-Returns the patch component value
+パッチ番号を返します。

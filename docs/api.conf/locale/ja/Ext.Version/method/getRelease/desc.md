@@ -1,1 +1,1 @@
-Returns the release component value
+リリース番号を返します。

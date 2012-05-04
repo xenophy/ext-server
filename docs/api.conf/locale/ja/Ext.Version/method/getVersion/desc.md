@@ -1,2 +1,3 @@
-Get the version number of the supplied package name; will return the last registered version
-(last Ext.setVersion call) if there's no package name given.
+指定したパッケージ名のバージョン番号を取得します。
+パッケージ名がしてされなかった場合は、
+最後に登録した(最後にExt.setVersionをコールした時の)バージョンが返されます。

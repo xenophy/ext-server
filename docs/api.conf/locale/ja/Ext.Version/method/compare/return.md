@@ -1,1 +1,3 @@
-Returns -1 if the current version is smaller than the target version, 1 if greater, and 0 if they're equivalent
+現在のバージョンが対象バージョンよりも小さかったら-1、
+大きかったら1、
+等しかったら0を返します。

@@ -1,1 +1,1 @@
-The version number in the follow standard format: major[.minor[.patch[.build[release]]]]
+次の標準フォーマットのバージョン番号: major[.minor[.patch[.build[release]]]]

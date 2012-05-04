@@ -1,1 +1,1 @@
-Override the native toString method
+標準のtoStringメソッドをオーバーライドします。

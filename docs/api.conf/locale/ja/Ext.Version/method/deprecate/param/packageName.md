@@ -1,1 +1,1 @@
-The package name
+パッケージ名

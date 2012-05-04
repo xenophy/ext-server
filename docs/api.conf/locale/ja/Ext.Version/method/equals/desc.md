@@ -1,1 +1,1 @@
-Returns whether this version equals to the supplied argument
+このバージョンが指定したバージョンと等しいかどうかを返します。

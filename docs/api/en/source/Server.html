@@ -77,7 +77,7 @@ Ext.define('Ext.server.Server', {
 
         init = function() {
 
-            var app, port, middleware, onLaunch;
+            var app, port, middleware, onLaunch, debug, env;
 
             middleware  = [
                 'Favicon',
@@ -90,6 +90,10 @@ Ext.define('Ext.server.Server', {
             app         = Ext.create('Ext.server.Connect');
             port        = config.port || this.$port;
             onLaunch    = config.onLaunch || Ext.emptyFn;
+
+//            debug       = Ext.$dependencies.debug('connect:dispatcher');
+//            env         = process.env.NODE_ENV || 'development';
+
 
             // init configs
             [
@@ -115,6 +119,63 @@ Ext.define('Ext.server.Server', {
 
             // Router create.
             this.router = Ext.create('Ext.server.Router');
+
+            // vhost setting
+            app.use(function(req, res, next) {
+
+                var host, vhost, paths, stack, prefix;
+
+                host    = req.headers['x-forwarded-host'] || req.headers['host'];
+                vhost   = me.config.app.vhost;
+                paths   = me.config.app.$paths;
+                stack   = [];
+                prefix  = '';
+
+                if(Ext.isFunction(vhost)) {
+
+                    var ret = vhost(host.split(':')[0]);
+
+                    if(Ext.isString(ret)) {
+                        prefix = ret + '/';
+                    }
+
+                } else {
+                    if(vhost.length &gt; 0) {
+                        Ext.iterate(vhost, function(o) {
+
+                            var hostname = o.hostname;
+                            var path = o.path;
+                            var regexp = new RegExp('^' + hostname.replace(/[*]/g, '(.*?)') + '$', 'i');
+
+                            if(regexp.test(host.split(':')[0])) {
+                                prefix = path + '/';
+                                return false;
+                            }
+
+                        });
+                    }
+                };
+
+                Ext.iterate(paths, function(key, value) {
+
+                    var path = prefix + value;
+
+                    stack.push(function() {
+                        require('fs').realpath(path, function(err, realpath) {
+                            me.config.app.paths[key] = realpath;
+                            if(stack.length &gt; 0) {
+                                stack.shift()();
+                            } else {
+                                next();
+                            }
+                        });
+                    });
+                });
+
+                // run
+                stack.shift()();
+
+            });
 
             // setting headers
             app.use(function(req, res, next) {
@@ -160,12 +221,19 @@ Ext.define('Ext.server.Server', {
 
             });
 
-            // TODO: HTTP/HTTPSの設定
+            var http = require('http'),
+                https = require('https');
 
-            // start server!
-            app.listen(port, function() {
-                onLaunch();
-            });
+            http.createServer(app).listen(port);
+
+            if(config.ssl) {
+                https.createServer({
+                    key: config.ssl.key,
+                    cert: config.ssl.cert
+                }, app).listen(config.ssl.port || 443);
+            }
+
+            onLaunch();
 
         };
 

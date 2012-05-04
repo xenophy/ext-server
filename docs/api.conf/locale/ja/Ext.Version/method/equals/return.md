@@ -1,1 +1,1 @@
-True if this version equals to the target, false otherwise
+対象バージョンと等しければtrue、そうでなければfalse

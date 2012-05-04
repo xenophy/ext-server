@@ -64,20 +64,24 @@ Ext.define('Ext.app.config.Application', {
                 actions     : config.paths.actions || './actions',
                 modules     : config.paths.modules || './modules'
             },
+            $paths: {},
             template_exts: ['html', 'htm']
         });
 
         Ext.applyIf(this, {
             actionName: 'index',
             directoryIndex: ['index.html', 'index.htm'],
-            maxAge: 0
+            maxAge: 0,
+            vhost: {}
         });
 
+        /*
         Ext.iterate(this.paths, function(item) {
             try {
                 me.paths[item] = node.fs.realpathSync(me.paths[item]);
             } catch(e) {};
         });
+        */
 
     }
 

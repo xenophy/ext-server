@@ -1,1 +1,1 @@
-The current version to compare to
+比較する現在のバージョン

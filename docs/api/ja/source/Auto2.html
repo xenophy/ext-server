@@ -213,13 +213,9 @@ Ext.define('Ext.server.controller.Auto', {
                                 actionsrc = require(path);
                             } catch(e) {
 
-                                res.$errorCode = 500;
-                                res.$errorDetails = {
-                                    msg: e.message,
-                                    stack: e.stack
-                                };
-
-                                next();
+                                // render 500 Error
+                                config.actionResultConfig = { abort: 500, errorDetails: e };
+                                me.render.call(me, config, next);
 
                                 return;
                             }
@@ -289,13 +285,35 @@ Ext.define('Ext.server.controller.Auto', {
 
                 if(action &amp;&amp; rc.abort === false) {
 
-                    action(config, function(result) {
+                    try{
 
-                        Ext.apply(rc, result);
-                        // clearTimeout(timer);
-                        run();
+                        var timer = setTimeout(function() {
 
-                    });
+                            // render 500 Error
+                            config.actionResultConfig = { abort: 500, errorDetails: {
+                                message: &quot;This Action is too long execute.&quot;,
+                                stack: &quot;This Action is too long execute.\nPlease call it if you have forgotten the call of 'done'. &quot;
+                            } };
+                            me.render.call(me, config, next);
+
+                        }, 3000);
+
+                        action(config, function(result) {
+
+                            result = result || {};
+                            Ext.apply(rc, result);
+                            clearTimeout(timer);
+                            run();
+
+                        });
+
+                    } catch(e) {
+
+                        // render 500 Error
+                        config.actionResultConfig = { abort: 500, errorDetails: e };
+                        me.render.call(me, config, next);
+
+                    }
 
                 } else {
 

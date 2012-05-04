@@ -99,10 +99,17 @@ Ext.define('Ext.app.controller.Controller', {
 
                 } else {
 
+                    var type = 'Action';
+
+                    if(item.$src.directrouter) {
+                        type = 'Direct';
+                    };
+
                     item.define = Ext.create(
                         Ext.String.format(
-                            'Ext.{0}.action.Action',
-                            mode
+                            'Ext.{0}.action.{1}',
+                            mode,
+                            type
                             ),
                         item.$src
                     );
@@ -146,6 +153,7 @@ Ext.define('Ext.app.controller.Controller', {
             me.actions.forEach(function(o, i) {
 
                 // initialize action
+                o.define.controller = me;
                 o.define.init(config, function() {
                     o.ready = true;
                     next();

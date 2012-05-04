@@ -105,286 +105,19 @@ Ext.define('Ext.server.view.View', {
     },
 
     // }}}
-    // {{{ sendStatic
-
-    /*
-    sendStatic: function(config, next) {
-
-        var me, invalidRange, appConfig, node, req, res, mime,
-            maxAge, ranges, head, get, root, hidden;
-
-        me = this;
-        node            = {
-            fs  : require('fs'),
-            path: require('path'),
-            url : require('url')
-        };
-        mime            = Ext.$dependencies.mime;
-        appConfig       = config.config.app;
-        req             = config.req;
-        res             = config.res;
-        maxAge          = appConfig.maxAge || 0;
-        ranges          = req.headers.range;
-        head            = 'HEAD' == req.method;
-        get             = 'GET' == req.method
-        root            = appConfig.paths.public;
-        hidden          = appConfig.hidden;
-
-        invalidRange = function(res) {
-
-            var body;
-
-            body = 'Requested Range Not Satisfiable';
-
-            res.setHeader('Content-Type', 'text/plain');
-            res.setHeader('Content-Length', body.length);
-            res.statusCode = 416;
-            res.end(body);
-        };
-
-        if(!get &amp;&amp; !head) {
-            return next();
-        }
-
-        var url = node.url.parse(req.url),
-            path = decodeURIComponent(url.pathname),
-            type;
-
-        if(~path.indexOf('\0')) {
-            // 400
-            return next(400);
-        }
-
-        path = node.path.normalize(node.path.join(root, path));
-
-        if(!hidden &amp;&amp; '.' == node.path.basename(path)[0]) {
-            return next();
-        }
-
-        node.fs.stat(path, function(err, stat) {
-
-            type = mime.lookup(path);
-
-            if(err) {
-
-                // 404
-                me.error404(config);
-                return;
-
-            } else if(stat.isDirectory()) {
-
-                res.statusCode = 301;
-                res.setHeader('Location', url.pathname + '/');
-                res.end('Redirecting to ' + url.pathname + '/');
-                return;
-
-            }
-
-            var opts = {};
-
-            if(ranges) {
-
-                ranges = utils.parseRange(stat.size, ranges);
-
-                if(ranges) {
-                    opts.start = ranges[0].start;
-                    opts.end = ranges[0].end;
-                    res.statusCode = 206;
-                    res.setHeader('Content-Range', 'bytes '
-                        + opts.start
-                        + '-'
-                        + opts.end
-                        + '/'
-                        + stat.size
-                    );
-
-                } else {
-                    return invalidRange(res);
-                }
-
-            } else {
-
-                res.setHeader('Content-Length', stat.size);
-
-                if(!res.getHeader('Cache-Control')) {
-                    res.setHeader('Cache-Control', 'public, max-age=' + (maxAge / 1000));
-                }
-
-                if(!res.getHeader('Last-Modified')) {
-                    res.setHeader('Last-Modified', stat.mtime.toUTCString());
-                }
-
-                if(!res.getHeader('ETag')) {
-                    res.setHeader('ETag', me.etag(stat));
-                }
-
-                if(req.headers['if-modified-since'] || req.headers['if-none-match']) {
-                    if(!me.modified(req, res)) {
-                        return me.notModified(res);
-                    }
-                }
-           }
-
-           if(!res.getHeader('content-type')) {
-               var charset = mime.charsets.lookup(type);
-               res.setHeader('Content-Type', type + (charset ? '; charset=' + charset : ''));
-           }
-           res.setHeader('Accept-Ranges', 'bytes');
-
-           if(head) {
-               return res.end();
-           }
-
-           var stream = node.fs.createReadStream(path, opts);
-
-           stream.pipe(res);
-           */
-
-           /*
-           if (fn) {
-               function callback(err) { done || fn(err); done = true }
-               req.on('close', callback);
-               req.socket.on('error', callback);
-               stream.on('end', callback);
-           }
-           */
-
-          /*
-
-       });
-
-    },
-
-    // }}}
-    // {{{ sendTemplate
-
-    /*
-    sendTemplate: function(config, next) {
-
-        var me, arc, appConfig, node, mime, paths, res;
-
-        me              = this;
-        appConfig       = config.config.app;
-        arc             = config.actionResultConfig;
-        paths           = appConfig.paths;
-        mime            = Ext.$dependencies.mime;
-        res             = config.res;
-        req             = config.req;
-        node            = {
-            fs  : require('fs'),
-            path: require('path'),
-            url : require('url')
-        };
-
-        var url = node.url.parse(req.url),
-            path = decodeURIComponent(url.pathname),
-            type;
-
-        (function(next) {
-
-            var nextStep = false, directories = [];
-
-            if(arc.template) {
-                directories = [arc.template + '.html'];
-            } else {
-                directories = Ext.Array.clone(appConfig.directoryIndex);
-            }
-
-            Ext.iterate(directories, function(item, cnt) {
-
-            console.log(paths.public + '/' + node.path.dirname(path) + '/' + item);
-                node.fs.lstat(paths.public + '/' + node.path.dirname(path) + '/' + item, function(err, stats) {
-
-                    if(!err &amp;&amp; !stats.isDirectory()) {
-                        nextStep = true;
-                        next(paths.public + '/' + node.path.dirname(path) + '/' + item);
-                        return;
-                    }
-
-                    if(!nextStep &amp;&amp; directories.length - 1 === cnt) {
-                        next(false);
-                    }
-                });
-
-            });
-
-        })(function(template) {
-
-            if(!template) {
-
-                // 404 error
-                me.error404(config);
-                return;
-
-            }
-
-        (function(next) {
-
-            node.fs.stat(template, function(err, stat) {
-
-                if(err) {
-
-                    // 500 error
-                    me.error500(config);
-                    return;
-                }
-
-                node.fs.readFile(template, function(err, data) {
-
-                    if(err) {
-
-                        // 500 error
-                        me.error500(config);
-                        return;
-                    }
-
-                    next(template, stat, data.toString());
-
-                });
-
-            });
-
-
-        })(function(template, stat, data) {
-
-            var maxAge, headers, ext;
-
-            // TODO:template binding values
-
-
-
-            maxAge = 0;
-            headers = {
-                &quot;Content-Type&quot;: mime.lookup(template),
-                &quot;Content-Length&quot;: Buffer.byteLength(data, 'utf8'),
-                &quot;Last-Modified&quot;: stat.mtime.toUTCString(),
-                &quot;Expires&quot;: &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;,
-                &quot;Cache-Control&quot;: &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;,
-                &quot;Pragma&quot;: &quot;no-cache&quot;,
-                &quot;ETag&quot;: me.etag(stat) //stat.size + '-' + Number(stat.mtime)
-            };
-
-            res.writeHead(200, headers);
-            res.end(data);
-
-        });
-
-        });
-
-    },
-
-        */
-
-    // }}}
     // {{{ printErrors
 
     printErrors: function(code) {
 
         var me = this,
             res = me.res, mime = me.mime,
-            content = '';
+            content = '', data = {};
 
         switch(code) {
+
+            case 403:
+                content = me.config.app.errors.forbidden;
+            break;
 
             case 404:
                 content = me.config.app.errors.not_found;
@@ -395,6 +128,11 @@ Ext.define('Ext.server.view.View', {
             break;
 
         }
+
+        data = me.actionResultConfig.errorDetails || {};
+
+        Ext.$dependencies.swig.init({cache: false, autoescape: false});
+        content = Ext.$dependencies.swig.compile(content, {})(data).toString();
 
         res.setHeader(&quot;Content-Type&quot;,   mime.lookup('html'));
         res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(content, 'utf8'));
@@ -461,35 +199,118 @@ Ext.define('Ext.server.view.View', {
         this.mime               = Ext.$dependencies.mime;
         this.actionResultConfig = config.actionResultConfig;
 
-        // TODO: redirect
+        var res     = this.res;
+        var req     = this.req;
+        var root    = me.paths.public;
+
+        if(res.headerSent) {
+            return;
+        }
+
+        config.res.actionresult = config.res.actionresult || {};
+
+        if(config.res.actionresult.$switchTemplate) {
+            root = me.paths.templates;
+            me.path = decodeURIComponent(node.url.parse(config.res.actionresult.$switchTemplate).pathname)
+        }
 
         if(this.actionResultConfig.abort) {
 
-            var res = this.res;
+            if(this.actionResultConfig.abort === 500) {
 
-            if(this.actionResultConfig.redirect) {
+                me.printErrors(500);
 
+            } else if(this.actionResultConfig.forbidden) {
+
+                // forbidden
+                me.printErrors(403);
+
+            } else if(this.actionResultConfig.redirect) {
+
+                // redirect
                 res.statusCode = 302;
                 res.setHeader('Location', this.actionResultConfig.redirect);
                 res.end('Redirecting to ' + this.actionResultConfig.redirect);
 
             } else {
 
-                res.statusCode = 200;
-                res.end();
+                //res.statusCode = 200;
+                //res.end();
 
             }
 
             return;
         }
 
+        // special dir check.
+        if(this.config.app.dirs.special &amp;&amp; this.url.path.substr(0, this.config.app.dirs.special.length) === this.config.app.dirs.special) {
+
+            var file;
+
+            file = process.ExtEnv.resourcedir + '/public/' + this.url.path.substr(this.config.app.dirs.special.length);
+
+            node.fs.stat(file, function(err, stat) {
+
+                // 404 error
+                if(err) {
+                    me.printErrors(404);
+                    return;
+                }
+
+                node.fs.readFile(file, function(err, data) {
+
+                    var headers,
+                    mime = me.mime;
+
+                    headers = {
+                        &quot;Content-Type&quot;  : mime.lookup(file),
+                        &quot;Content-Length&quot;: stat.size,
+                        &quot;Last-Modified&quot; : stat.mtime.toUTCString(),
+                        &quot;Expires&quot;       : &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;,
+                        &quot;Cache-Control&quot; : &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;,
+                        &quot;Pragma&quot;        : &quot;no-cache&quot;,
+                        &quot;ETag&quot;          : me.etag(stat)
+                    };
+
+                                        res.setHeader('Content-Length', stat.size);
+
+                    var maxAge = 0; // 設定できるようにする？
+
+                    if(!res.getHeader('Cache-Control')) {
+                        res.setHeader('Cache-Control', 'public, max-age=' + (maxAge / 1000));
+                    }
+
+                    if(!res.getHeader('Last-Modified')) {
+                        res.setHeader('Last-Modified', stat.mtime.toUTCString());
+                    }
+
+                    if(!res.getHeader('ETag')) {
+                        res.setHeader('ETag', me.etag(stat));
+                    }
+
+                    if(req.headers['if-modified-since'] || req.headers['if-none-match']) {
+                        if(!me.modified(req, res)) {
+                            return me.notModified(res);
+                        }
+                    }
+
+                    res.writeHead(200, headers);
+                    res.end(data);
+
+                });
+
+            });
+
+            return;
+
+        }
 
         chain = [];
 
         // target stat
         chain.push(function() {
 
-            var file = node.path.normalize(me.paths.public + '/' + me.path);
+            var file = node.path.normalize(root + '/' + me.path);
 
             node.fs.stat(file, function(err, stat) {
 
@@ -520,21 +341,25 @@ Ext.define('Ext.server.view.View', {
 
             var tmp, dirs, url;
 
-            url = me.url;
-            tmp = url.pathname.split('/');
-            dirs = Ext.Array.clone(me.directoryIndex);
+            if(config.res.actionresult.$switchTemplate) {
+                dirs= [node.path.normalize(root + '/' + me.path)];
+            } else {
+                url = me.url;
+                tmp = url.pathname.split('/');
+                dirs = Ext.Array.clone(me.directoryIndex);
 
-            if(!Ext.isEmpty(tmp[tmp.length -1])) {
-                dirs.unshift(tmp[tmp.length -1]);
+                if(!Ext.isEmpty(tmp[tmp.length -1])) {
+                    dirs.unshift(tmp[tmp.length -1]);
+                }
+
+                delete tmp[tmp.length -1];
+
+                tmp = tmp.join('/');
+
+                Ext.iterate(dirs, function(item, i) {
+                    dirs[i] = node.path.normalize(root + '/' + tmp + '/' + item);
+                });
             }
-
-            delete tmp[tmp.length -1];
-
-            tmp = tmp.join('/');
-
-            Ext.iterate(dirs, function(item, i) {
-                dirs[i] = node.path.normalize(me.paths.public + '/' + tmp + '/' + item);
-            });
 
             Ext.iterate(dirs, function(item, i) {
                 chain.unshift(function() {
@@ -548,7 +373,7 @@ Ext.define('Ext.server.view.View', {
                             });
 
                         } else {
-                            chain.shift()();
+                            chain.shift()({});
                         }
                     });
                 });
@@ -566,6 +391,10 @@ Ext.define('Ext.server.view.View', {
             req  = me.req;
             res  = me.res;
             conf = me.config.app;
+
+            if(config.res.actionresult.$switchTemplate) {
+                file = node.path.normalize(root + '/' + me.path);
+            }
 
             node.fs.readFile(file, function(err, data) {
 

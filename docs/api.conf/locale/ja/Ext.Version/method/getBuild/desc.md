@@ -1,1 +1,1 @@
-Returns the build component value
+ビルド番号を返します。

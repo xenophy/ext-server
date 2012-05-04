@@ -1,1 +1,1 @@
-Returns the minor component value
+マイナー番号を返します。

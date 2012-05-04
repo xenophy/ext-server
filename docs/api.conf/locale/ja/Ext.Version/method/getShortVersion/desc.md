@@ -1,1 +1,1 @@
-Returns shortVersion version without dots and release
+ドットやリリースを含まないshotrVersionバージョンを返します。

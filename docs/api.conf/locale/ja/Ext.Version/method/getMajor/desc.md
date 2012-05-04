@@ -1,1 +1,1 @@
-Returns the major component value
+メジャー番号を返します。

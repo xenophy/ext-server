@@ -1,1 +1,1 @@
-The package name, for example: 'core', 'touch', 'extjs'
+パッケージ名、例: 'core', 'touch', 'extjs'

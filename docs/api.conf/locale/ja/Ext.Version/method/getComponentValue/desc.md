@@ -1,1 +1,1 @@
-Converts a version component to a comparable value
+バージョン コンポーネントを比較可能な値に変換します。

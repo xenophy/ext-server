@@ -1,1 +1,1 @@
-The target version to compare to
+比較する対象となるバージョン

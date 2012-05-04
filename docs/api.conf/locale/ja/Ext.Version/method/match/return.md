@@ -1,1 +1,1 @@
-True if this version matches the target, false otherwise
+バージョンが対象と一致したらtrue、さもなくばfalse

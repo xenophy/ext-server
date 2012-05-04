@@ -1,1 +1,1 @@
-Convenient alias to {@link Ext.Version#isGreaterThanOrEqual isGreaterThanOrEqual}
+Convenient alias to <a href="#!/api/Ext.Version-method-isGreaterThanOrEqual" rel="Ext.Version-method-isGreaterThanOrEqual" class="docClass">isGreaterThanOrEqual</a>

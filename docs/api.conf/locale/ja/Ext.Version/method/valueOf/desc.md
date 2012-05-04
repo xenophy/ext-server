@@ -1,1 +1,1 @@
-Override the native valueOf method
+標準のvalueOfメソッドをオーバーライドします。

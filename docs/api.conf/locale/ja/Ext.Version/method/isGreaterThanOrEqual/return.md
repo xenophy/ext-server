@@ -1,1 +1,1 @@
-True if this version if greater than or equal to the target, false otherwise
+バージョンが対象バージョン以上であればtrue、さもなくばfalse

@@ -1,1 +1,1 @@
-The last version before it's deprecated
+非推奨になる前の最後のバージョン。
