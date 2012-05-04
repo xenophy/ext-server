@@ -36,9 +36,9 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.1.x
 * this.forbidden, this.basicAuth, this.isSecure, this.setTemplate, this.abort in action.
-* Socket.IO support.
-* Ext Direct supprt(for Ext JS 4.1 and Sencha Touch 2.0).
 * The switch of the document root by Virtual Host.
+* Ext Direct supprt(for Ext JS 4.1 and Sencha Touch 2.0).
+* Socket.IO support.
 
 ### Version 0.2.x
 * Ext Classs System, watch a required file and update it automatically.
