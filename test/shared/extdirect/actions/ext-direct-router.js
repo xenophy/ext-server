@@ -1,18 +1,16 @@
 
 module.exports = {
 
-    directrouter: true
+//    directrouter: true
 
+    execute: function() {
+
+        var res = this.res;
+
+        res.writeHead(200, {
+            'Content-Type': 'application/javascript'
+        });
+        res.end("console.log(123);");
+
+    }
 };
-
-/*
-    function() {
-
-    var res = this.res;
-
-    res.writeHead(200);
-    res.header('Content-Type', 'application/javascript');
-    res.end("alert(123);");
-
-};
-*/
