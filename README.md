@@ -37,6 +37,7 @@ you can browse '**http://localhost:8124**'.
 ### Version 0.1.x
 * set a time limit for the execute time of the action.
 * display all error indication about Ext.Server for a browser.
+* this.forbidden, this.basicAuth, this.isSecure, this.setTemplate, this.abort in action.
 * Socket.IO support.
 * Ext Direct supprt(for Ext JS 4.1 and Sencha Touch 2.0).
 * The switch of the document root by Virtual Host.
