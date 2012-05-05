@@ -1,4 +1,2 @@
-An array of class names to keep track of the dependency loading order.
-This is not guaranteed to be the same everytime due to the asynchronous
-nature of the Loader.
-
+依存関係でロードした順番を追跡するためのクラス名の配列です。
+Loaderの非同期性質のために毎回同じであるとは保証されません。

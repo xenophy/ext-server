@@ -1,4 +1,5 @@
-Maintain the queue for all dependencies. Each item in the array is an object of the format:
+全ての依存関係のキューを保持します。
+配列中の各項目は次のフォーマットです。
 
     {
          requires: [...], // The required classes for this queue item

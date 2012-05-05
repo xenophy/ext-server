@@ -73,7 +73,7 @@ Ext.define('Ext.server.controller.Auto', {
         req         = config.req;
         res         = config.res;
         appConfig   = config.config.app;
-        paths       = appConfig.paths;
+        paths       = Ext.clone(appConfig.paths);
 
         paths.files = {};
         files       = [];
@@ -333,6 +333,7 @@ Ext.define('Ext.server.controller.Auto', {
         // }}}
         // {{{ build action chain and make action instance.
 
+        var files = [];
         checkGlobalActionFile(paths.files.global, function(result) {
 
             if(result) {

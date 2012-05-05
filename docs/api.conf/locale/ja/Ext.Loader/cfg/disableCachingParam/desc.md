@@ -1,1 +1,1 @@
-The get parameter name for the cache buster's timestamp.
+キャッシュブラスターのタイムスタンプのパラメーター名を取得します。

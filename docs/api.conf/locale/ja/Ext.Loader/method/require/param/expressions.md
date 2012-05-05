@@ -1,1 +1,1 @@
-Can either be a string or an array of string
+文字列または文字列の配列を指定できます

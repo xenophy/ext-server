@@ -1,1 +1,1 @@
-The config property name
+コンフィグ プロパティ名

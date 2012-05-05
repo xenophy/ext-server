@@ -81,10 +81,10 @@ Ext.define('Ext.server.Server', {
 
             middleware  = [
                 'Favicon',
-                'BodyParser',
+                //'BodyParser',
                 'Compress',
                 'CookieParser',
-                'Multipart',
+                //'Multipart',
                 'Session'
             ];
             app         = Ext.create('Ext.server.Connect');
@@ -93,7 +93,6 @@ Ext.define('Ext.server.Server', {
 
 //            debug       = Ext.$dependencies.debug('connect:dispatcher');
 //            env         = process.env.NODE_ENV || 'development';
-
 
             // init configs
             [
@@ -119,6 +118,8 @@ Ext.define('Ext.server.Server', {
 
             // Router create.
             this.router = Ext.create('Ext.server.Router');
+
+            app.use(Ext.server.Connect.bodyParser());
 
             // vhost setting
             app.use(function(req, res, next) {
@@ -177,14 +178,17 @@ Ext.define('Ext.server.Server', {
 
             });
 
+
             // setting headers
             app.use(function(req, res, next) {
 
-                // Ext Server version
-                res.setHeader(
-                    'X-Powered-By',
-                    Ext.String.format('Ext Server {0}', Ext.getVersion('server').toString())
-                );
+                if(req.method === 'GET') {
+                    // Ext Server version
+                    res.setHeader(
+                        'X-Powered-By',
+                        Ext.String.format('Ext Server {0}', Ext.getVersion('server').toString())
+                    );
+                }
 
                 next();
             });
@@ -207,6 +211,8 @@ Ext.define('Ext.server.Server', {
             // setting router
             app.use(function(req, res, next) {
 
+//                console.log(req.body);
+//                console.log('★: ' + req.url + ' / ' + req.method);
                 // routing
                 me.router.attach.call(
                     me.router,

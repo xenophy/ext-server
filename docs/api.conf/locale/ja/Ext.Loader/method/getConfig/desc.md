@@ -1,1 +1,2 @@
-Get the config value corresponding to the specified name. If no name is given, will return the config object
+指定した名前と一致するコンフィグの値を取得します。
+名前を指定しない場合は、configオブジェクトが返されます。

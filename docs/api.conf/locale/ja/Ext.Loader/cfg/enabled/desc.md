@@ -1,1 +1,1 @@
-Whether or not to enable the dynamic dependency loading feature.
+動的な依存関係によるローディング機能を有効にするかどうか。

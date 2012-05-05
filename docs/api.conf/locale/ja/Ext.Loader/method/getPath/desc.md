@@ -1,5 +1,6 @@
-Translates a className to a file path by adding the
-the proper prefix and converting the .'s to /'s. For example:
+classNameをファイルパスに変換します。
+適切なプリフィクスをつけて`'.'`を`'/'`に変更します。例:
+
 
     Ext.Loader.setPath('My', '/path/to/My');
 

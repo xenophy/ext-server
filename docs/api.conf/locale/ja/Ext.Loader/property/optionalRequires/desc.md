@@ -1,1 +1,1 @@
-Contains classes referenced in `uses` properties.
+`uses`プロパティで参照されるクラスを保持します。

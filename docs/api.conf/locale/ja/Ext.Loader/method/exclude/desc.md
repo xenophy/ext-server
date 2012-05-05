@@ -1,5 +1,5 @@
-Explicitly exclude files from being loaded. Useful when used in conjunction with a broad include expression.
-Can be chained with more `require` and `exclude` methods, eg:
+指定したファイルを明示的にロードしないようにします。
+他の`require`や`exclude`メソッドとチェーンすることができます。例:
 
     Ext.exclude('Ext.data.*').require('*');
 

@@ -1,1 +1,1 @@
-The config object to override the default values
+デフォルト値を上書きするコンフィグ オブジェクト。

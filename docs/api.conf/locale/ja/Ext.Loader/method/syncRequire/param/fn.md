@@ -1,1 +1,1 @@
-(Optional) The callback function
+(オプション) コールバック関数

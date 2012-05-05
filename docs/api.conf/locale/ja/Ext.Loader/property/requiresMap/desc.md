@@ -1,1 +1,1 @@
-Map of fully qualified class names to an array of dependent classes.
+依存するクラスの配列への完全修飾クラス名のマップ。

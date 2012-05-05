@@ -1,1 +1,1 @@
-Maintain the list of listeners to execute when all required scripts are fully loaded
+必要なスクリプトが全てロードされたときに実行されるリスナーのリストを保持します。

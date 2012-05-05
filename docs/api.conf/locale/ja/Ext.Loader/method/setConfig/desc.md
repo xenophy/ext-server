@@ -1,5 +1,5 @@
-Set the configuration for the loader. This should be called right after ext-(debug).js
-is included in the page, and before Ext.onReady. i.e:
+ローダーのコンフィグを設定します。
+ext-(debug).jsがページにインクルードされてからExt.onReadyが実行される前に呼び出す必要があります。例:
 
     <script type="text/javascript" src="ext-core-debug.js"></script>
     <script type="text/javascript">
@@ -18,6 +18,6 @@ is included in the page, and before Ext.onReady. i.e:
         });
     </script>
 
-Refer to config options of
+指定できるプロパティについては
 <a href="#!/api/Ext.Loader" rel="Ext.Loader" class="docClass">Ext.Loader</a>
-for the list of possible properties
+のコンフィグ オプションを参照してください。

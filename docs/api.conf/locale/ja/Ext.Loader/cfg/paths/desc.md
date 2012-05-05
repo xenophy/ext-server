@@ -1,4 +1,4 @@
-The mapping from namespaces to file paths
+ネームスペースからファイル パスへのマッピングです。
 
     {
         'Ext': '.', // This is set by default, Ext.layout.container.Container will be
@@ -8,6 +8,7 @@ The mapping from namespaces to file paths
                                     // ./src/my_own_folder/layout/Container.js
     }
 
-Note that all relative paths are relative to the current HTML document.
-If not being specified, for example, <code>Other.awesome.Class</code>
-will simply be loaded from <code>./Other/awesome/Class.js</code>
+全ての相対パスは現在のHTMLドキュメントからの相対パスです。
+指定しない場合は、<code>other.awesome.class</code>
+の場合であれば、<code>./Other/awesome/Class.js</code>
+をロードします。

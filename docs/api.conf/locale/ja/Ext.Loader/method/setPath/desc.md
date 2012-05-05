@@ -1,4 +1,4 @@
-Sets the path of a namespace.
-For Example:
+ネームスペースのパスを設定します。
+例:
 
     Ext.Loader.setPath('Ext', '.');

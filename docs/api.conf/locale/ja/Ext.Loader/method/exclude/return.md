@@ -1,1 +1,2 @@
-object contains `require` method for chaining
+`require`メソッドのあるオブジェクト。
+メソッドチェーンに使う。
