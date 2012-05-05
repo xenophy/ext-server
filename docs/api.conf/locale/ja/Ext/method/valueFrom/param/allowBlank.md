@@ -1,1 +1,2 @@
-(optional) true to allow zero length strings to qualify as non-empty (defaults to false)
+(オプション)
+trueにすると長さ0の文字列を許可し空ではないと判定します。(デフォルトはfalse)

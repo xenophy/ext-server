@@ -1,2 +1,1 @@
-Additional arguments after the name will be passed to
-the class' constructor.
+クラスのコンストラクターに渡される追加の引数。

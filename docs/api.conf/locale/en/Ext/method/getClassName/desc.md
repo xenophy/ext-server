@@ -1,1 +1,2 @@
-Returns the displayName property or className or object. When all else fails, returns "Anonymous".
+Convenient shorthand, see
+<a href="#!/api/Ext.ClassManager-method-getName" rel="Ext.ClassManager-method-getName" class="docClass">Ext.ClassManager.getName</a>

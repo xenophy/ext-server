@@ -1,1 +1,1 @@
-max vlaue
+最大値

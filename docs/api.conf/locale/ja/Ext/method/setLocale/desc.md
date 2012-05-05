@@ -1,3 +1,3 @@
-setting locale for Ext Server.
-default 'en', output error message to locale.
-use a value if can read process.env.LANG.
+Ext Serverのロケールを設定します。
+デフォルトは 'en' で、ロケールに従ってエラーメッセージを表示します。
+process.env.LANGを読み出せる場合はその値を使います。

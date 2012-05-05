@@ -1,1 +1,1 @@
-The variable to clone
+クローンする変数

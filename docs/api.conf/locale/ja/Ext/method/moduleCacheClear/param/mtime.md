@@ -1,1 +1,1 @@
-file timestamp.
+ファイル タイムスタンプ

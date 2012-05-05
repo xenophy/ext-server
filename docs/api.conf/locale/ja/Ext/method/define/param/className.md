@@ -1,5 +1,6 @@
-The class name to create in string dot-namespaced format, for example:
-'My.very.awesome.Class', 'FeedViewer.plugin.CoolPager'
-It is highly recommended to follow this simple convention:
- - The root and the class name are 'CamelCased'
- - Everything else is lower-cased
+生成するクラス名をドット区切りのネームスペース形式の文字列で指定します。例:
+`'My.very.awesome.Class', 'FeedViewer.plugin.CoolPager'`
+次の簡単な規則に従うことが強く推奨されます。
+
+ - ルートとクラス名はキャメルケース(CamelCase)にすること
+ - 他のすべては小文字にすること

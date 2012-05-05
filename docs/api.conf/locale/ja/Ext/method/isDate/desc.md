@@ -1,1 +1,1 @@
-Returns true if the passed value is a JavaScript Date object, false otherwise.
+渡された値がjavaScriptのDateオブジェクトである場合にはtrue、さもなくばfalseを返します。

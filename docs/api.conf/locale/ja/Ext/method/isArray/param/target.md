@@ -1,1 +1,1 @@
-The target to test
+テストする対象

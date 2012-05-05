@@ -1,1 +1,1 @@
-A reusable empty function
+空の関数。

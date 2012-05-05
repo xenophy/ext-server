@@ -1,1 +1,1 @@
-Clone almost any type of variable including array, object, DOM nodes and Date without keeping the old reference
+配列やオブジェクト、DOMノード、日付を含むほとんどのタイプの変数のクローンを古い参照を保存することなく生成します。

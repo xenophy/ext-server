@@ -1,1 +1,1 @@
-Validates that a value is numeric.
+値が数値であるか確認します。

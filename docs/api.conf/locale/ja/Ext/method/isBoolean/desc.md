@@ -1,1 +1,1 @@
-Returns true if the passed value is a boolean.
+渡された値が論理値(boolean)であればtrueを返します。

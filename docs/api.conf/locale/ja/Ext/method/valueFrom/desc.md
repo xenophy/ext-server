@@ -1,2 +1,6 @@
-Returns the given value itself if it's not empty, as described in {@link Ext#isEmpty}; returns the default
-value (second argument) otherwise.
+指定された値(value)が空
+(<a href="#!/api/Ext-method-isEmpty" rel="Ext-method-isEmpty" class="docClass">Ext.isEmpty</a>
+でtrueと判定される)
+場合は
+defaultValueを
+を返し、そうでなければその値自身を返します。

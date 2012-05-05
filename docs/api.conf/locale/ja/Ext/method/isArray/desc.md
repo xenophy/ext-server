@@ -1,1 +1,1 @@
-Returns true if the passed value is a JavaScript Array, false otherwise.
+渡された値がjavaScriptの配列であればtrue、さもなくばfalseを返します。

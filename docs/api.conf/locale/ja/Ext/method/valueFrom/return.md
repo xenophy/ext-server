@@ -1,1 +1,1 @@
-value, if non-empty, else defaultValue
+空の場合はvalue、さもなくばdefaultValue

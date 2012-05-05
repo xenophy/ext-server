@@ -1,5 +1,6 @@
-Creates namespaces to be used for scoping variables and classes so that they are not global.
-Specifying the last node of a namespace implicitly creates all other nodes. Usage:
+変数やクラスをスコープするネームスペースを生成します。
+それによりグローバル スコープを汚しません。
+namespaceの最後のノードを指定した場合、その途中の全てのノードを暗黙的に生成します。 使用例:
 
     Ext.namespace('Company', 'Company.data');
 

@@ -1,1 +1,1 @@
-True if numeric, false otherwise
+値が数値であればtrue、さもなくばfalse

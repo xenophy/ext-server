@@ -28,7 +28,8 @@
         "name": "ユーティリティ",
         "classes": [
             "Ext.util.Format",
-            "Ext.util.Observable"
+            "Ext.util.Observable",
+            "Ext.util.Markdown"
         ]
     }]
 }]

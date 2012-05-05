@@ -1,4 +1,4 @@
-The name of the property in the global namespace (The <code>window</code> in browser environments) which refers to the current instance of Ext.
+The name of the property in the global namespace (The <code>global</code> in Node.js environments) which refers to the current instance of Ext.
 
 This is usually <code>"Ext"</code>, but if a sandboxed build of ExtJS is being used, this will be an alternative name.
 

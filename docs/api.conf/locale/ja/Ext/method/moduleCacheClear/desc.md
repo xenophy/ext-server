@@ -1,1 +1,1 @@
-clear module cache.
+モジュール キャッシュをクリアします。

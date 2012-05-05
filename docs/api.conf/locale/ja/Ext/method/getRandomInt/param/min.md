@@ -1,1 +1,1 @@
-min value
+最小値

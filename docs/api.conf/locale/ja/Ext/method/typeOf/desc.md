@@ -1,16 +1,15 @@
-Returns the type of the given variable in string format. List of possible values are:
+指定された変数のタイプを文字列形式で返します。出力される値は次のとおりです。
 
-- `undefined`: If the given value is `undefined`
-- `null`: If the given value is `null`
-- `string`: If the given value is a string
-- `number`: If the given value is a number
-- `boolean`: If the given value is a boolean value
-- `date`: If the given value is a `Date` object
-- `function`: If the given value is a function reference
-- `object`: If the given value is an object
-- `array`: If the given value is an array
-- `regexp`: If the given value is a regular expression
-- `element`: If the given value is a DOM Element
-- `textnode`: If the given value is a DOM text node and contains something other than whitespace
-- `whitespace`: If the given value is a DOM text node and contains only whitespace
-
+- `undefined`: 与えられた値は `undefined` である
+- `null`: 与えられた値は `null` である
+- `string`: 与えられた値は文字列である
+- `number`: 与えられた値は数値である
+- `boolean`: 与えられた値は論理値である
+- `date`: 与えられた値は `Date` オブジェクトである
+- `function`: 与えられた値は関数への参照である
+- `object`: 与えられた値はオブジェクトである
+- `array`: 与えられた値は配列である
+- `regexp`: 与えられた値は正規表現式である
+- `element`: 与えられた値はDOMエレメントである
+- `textnode`: 与えられた値はDOMテキスト ノードであり空白以外の文字である
+- `whitespace`: 与えられた値はDOMテキスト ノードであり空白文字だけである

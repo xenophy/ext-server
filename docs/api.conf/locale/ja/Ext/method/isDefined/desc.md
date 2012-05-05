@@ -1,1 +1,1 @@
-Returns true if the passed value is defined.
+渡された値が定義されていたらtrueを返します。

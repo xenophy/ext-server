@@ -1,1 +1,1 @@
-locale (default:'en')
+ロケール (デフォルトは 'en')

@@ -1,1 +1,1 @@
-Returns true if the passed value is iterable, false otherwise
+渡された値がイテレートできるものであればtrueを返し、さもなくばfalseを返します。

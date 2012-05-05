@@ -113,6 +113,7 @@
             // doc.md
             file = path.normalize(src + '/' + cls + '/doc.md');
             cont = path.existsSync(file) ? markdown(fs.readFileSync(file).toString()): '';
+
             destjson.html = htmlReplace(
                 destjson.html,
                 '(<p>){' + cls.replace(/\./g, '_') + ':doc-contents}(</p>)',

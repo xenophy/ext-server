@@ -1,1 +1,1 @@
-get between min value as max value.
+minとmaxの間のランダム値を取得します。

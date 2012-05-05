@@ -1,2 +1,2 @@
-The namespace object.
-(If multiple arguments are passed, this will be the last namespace created)
+ネームスペース オブジェクト。
+(複数の引数が渡された場合は、最後に生成したネームスペース)

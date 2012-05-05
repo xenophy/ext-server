@@ -1,1 +1,1 @@
-generate unique id.
+ユニークなIDを生成します。

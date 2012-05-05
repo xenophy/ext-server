@@ -1,2 +1,2 @@
-The class name or alias. Can be specified as `xclass`
-property if only one object parameter is specified.
+クラス名またはエリアス。
+パラメーターが1つだけの場合には、`xclass`プロパティとして指定できます。

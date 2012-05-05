@@ -1,1 +1,1 @@
-The object to test
+テストするオブジェクト。

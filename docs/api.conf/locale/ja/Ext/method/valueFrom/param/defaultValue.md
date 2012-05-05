@@ -1,1 +1,1 @@
-The value to return if the original value is empty
+オリジナルのvalueが空の時に返す値。
