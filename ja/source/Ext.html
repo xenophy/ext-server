@@ -170,9 +170,9 @@
 <span id='Ext-method-iterate'>        /**
 </span>         * {Ext:method-iterate:desc}
          *
-         * @param {Object/Array} object {Ext:method-microtime:param_object}
-         * @param {Function} fn {Ext:method-microtime:param_fn}
-         * @param {Object} scope {Ext:method-microtime:param_scope}
+         * @param {Object/Array} object {Ext:method-iterate:param_object}
+         * @param {Function} fn {Ext:method-iterate:param_fn}
+         * @param {Object} scope {Ext:method-iterate:param_scope}
          */
         iterate: function(object, fn, scope) {
 
@@ -345,7 +345,7 @@
 <span id='Ext-method-isFunction'>        /**
 </span>         * {Ext:method-isFunction:desc}
          *
-         * @param {Object} value {Ext:method-isFunction:desc}
+         * @param {Object} value {Ext:method-isFunction:param_value}
          * @return {Boolean} {Ext:method-isFunction:return}
          */
         isFunction: function(value) {
@@ -452,7 +452,7 @@
 <span id='Ext-method-clone'>        /**
 </span>         * {Ext:method-clone:desc}
          *
-         * @param {Object} item {Ext:method-clone:desc}
+         * @param {Object} item {Ext:method-clone:param_item}
          * @return {Object} {Ext:method-clone:return}
          */
         clone: function(item) {
@@ -522,7 +522,7 @@
          *
          * @param {Number} min {Ext:method-getRandomInt:param_min}
          * @param {Number} max {Ext:method-getRandomInt:param_max}
-         * @return {Number} {Ext:method-getRandomInt:return}random value
+         * @return {Number} {Ext:method-getRandomInt:return}
          */
         getRandomInt: function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -559,8 +559,8 @@
 <span id='Ext-method-moduleCacheClear'>        /**
 </span>         * {Ext:method-moduleCacheClear:desc}
          *
-         * @param {String} path {Ext:method-moduleCacheClear:desc}
-         * @param {Number} mtime {Ext:method-moduleCacheClear:desc}
+         * @param {String} path {Ext:method-moduleCacheClear:param_path}
+         * @param {Number} mtime {Ext:method-moduleCacheClear:param_mtime}
          */
         moduleCacheClear: function(path, mtime) {
 
@@ -701,9 +701,9 @@
         // {{{ toArray
 
 <span id='Ext-method-toArray'>        /**
-</span>         * @method
+</span>         * {Ext:method-toArray:desc}
+         * @method toArray
          * @member Ext
-         * @alias Ext.Array#toArray
          */
         toArray: function() {
             return Ext.Array.toArray.apply(Ext.Array, arguments);
@@ -714,10 +714,8 @@
 
 <span id='Ext-method-merge'>        /**
 </span>         * {Ext:method-merge:desc}
-         *
          * @member Ext
          * @method merge
-         * @alias Ext.Object#merge
          */
         merge: Ext.Object.merge,
 
@@ -732,34 +730,31 @@
         // }}}
         // {{{ each
 
-<span id='Logger-property-each'>        /**
-</span>         * @inheritdoc Ext.Array#each
+<span id='Ext-method-each'>        /**
+</span>         * {Ext:method-each:desc}
+         * @member Ext
+         * @method each
          */
         each: Ext.Array.each,
 
         // }}}
         // {{{ union
 
-<span id='Logger-property-union'>        /**
-</span>         * @inheritdoc Ext.Array#merge
+<span id='Ext-method-union'>        /**
+</span>         * {Ext:method-union:desc}
+         * @member Ext
+         * @method union
          */
         union: Ext.Array.merge,
 
         // }}}
-        // {{{ toArray
-
-<span id='Ext-method-toArray'>        /**
-</span>         * @method
-         * @member Ext
-         * @inheritdoc Ext.Array#toArray
-         */
-        toArray: function() {
-            return Ext.Array.toArray.apply(Ext.Array, arguments);
-        },
-
-        // }}}
         // {{{ markdown
 
+<span id='Ext-method-markdown'>        /**
+</span>         * {Ext:method-markdown:desc}
+         * @method markdown
+         * @member Ext
+         */
         markdown: Ext.util.Markdown.parse
 
         // }}}
@@ -827,7 +822,12 @@
         // }}}
         // {{{ nodemailer
 
-        nodemailer: require('nodemailer')
+        nodemailer: require('nodemailer'),
+
+        // }}}
+        // {{{ debug
+
+        debug: require('debug')
 
         // }}}
 

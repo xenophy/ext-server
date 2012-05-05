@@ -50,7 +50,7 @@ Ext.define('Ext.server.action.Action', {
 
         return Ext.Function.bind(function(config, next) {
 
-            var p, get, callback, redirect;
+            var p, get, callback, redirect, forbidden, isSecure, abort, setTemplate, basicAuth, unauthorized;
 
             p = require('url').parse(config.req.url, true);
             get = {};
@@ -71,9 +71,91 @@ Ext.define('Ext.server.action.Action', {
             };
 
             // }}}
+            // {{{ forbidden
+
+            forbidden = function() {
+                next({
+                    abort: true,
+                    forbidden: true
+                });
+            };
+
+            // }}}
+            // {{{ isSecure
+
+            isSecure = (function() {
+                var req = config.req;
+                if(req.connection.pair &amp;&amp; req.connection.pair._secureEstablished) {
+                    return true;
+                }
+                return false;
+            })();
+
+            // }}}
+            // {{{ abort
+
+            abort = function() {
+                next({
+                    abort: true
+                });
+            };
+
+            // }}}
+            // {{{ setTemplate
+
+            setTemplate = function(template) {
+                config.res.actionresult = config.res.actionresult || {};
+                config.res.actionresult.$switchTemplate = template;
+            };
+
+            // }}}
             // {{{ User-Agent apply to action
 
             Ext.create('Ext.server.UserAgent', config.req.headers['user-agent']).apply(action);
+
+            // }}}
+            // {{{ unauthorized
+
+            unauthorized = function(realm) {
+
+                var res = config.res;
+                var req = config.req;
+
+                realm = realm || 'Authorization Required';
+                res.setHeader('WWW-Authenticate', 'Basic realm=&quot;' + realm + '&quot;');
+                res.writeHead(401);
+                res.end(config.config.app.errors.unauthorized);
+                return;
+            };
+
+            // }}}
+            // {{{ basicAuth
+
+            basicAuth = function(fn, realm) {
+
+                var res = config.res;
+                var req = config.req;
+                var authorization = req.headers.authorization;
+
+                if(!authorization) {
+
+                    if(!Ext.isString(realm)) {
+                        realm = 'Authorization Required';
+                    }
+
+                    unauthorized(realm);
+
+                } else {
+
+                    var parts = authorization.split(' '),
+                        scheme = parts[0],
+                        credentials = new Buffer(parts[1], 'base64').toString().split(':');
+
+                    fn(credentials[0], credentials[1]);
+
+                }
+
+            };
 
             // }}}
             // {{{ callback
@@ -86,9 +168,6 @@ Ext.define('Ext.server.action.Action', {
             // }}}
 
             Ext.apply(action, {
-
-                // TODO mail: NX.app.action.Abstract.$mail,
-
                 mail        : action.$bindMail(config.config.smtp),
                 req         : config.req,
                 res         : config.res,
@@ -98,16 +177,22 @@ Ext.define('Ext.server.action.Action', {
                 get         : get,
                 request     : config.req.body,
                 session     : config.req.session,
-                redirect    : redirect
+                redirect    : redirect,
+                forbidden   : forbidden,
+                isSecure    : isSecure,
+                abort       : abort,
+                setTemplate : setTemplate,
+                unauthorized: unauthorized,
+                basicAuth   : basicAuth
             });
 
-            if(this.execute.length === 0) {
+            if(action.execute.length === 0) {
 
-                this.execute();
+                action.execute();
                 callback();
 
             } else {
-                this.execute(callback);
+                action.execute(callback);
             }
 
         }, this);

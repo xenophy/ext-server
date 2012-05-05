@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// {{{ Ext.server.action.Direct
+
+<span id='Ext-server-action-Direct'>/**
+</span> * @class Ext.server.action.Direct
+ *
+ * {Ext_server_action_Direct:doc-contents}
+ */
+Ext.define('Ext.server.action.Direct', {
+
+    // {{{ extend
+
+    extend: 'Ext.server.action.Action',
+
+    // }}}
+    // {{{ alternateClassName
+
+    alternateClassname: 'Ext.DirectAction',
+
+    // }}}
+    // {{{ requires
+
+    requires: ['Ext.app.module.Module'],
+
+    // }}}
+    // {{{ $execute
+
+    $execute: function() {
+
+        var action = this;
+
+        return function(config, next) {
+
+            var req = config.req;
+            var res = config.res;
+
+            var p = require('url').parse(req.url, true);
+            var get = {},
+            post = {};
+
+            if(p.search) {
+                get = require('querystring').parse(p.search.substr(1));
+            };
+
+            if(req.method === 'POST') {
+
+                var finmods = {}, single, fin;
+
+                Ext.apply(post, req.body);
+
+                if(!post['0']) {
+                    post = {
+                        '0': post
+                    };
+                    single = true;
+                }
+
+                fin = function(tid, o) {
+
+                    finmods[tid] = o;
+
+                    var finall = true;
+
+                    Ext.iterate(finmods, function(k, v) {
+                        if(!v) {
+                            finall = false;
+                            return false;
+                        }
+                    });
+
+                    if(finall) {
+
+                        if(single) {
+
+                            var ret = [];
+
+                            Ext.iterate(finmods, function(k, v) {
+                                ret.push(Ext.JSON.decode(v.render.data));
+                            });
+
+                            var output = Ext.JSON.encode(ret);
+
+                            res.setHeader(&quot;Content-Type&quot;,   require('mime').lookup('json'));
+                            res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(output, 'utf8'));
+                            res.setHeader(&quot;Expires&quot;,        &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;);
+                            res.setHeader(&quot;Cache-Control&quot;,  &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;);
+                            res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
+                            res.writeHead(200);
+                            res.end(output);
+
+                        } else {
+
+                            var ret = [];
+
+                            Ext.iterate(finmods, function(k, v) {
+                                ret.push(Ext.JSON.decode(v.render.data));
+                            });
+
+                            var output = Ext.JSON.encode(ret);
+
+                            res.setHeader(&quot;Content-Type&quot;,   require('mime').lookup('json'));
+                            res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(output, 'utf8'));
+                            res.setHeader(&quot;Expires&quot;,        &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;);
+                            res.setHeader(&quot;Cache-Control&quot;,  &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;);
+                            res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
+                            res.writeHead(200);
+                            res.end(output);
+
+                        };
+
+                    } else {
+
+                        finmods[tid] = o;
+
+                    }
+
+                };
+
+                Ext.iterate(post, function(k, post) {
+                    finmods[post.tid || post.extTID] = false;
+                });
+
+                Ext.iterate(post, function(k, post) {
+
+                    var actionName = post.action || post.extAction;
+                    var method = post.method || post.extMethod;
+                    var tid = post.tid || post.extTID;
+                    var arg = post.data || [];
+                    var isUpload = false;
+                    var mod = action[actionName];
+
+                    if(post.extUpload || post.extAction) {
+
+                        var o = {};
+                        o.isUpload = false;
+
+                        Ext.iterate(post, function(key, v) {
+                            if(!key.match(/^(extTID|extAction|extMethod|extType|extUpload)/)) {
+                                o[key] = v;
+                            }
+                        });
+
+                        if(post.extUpload == 'true') {
+                            o.isUpload = true;
+                            isUpload = true;
+                        }
+
+                        arg.push(o);
+                    }
+
+                    arg.push(function(result) {
+
+                        if(isUpload) {
+
+                            res.writeHead(200, {
+                                &quot;Content-Type&quot; : 'text/html'
+                            });
+
+                            var ret = Ext.encode({
+                                type: 'rpc',
+                                tid: tid,
+                                action: action,
+                                method: method,
+                                result: result,
+                                status: true
+                            });
+
+                            var output = Ext.sprintf('&lt;html&gt;&lt;body&gt;&lt;textarea&gt;%s&lt;/textarea&gt;&lt;/body&gt;&lt;/html&gt;', ret);
+
+                            var o = {
+                                abort: true,
+                                render: {
+                                    ext: 'html',
+                                    size: output.length,
+                                    data: output
+                                }
+                            };
+
+                            fin(tid, o);
+
+                        } else {
+
+                            var output = Ext.JSON.encode({
+                                type: 'rpc',
+                                tid: tid,
+                                action: actionName,
+                                method: method,
+                                result: result,
+                                status: true
+                            });
+
+                            var o = {
+                                abort: true,
+                                render: {
+                                    ext: 'json',
+                                    size: output.length,
+                                    data: output
+                                }
+                            };
+
+                            fin(tid, o);
+
+                        }
+
+                    });
+
+                    Ext.apply(mod, {
+                        req: req,
+                        res: res,
+                        cookie: req.cookies,
+                        session: req.session.values
+                    });
+
+                    // モジュールメソッドコール
+                    mod[method].apply(mod, arg);
+
+                });
+
+            } else {
+
+                var api = {
+                    url         : action.url || req.url,
+                    namespace   : action.namespace || undefined,
+                    type        : 'remoting'
+                };
+
+                var remoteActions = {};
+
+                Ext.iterate(action, function(memberName) {
+
+                    var member = action[memberName];
+
+                    if(member instanceof Ext.app.module.Module) {
+
+                        var mod = member;
+                        var interface = [];
+
+                        Ext.iterate(member, function(name) {
+
+                            var formHandler = false
+
+                            if(Ext.isFunction(mod[name])) {
+
+                                if(name.substr(0, 1) === '$') {
+                                    formHandler = true;
+                                }
+
+                                if(name.substr(0, 1) !== '_') {
+
+                                    var o = {
+                                        name:name,
+                                        len: (mod[name].length - 1)
+                                    };
+
+                                    if(formHandler) {
+                                        o.formHandler = true;
+                                    }
+
+                                    interface.push(o);
+
+                                }
+
+                            }
+
+                        });
+
+                        remoteActions[memberName] = interface
+                    }
+                });
+
+                api['actions'] = remoteActions;
+
+                var addNS = '';
+                if(action.namespace) {
+                    addNS = &quot;Ext.ns('&quot; + action.namespace + &quot;');&quot;;
+                }
+
+                var output = [
+                    &quot;Ext.ns('Ext.app');&quot;,
+                    addNS,
+                    &quot;Ext.app.REMOTING_API = &quot;,
+                    Ext.JSON.encode(api),
+                    &quot;;&quot;
+                ].join('');
+
+                res.setHeader(&quot;Content-Type&quot;,   require('mime').lookup('js'));
+                res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(output, 'utf8'));
+                res.setHeader(&quot;Expires&quot;,        &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;);
+                res.setHeader(&quot;Cache-Control&quot;,  &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;);
+                res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
+                res.writeHead(200);
+                res.end(output);
+
+            }
+
+        };
+
+    }
+
+    // }}}
+
+});
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>
