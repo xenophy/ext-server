@@ -44,6 +44,14 @@ Ext.application({
         port: 8125,
         key: require('fs').readFileSync('ssl.key/ryans-key.pem'),
         cert: require('fs').readFileSync('ssl.key/ryans-cert.pem')
+    },
+    ws: {
+        //'log level': 0,
+        'browser client minification': true
+    },
+    wss: {
+        //'log level': 0,
+        'browser client minification': true
     }
 });
 
