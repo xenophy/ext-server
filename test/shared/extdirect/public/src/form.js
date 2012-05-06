@@ -24,15 +24,6 @@ Ext.onReady(function() {
 
         // ボタン設定
         buttons: [{
-            text: 'id:0のユーザ情報取得',
-            handler : function() {
-                form.getForm().load({
-                    params: {
-                        id: 0
-                    }
-                });
-            }
-        },{
             text: 'id:1のユーザ情報取得',
             handler : function() {
                 form.getForm().load({
@@ -51,6 +42,15 @@ Ext.onReady(function() {
                 });
             }
         },{
+            text: 'id:3のユーザ情報取得',
+            handler : function() {
+                form.getForm().load({
+                    params: {
+                        id: 3
+                    }
+                });
+            }
+        },{
             text: '現在入力されている名前をサーバーへ送信してみる：実際DBには保存していません。',
             handler : function() {
                 form.getForm().submit({
@@ -65,7 +65,7 @@ Ext.onReady(function() {
 
         title: 'Direct Form',
         height: 350,
-        width: 800,
+        width: 1000,
         renderTo: Ext.getBody()
     });
 

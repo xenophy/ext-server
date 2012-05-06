@@ -6,7 +6,7 @@
  * MIT Licensed
  */
 
-// {{{ DBMySQL.js
+// {{{ Users.js
 
 /**
  * SET NAMES utf8;
@@ -29,6 +29,21 @@ module.exports = {
 
     useTable: 'users',
 
+    formHandler: [
+        'writeForm'
+    ],
+
+    privateHandler: [
+    //    'getList'
+    ],
+
+    getList: function(callback) {
+        var me = this;
+        me.query('SELECT * FROM users', function(err, rs) {
+            callback(rs);
+        });
+    },
+
     getGridList : function(start, limit, sort, dir, query, callback) {
 
         var me = this;
@@ -38,12 +53,71 @@ module.exports = {
         });
     },
 
-    readForm: function() {
-    
+    readForm: function(id, callback) {
+
+        var ret = {success: false};
+
+        this.query('SELECT * FROM users WHERE id = ' + id, function(err, rs) {
+            if(rs[0]) {
+                ret.success = true;
+                ret.data = {
+                    name: rs[0].name
+                };
+            }
+            callback(ret);
+        });
     },
 
-    writeForm: function() {
-    
+    writeForm: function(v, callback) {
+
+        var me = this;
+        var ret = {success: true};
+
+        if(v.isUpload == true) {
+
+            var files = this.req.files;
+            var src = files.photo.path;
+            var dest = __dirname + '/../public/photo/' + files.photo.name;
+
+            require('fs').rename(src, dest, function() {
+                ret.isUpload = true;
+                ret.imgpath = 'photo/' + files.photo.name;
+                callback(ret);
+            });
+
+        } else {
+            ret.msg = '[' + v.name + ']';
+            callback(ret);
+        }
+
+    },
+
+    getNode : function(id, callback) {
+
+        var ret = [];
+
+        if(id === 'root') {
+
+            ret.push({id: 'sn1', text: 'サブノード1', leaf: false});
+            ret.push({id: 'sn2', text: 'サブノード2', leaf: false});
+            ret.push({id: 'sn3', text: 'サブノード3', leaf: false});
+
+        } else if(id === 'sn1') {
+
+            ret.push({id: 'ln1', text: 'リーフノード1', leaf: true});
+
+        } else if(id === 'sn2') {
+
+            ret.push({id: 'ln2', text: 'リーフノード2', leaf: true});
+
+        } else if(id === 'sn3') {
+
+            ret.push({id: 'ln3', text: 'リーフノード3', leaf: true});
+
+        }
+
+        callback(ret);
+
     }
 
 };

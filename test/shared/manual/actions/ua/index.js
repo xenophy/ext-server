@@ -13,7 +13,6 @@ module.exports = function() {
     console.log( this.is('Gecko') );
     console.log( this.is.Gecko );
 
-
 };
 
 // }}}

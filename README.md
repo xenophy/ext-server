@@ -35,7 +35,6 @@ you can browse '**http://localhost:8124**'.
 ## Road Map
 
 ### Version 0.1.x
-* Ext Direct supprt(for Ext JS 4.1 and Sencha Touch 2.0).
 * Socket.IO support.
 
 ### Version 0.2.x
