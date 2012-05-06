@@ -85,175 +85,205 @@ Ext.define('Ext.server.UserAgent', {
         ua      = this.UserAgent;
         target  = target || {};
 
+
         is = {
+
             'Android': function() {
                 if(ua.match(/Android/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Chrome': function() {
                 if(ua.match(/chrome/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko': function() {
                 if(!is.Webkit() &amp;&amp; ua.match(/gecko/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko2': function() {
                 if(is.Gecko() &amp;&amp; ua.match(/rv:1\.8/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko3': function() {
                 if(is.Gecko() &amp;&amp; ua.match(/rv:1\.9/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko4': function() {
                 if(is.Gecko() &amp;&amp; ua.match(/rv:2\.0/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko5': function() {
                 if(is.Gecko() &amp;&amp; ua.match(/rv:5\./i)) {
                     return true;
                 }
                 return false;
             },
+
             'Gecko10': function() {
                 if(is.Gecko() &amp;&amp; ua.match(/rv:10\./i)) {
                     return true;
                 }
                 return false;
             },
+
             'IE': function() {
                 if(!is.Opera() &amp;&amp; ua.match(/msie/i)) {
                     return true;
                 }
                 return false;
             },
+
             'IE6': function() {
                 if(is.IE() &amp;&amp; !is.IE7() &amp;&amp; !is.IE8()) {
                     return true;
                 }
                 return false;
             },
+
             'IE7': function() {
                 if(is.IE() &amp;&amp; ua.match(/msie 7/i)) {
                     return true;
                 }
                 return false;
             },
+
             'IE8': function() {
                 if(is.IE() &amp;&amp; ua.match(/msie 8/i)) {
                     return true;
                 }
                 return false;
             },
+
             'IE9': function() {
                 if(is.IE() &amp;&amp; ua.match(/msie 9/i)) {
                     return true;
                 }
                 return false;
             },
+
             'iPad': function() {
                 if(ua.match(/iPad/i)) {
                     return true;
                 }
                 return false;
             },
+
             'iPhone': function() {
                 if(ua.match(/iPhone/i)) {
                     return true;
                 }
                 return false;
             },
+
             'iPod': function() {
                 if(ua.match(/iPod/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Linux': function() {
                 if(ua.match(/linux/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Opera': function () {
                 if(ua.match(/opera/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Opera10_5': function() {
                 if(is.Opera() &amp;&amp; ua.match(/version\/10\.5/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Mac': function() {
                 if(Ext.isString(ua) &amp;&amp; ua.match(/Mac/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari': function() {
                 if(!is.Chrome() &amp;&amp; !is.Xperia() &amp;&amp; ua.match(/safari/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari2': function() {
                 if(is.Safari(ua) &amp;&amp; ua.match(/applewebkit\/4/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari3': function() {
                 if(is.Safari(ua) &amp;&amp; ua.match(/version\/3/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari4': function() {
                 if(is.Safari(ua) &amp;&amp; ua.match(/version\/4/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari5_0': function() {
                 if(is.Safari() &amp;&amp; ua.match(/version\/5\.0/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Safari5': function() {
                 if(is.Safari(ua) &amp;&amp; ua.match(/version\/5/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Webkit': function() {
                 if(ua.match(/webkit/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Windows': function() {
                 if(ua.match(/Win/i)) {
                     return true;
                 }
                 return false;
             },
+
             'Xperia': function() {
                 if(ua.match(/SonyEricsson(SO-01B|X10i)/i)) {
                     return true;
@@ -262,6 +292,12 @@ Ext.define('Ext.server.UserAgent', {
             }
         };
 
+<span id='Ext-server-UserAgent-method-is'>        /**
+</span>         * {Ext_server_UserAgent:method-is:desc}
+         * @method is
+         * @param {String} id {Ext_server_UserAgent:method-is:papram_id}
+         * @return {Boolean}
+         */
         target.is = function(id) {
             if(support.indexOf(id) !== -1 &amp;&amp; is[id]) {
                 return target.is[id];
