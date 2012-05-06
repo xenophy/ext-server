@@ -45,10 +45,14 @@ Ext.application({
         key: require('fs').readFileSync('ssl.key/ryans-key.pem'),
         cert: require('fs').readFileSync('ssl.key/ryans-cert.pem')
     },
+
+    // socket.io settings for http
     ws: {
         //'log level': 0,
         'browser client minification': true
     },
+
+    // socket.io settings for https
     wss: {
         //'log level': 0,
         'browser client minification': true
