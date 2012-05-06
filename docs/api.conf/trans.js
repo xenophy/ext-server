@@ -165,8 +165,8 @@
                     id = type + '\-' + o.name;
 
                 // desc.md
-                file = path.normalize(src + '/' + cls + '/' + type + '/' + o.name + '/desc.md');
-                srctag = '{' + cls.replace(/\./g, '_') + ':' + id + ':desc}';
+                file = path.normalize(src + '/' + o.owner + '/' + type + '/' + o.name + '/desc.md');
+                srctag = '{' + o.owner.replace(/\./g, '_') + ':' + id + ':desc}';
                 try{
                     data = readLocale(file);
                 } catch(e) {
@@ -212,12 +212,12 @@
                 // return.md
                 try {
                     file = path.normalize(
-                        src + '/' + cls + '/method/' + o.name + '/return.md'
+                        src + '/' + o.owner + '/method/' + o.name + '/return.md'
                     );
                     data = readLocale(file);
                     destjson.html = htmlReplace(
                         destjson.html,
-                        '(<p>){' + cls.replace(/\./g, '_') + ':' + id + ':return}(</p>)',
+                        '(<p>){' + o.owner.replace(/\./g, '_') + ':' + id + ':return}(</p>)',
                         markdown(data), '$1', '$2'
                     );
                 } catch(e) {
@@ -227,16 +227,16 @@
                 // params
                 try {
                     p = path.normalize(
-                        src + '/' + cls + '/method/' + o.name + '/param/'
+                        src + '/' + o.owner + '/method/' + o.name + '/param/'
                     );
                     mkdirp(p);
                     params = fs.readdirSync(p);
 
                     params.forEach(function(p) {
                         file = path.normalize(
-                            src + '/' + cls + '/method/' + o.name + '/param/' + p
+                            src + '/' + o.owner + '/method/' + o.name + '/param/' + p
                         );
-                        ptn = '(<p>){' + cls.replace(/\./g, '_') + ':' + id +
+                        ptn = '(<p>){' + o.owner.replace(/\./g, '_') + ':' + id +
                                 ':param_' + p.replace('\.md', '') + '}(</p>)';
                         data = readLocale(file);
                         destjson.html = htmlReplace(
