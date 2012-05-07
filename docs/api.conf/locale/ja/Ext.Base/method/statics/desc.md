@@ -12,8 +12,8 @@
         constructor: function() {
             var statics = this.statics();
 
-            alert(statics.speciesName);     // always equals to 'Cat' no matter what 'this' refers to
-                                            // equivalent to: My.Cat.speciesName
+            alert(statics.speciesName);     // 'this'の参照先に関係なく常に'Cat'と等しい
+                                            // My.Cat.speciesNameと等価
 
             alert(this.self.speciesName);   // dependent on 'this'
 
@@ -21,9 +21,9 @@
         },
 
         clone: function() {
-            var cloned = new this.self;                      // dependent on 'this'
+            var cloned = new this.self;                      // 'this'に依存する
 
-            cloned.groupName = this.statics().speciesName;   // equivalent to: My.Cat.speciesName
+            cloned.groupName = this.statics().speciesName;   // My.Cat.speciesNameと等価
 
             return cloned;
         }

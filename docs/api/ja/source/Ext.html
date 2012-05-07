@@ -755,7 +755,27 @@
          * @method markdown
          * @member Ext
          */
-        markdown: Ext.util.Markdown.parse
+        markdown: Ext.util.Markdown.parse,
+
+        // }}}
+        // {{{ encode
+
+<span id='Ext-method-encode'>        /**
+</span>         * {Ext:method-encode:desc}
+         * @method encode
+         * @member Ext
+         */
+        encode: Ext.JSON.encode,
+
+        // }}}
+        // {{{ decode
+
+<span id='Ext-method-decode'>        /**
+</span>         * {Ext:method-decode:desc}
+         * @method decode
+         * @member Ext
+         */
+        decode: Ext.JSON.decode
 
         // }}}
 
@@ -793,6 +813,11 @@
         // {{{ connect-redis
 
         'connect-redis': require('connect-redis'),
+
+        // }}}
+        // {{{ socket.io
+
+        'socket.io': require('socket.io'),
 
         // }}}
         // {{{ mime

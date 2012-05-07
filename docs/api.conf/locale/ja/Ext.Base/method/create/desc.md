@@ -8,4 +8,4 @@
         someConfig: true
     });
 
-All parameters are passed to the constructor of the class.
+全てのパラメーターはクラスのコンストラクターに渡されます。

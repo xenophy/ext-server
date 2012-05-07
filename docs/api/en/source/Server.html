@@ -44,6 +44,7 @@ Ext.define('Ext.server.Server', {
     requires: [
         'Ext.server.Connect',
         'Ext.server.Router',
+        'Ext.server.WebSocket',
         'Ext.server.config.Application',
         'Ext.server.config.Database',
         'Ext.server.config.Route',
@@ -70,6 +71,11 @@ Ext.define('Ext.server.Server', {
             cluster, init;
 
         config = config || {};
+
+        config.ws   = config.ws || true;
+        if(config.wss !== false) {
+            config.wss  = config.wss || (config.ssl ? true : false)
+        }
 
         Ext.apply(this, {
             config: {}
@@ -178,7 +184,6 @@ Ext.define('Ext.server.Server', {
 
             });
 
-
             // setting headers
             app.use(function(req, res, next) {
 
@@ -211,8 +216,6 @@ Ext.define('Ext.server.Server', {
             // setting router
             app.use(function(req, res, next) {
 
-//                console.log(req.body);
-//                console.log('★: ' + req.url + ' / ' + req.method);
                 // routing
                 me.router.attach.call(
                     me.router,
@@ -230,16 +233,58 @@ Ext.define('Ext.server.Server', {
             var http = require('http'),
                 https = require('https');
 
-            http.createServer(app).listen(port);
+            var httpServer = http.createServer(app);
+                httpServer.listen(port);
 
-            if(config.ssl) {
-                https.createServer({
-                    key: config.ssl.key,
-                    cert: config.ssl.cert
-                }, app).listen(config.ssl.port || 443);
+            var next;
+
+            next = function() {
+
+                var next = function() {
+                    onLaunch();
+                };
+
+                if(config.ssl) {
+
+                    var httpsServer = https.createServer({
+                        key: config.ssl.key,
+                        cert: config.ssl.cert
+                    }, app);
+                    httpsServer.listen(config.ssl.port || 443);
+
+                    if(config.wss) {
+
+                        Ext.ws = Ext.create(
+                            'Ext.server.WebSocket',
+                            Ext.$dependencies['socket.io'].listen(httpsServer, Ext.isSimpleObject(config.wss) ? config.wss : {}),
+                            me.config,
+                            true,
+                            next
+                        );
+
+                    }
+
+                } else {
+
+                    next();
+
+                }
+
+            };
+
+            if(config.ws) {
+
+                Ext.ws = Ext.create(
+                    'Ext.server.WebSocket',
+                    Ext.$dependencies['socket.io'].listen(httpServer, Ext.isSimpleObject(config.ws) ? config.ws : {}),
+                    me.config,
+                    false,
+                    next
+                );
+
+            } else {
+                next();
             }
-
-            onLaunch();
 
         };
 

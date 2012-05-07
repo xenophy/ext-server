@@ -58,7 +58,9 @@ Ext.define('Ext.app.config.Application', {
             },
             files: {
                 global: config.files.global || 'global.action.js',
-                extent: config.files.extent || 'extent.action.js'
+                extent: config.files.extent || 'extent.action.js',
+                ws    : config.files.ws     || 'ws.action.js',
+                wss   : config.files.wss    || 'wss.action.js'
             },
             paths: {
                 actions     : config.paths.actions || './actions',
@@ -74,14 +76,6 @@ Ext.define('Ext.app.config.Application', {
             maxAge: 0,
             vhost: {}
         });
-
-        /*
-        Ext.iterate(this.paths, function(item) {
-            try {
-                me.paths[item] = node.fs.realpathSync(me.paths[item]);
-            } catch(e) {};
-        });
-        */
 
     }
 

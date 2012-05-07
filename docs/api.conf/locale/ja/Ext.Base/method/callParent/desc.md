@@ -27,13 +27,13 @@
 
      alert(obj.x);  // alerts 21
 
-This can be used with an override as follows:
+これは次のようにオーバーライドできます。
 
      Ext.define('My.DerivedOverride', {
          override: 'My.Derived',
 
          constructor: function(x) {
-             this.callParent([x*2]); // calls original My.Derived constructor
+             this.callParent([x*2]); // オリジナルのMy.Derivedのconstructorを呼び出す
          }
      });
 
@@ -41,14 +41,14 @@ This can be used with an override as follows:
 
      alert(obj.x);  // now alerts 42
 
-This also works with static methods.
+また、静的メソッドでも動作します。
 
      Ext.define('My.Derived2', {
          extend: 'My.Base',
 
          statics: {
              method: function(x) {
-                 return this.callParent([x*2]); // calls My.Base.method
+                 return this.callParent([x*2]); // My.Base.methodを呼び出す
              }
          }
      });
@@ -56,14 +56,14 @@ This also works with static methods.
      alert(My.Base.method(10);     // alerts 10
      alert(My.Derived2.method(10); // alerts 20
 
-Lastly, it also works with overridden static methods.
+静的メソッドをオーバーライドしても動作します。
 
      Ext.define('My.Derived2Override', {
          override: 'My.Derived2',
 
          statics: {
              method: function(x) {
-                 return this.callParent([x*2]); // calls My.Derived2.method
+                 return this.callParent([x*2]); // My.Derived2.methodを呼び出す
              }
          }
      });

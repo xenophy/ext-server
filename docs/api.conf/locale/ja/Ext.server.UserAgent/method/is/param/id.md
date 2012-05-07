@@ -1,0 +1,31 @@
+判定対象のユーザーエージェントのid。次の物が指定できます。
+
+- Android
+- Chrome
+- Gecko
+- Gecko2
+- Gecko3
+- Gecko4
+- Gecko5
+- Gecko10
+- IE
+- IE6
+- IE7
+- IE8
+- IE9
+- iPad
+- iPhone
+- iPod
+- Linux
+- Opera
+- Opera10_5
+- Safari
+- Safari2
+- Safari3
+- Safari4
+- Safari5_0
+- Safari5
+- Mac
+- Webkit
+- Windows
+- Xperia
