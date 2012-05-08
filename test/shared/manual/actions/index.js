@@ -2,7 +2,11 @@
 
 module.exports = function(done) {
 
-    console.log("index trace.");
+    Ext.log('info', 'teston');
+    Ext.log('teston');
+
+    Ext.log(this);
+
     done();
 
 };
