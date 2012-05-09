@@ -142,7 +142,7 @@
             //{{{ deprecatedExecute
 
             var deprecatedExecute = function(type, o, id) {
-                file = path.normalize(src + '/' + cls + '/' + type + '/' + o.name + '/deprecated.md');
+                file = path.normalize(src + '/' + o.owner + '/' + type + '/' + o.name + '/deprecated.md');
                 try{
                     data = readLocale(file);
                 } catch(e) {
@@ -272,6 +272,7 @@
 
             if( o.dir === 'ja' ){
                 destjson.html = destjson.html.replace(/Defaults to:/g, 'デフォルトは:');
+                destjson.html = destjson.html.replace(/This method has been <strong>deprecated<\/strong>/g, 'このメソッドは<strong>非推奨</strong>です');
             }
 
             fs.writeFileSync(

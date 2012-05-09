@@ -40,7 +40,12 @@ Ext.define('Ext.server.WebSocket', {
             fs = require('fs'),
             actionFile = config.app.paths.actions + '/' + config.app.files[ssl ? 'wss' : 'ws'];
 
-        actionFile = fs.realpathSync(actionFile);
+        try {
+            actionFile = fs.realpathSync(actionFile);
+        } catch(e) {
+            next();
+            return;
+        }
 
         Ext.apply(this, {
             sockets: o.sockets,

@@ -125,7 +125,7 @@ Ext.define('Ext.app.action.Action', {
             tmp.push({
                 name: name,
                 conn: conn,
-                path: require('path').normalize(config.config.app.paths.modules + '/' + name + '.js'),
+                path: Ext.node.path.normalize(config.config.app.paths.modules + '/' + name + '.js'),
                 define: null,
                 ready: false
             });
@@ -160,7 +160,7 @@ Ext.define('Ext.app.action.Action', {
 
             var cls = '';
 
-            require('fs').stat(item.path, function(err, stat) {
+            Ext.node.fs.stat(item.path, function(err, stat) {
 
                 if(err) {
 

@@ -1,2 +1,2 @@
-The arguments, either an array or the `arguments` object
-from the current method, for example: `this.callParent(arguments)`
+引数。配列または、現在のメソッドの`arguments`オブジェクト。 
+例: `this.callParent(arguments)`

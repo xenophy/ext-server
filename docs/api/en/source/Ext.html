@@ -32,10 +32,19 @@
  */
 (function() {
 
-    var path = require('path'),
-        fs = require('fs'),
+    if(typeof global.Ext === 'undefined') {
+        global.Ext = { global: global };
+    }
+
+    Ext.node = {
+        path    : require('path'),
+        fs      : require('fs')
+    };
+
+    var path            = Ext.node.path,
+        fs              = Ext.node.fs,
         objectPrototype = Object.prototype,
-        toString = objectPrototype.toString;
+        toString        = objectPrototype.toString;
 
     // Ext Server Enviroment
     process.ExtEnv = {
@@ -45,10 +54,6 @@
         libdir      : __dirname,
         resourcedir : fs.realpathSync(__dirname + '/../resources')
     };
-
-    if(typeof global.Ext === 'undefined') {
-        global.Ext = { global: global };
-    }
 
     // {{{ apply
 
@@ -869,7 +874,8 @@
     // require classes
     [
         'Ext.app.Application',
-        'Ext.database.Manager'
+        'Ext.database.Manager',
+        'Ext.logger.Logger'
 
     ].forEach(function(item) {
         Ext.Loader.require(item);

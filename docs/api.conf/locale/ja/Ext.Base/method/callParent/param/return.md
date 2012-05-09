@@ -1,1 +1,1 @@
-Returns the result of calling the parent method
+親メソッドを呼び出した結果を返します。
