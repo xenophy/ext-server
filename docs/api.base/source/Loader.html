@@ -68,7 +68,7 @@ Ext.Loader = new function() {
         // {{{ config
 
 <span id='Ext-Loader-property-config'>        /**
-</span>         * Configuration
+</span>         * {Ext_Loader:property-config:desc}
          * @private
          */
         config: {
@@ -77,7 +77,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-enabled'>            /**
 </span>             * @cfg {Boolean} enabled
-             * {Ext_Loader:config-enabled:desc}
+             * {Ext_Loader:cfg-enabled:desc}
              */
             enabled: false,
 
@@ -86,7 +86,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptChainDelay'>            /**
 </span>             * @cfg {Boolean} scriptChainDelay
-             * {Ext_Loader:config-scriptChainDelay:desc}
+             * {Ext_Loader:cfg-scriptChainDelay:desc}
              */
             scriptChainDelay : false,
 
@@ -103,7 +103,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-disableCachingParam'>            /**
 </span>             * @cfg {String} disableCachingParam
-             * The get parameter name for the cache buster's timestamp.
+             * {Ext_Loader:cfg-disableCachingParam:desc}
              */
             disableCachingParam: '_dc',
 
@@ -112,8 +112,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-garbageCollect'>            /**
 </span>             * @cfg {Boolean} garbageCollect
-             * True to prepare an asynchronous script tag for garbage collection (effective only
-             * if {@link #preserveScripts preserveScripts} is false)
+             * {Ext_Loader:cfg-garbageCollect:desc}
              */
             garbageCollect : false,
 
@@ -122,7 +121,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-paths'>            /**
 </span>             * @cfg {Object} paths
-             * {Ext_Loader:config-paths:desc}
+             * {Ext_Loader:cfg-paths:desc}
              */
             paths: {
                 'Ext': '.'
@@ -133,7 +132,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-preserveScripts'>            /**
 </span>             * @cfg {Boolean} preserveScripts
-             * {Ext_Loader:config-preserveScripts:desc}
+             * {Ext_Loader:cfg-preserveScripts:desc}
              */
             preserveScripts : true,
 
@@ -142,7 +141,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-cfg-scriptCharset'>            /**
 </span>             * @cfg {String} scriptCharset
-             * {Ext_Loader:config-scriptCharset:desc}
+             * {Ext_Loader:cfg-scriptCharset:desc}
              */
             scriptCharset : undefined
 
@@ -193,9 +192,9 @@ Ext.Loader = new function() {
 <span id='Ext-Loader-method-setPath'>        /**
 </span>         * {Ext_Loader:method-setPath:desc}
          *
-         * @param {String/Object} name {Ext_Loader:method-setPath:desc}
-         * @param {String} path {Ext_Loader:method-setPath:desc}
-         * @return {Ext.Loader} {Ext_Loader:method-setPath:desc}
+         * @param {String/Object} name {Ext_Loader:method-setPath:param_name}
+         * @param {String} path {Ext_Loader:method-setPath:param_path}
+         * @return {Ext.Loader} {Ext_Loader:method-setPath:return}
          * @method
          */
         setPath: flexSetter(function(name, path) {
@@ -210,8 +209,8 @@ Ext.Loader = new function() {
 <span id='Ext-Loader-method-getPath'>        /**
 </span>         * {Ext_Loader:method-getPath:desc}
          *
-         * @param {String} className {Ext_Loader:method-getPath:desc}
-         * @return {String} {Ext_Loader:method-getPath:desc}
+         * @param {String} className {Ext_Loader:method-getPath:param_className}
+         * @return {String} {Ext_Loader:method-getPath:return}
          */
         getPath: function(className) {
             var path = '',
@@ -347,7 +346,7 @@ Ext.Loader = new function() {
         // {{{ isClassFileLoaded
 
 <span id='Ext-Loader-property-isClassFileLoaded'>        /**
-</span>         * {Ext_Loader:method-isClassFileLoaded:desc}
+</span>         * {Ext_Loader:property-isClassFileLoaded:desc}
          * @private
          */
         isClassFileLoaded: isClassFileLoaded,
@@ -358,19 +357,19 @@ Ext.Loader = new function() {
         isFileLoaded: isFileLoaded,
 
 <span id='Ext-Loader-property-readyListeners'>        /**
-</span>         * {Ext_Loader:method-readyListeners:desc}
+</span>         * {Ext_Loader:property-readyListeners:desc}
          * @private
          */
         readyListeners: readyListeners,
 
 <span id='Ext-Loader-property-optionalRequires'>        /**
-</span>         * {Ext_Loader:method-optionalRequires:desc}
+</span>         * {Ext_Loader:property-optionalRequires:desc}
          * @private
          */
         optionalRequires: usedClasses,
 
 <span id='Ext-Loader-property-requiresMap'>        /**
-</span>         * {Ext_Loader:method-requiresMap:desc}
+</span>         * {Ext_Loader:property-requiresMap:desc}
          * @private
          */
         requiresMap: requiresMap,
@@ -697,7 +696,7 @@ Ext.Loader = new function() {
 
 <span id='Ext-Loader-method-addUsedClass'>        /**
 </span>         * @private
-         * Ensure that any classes referenced in the `uses` property are loaded.
+         * {Ext_Loader:method-addUsedClass:desc}
          */
         addUsedClass: function(references) {
             var i, ln;
@@ -772,12 +771,9 @@ Ext.Loader = new function() {
     });
 
 <span id='Ext-Loader-method-disableCacheBuster'>    /**
-</span>     * Turns on or off the &quot;cache buster&quot; applied to dynamically loaded scripts. Normally
-     * dynamically loaded scripts have an extra query parameter appended to avoid stale
-     * cached scripts. This method can be used to disable this mechanism, and is primarily
-     * useful for testing. This is done using a cookie.
-     * @param {Boolean} disable True to disable the cache buster.
-     * @param {String} [path=&quot;/&quot;] An optional path to scope the cookie.
+</span>     * {Ext_Loader:method-disableCacheBuster:desc}
+     * @param {Boolean} disable {Ext_Loader:method-disableCacheBuster:param_disable}
+     * @param {String} [path=&quot;/&quot;] {Ext_Loader:method-disableCacheBuster:param_path}
      * @private
      */
     Ext.disableCacheBuster = function(disable, path) {
@@ -809,31 +805,29 @@ Ext.Loader = new function() {
     Ext.require = alias(Loader, 'require');
 
 <span id='Ext-method-syncRequire'>    /**
-</span>     * {Ext_Loader:method-syncRequire:desc}
+</span>     * {Ext:method-syncRequire:desc}
      * @member Ext
      * @method syncRequire
      */
     Ext.syncRequire = alias(Loader, 'syncRequire');
 
 <span id='Ext-method-exclude'>    /**
-</span>     * {Ext_Loader:method-exclude:desc}
+</span>     * {Ext:method-exclude:desc}
      * @member Ext
      * @method exclude
      */
     Ext.exclude = alias(Loader, 'exclude');
 
-<span id='Ext-method-onReady'>    /**
-</span>     * @member Ext
-     * @method onReady
-     */
+    /*
     Ext.onReady = function(fn, scope, options) {
         Loader.onReady(fn, scope, true, options);
     };
+    */
 
 <span id='Ext-Class-cfg-requires'>    /**
 </span>     * @cfg {String[]} requires
      * @member Ext.Class
-     * {Ext_Class:config-requires:desc}
+     * {Ext_Class:cfg-requires:desc}
      */
     Class.registerPreprocessor('loader', function(cls, data, hooks, continueFn) {
         var me = this,
@@ -991,7 +985,7 @@ Ext.Loader = new function() {
 <span id='Ext-Class-cfg-uses'>    /**
 </span>     * @cfg {String[]} uses
      * @member Ext.Class
-     * {Ext_Class:config-uses:desc}
+     * {Ext_Class:cfg-uses:desc}
      */
     Manager.registerPostprocessor('uses', function(name, cls, data) {
         var uses = data.uses,

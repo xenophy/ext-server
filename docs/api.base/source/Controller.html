@@ -86,17 +86,35 @@ Ext.define('Ext.app.controller.Controller', {
                         //item.$src
 
                         // isFatalをtrueに
+
                     });
                 }
 
                 item.ready = false;
-                item.define = Ext.create(
-                    Ext.String.format(
-                        'Ext.{0}.action.Action',
-                        mode
-                    ),
-                    item.$src
-                );
+
+                // 文字列で指定された場合、
+                if(Ext.isString(item.$src)) {
+
+                    item.define = Ext.create(item.$src);
+
+                } else {
+
+                    var type = 'Action';
+
+                    if(item.$src.directrouter) {
+                        type = 'Direct';
+                    };
+
+                    item.define = Ext.create(
+                        Ext.String.format(
+                            'Ext.{0}.action.{1}',
+                            mode,
+                            type
+                            ),
+                        item.$src
+                    );
+
+                }
 
             });
 
@@ -135,6 +153,7 @@ Ext.define('Ext.app.controller.Controller', {
             me.actions.forEach(function(o, i) {
 
                 // initialize action
+                o.define.controller = me;
                 o.define.init(config, function() {
                     o.ready = true;
                     next();

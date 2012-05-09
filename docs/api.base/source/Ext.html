@@ -32,21 +32,28 @@
  */
 (function() {
 
-    var path = require('path'),
+    if(typeof global.Ext === 'undefined') {
+        global.Ext = { global: global };
+    }
+
+    Ext.node = {
+        path    : require('path'),
+        fs      : require('fs')
+    };
+
+    var path            = Ext.node.path,
+        fs              = Ext.node.fs,
         objectPrototype = Object.prototype,
-        toString = objectPrototype.toString;
+        toString        = objectPrototype.toString;
 
     // Ext Server Enviroment
     process.ExtEnv = {
         lang        : 'ja_JP',
         dirname     : path.dirname(process.argv[1]),
         basename    : path.dirname(process.argv[1]),
-        libdir      : __dirname
+        libdir      : __dirname,
+        resourcedir : fs.realpathSync(__dirname + '/../resources')
     };
-
-    if(typeof global.Ext === 'undefined') {
-        global.Ext = { global: global };
-    }
 
     // {{{ apply
 
@@ -168,9 +175,9 @@
 <span id='Ext-method-iterate'>        /**
 </span>         * {Ext:method-iterate:desc}
          *
-         * @param {Object/Array} object {Ext:method-microtime:param_object}
-         * @param {Function} fn {Ext:method-microtime:param_fn}
-         * @param {Object} scope {Ext:method-microtime:param_scope}
+         * @param {Object/Array} object {Ext:method-iterate:param_object}
+         * @param {Function} fn {Ext:method-iterate:param_fn}
+         * @param {Object} scope {Ext:method-iterate:param_scope}
          */
         iterate: function(object, fn, scope) {
 
@@ -343,7 +350,7 @@
 <span id='Ext-method-isFunction'>        /**
 </span>         * {Ext:method-isFunction:desc}
          *
-         * @param {Object} value {Ext:method-isFunction:desc}
+         * @param {Object} value {Ext:method-isFunction:param_value}
          * @return {Boolean} {Ext:method-isFunction:return}
          */
         isFunction: function(value) {
@@ -450,7 +457,7 @@
 <span id='Ext-method-clone'>        /**
 </span>         * {Ext:method-clone:desc}
          *
-         * @param {Object} item {Ext:method-clone:desc}
+         * @param {Object} item {Ext:method-clone:param_item}
          * @return {Object} {Ext:method-clone:return}
          */
         clone: function(item) {
@@ -493,7 +500,7 @@
         // }}}
         // {{{ functionFactory
 
-        // privatec
+        // private
         functionFactory: function() {
 
             var args = Array.prototype.slice.call(arguments);
@@ -520,7 +527,7 @@
          *
          * @param {Number} min {Ext:method-getRandomInt:param_min}
          * @param {Number} max {Ext:method-getRandomInt:param_max}
-         * @return {Number} {Ext:method-getRandomInt:return}random value
+         * @return {Number} {Ext:method-getRandomInt:return}
          */
         getRandomInt: function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -557,8 +564,8 @@
 <span id='Ext-method-moduleCacheClear'>        /**
 </span>         * {Ext:method-moduleCacheClear:desc}
          *
-         * @param {String} path {Ext:method-moduleCacheClear:desc}
-         * @param {Number} mtime {Ext:method-moduleCacheClear:desc}
+         * @param {String} path {Ext:method-moduleCacheClear:param_path}
+         * @param {Number} mtime {Ext:method-moduleCacheClear:param_mtime}
          */
         moduleCacheClear: function(path, mtime) {
 
@@ -685,6 +692,9 @@
 
     Ext.apply(Ext.util, {
 
+        // Ext.util.Markdown
+        Markdown: require('./util/Markdown'),
+
         // Ext.util.Format
         Format: require('./util/Format')
 
@@ -696,9 +706,9 @@
         // {{{ toArray
 
 <span id='Ext-method-toArray'>        /**
-</span>         * @method
+</span>         * {Ext:method-toArray:desc}
+         * @method toArray
          * @member Ext
-         * @alias Ext.Array#toArray
          */
         toArray: function() {
             return Ext.Array.toArray.apply(Ext.Array, arguments);
@@ -709,10 +719,8 @@
 
 <span id='Ext-method-merge'>        /**
 </span>         * {Ext:method-merge:desc}
-         *
          * @member Ext
          * @method merge
-         * @alias Ext.Object#merge
          */
         merge: Ext.Object.merge,
 
@@ -727,30 +735,52 @@
         // }}}
         // {{{ each
 
-<span id='Logger-property-each'>        /**
-</span>         * @inheritdoc Ext.Array#each
+<span id='Ext-method-each'>        /**
+</span>         * {Ext:method-each:desc}
+         * @member Ext
+         * @method each
          */
         each: Ext.Array.each,
 
         // }}}
         // {{{ union
 
-<span id='Logger-property-union'>        /**
-</span>         * @inheritdoc Ext.Array#merge
+<span id='Ext-method-union'>        /**
+</span>         * {Ext:method-union:desc}
+         * @member Ext
+         * @method union
          */
         union: Ext.Array.merge,
 
         // }}}
-        // {{{ toArray
+        // {{{ markdown
 
-<span id='Ext-method-toArray'>        /**
-</span>         * @method
+<span id='Ext-method-markdown'>        /**
+</span>         * {Ext:method-markdown:desc}
+         * @method markdown
          * @member Ext
-         * @inheritdoc Ext.Array#toArray
          */
-        toArray: function() {
-            return Ext.Array.toArray.apply(Ext.Array, arguments);
-        }
+        markdown: Ext.util.Markdown.parse,
+
+        // }}}
+        // {{{ encode
+
+<span id='Ext-method-encode'>        /**
+</span>         * {Ext:method-encode:desc}
+         * @method encode
+         * @member Ext
+         */
+        encode: Ext.JSON.encode,
+
+        // }}}
+        // {{{ decode
+
+<span id='Ext-method-decode'>        /**
+</span>         * {Ext:method-decode:desc}
+         * @method decode
+         * @member Ext
+         */
+        decode: Ext.JSON.decode
 
         // }}}
 
@@ -784,12 +814,50 @@
 
         connect: require('connect'),
 
-        //connect: require('/Users/kotsutsumi/UserDir/connect/lib/connect')
+        // }}}
+        // {{{ connect-redis
+
+        'connect-redis': require('connect-redis'),
 
         // }}}
-        // {{{ async
+        // {{{ socket.io
 
-        async: require('async')
+        'socket.io': require('socket.io'),
+
+        // }}}
+        // {{{ mime
+
+        mime: require('mime'),
+
+        // }}}
+        // {{{ mysql
+
+        mysql: require('mysql'),
+
+        // }}}
+        // {{{ mongodb
+
+        mongodb: require('mongodb'),
+
+        // }}}
+        // {{{ swig
+
+        swig: require('swig'),
+
+        // }}}
+        // {{{ ejs
+
+        ejs: require('ejs'),
+
+        // }}}
+        // {{{ nodemailer
+
+        nodemailer: require('nodemailer'),
+
+        // }}}
+        // {{{ debug
+
+        debug: require('debug')
 
         // }}}
 
@@ -805,7 +873,9 @@
 
     // require classes
     [
-        'Ext.app.Application'
+        'Ext.app.Application',
+        'Ext.database.Manager',
+        'Ext.logger.Logger'
 
     ].forEach(function(item) {
         Ext.Loader.require(item);

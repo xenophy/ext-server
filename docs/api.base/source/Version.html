@@ -34,16 +34,15 @@
 (function() {
 
     // Current core version
-    var version = '0.0.4', Version;
+    var version = '0.1.0', Version;
 
     Ext.Version = Version = Ext.extend(Object, {
 
         // {{{ constructor
 
 <span id='Ext-Version-method-constructor'>        /**
-</span>         * @param {String/Number} version The version number in the follow standard format: major[.minor[.patch[.build[release]]]]
-         * Examples: 1.0 or 1.2.3beta or 1.2.3.4RC
-         * @return {Ext.Version} this
+</span>         * @param {String/Number} version {Ext_Version:method-constructor:param_version}
+         * @return {Ext.Version} {Ext_Version:method-constructor:return}
          */
         constructor: function(version) {
 
@@ -78,9 +77,9 @@
         // {{{ toString
 
 <span id='Ext-Version-method-toString'>        /**
-</span>         * Override the native toString method
+</span>         * {Ext_Version:method-toString:desc}
          * @private
-         * @return {String} version
+         * @return {String} {Ext_Version:method-toString:return}
          */
         toString: function() {
             return this.version;
@@ -90,9 +89,9 @@
         // {{{ valueOf
 
 <span id='Ext-Version-method-valueOf'>        /**
-</span>         * Override the native valueOf method
+</span>         * {Ext_Version:method-valueOf:desc}
          * @private
-         * @return {String} version
+         * @return {String} {Ext_Version:method-valueOf:return}
          */
         valueOf: function() {
             return this.version;
@@ -102,8 +101,8 @@
         // {{{ getMajor
 
 <span id='Ext-Version-method-getMajor'>        /**
-</span>         * Returns the major component value
-         * @return {Number} major
+</span>         * {Ext_Version:method-getMajor:desc}
+         * @return {Number} {Ext_Version:method-getMajor:return}
          */
         getMajor: function() {
             return this.major || 0;
@@ -113,8 +112,8 @@
         // {{{ getMinor
 
 <span id='Ext-Version-method-getMinor'>        /**
-</span>         * Returns the minor component value
-         * @return {Number} minor
+</span>         * {Ext_Version:method-getMinor:desc}
+         * @return {Number} {Ext_Version:method-getMinor:return}
          */
         getMinor: function() {
             return this.minor || 0;
@@ -124,8 +123,8 @@
         // {{{ getPatch
 
 <span id='Ext-Version-method-getPatch'>        /**
-</span>         * Returns the patch component value
-         * @return {Number} patch
+</span>         * {Ext_Version:method-getPatch:desc}
+         * @return {Number} {Ext_Version:method-getPatch:return}
          */
         getPatch: function() {
             return this.patch || 0;
@@ -135,8 +134,8 @@
         // {{{ getBuild
 
 <span id='Ext-Version-method-getBuild'>        /**
-</span>         * Returns the build component value
-         * @return {Number} build
+</span>         * {Ext_Version:method-getBuild:desc}
+         * @return {Number} {Ext_Version:method-getBuild:return}
          */
         getBuild: function() {
             return this.build || 0;
@@ -146,8 +145,8 @@
         // {{{ getRelease
 
 <span id='Ext-Version-method-getRelease'>        /**
-</span>         * Returns the release component value
-         * @return {Number} release
+</span>         * {Ext_Version:method-getRelease:desc}
+         * @return {Number} {Ext_Version:method-getRelease:return}
          */
         getRelease: function() {
             return this.release || '';
@@ -157,9 +156,9 @@
         // {{{ isGreaterThan
 
 <span id='Ext-Version-method-isGreaterThan'>        /**
-</span>         * Returns whether this version if greater than the supplied argument
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version if greater than the target, false otherwise
+</span>         * {Ext_Version:method-isGreaterThan:desc}
+         * @param {String/Number} target {Ext_Version:method-isGreaterThan:param_target}
+         * @return {Boolean} {Ext_Version:method-isGreaterThan:return}
          */
         isGreaterThan: function(target) {
             return Version.compare(this.version, target) === 1;
@@ -169,9 +168,9 @@
         // {{{ isGreaterThanOrEqual
 
 <span id='Ext-Version-method-isGreaterThanOrEqual'>        /**
-</span>         * Returns whether this version if greater than or equal to the supplied argument
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version if greater than or equal to the target, false otherwise
+</span>         * {Ext_Version:method-isGreaterThanOrEqual:desc}
+         * @param {String/Number} target {Ext_Version:method-isGreaterThanOrEqual:param_target}
+         * @return {Boolean} {Ext_Version:method-isGreaterThanOrEqual:return}
          */
         isGreaterThanOrEqual: function(target) {
             return Version.compare(this.version, target) &gt;= 0;
@@ -181,9 +180,9 @@
         // {{{ isLessThan
 
 <span id='Ext-Version-method-isLessThan'>        /**
-</span>         * Returns whether this version if smaller than the supplied argument
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version if smaller than the target, false otherwise
+</span>         * {Ext_Version:method-isLessThan:desc}
+         * @param {String/Number} target {Ext_Version:method-isLessThan:param_target}
+         * @return {Boolean} {Ext_Version:method-isLessThan:return}
          */
         isLessThan: function(target) {
             return Version.compare(this.version, target) === -1;
@@ -193,9 +192,9 @@
         // {{{ isLessThanOrEqual
 
 <span id='Ext-Version-method-isLessThanOrEqual'>        /**
-</span>         * Returns whether this version if less than or equal to the supplied argument
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version if less than or equal to the target, false otherwise
+</span>         * {Ext_Version:method-isLessThanOrEqual:desc}
+         * @param {String/Number} target {Ext_Version:method-isLessThanOrEqual:param_target}
+         * @return {Boolean} {Ext_Version:method-isLessThanOrEqual:return}
          */
         isLessThanOrEqual: function(target) {
             return Version.compare(this.version, target) &lt;= 0;
@@ -205,9 +204,9 @@
         // {{{ equals
 
 <span id='Ext-Version-method-equals'>        /**
-</span>         * Returns whether this version equals to the supplied argument
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version equals to the target, false otherwise
+</span>         * {Ext_Version:method-equals:desc}
+         * @param {String/Number} target {Ext_Version:method-equals:param_target}
+         * @return {Boolean} {Ext_Version:method-equals:return}
          */
         equals: function(target) {
             return Version.compare(this.version, target) === 0;
@@ -217,16 +216,9 @@
         // {{{ match
 
 <span id='Ext-Version-method-match'>        /**
-</span>         * Returns whether this version matches the supplied argument. Example:
-         * &lt;pre&gt;&lt;code&gt;
-         * var version = new Ext.Version('1.0.2beta');
-         * console.log(version.match(1)); // True
-         * console.log(version.match(1.0)); // True
-         * console.log(version.match('1.0.2')); // True
-         * console.log(version.match('1.0.2RC')); // False
-         * &lt;/code&gt;&lt;/pre&gt;
-         * @param {String/Number} target The version to compare with
-         * @return {Boolean} True if this version matches the target, false otherwise
+</span>         * {Ext_Version:method-match:desc}
+         * @param {String/Number} target {Ext_Version:method-match:param_target}
+         * @return {Boolean} {Ext_Version:method-match:return}
          */
         match: function(target) {
             target = String(target);
@@ -237,7 +229,7 @@
         // {{{ toArray
 
 <span id='Ext-Version-method-toArray'>        /**
-</span>         * Returns this format: [major, minor, patch, build, release]. Useful for comparison
+</span>         * {Ext_Version:method-toArray:desc}
          * @return {Number[]}
          */
         toArray: function() {
@@ -248,7 +240,7 @@
         // {{{ getShortVersion
 
 <span id='Ext-Version-method-getShortVersion'>        /**
-</span>         * Returns shortVersion version without dots and release
+</span>         * {Ext_Version:method-getShortVersion:desc}
          * @return {String}
          */
         getShortVersion: function() {
@@ -259,7 +251,7 @@
         // {{{ gt
 
 <span id='Ext-Version-method-gt'>        /**
-</span>         * Convenient alias to {@link Ext.Version#isGreaterThan isGreaterThan}
+</span>         * {Ext_Version:method-gt:desc}
          * @param {String/Number} target
          * @return {Boolean}
          */
@@ -271,7 +263,7 @@
         // {{{ lt
 
 <span id='Ext-Version-method-lt'>        /**
-</span>         * Convenient alias to {@link Ext.Version#isLessThan isLessThan}
+</span>         * {Ext_Version:method-lt:desc}
          * @param {String/Number} target
          * @return {Boolean}
          */
@@ -283,7 +275,7 @@
         // {{{ gtEq
 
 <span id='Ext-Version-method-gtEq'>        /**
-</span>         * Convenient alias to {@link Ext.Version#isGreaterThanOrEqual isGreaterThanOrEqual}
+</span>         * {Ext_Version:method-gtEq:desc}
          * @param {String/Number} target
          * @return {Boolean}
          */
@@ -295,7 +287,7 @@
         // {{{ ltEq
 
 <span id='Ext-Version-method-ltEq'>        /**
-</span>         * Convenient alias to {@link Ext.Version#isLessThanOrEqual isLessThanOrEqual}
+</span>         * {Ext_Version:method-ltEq:desc}
          * @param {String/Number} target
          * @return {Boolean}
          */
@@ -323,10 +315,9 @@
         },
 
 <span id='Ext-Version-static-method-getComponentValue'>        /**
-</span>         * Converts a version component to a comparable value
-         *
+</span>         * {Ext_Version:method-getComponentValue:desc}
          * @static
-         * @param {Object} value The value to convert
+         * @param {Object} value {Ext_Version:method-getComponentValue:param_value}
          * @return {Object}
          */
         getComponentValue: function(value) {
@@ -334,14 +325,11 @@
         },
 
 <span id='Ext-Version-static-method-compare'>        /**
-</span>         * Compare 2 specified versions, starting from left to right. If a part contains special version strings,
-         * they are handled in the following order:
-         * 'dev' &lt; 'alpha' = 'a' &lt; 'beta' = 'b' &lt; 'RC' = 'rc' &lt; '#' &lt; 'pl' = 'p' &lt; 'anything else'
-         *
+</span>         * {Ext_Version:method-compare:desc}
          * @static
-         * @param {String} current The current version to compare to
-         * @param {String} target The target version to compare to
-         * @return {Number} Returns -1 if the current version is smaller than the target version, 1 if greater, and 0 if they're equivalent
+         * @param {String} current {Ext_Version:method-compare:param_current}
+         * @param {String} target {Ext_Version:method-compare:param_target}
+         * @return {Number} {Ext_Version:method-compare:return}
          */
         compare: function(current, target) {
             var currentValue, targetValue, i;
@@ -385,10 +373,10 @@
         // {{{ setVersion
 
 <span id='Ext-Version-method-setVersion'>        /**
-</span>         * Set version number for the given package name.
+</span>         * {Ext_Version:method-setVersion:desc}
          *
-         * @param {String} packageName The package name, for example: 'core', 'touch', 'extjs'
-         * @param {String/Ext.Version} version The version, for example: '1.2.3alpha', '2.4.0-dev'
+         * @param {String} packageName {Ext_Version:method-setVersion:param_pacageName}
+         * @param {String/Ext.Version} version {Ext_Version:method-setVersion:param_version}
          * @return {Ext}
          */
         setVersion: function(packageName, version) {
@@ -403,11 +391,9 @@
         // {{{ getVersion
 
 <span id='Ext-Version-method-getVersion'>        /**
-</span>         * Get the version number of the supplied package name; will return the last registered version
-         * (last Ext.setVersion call) if there's no package name given.
-         *
-         * @param {String} packageName (Optional) The package name, for example: 'core', 'touch', 'extjs'
-         * @return {Ext.Version} The version
+</span>         * {Ext_Version:method-getVersion:desc}
+         * @param {String} packageName {Ext_Version:method-getVersion:param_packageName}
+         * @return {Ext.Version} {Ext_Version:method-getVersion:return}
          */
         getVersion: function(packageName) {
             if(packageName === undefined) {
@@ -421,21 +407,11 @@
         // {{{ deprecate
 
 <span id='Ext-Version-method-deprecate'>        /**
-</span>         * Create a closure for deprecated code.
-         *
-    // This means Ext.oldMethod is only supported in 4.0.0beta and older.
-    // If Ext.getVersion('extjs') returns a version that is later than '4.0.0beta', for example '4.0.0RC',
-    // the closure will not be invoked
-    Ext.deprecate('extjs', '4.0.0beta', function() {
-        Ext.oldMethod = Ext.newMethod;
-
-        ...
-    });
-
-         * @param {String} packageName The package name
-         * @param {String} since The last version before it's deprecated
-         * @param {Function} closure The callback function to be executed with the specified version is less than the current version
-         * @param {Object} scope The execution scope (&lt;tt&gt;this&lt;/tt&gt;) if the closure
+</span>         * {Ext_Version:method-deprecate:desc}
+         * @param {String} packageName {Ext_Version:method-deprecate:param_packageName}
+         * @param {String} since {Ext_Version:method-deprecate:param_since}
+         * @param {Function} closure {Ext_Version:method-deprecate:param_closure}
+         * @param {Object} scope {Ext_Version:method-deprecate:param_scope}
          * @markdown
          */
         deprecate: function(packageName, since, closure, scope) {

@@ -44,6 +44,7 @@ Ext.define('Ext.server.Server', {
     requires: [
         'Ext.server.Connect',
         'Ext.server.Router',
+        'Ext.server.WebSocket',
         'Ext.server.config.Application',
         'Ext.server.config.Database',
         'Ext.server.config.Route',
@@ -71,26 +72,33 @@ Ext.define('Ext.server.Server', {
 
         config = config || {};
 
+        config.ws   = config.ws || true;
+        if(config.wss !== false) {
+            config.wss  = config.wss || (config.ssl ? true : false)
+        }
+
         Ext.apply(this, {
             config: {}
         });
 
         init = function() {
 
-            var app, port, middleware, onLaunch;
+            var app, port, middleware, onLaunch, debug, env;
 
             middleware  = [
                 'Favicon',
-                'BodyParser',
+                //'BodyParser',
                 'Compress',
                 'CookieParser',
-                'Multipart',
+                //'Multipart',
                 'Session'
-                //'Static'
             ];
             app         = Ext.create('Ext.server.Connect');
             port        = config.port || this.$port;
             onLaunch    = config.onLaunch || Ext.emptyFn;
+
+//            debug       = Ext.$dependencies.debug('connect:dispatcher');
+//            env         = process.env.NODE_ENV || 'development';
 
             // init configs
             [
@@ -117,14 +125,75 @@ Ext.define('Ext.server.Server', {
             // Router create.
             this.router = Ext.create('Ext.server.Router');
 
+            app.use(Ext.server.Connect.bodyParser());
+
+            // vhost setting
+            app.use(function(req, res, next) {
+
+                var host, vhost, paths, stack, prefix;
+
+                host    = req.headers['x-forwarded-host'] || req.headers['host'];
+                vhost   = me.config.app.vhost;
+                paths   = me.config.app.$paths;
+                stack   = [];
+                prefix  = '';
+
+                if(Ext.isFunction(vhost)) {
+
+                    var ret = vhost(host.split(':')[0]);
+
+                    if(Ext.isString(ret)) {
+                        prefix = ret + '/';
+                    }
+
+                } else {
+                    if(vhost.length &gt; 0) {
+                        Ext.iterate(vhost, function(o) {
+
+                            var hostname = o.hostname;
+                            var path = o.path;
+                            var regexp = new RegExp('^' + hostname.replace(/[*]/g, '(.*?)') + '$', 'i');
+
+                            if(regexp.test(host.split(':')[0])) {
+                                prefix = path + '/';
+                                return false;
+                            }
+
+                        });
+                    }
+                };
+
+                Ext.iterate(paths, function(key, value) {
+
+                    var path = prefix + value;
+
+                    stack.push(function() {
+                        require('fs').realpath(path, function(err, realpath) {
+                            me.config.app.paths[key] = realpath;
+                            if(stack.length &gt; 0) {
+                                stack.shift()();
+                            } else {
+                                next();
+                            }
+                        });
+                    });
+                });
+
+                // run
+                stack.shift()();
+
+            });
+
             // setting headers
             app.use(function(req, res, next) {
 
-                // Ext Server version
-                res.setHeader(
-                    'X-Powered-By',
-                    Ext.String.format('Ext Server {0}', Ext.getVersion('server').toString())
-                );
+                if(req.method === 'GET') {
+                    // Ext Server version
+                    res.setHeader(
+                        'X-Powered-By',
+                        Ext.String.format('Ext Server {0}', Ext.getVersion('server').toString())
+                    );
+                }
 
                 next();
             });
@@ -161,12 +230,61 @@ Ext.define('Ext.server.Server', {
 
             });
 
-            // TODO: HTTP/HTTPSの設定
+            var http = require('http'),
+                https = require('https');
 
-            // start server!
-            app.listen(port, function() {
-                onLaunch();
-            });
+            var httpServer = http.createServer(app);
+                httpServer.listen(port);
+
+            var next;
+
+            next = function() {
+
+                var next = function() {
+                    onLaunch();
+                };
+
+                if(config.ssl) {
+
+                    var httpsServer = https.createServer({
+                        key: config.ssl.key,
+                        cert: config.ssl.cert
+                    }, app);
+                    httpsServer.listen(config.ssl.port || 443);
+
+                    if(config.wss) {
+
+                        Ext.ws = Ext.create(
+                            'Ext.server.WebSocket',
+                            Ext.$dependencies['socket.io'].listen(httpsServer, Ext.isSimpleObject(config.wss) ? config.wss : {}),
+                            me.config,
+                            true,
+                            next
+                        );
+
+                    }
+
+                } else {
+
+                    next();
+
+                }
+
+            };
+
+            if(config.ws) {
+
+                Ext.ws = Ext.create(
+                    'Ext.server.WebSocket',
+                    Ext.$dependencies['socket.io'].listen(httpServer, Ext.isSimpleObject(config.ws) ? config.ws : {}),
+                    me.config,
+                    false,
+                    next
+                );
+
+            } else {
+                next();
+            }
 
         };
 

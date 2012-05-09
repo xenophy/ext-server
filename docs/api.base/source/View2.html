@@ -44,160 +44,435 @@ Ext.define('Ext.server.view.View', {
     },
 
     // }}}
+    // {{{ etag
+
+    etag: function(stat) {
+        return '&quot;' + stat.size + '-' + Number(stat.mtime) + '&quot;';
+    },
+
+    // }}}
+    // {{{ modified
+
+    modified: function(req, res, headers) {
+
+        var headers = headers || res._headers || {},
+            modifiedSince = req.headers['if-modified-since'],
+            lastModified = headers['last-modified'],
+            noneMatch = req.headers['if-none-match'],
+            etag = headers['etag'];
+
+        if(noneMatch) {
+            noneMatch = noneMatch.split(/ *, */);
+        }
+
+        if(noneMatch &amp;&amp; etag &amp;&amp; ~noneMatch.indexOf(etag)) {
+            return false;
+        }
+
+        if(modifiedSince &amp;&amp; lastModified) {
+
+            modifiedSince   = new Date(modifiedSince);
+            lastModified    = new Date(lastModified);
+
+            if(!isNaN(modifiedSince.getTime())) {
+                if(lastModified &lt;= modifiedSince) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    },
+
+    // }}}
+    // {{{ removeContentHeaders
+
+    removeContentHeaders: function(res) {
+        Object.keys(res._headers).forEach(function(field) {
+            if(0 == field.indexOf('content')) {
+                res.removeHeader(field);
+            }
+        });
+    },
+
+    // }}}
+    // {{{ notModified
+
+    notModified: function(res) {
+        this.removeContentHeaders(res);
+        res.statusCode = 304;
+        res.end();
+    },
+
+    // }}}
+    // {{{ printErrors
+
+    printErrors: function(code) {
+
+        var me = this,
+            res = me.res, mime = me.mime,
+            content = '', data = {};
+
+        switch(code) {
+
+            case 403:
+                content = me.config.app.errors.forbidden;
+            break;
+
+            case 404:
+                content = me.config.app.errors.not_found;
+            break;
+
+            case 500:
+                content = me.config.app.errors.internal_server_error;
+            break;
+
+        }
+
+        data = me.actionResultConfig.errorDetails || {};
+
+        Ext.$dependencies.swig.init({cache: false, autoescape: false});
+        content = Ext.$dependencies.swig.compile(content, {})(data).toString();
+
+        res.setHeader(&quot;Content-Type&quot;,   mime.lookup('html'));
+        res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(content, 'utf8'));
+        res.setHeader(&quot;Expires&quot;,        &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;);
+        res.setHeader(&quot;Cache-Control&quot;,  &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;);
+        res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
+        res.writeHead(code);
+        res.end(content);
+
+    },
+
+    // }}}
+    // {{{ isTempalte
+
+    isTemplate: function() {
+
+        var me = this,
+            ext = me.ext,
+            template_exts = this.template_exts,
+            isTemplate = true;
+
+        if(ext || ext === '') {
+
+            if(ext === '') {
+                ext = '.html';
+            }
+
+            ext = ext.substr(1);
+
+            if(Ext.Array.indexOf(template_exts, ext) === -1) {
+                isTemplate = false;
+            }
+
+        }
+
+        return isTemplate;
+
+    },
+
+    // }}}
     // {{{ render
 
     render: function(config, next) {
 
-        console.log(config.config.app.template_exts);
+        var me, node, chain;
 
-        console.log(&quot;View.render&quot;);
+        node = {
+            fs          : require('fs'),
+            url         : require('url'),
+            path        : require('path')
+        };
 
-        /*
-         mime = require('mime') //depe
+        me = this;
 
+        this.req                = config.req;
+        this.res                = config.res;
+        this.url                = node.url.parse(this.req.url);
+        this.path               = decodeURIComponent(this.url.pathname);
+        this.config             = config.config;
+        this.paths              = this.config.app.paths;
+        this.ext                = node.path.extname(node.url.parse(config.req.url, true).pathname);
+        this.directoryIndex     = this.config.app.directoryIndex;
+        this.template_exts      = this.config.app.template_exts;
+        this.mime               = Ext.$dependencies.mime;
+        this.actionResultConfig = config.actionResultConfig;
 
+        var res     = this.res;
+        var req     = this.req;
+        var root    = me.paths.public;
 
-
-         function invalidRange(res) {
-  var body = 'Requested Range Not Satisfiable';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', body.length);
-  res.statusCode = 416;
-  res.end(body);
-}
-         */
-
-
-
-        /*
-var send = exports.send = function(req, res, next, options){
-  options = options || {};
-  if (!options.path) throw new Error('path required');
-
-  // setup
-  var maxAge = options.maxAge || 0
-    , ranges = req.headers.range
-    , head = 'HEAD' == req.method
-    , get = 'GET' == req.method
-    , root = options.root ? normalize(options.root) : null
-    , getOnly = options.getOnly
-    , fn = options.callback
-    , hidden = options.hidden
-    , done;
-
-  // replace next() with callback when available
-  if (fn) next = fn;
-
-  // ignore non-GET requests
-  if (getOnly &amp;&amp; !get &amp;&amp; !head) return next();
-
-  // parse url
-  var url = parse(options.path)
-    , path = decodeURIComponent(url.pathname)
-    , type;
-
-  // null byte(s)
-  if (~path.indexOf('\0')) return next(400);
-
-  // when root is not given, consider .. malicious
-  if (!root &amp;&amp; ~path.indexOf('..')) return next(403);
-
-  // join / normalize from optional root dir
-  path = normalize(join(root, path));
-
-  // malicious path
-  if (root &amp;&amp; 0 != path.indexOf(root)) return fn
-    ? fn(new Error('Forbidden'))
-    : next(403);
-
-  // index.html support
-  if ('/' == path[path.length - 1]) path += 'index.html';
-
-  // &quot;hidden&quot; file
-  if (!hidden &amp;&amp; '.' == basename(path)[0]) return next();
-
-  fs.stat(path, function(err, stat){
-    // mime type
-    type = mime.lookup(path);
-
-    // ignore ENOENT
-    if (err) {
-      if (fn) return fn(err);
-      return 'ENOENT' == err.code
-        ? next()
-        : next(err);
-    // redirect directory in case index.html is present
-    } else if (stat.isDirectory()) {
-      res.statusCode = 301;
-      res.setHeader('Location', url.pathname + '/');
-      res.end('Redirecting to ' + url.pathname + '/');
-      return;
-    }
-
-    var opts = {};
-
-    // we have a Range request
-    if (ranges) {
-      ranges = utils.parseRange(stat.size, ranges);
-      // valid
-      if (ranges) {
-        // TODO: stream options
-        // TODO: multiple support
-        opts.start = ranges[0].start;
-        opts.end = ranges[0].end;
-        res.statusCode = 206;
-        res.setHeader('Content-Range', 'bytes '
-          + opts.start
-          + '-'
-          + opts.end
-          + '/'
-          + stat.size);
-      // invalid
-      } else {
-        return invalidRange(res);
-      }
-    // stream the entire file
-    } else {
-      res.setHeader('Content-Length', stat.size);
-      if (!res.getHeader('Cache-Control')) res.setHeader('Cache-Control', 'public, max-age=' + (maxAge / 1000));
-      if (!res.getHeader('Last-Modified')) res.setHeader('Last-Modified', stat.mtime.toUTCString());
-      if (!res.getHeader('ETag')) res.setHeader('ETag', utils.etag(stat));
-
-      // conditional GET support
-      if (utils.conditionalGET(req)) {
-        if (!utils.modified(req, res)) {
-          return utils.notModified(res);
+        if(res.headerSent) {
+            return;
         }
-      }
-    }
 
-    // header fields
-    if (!res.getHeader('content-type')) {
-      var charset = mime.charsets.lookup(type);
-      res.setHeader('Content-Type', type + (charset ? '; charset=' + charset : ''));
-    }
-    res.setHeader('Accept-Ranges', 'bytes');
+        config.res.actionresult = config.res.actionresult || {};
 
-    // transfer
-    if (head) return res.end();
+        if(config.res.actionresult.$switchTemplate) {
+            root = me.paths.templates;
+            me.path = decodeURIComponent(node.url.parse(config.res.actionresult.$switchTemplate).pathname)
+        }
 
-    // stream
-    var stream = fs.createReadStream(path, opts);
-    stream.pipe(res);
+        if(this.actionResultConfig.abort) {
 
-    // callback
-    if (fn) {
-      function callback(err) { done || fn(err); done = true }
-      req.on('close', callback);
-      req.socket.on('error', callback);
-      stream.on('end', callback);
-    }
-  });
-};
-         */
+            if(this.actionResultConfig.abort === 500) {
 
-        next();
+                me.printErrors(500);
 
+            } else if(this.actionResultConfig.forbidden) {
+
+                // forbidden
+                me.printErrors(403);
+
+            } else if(this.actionResultConfig.redirect) {
+
+                // redirect
+                res.statusCode = 302;
+                res.setHeader('Location', this.actionResultConfig.redirect);
+                res.end('Redirecting to ' + this.actionResultConfig.redirect);
+
+            } else {
+
+                //res.statusCode = 200;
+                //res.end();
+
+            }
+
+            return;
+        }
+
+
+        // special dir check.
+        if(this.config.app.dirs.special &amp;&amp; this.url.path.substr(0, this.config.app.dirs.special.length) === this.config.app.dirs.special) {
+
+            var file;
+
+            file = process.ExtEnv.resourcedir + '/public/' + this.url.path.substr(this.config.app.dirs.special.length);
+
+            node.fs.stat(file, function(err, stat) {
+
+                // 404 error
+                if(err) {
+                    me.printErrors(404);
+                    return;
+                }
+
+                node.fs.readFile(file, function(err, data) {
+
+                    var headers,
+                    mime = me.mime;
+
+                    headers = {
+                        &quot;Content-Type&quot;  : mime.lookup(file),
+                        &quot;Content-Length&quot;: stat.size,
+                        &quot;Last-Modified&quot; : stat.mtime.toUTCString(),
+                        &quot;Expires&quot;       : &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;,
+                        &quot;Cache-Control&quot; : &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;,
+                        &quot;Pragma&quot;        : &quot;no-cache&quot;,
+                        &quot;ETag&quot;          : me.etag(stat)
+                    };
+
+                                        res.setHeader('Content-Length', stat.size);
+
+                    var maxAge = 0; // 設定できるようにする？
+
+                    if(!res.getHeader('Cache-Control')) {
+                        res.setHeader('Cache-Control', 'public, max-age=' + (maxAge / 1000));
+                    }
+
+                    if(!res.getHeader('Last-Modified')) {
+                        res.setHeader('Last-Modified', stat.mtime.toUTCString());
+                    }
+
+                    if(!res.getHeader('ETag')) {
+                        res.setHeader('ETag', me.etag(stat));
+                    }
+
+                    if(req.headers['if-modified-since'] || req.headers['if-none-match']) {
+                        if(!me.modified(req, res)) {
+                            return me.notModified(res);
+                        }
+                    }
+
+                    res.writeHead(200, headers);
+                    res.end(data);
+
+                });
+
+            });
+
+            return;
+
+        }
+
+        chain = [];
+
+        // target stat
+        chain.push(function() {
+
+            var file = node.path.normalize(root + '/' + me.path);
+
+            node.fs.stat(file, function(err, stat) {
+
+                // 404 error
+                if(err) {
+                    me.printErrors(404);
+                    return;
+                }
+
+                if(stat.isDirectory() &amp;&amp; me.path.substr(-1) !== '/') {
+
+                    var res = me.res,
+                        url = me.url;
+
+                    res.statusCode = 301;
+                    res.setHeader('Location', url.pathname + '/');
+                    res.end('Redirecting to ' + url.pathname + '/');
+                    return;
+                }
+
+                chain.shift()();
+
+            });
+
+        });
+
+        chain.push(function() {
+
+            var tmp, dirs, url;
+
+            if(config.res.actionresult.$switchTemplate) {
+                dirs= [node.path.normalize(root + '/' + me.path)];
+            } else {
+                url = me.url;
+                tmp = url.pathname.split('/');
+                dirs = Ext.Array.clone(me.directoryIndex);
+
+                if(!Ext.isEmpty(tmp[tmp.length -1])) {
+                    dirs.unshift(tmp[tmp.length -1]);
+                }
+
+                delete tmp[tmp.length -1];
+
+                tmp = tmp.join('/');
+
+                Ext.iterate(dirs, function(item, i) {
+                    dirs[i] = node.path.normalize(root + '/' + tmp + '/' + item);
+                });
+            }
+
+            Ext.iterate(dirs, function(item, i) {
+                chain.unshift(function() {
+                    node.fs.stat(item, function(err, stat) {
+
+                        if(!err) {
+
+                            chain.shift()({
+                                path: item,
+                                stat: stat
+                            });
+
+                        } else {
+                            chain.shift()({});
+                        }
+                    });
+                });
+            });
+
+            chain.shift()();
+        });
+
+        chain.push(function(o) {
+
+            var file, stat, req, res;
+
+            file = o.path;
+            stat = o.stat;
+            req  = me.req;
+            res  = me.res;
+            conf = me.config.app;
+
+            if(config.res.actionresult.$switchTemplate) {
+                file = node.path.normalize(root + '/' + me.path);
+            }
+
+            node.fs.readFile(file, function(err, data) {
+
+                if(err) {
+
+                    // 500 error
+                    me.printErrors(500);
+                    return;
+                }
+
+                var headers,
+                    mime = me.mime;
+
+                headers = {
+                    &quot;Content-Type&quot;  : mime.lookup(file),
+                    //&quot;Content-Length&quot;: Buffer.byteLength(data.toString(), 'utf8'),
+                    //&quot;Content-Length&quot;: stat.size,
+                    &quot;Last-Modified&quot; : stat.mtime.toUTCString(),
+                    &quot;Expires&quot;       : &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;,
+                    &quot;Cache-Control&quot; : &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;,
+                    &quot;Pragma&quot;        : &quot;no-cache&quot;,
+                    &quot;ETag&quot;          : me.etag(stat)
+                };
+
+                // テンプレート処理
+                if(me.isTemplate()) {
+
+                    var engineName, engine;
+
+                    if(Ext.isString(conf.template_engine)) {
+                        engineName = conf.template_engine;
+                    } else if(Ext.isObject(conf.template_engine)){
+                        engineName = conf.template_engine.name;
+                    } else {
+                        // TODO: Error
+                    }
+
+                    engineName = Ext.String.capitalize(engineName.toString());
+                    engine = Ext.create(Ext.String.format('Ext.template.{0}', engineName));
+                    data = engine.render(data.toString(), res.actionresult, {filename: file});
+                    res.setHeader('Content-Length', Buffer.byteLength(data.toString(), 'utf8'));
+
+                } else {
+
+                    res.setHeader('Content-Length', stat.size);
+
+                    var maxAge = 0; // 設定できるようにする？
+
+                    if(!res.getHeader('Cache-Control')) {
+                        res.setHeader('Cache-Control', 'public, max-age=' + (maxAge / 1000));
+                    }
+
+                    if(!res.getHeader('Last-Modified')) {
+                        res.setHeader('Last-Modified', stat.mtime.toUTCString());
+                    }
+
+                    if(!res.getHeader('ETag')) {
+                        res.setHeader('ETag', me.etag(stat));
+                    }
+
+                    if(req.headers['if-modified-since'] || req.headers['if-none-match']) {
+                        if(!me.modified(req, res)) {
+                            return me.notModified(res);
+                        }
+                    }
+
+                }
+
+                res.writeHead(200, headers);
+                res.end(data);
+
+            });
+
+        });
+
+        // run
+        chain.shift()();
     }
 
     // }}}

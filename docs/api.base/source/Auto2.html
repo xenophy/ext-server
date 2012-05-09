@@ -54,7 +54,7 @@ Ext.define('Ext.server.controller.Auto', {
     dispatch: function(config, next) {
 
         var me, node, paths, files, normalize, exists, stat, realpath, appConfig,
-            req, res, basename, dirname, actionPath, actionName, actions,
+            req, res, basename, dirname, actionPath, actionName, actions, extPos,
             checkGlobalActionFile, checkExtentActionFile,
             checkTargetActionFile, expandActions, runActions;
 
@@ -73,7 +73,7 @@ Ext.define('Ext.server.controller.Auto', {
         req         = config.req;
         res         = config.res;
         appConfig   = config.config.app;
-        paths       = appConfig.paths;
+        paths       = Ext.clone(appConfig.paths);
 
         paths.files = {};
         files       = [];
@@ -81,7 +81,6 @@ Ext.define('Ext.server.controller.Auto', {
 
         basename    = node.path.basename(node.url.parse(req.url, true).pathname);
         dirname     = node.path.dirname(req.url);
-        actionName  = basename || appConfig.actionName;
 
         if(basename.substr(-1) === '/') {
             actionPath = req.url.substr(0, req.url.length - 1);
@@ -91,6 +90,15 @@ Ext.define('Ext.server.controller.Auto', {
 
         if(actionPath.indexOf('?') !== -1) {
             actionPath = actionPath.substr(0, actionPath.indexOf('?'));
+        }
+
+        var tmp = node.url.parse(req.url, true).pathname.split('/');
+        basename = tmp[tmp.length -1];
+        actionName  = basename || appConfig.actionName;
+
+        extPos = actionName.indexOf('.');
+        if(extPos &gt; 0) {
+            actionName = actionName.substr(0, extPos);
         }
 
         Ext.apply(paths.files, {
@@ -205,13 +213,9 @@ Ext.define('Ext.server.controller.Auto', {
                                 actionsrc = require(path);
                             } catch(e) {
 
-                                res.$errorCode = 500;
-                                res.$errorDetails = {
-                                    msg: e.message,
-                                    stack: e.stack
-                                };
-
-                                next();
+                                // render 500 Error
+                                config.actionResultConfig = { abort: 500, errorDetails: e };
+                                me.render.call(me, config, next);
 
                                 return;
                             }
@@ -269,6 +273,8 @@ Ext.define('Ext.server.controller.Auto', {
             idx = 0;
             rc  = rc || {abort: false};
 
+            rc.template = actionName;
+
             run = function() {
 
                 var action;
@@ -279,15 +285,39 @@ Ext.define('Ext.server.controller.Auto', {
 
                 if(action &amp;&amp; rc.abort === false) {
 
-                    action(config, function(result) {
+                    try{
 
-                        Ext.apply(rc, result);
-                        // clearTimeout(timer);
-                        run();
+                        var timer = setTimeout(function() {
 
-                    });
+                            // render 500 Error
+                            config.actionResultConfig = { abort: 500, errorDetails: {
+                                message: &quot;This Action is too long execute.&quot;,
+                                stack: &quot;This Action is too long execute.\nPlease call it if you have forgotten the call of 'done'. &quot;
+                            } };
+                            me.render.call(me, config, next);
+
+                        }, 3000);
+
+                        action(config, function(result) {
+
+                            result = result || {};
+                            Ext.apply(rc, result);
+                            clearTimeout(timer);
+                            run();
+
+                        });
+
+                    } catch(e) {
+
+                        // render 500 Error
+                        config.actionResultConfig = { abort: 500, errorDetails: e };
+                        me.render.call(me, config, next);
+
+                    }
 
                 } else {
+
+                    config.actionResultConfig = rc;
 
                     // executed all actions, to render.
                     me.render.call(me, config, next);
@@ -303,7 +333,13 @@ Ext.define('Ext.server.controller.Auto', {
         // }}}
         // {{{ build action chain and make action instance.
 
+        var files = [];
+
         checkGlobalActionFile(paths.files.global, function(result) {
+
+            if(result) {
+                files.push(result);
+            }
 
             checkExtentActionFile(actionPath.split('/'), function(result) {
 
@@ -320,7 +356,9 @@ Ext.define('Ext.server.controller.Auto', {
                     expandActions(files, function() {
 
                         if(actions.length === 0) {
-                            next();
+
+                            runActions(next);
+
                         } else {
 
                             me.actions = actions;

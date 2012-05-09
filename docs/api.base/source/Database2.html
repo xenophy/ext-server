@@ -23,18 +23,42 @@
  * MIT Licensed
  */
 
-// {{{ Ext.server.config.Database
+// {{{ Ext.database.Database
 
-<span id='Ext-server-config-Database'>/**
-</span> * @class Ext.server.config.Database
+<span id='Ext-database-Database'>/**
+</span> * @class Ext.database.Database
  *
- * {Ext_server_config_Database:doc-contents}
+ * {Ext_database_Database:doc-contents}
  */
-Ext.define('Ext.server.config.Database', {
+Ext.define('Ext.database.Database', {
 
-    // {{{ extend
+    // {{{ requires
 
-    extend: 'Ext.app.config.Database'
+    requires: [
+        'Ext.database.Manager'
+    ],
+
+    // }}}
+    // {{{ constructor
+
+    constructor: function(config) {
+
+        config = config || {};
+
+        Ext.apply(this, config);
+        Ext.applyIf(this, {
+        });
+
+        this.callParent(arguments);
+
+    },
+
+    // }}}
+    // {{{ connect
+
+    connect: function(next) {
+        next();
+    }
 
     // }}}
 

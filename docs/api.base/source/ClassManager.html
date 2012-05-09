@@ -217,7 +217,7 @@
         // {{{ parseNamespace
 
 <span id='Ext-ClassManager-method-parseNamespace'>        /**
-</span>         * Supports namespace rewriting
+</span>         * 
          * @private
          */
         parseNamespace: function(namespace) {
@@ -375,7 +375,7 @@
 </span>         * {Ext_ClassManager:method-get:desc}
          *
          * @param {String} name {Ext_ClassManager:method-get:param_name}
-         * @return {Ext.Class} {Ext_ClassManager:method-get:param_class}
+         * @return {Ext.Class} {Ext_ClassManager:method-get:return}
          */
         get: function(name) {
             var classes = this.classes,
@@ -507,8 +507,8 @@
 <span id='Ext-ClassManager-method-getName'>        /**
 </span>         * {Ext_ClassManager:method-getName:desc}
          *
-         * @param {Ext.Class/Object} object {Ext_ClassManager:method-getName:desc}
-         * @return {String} {Ext_ClassManager:method-getName:desc}
+         * @param {Ext.Class/Object} object {Ext_ClassManager:method-getName:param_object}
+         * @return {String} {Ext_ClassManager:method-getName:return}
          */
         getName: function(object) {
             return object &amp;&amp; object.$className || '';
@@ -853,11 +853,11 @@
         // {{{ registerPostprocessor
 
 <span id='Ext-ClassManager-method-registerPostprocessor'>        /**
-</span>         * {Ext_ClassManager:registerPostprocessor:desc}
+</span>         * {Ext_ClassManager:method-registerPostprocessor:desc}
          *
          * @private
-         * @param {String} name {Ext_ClassManager:registerPostprocessor:param_name}
-         * @param {Function} postprocessor {Ext_ClassManager:registerPostprocessor:param_postprocessor}
+         * @param {String} name {Ext_ClassManager:method-registerPostprocessor:param_name}
+         * @param {Function} postprocessor {Ext_ClassManager:method-registerPostprocessor:param_postprocessor}
          */
         registerPostprocessor: function(name, fn, properties, position, relativeTo) {
             if(!position) {
@@ -886,8 +886,8 @@
 </span>         * {Ext_ClassManager:method-setDefaultPostprocessors:desc}
          *
          * @private
-         * @param {String/Array} postprocessors {Ext_ClassManager:method-setDefaultPostprocessors:desc}
-         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessors:desc}
+         * @param {String/Array} postprocessors {Ext_ClassManager:method-setDefaultPostprocessors:param_postprocessors}
+         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessors:return}
          */
         setDefaultPostprocessors: function(postprocessors) {
             this.defaultPostprocessors = arrayFrom(postprocessors);
@@ -902,10 +902,10 @@
 </span>         * {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
          *
          * @private
-         * @param {String} name {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
-         * @param {String} offset {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
-         * @param {String} relativeName {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
-         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessorPosition:desc}
+         * @param {String} name {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_name}
+         * @param {String} offset {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_offset}
+         * @param {String} relativeName {Ext_ClassManager:method-setDefaultPostprocessorPosition:param_relativeName}
+         * @return {Ext.ClassManager} {Ext_ClassManager:method-setDefaultPostprocessorPosition:return}
          */
         setDefaultPostprocessorPosition: function(name, offset, relativeName) {
             var defaultPostprocessors = this.defaultPostprocessors,
@@ -998,7 +998,7 @@
 <span id='Ext-Class-cfg-alias'>    /**
 </span>     * @cfg {String[]} alias
      * @member Ext.Class
-     * {Ext_Class:config-alias:desc}
+     * {Ext_Class:cfg-alias:desc}
      */
     Manager.registerPostprocessor('alias', function(name, cls, data) {
         var aliases = data.alias,
@@ -1017,7 +1017,7 @@
 <span id='Ext-Class-cfg-singleton'>    /**
 </span>     * @cfg {Boolean} singleton
      * @member Ext.Class
-     * {Ext_Class:config-singleton:desc}
+     * {Ext_Class:cfg-singleton:desc}
      */
     Manager.registerPostprocessor('singleton', function(name, cls, data, fn) {
         fn.call(this, name, new cls(), data);
@@ -1029,7 +1029,7 @@
 <span id='Ext-Class-cfg-alternateClassName'>    /**
 </span>     * @cfg {String/String[]} alternateClassName
      * @member Ext.Class
-     * {Ext_Class:config-alternateClassName:desc}
+     * {Ext_Class:cfg-alternateClassName:desc}
      */
     Manager.registerPostprocessor('alternateClassName', function(name, cls, data) {
         var alternates = data.alternateClassName,
@@ -1101,7 +1101,7 @@
         // {{{ getClassName
 
 <span id='Ext-method-getClassName'>        /**
-</span>         * Convenient shorthand, see {@link Ext.ClassManager#getName}
+</span>         * {Ext:method-getClassName:desc}
          * @member Ext
          * @method getClassName
          */
@@ -1111,9 +1111,9 @@
         // {{{ getDisplayName
 
 <span id='Ext-ClassManager-method-getDisplayName'>        /**
-</span>         * {Ext:method-getDisplayName:desc}
-         * @param {Object} object {Ext:mmethod-getDisplayName:param_object}
-         * @return {String} {Ext:mmethod-getDisplayName:return}
+</span>         * {Ext_ClassManager:method-getDisplayName:desc}
+         * @param {Object} object {Ext_ClassManager:method-getDisplayName:param_object}
+         * @return {String} {Ext_ClassManager:method-getDisplayName:return}
          */
         getDisplayName: function(object) {
             if(object) {
@@ -1148,8 +1148,8 @@
 
 <span id='Ext-method-namespace'>        /**
 </span>         * {Ext:method-namespace:desc}
-         * @param {String...} namespaces {Ext:nmethod-namespace:param_namespaces}
-         * @return {Object} {Ext:nmethod-namespace:return}
+         * @param {String...} namespaces {Ext:method-namespace:param_namespaces}
+         * @return {Object} {Ext:method-namespace:return}
          * @member Ext
          * @method namespace
          */
@@ -1161,7 +1161,6 @@
 
 <span id='Ext-method-ns'>    /**
 </span>     * {Ext:method-ns:desc}
-     * @inheritdoc Ext#namespace
      * @member Ext
      * @method ns
      */
