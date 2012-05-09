@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// {{{ Ext.Version
+
+<span id='Ext-Version'>/**
+</span> * @class Ext.Version
+ *
+ * {Ext_Version:doc-contents}
+ */
+
+(function() {
+
+    // Current core version
+    var version = '0.1.0', Version;
+
+    Ext.Version = Version = Ext.extend(Object, {
+
+        // {{{ constructor
+
+<span id='Ext-Version-method-constructor'>        /**
+</span>         * @param {String/Number} version {Ext_Version:method-constructor:param_version}
+         * @return {Ext.Version} {Ext_Version:method-constructor:return}
+         */
+        constructor: function(version) {
+
+            var parts, releaseStartIndex;
+
+            if(version instanceof Version) {
+                return version;
+            }
+
+            this.version = this.shortVersion = String(version).toLowerCase().replace(/_/g, '.').replace(/[\-+]/g, '');
+
+            releaseStartIndex = this.version.search(/([^\d\.])/);
+
+            if(releaseStartIndex !== -1) {
+                this.release = this.version.substr(releaseStartIndex, version.length);
+                this.shortVersion = this.version.substr(0, releaseStartIndex);
+            }
+
+            this.shortVersion = this.shortVersion.replace(/[^\d]/g, '');
+
+            parts = this.version.split('.');
+
+            this.major = parseInt(parts.shift() || 0, 10);
+            this.minor = parseInt(parts.shift() || 0, 10);
+            this.patch = parseInt(parts.shift() || 0, 10);
+            this.build = parseInt(parts.shift() || 0, 10);
+
+            return this;
+        },
+
+        // }}}
+        // {{{ toString
+
+<span id='Ext-Version-method-toString'>        /**
+</span>         * {Ext_Version:method-toString:desc}
+         * @private
+         * @return {String} {Ext_Version:method-toString:return}
+         */
+        toString: function() {
+            return this.version;
+        },
+
+        // }}}
+        // {{{ valueOf
+
+<span id='Ext-Version-method-valueOf'>        /**
+</span>         * {Ext_Version:method-valueOf:desc}
+         * @private
+         * @return {String} {Ext_Version:method-valueOf:return}
+         */
+        valueOf: function() {
+            return this.version;
+        },
+
+        // }}}
+        // {{{ getMajor
+
+<span id='Ext-Version-method-getMajor'>        /**
+</span>         * {Ext_Version:method-getMajor:desc}
+         * @return {Number} {Ext_Version:method-getMajor:return}
+         */
+        getMajor: function() {
+            return this.major || 0;
+        },
+
+        // }}}
+        // {{{ getMinor
+
+<span id='Ext-Version-method-getMinor'>        /**
+</span>         * {Ext_Version:method-getMinor:desc}
+         * @return {Number} {Ext_Version:method-getMinor:return}
+         */
+        getMinor: function() {
+            return this.minor || 0;
+        },
+
+        // }}}
+        // {{{ getPatch
+
+<span id='Ext-Version-method-getPatch'>        /**
+</span>         * {Ext_Version:method-getPatch:desc}
+         * @return {Number} {Ext_Version:method-getPatch:return}
+         */
+        getPatch: function() {
+            return this.patch || 0;
+        },
+
+        // }}}
+        // {{{ getBuild
+
+<span id='Ext-Version-method-getBuild'>        /**
+</span>         * {Ext_Version:method-getBuild:desc}
+         * @return {Number} {Ext_Version:method-getBuild:return}
+         */
+        getBuild: function() {
+            return this.build || 0;
+        },
+
+        // }}}
+        // {{{ getRelease
+
+<span id='Ext-Version-method-getRelease'>        /**
+</span>         * {Ext_Version:method-getRelease:desc}
+         * @return {Number} {Ext_Version:method-getRelease:return}
+         */
+        getRelease: function() {
+            return this.release || '';
+        },
+
+        // }}}
+        // {{{ isGreaterThan
+
+<span id='Ext-Version-method-isGreaterThan'>        /**
+</span>         * {Ext_Version:method-isGreaterThan:desc}
+         * @param {String/Number} target {Ext_Version:method-isGreaterThan:param_target}
+         * @return {Boolean} {Ext_Version:method-isGreaterThan:return}
+         */
+        isGreaterThan: function(target) {
+            return Version.compare(this.version, target) === 1;
+        },
+
+        // }}}
+        // {{{ isGreaterThanOrEqual
+
+<span id='Ext-Version-method-isGreaterThanOrEqual'>        /**
+</span>         * {Ext_Version:method-isGreaterThanOrEqual:desc}
+         * @param {String/Number} target {Ext_Version:method-isGreaterThanOrEqual:param_target}
+         * @return {Boolean} {Ext_Version:method-isGreaterThanOrEqual:return}
+         */
+        isGreaterThanOrEqual: function(target) {
+            return Version.compare(this.version, target) &gt;= 0;
+        },
+
+        // }}}
+        // {{{ isLessThan
+
+<span id='Ext-Version-method-isLessThan'>        /**
+</span>         * {Ext_Version:method-isLessThan:desc}
+         * @param {String/Number} target {Ext_Version:method-isLessThan:param_target}
+         * @return {Boolean} {Ext_Version:method-isLessThan:return}
+         */
+        isLessThan: function(target) {
+            return Version.compare(this.version, target) === -1;
+        },
+
+        // }}}
+        // {{{ isLessThanOrEqual
+
+<span id='Ext-Version-method-isLessThanOrEqual'>        /**
+</span>         * {Ext_Version:method-isLessThanOrEqual:desc}
+         * @param {String/Number} target {Ext_Version:method-isLessThanOrEqual:param_target}
+         * @return {Boolean} {Ext_Version:method-isLessThanOrEqual:return}
+         */
+        isLessThanOrEqual: function(target) {
+            return Version.compare(this.version, target) &lt;= 0;
+        },
+
+        // }}}
+        // {{{ equals
+
+<span id='Ext-Version-method-equals'>        /**
+</span>         * {Ext_Version:method-equals:desc}
+         * @param {String/Number} target {Ext_Version:method-equals:param_target}
+         * @return {Boolean} {Ext_Version:method-equals:return}
+         */
+        equals: function(target) {
+            return Version.compare(this.version, target) === 0;
+        },
+
+        // }}}
+        // {{{ match
+
+<span id='Ext-Version-method-match'>        /**
+</span>         * {Ext_Version:method-match:desc}
+         * @param {String/Number} target {Ext_Version:method-match:param_target}
+         * @return {Boolean} {Ext_Version:method-match:return}
+         */
+        match: function(target) {
+            target = String(target);
+            return this.version.substr(0, target.length) === target;
+        },
+
+        // }}}
+        // {{{ toArray
+
+<span id='Ext-Version-method-toArray'>        /**
+</span>         * {Ext_Version:method-toArray:desc}
+         * @return {Number[]}
+         */
+        toArray: function() {
+            return [this.getMajor(), this.getMinor(), this.getPatch(), this.getBuild(), this.getRelease()];
+        },
+
+        // }}}
+        // {{{ getShortVersion
+
+<span id='Ext-Version-method-getShortVersion'>        /**
+</span>         * {Ext_Version:method-getShortVersion:desc}
+         * @return {String}
+         */
+        getShortVersion: function() {
+            return this.shortVersion;
+        },
+
+        // }}}
+        // {{{ gt
+
+<span id='Ext-Version-method-gt'>        /**
+</span>         * {Ext_Version:method-gt:desc}
+         * @param {String/Number} target
+         * @return {Boolean}
+         */
+        gt: function() {
+            return this.isGreaterThan.apply(this, arguments);
+        },
+
+        // }}}
+        // {{{ lt
+
+<span id='Ext-Version-method-lt'>        /**
+</span>         * {Ext_Version:method-lt:desc}
+         * @param {String/Number} target
+         * @return {Boolean}
+         */
+        lt: function() {
+            return this.isLessThan.apply(this, arguments);
+        },
+
+        // }}}
+        // {{{ gtEq
+
+<span id='Ext-Version-method-gtEq'>        /**
+</span>         * {Ext_Version:method-gtEq:desc}
+         * @param {String/Number} target
+         * @return {Boolean}
+         */
+        gtEq: function() {
+            return this.isGreaterThanOrEqual.apply(this, arguments);
+        },
+
+        // }}}
+        // {{{ ltEq
+
+<span id='Ext-Version-method-ltEq'>        /**
+</span>         * {Ext_Version:method-ltEq:desc}
+         * @param {String/Number} target
+         * @return {Boolean}
+         */
+        ltEq: function() {
+            return this.isLessThanOrEqual.apply(this, arguments);
+        }
+
+        // }}}
+
+    });
+
+    Ext.apply(Version, {
+
+        // @private
+        releaseValueMap: {
+            'dev': -6,
+            'alpha': -5,
+            'a': -5,
+            'beta': -4,
+            'b': -4,
+            'rc': -3,
+            '#': -2,
+            'p': -1,
+            'pl': -1
+        },
+
+<span id='Ext-Version-static-method-getComponentValue'>        /**
+</span>         * {Ext_Version:method-getComponentValue:desc}
+         * @static
+         * @param {Object} value {Ext_Version:method-getComponentValue:param_value}
+         * @return {Object}
+         */
+        getComponentValue: function(value) {
+            return !value ? 0 : (isNaN(value) ? this.releaseValueMap[value] || value : parseInt(value, 10));
+        },
+
+<span id='Ext-Version-static-method-compare'>        /**
+</span>         * {Ext_Version:method-compare:desc}
+         * @static
+         * @param {String} current {Ext_Version:method-compare:param_current}
+         * @param {String} target {Ext_Version:method-compare:param_target}
+         * @return {Number} {Ext_Version:method-compare:return}
+         */
+        compare: function(current, target) {
+            var currentValue, targetValue, i;
+
+            current = new Version(current).toArray();
+            target = new Version(target).toArray();
+
+            for(i = 0; i &lt; Math.max(current.length, target.length); i++) {
+                currentValue = this.getComponentValue(current[i]);
+                targetValue = this.getComponentValue(target[i]);
+
+                if(currentValue &lt; targetValue) {
+                    return -1;
+                } else if(currentValue &gt; targetValue) {
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
+    });
+
+    Ext.apply(Ext, {
+
+        // {{{ versions
+
+<span id='Ext-Version-property-versions'>        /**
+</span>         * @private
+         */
+        versions: {},
+
+        // }}}
+        // {{{ lastRegisteredVersion
+
+<span id='Ext-Version-property-lastRegisteredVersion'>        /**
+</span>         * @private
+         */
+        lastRegisteredVersion: null,
+
+        // }}}
+        // {{{ setVersion
+
+<span id='Ext-Version-method-setVersion'>        /**
+</span>         * {Ext_Version:method-setVersion:desc}
+         *
+         * @param {String} packageName {Ext_Version:method-setVersion:param_pacageName}
+         * @param {String/Ext.Version} version {Ext_Version:method-setVersion:param_version}
+         * @return {Ext}
+         */
+        setVersion: function(packageName, version) {
+
+            Ext.versions[packageName] = new Version(version);
+            Ext.lastRegisteredVersion = Ext.versions[packageName];
+
+            return this;
+        },
+
+        // }}}
+        // {{{ getVersion
+
+<span id='Ext-Version-method-getVersion'>        /**
+</span>         * {Ext_Version:method-getVersion:desc}
+         * @param {String} packageName {Ext_Version:method-getVersion:param_packageName}
+         * @return {Ext.Version} {Ext_Version:method-getVersion:return}
+         */
+        getVersion: function(packageName) {
+            if(packageName === undefined) {
+                return Ext.lastRegisteredVersion;
+            }
+
+            return Ext.versions[packageName];
+        },
+
+        // }}}
+        // {{{ deprecate
+
+<span id='Ext-Version-method-deprecate'>        /**
+</span>         * {Ext_Version:method-deprecate:desc}
+         * @param {String} packageName {Ext_Version:method-deprecate:param_packageName}
+         * @param {String} since {Ext_Version:method-deprecate:param_since}
+         * @param {Function} closure {Ext_Version:method-deprecate:param_closure}
+         * @param {Object} scope {Ext_Version:method-deprecate:param_scope}
+         * @markdown
+         */
+        deprecate: function(packageName, since, closure, scope) {
+            if(Version.compare(Ext.getVersion(packageName), since) &lt; 1) {
+                closure.call(scope);
+            }
+        }
+
+        // }}}
+
+    });
+
+    Ext.setVersion('server', version);
+
+}());
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>

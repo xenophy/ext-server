@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// {{{ Ext.app.module.Module
+
+<span id='Ext-app-module-Module'>/**
+</span> * @class Ext.app.module.Module
+ *
+ * {Ext_app_module_Module:doc-contents}
+ */
+Ext.define('Ext.app.module.Module', {
+
+    // {{{ config
+
+    config: {
+
+        connName: 'default'
+
+    },
+
+    // }}}
+    // {{{ constructor
+
+    constructor: function(config) {
+
+        config = config || {};
+
+        Ext.apply(this, config);
+        Ext.applyIf(this, {
+            useTable: null,
+            autoConnect: true
+        });
+
+        // スーパークラスメソッドコール
+        this.callParent(arguments);
+    },
+
+    // }}}
+    // {{{ init
+
+    init: function(config, next) {
+
+        if(this.useTable) {
+
+            var dbconf, classes;
+
+            classes = config.config.db.dbClasses;
+            dbconf  = config.config.db[this.getConnName()];
+
+            if(!dbconf) {
+                // TODO: ERROR unknown connection error
+                next();
+                return;
+            }
+
+            // create database class
+            var cls;
+
+            cls = classes[dbconf.adapter.toLowerCase()];
+            this.conn = Ext.create(cls, dbconf);
+
+            // auto connect
+            if(this.autoConnect) {
+                this.conn.connect(next);
+            } else {
+                next();
+            }
+
+        } else {
+            next();
+        }
+
+    },
+
+    // }}}
+    // {{{ beginTrans
+
+    beginTrans: function(next) {
+
+        if(this.conn.beginTrans) {
+            this.conn.beginTrans(next);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'beginTrans' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ commit
+
+    commit: function(next) {
+
+        if(this.conn.commit) {
+            this.conn.commit(next);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'commit' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ createCollection
+
+    createCollection: function(name, next) {
+
+        if(this.conn.createCollection) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return me.conn.createCollection.call(this, name, fn);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'createCollection' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ createDatabase
+
+    createDatabase: function(dbname, fn) {
+
+        if(this.conn.createDatabase) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.createDatabase.call(this, dbname, fn);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'createDatabase' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ delete
+
+    delete: function(o, fn) {
+        if(me.conn.delete) {
+            me.conn.delete(me.usetable, o, fn);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new error(&quot;'delete' is not support driver&quot;);
+        }
+    },
+
+    // }}}
+    // {{{ dropCollection
+
+    dropCollection: function(name, fn) {
+
+        if(this.conn.dropCollection) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.dropCollection.call(this, name, fn);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'dropCollection' is not support driver&quot;);
+        }
+    },
+
+    // }}}
+    // {{{ dropDatabase
+
+    dropDatabase: function(dbname, fn) {
+
+        if(this.conn.dropDatabase) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.dropDatabase.call(this, dbname, fn);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'createDatabase' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ find
+
+    find: function(o, next) {
+
+        if(this.conn.find) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.find.call(this, this.useTable, arguments);
+            } else {
+                this.conn.find(this.useTable, o, next);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'find' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ findAndModify
+
+    findAndModify: function(o, fn) {
+
+        if(this.conn.findAndModify) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.findAndModify.call(this, this.useTable, arguments);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'findAndModify' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ insert
+
+    insert: function(o, fn) {
+
+        if(this.conn.insert) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.insert.call(this, this.useTable, arguments);
+            } else {
+                this.conn.insert(this.useTable, o, fn);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'insert' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ query
+
+    query: function(sql, fn) {
+
+        if(this.conn.query) {
+            this.conn.query(sql, fn);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'query' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ remove
+
+    remove: function(o, fn) {
+
+        if(this.conn.remove) {
+
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.remove.call(this, this.useTable, arguments);
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'remove' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ rollback
+
+    rollback: function(fn) {
+
+        if(this.conn.rollback) {
+            this.conn.rollback(fn);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'rollback' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ save
+
+    save: function(o, fn) {
+
+        if(this.conn.save) {
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.save.call(this, this.useTable, arguments);
+            }
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'save' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ set
+
+    set: function(o, fn) {
+
+        if(this.conn.set) {
+            this.conn.set(this.useTable, o, fn);
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'set' is not support driver&quot;);
+        }
+
+    },
+
+    // }}}
+    // {{{ update
+
+    update: function(o, fn) {
+
+        if(this.conn.update) {
+            if(this.conn.adapter === 'mongodb') {
+                return this.conn.update.call(this, this.useTable, arguments);
+            } else {
+                this.conn.update(this.useTable, o, fn);
+            }
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'update' is not support driver&quot;);
+        }
+
+    }
+
+    // }}}
+
+});
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>
