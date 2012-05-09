@@ -36,6 +36,7 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.1.x
 * Bug fixes
+* Chained CA Support for SSL.
 * Socket.io(ws.action.js/wss.action.js) enable use modules(DB) and Session share.
 
 ### Version 0.2.x
