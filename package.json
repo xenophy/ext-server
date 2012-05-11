@@ -7,7 +7,7 @@
     "repository"    : "git://github.com/xenophy/ext-server.git",
     "main"          : "./lib/ext-server",
     "engines": {
-        "node": ">= 0.6.15"
+        "node": ">= 0.6.17"
     },
     "dependencies"  : {
         "connect"       : ">= 2.2.1",
@@ -19,6 +19,7 @@
         "swig"          : ">= 0.11.2",
         "ejs"           : ">= 0.7.1",
         "nodemailer"    : ">= 0.3.19",
-        "debug"         : ">= 0.6.0"
+        "debug"         : ">= 0.6.0",
+        "http-proxy"    : ">= 0.8.0"
     }
 }

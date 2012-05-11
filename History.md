@@ -1,3 +1,9 @@
+
+# 0.1.1 (XXXX/XX/XX)
+======================
+  * Add     Chained CA Support for SSL.
+
+
 # 0.1.0 (2012/05/07)
 ======================
   * Change  turned off an automatic escape of Swig.
