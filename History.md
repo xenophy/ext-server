@@ -1,7 +1,8 @@
-
-# 0.1.1 (XXXX/XX/XX)
+# 0.1.1 (2012/05/11)
 ======================
   * Add     Chained CA Support for SSL.
+  * Change  change it than node version 0.6.17
+  * Add     add Ext.createProxy method. Simple reverse proxy.
 
 
 # 0.1.0 (2012/05/07)
