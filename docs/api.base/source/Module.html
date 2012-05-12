@@ -36,9 +36,14 @@ Ext.define('Ext.app.module.Module', {
 
     config: {
 
+<span id='Ext-app-module-Module-cfg-connName'>        /**
+</span>         * @cfg {String} connName
+         * {Ext_app_module_Module:cfg-connName:desc}
+         */
         connName: 'default'
 
     },
+
 
     // }}}
     // {{{ constructor
@@ -49,7 +54,16 @@ Ext.define('Ext.app.module.Module', {
 
         Ext.apply(this, config);
         Ext.applyIf(this, {
+<span id='Ext-app-module-Module-cfg-useTable'>            /**
+</span>             * @cfg {String} useTable
+             * {Ext_app_module_Module:cfg-useTable:desc}
+             */
             useTable: null,
+
+<span id='Ext-app-module-Module-cfg-autoConnect'>            /**
+</span>             * @cfg {String} autoConnect
+             * {Ext_app_module_Module:cfg-autoConnect:desc}
+             */
             autoConnect: true
         });
 
@@ -60,6 +74,11 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ init
 
+<span id='Ext-app-module-Module-method-init'>    /**
+</span>     * @private
+     * @param config
+     * @param next
+     */
     init: function(config, next) {
 
         if(this.useTable) {
@@ -97,10 +116,15 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ beginTrans
 
-    beginTrans: function(next) {
+<span id='Ext-app-module-Module-method-beginTrans'>    /**
+</span>     * {Ext_app_module_Module:method-beginTrans:desc}
+     * 
+     * @param fn {Ext_app_module_Module:method-beginTrans:param_fn}
+     */
+    beginTrans: function(fn) {
 
         if(this.conn.beginTrans) {
-            this.conn.beginTrans(next);
+            this.conn.beginTrans(fn);
         } else {
             // このドライバーでは実装されていないことを通知
             throw new Error(&quot;'beginTrans' is not support driver&quot;);
@@ -111,10 +135,15 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ commit
 
-    commit: function(next) {
+<span id='Ext-app-module-Module-method-commit'>    /**
+</span>     * {Ext_app_module_Module:method-commit:desc}
+     * 
+     * @param fn {Ext_app_module_Module:method-commit:param_fn}
+     */
+    commit: function(fn) {
 
         if(this.conn.commit) {
-            this.conn.commit(next);
+            this.conn.commit(fn);
         } else {
             // このドライバーでは実装されていないことを通知
             throw new Error(&quot;'commit' is not support driver&quot;);
@@ -125,7 +154,13 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ createCollection
 
-    createCollection: function(name, next) {
+<span id='Ext-app-module-Module-method-createCollection'>    /**
+</span>     * {Ext_app_module_Module:method-createCollection:desc}
+     * 
+     * @param name {Ext_app_module_Module:method-createCollection:param_name}
+     * @param fn {Ext_app_module_Module:method-createCollection:param_fn}
+     */
+    createCollection: function(name, fn) {
 
         if(this.conn.createCollection) {
 
@@ -143,12 +178,18 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ createDatabase
 
-    createDatabase: function(dbname, fn) {
+<span id='Ext-app-module-Module-method-createDatabase'>    /**
+</span>     * {Ext_app_module_Module:method-createDatabase:desc}
+     * 
+     * @param name {Ext_app_module_Module:method-createDatabase:param_name}
+     * @param fn {Ext_app_module_Module:method-createDatabase:param_fn}
+     */
+    createDatabase: function(name, fn) {
 
         if(this.conn.createDatabase) {
 
             if(this.conn.adapter === 'mongodb') {
-                return this.conn.createDatabase.call(this, dbname, fn);
+                return this.conn.createDatabase.call(this, name, fn);
             }
 
         } else {
@@ -158,21 +199,16 @@ Ext.define('Ext.app.module.Module', {
 
     },
 
-    // }}}
-    // {{{ delete
-
-    delete: function(o, fn) {
-        if(me.conn.delete) {
-            me.conn.delete(me.usetable, o, fn);
-        } else {
-            // このドライバーでは実装されていないことを通知
-            throw new error(&quot;'delete' is not support driver&quot;);
-        }
-    },
 
     // }}}
     // {{{ dropCollection
 
+<span id='Ext-app-module-Module-method-dropCollection'>    /**
+</span>     * {Ext_app_module_Module:method-dropCollection:desc}
+     * 
+     * @param name {Ext_app_module_Module:method-dropCollection:param_name}
+     * @param fn {Ext_app_module_Module:method-dropCollection:param_fn}
+     */
     dropCollection: function(name, fn) {
 
         if(this.conn.dropCollection) {
@@ -190,6 +226,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ dropDatabase
 
+<span id='Ext-app-module-Module-method-dropDatabase'>    /**
+</span>     * {Ext_app_module_Module:method-dropDatabase:desc}
+     * 
+     * @param name {Ext_app_module_Module:method-dropDatabase:param_name}
+     * @param fn {Ext_app_module_Module:method-dropDatabase:param_fn}
+     */
     dropDatabase: function(dbname, fn) {
 
         if(this.conn.dropDatabase) {
@@ -208,14 +250,20 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ find
 
-    find: function(o, next) {
+<span id='Ext-app-module-Module-method-find'>    /**
+</span>     * {Ext_app_module_Module:method-find:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-find:param_o}
+     * @param fn {Ext_app_module_Module:method-find:param_fn}
+     */
+    find: function(o, fn) {
 
         if(this.conn.find) {
 
             if(this.conn.adapter === 'mongodb') {
                 return this.conn.find.call(this, this.useTable, arguments);
             } else {
-                this.conn.find(this.useTable, o, next);
+                this.conn.find(this.useTable, o, fn);
             }
 
         } else {
@@ -228,6 +276,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ findAndModify
 
+<span id='Ext-app-module-Module-method-findAndModify'>    /**
+</span>     * {Ext_app_module_Module:method-findAndModify:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-findAndModify:param_o}
+     * @param fn {Ext_app_module_Module:method-findAndModify:param_fn}
+     */
     findAndModify: function(o, fn) {
 
         if(this.conn.findAndModify) {
@@ -246,6 +300,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ insert
 
+<span id='Ext-app-module-Module-method-insert'>    /**
+</span>     * {Ext_app_module_Module:method-insert:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-insert:param_o}
+     * @param fn {Ext_app_module_Module:method-insert:param_fn}
+     */
     insert: function(o, fn) {
 
         if(this.conn.insert) {
@@ -266,6 +326,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ query
 
+<span id='Ext-app-module-Module-method-query'>    /**
+</span>     * {Ext_app_module_Module:method-query:desc}
+     * 
+     * @param sql {Ext_app_module_Module:method-query:param_sql}
+     * @param fn {Ext_app_module_Module:method-query:param_fn}
+     */
     query: function(sql, fn) {
 
         if(this.conn.query) {
@@ -280,15 +346,24 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ remove
 
+<span id='Ext-app-module-Module-method-remove'>    /**
+</span>     * {Ext_app_module_Module:method-remove:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-remove:param_o}
+     * @param fn {Ext_app_module_Module:method-remove:param_fn}
+     */
     remove: function(o, fn) {
+        var me = this;
 
-        if(this.conn.remove) {
-
-            if(this.conn.adapter === 'mongodb') {
-                return this.conn.remove.call(this, this.useTable, arguments);
+        if(me.conn.remove) {
+            if(me.conn.adapter === 'mongodb') {
+                return me.conn.remove.call(me, me.useTable, arguments);
+            } else {
+                me.conn.remove(me.useTable, o, fn);
             }
 
         } else {
+
             // このドライバーでは実装されていないことを通知
             throw new Error(&quot;'remove' is not support driver&quot;);
         }
@@ -298,6 +373,11 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ rollback
 
+<span id='Ext-app-module-Module-method-rollback'>    /**
+</span>     * {Ext_app_module_Module:method-rollback:desc}
+     * 
+     * @param fn {Ext_app_module_Module:method-rollback:param_fn}
+     */
     rollback: function(fn) {
 
         if(this.conn.rollback) {
@@ -312,6 +392,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ save
 
+<span id='Ext-app-module-Module-method-save'>    /**
+</span>     * {Ext_app_module_Module:method-save:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-save:param_o}
+     * @param fn {Ext_app_module_Module:method-save:param_fn}
+     */
     save: function(o, fn) {
 
         if(this.conn.save) {
@@ -328,6 +414,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ set
 
+<span id='Ext-app-module-Module-method-set'>    /**
+</span>     * {Ext_app_module_Module:method-set:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-set:param_o}
+     * @param fn {Ext_app_module_Module:method-set:param_fn}
+     */
     set: function(o, fn) {
 
         if(this.conn.set) {
@@ -342,6 +434,12 @@ Ext.define('Ext.app.module.Module', {
     // }}}
     // {{{ update
 
+<span id='Ext-app-module-Module-method-update'>    /**
+</span>     * {Ext_app_module_Module:method-update:desc}
+     * 
+     * @param o {Ext_app_module_Module:method-update:param_o}
+     * @param fn {Ext_app_module_Module:method-update:param_fn}
+     */
     update: function(o, fn) {
 
         if(this.conn.update) {

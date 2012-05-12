@@ -121,9 +121,9 @@ module.exports = {
     },
 
     $removeRec: function(id, cb) {
-        var o = {id: id}
+        var o = {id: id};
 
-        this.delete(o, function(err) {
+        this.remove(o, function(err) {
             cb(id);
         });
     }
