@@ -857,7 +857,12 @@
         // }}}
         // {{{ debug
 
-        debug: require('debug')
+        debug: require('debug'),
+
+        // }}}
+        // {{{ http-proxy
+
+        'http-proxy': require('http-proxy')
 
         // }}}
 
@@ -874,6 +879,7 @@
     // require classes
     [
         'Ext.app.Application',
+        'Ext.server.proxy.Reverse',
         'Ext.database.Manager',
         'Ext.logger.Logger'
 

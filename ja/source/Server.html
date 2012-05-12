@@ -246,10 +246,8 @@ Ext.define('Ext.server.Server', {
 
                 if(config.ssl) {
 
-                    var httpsServer = https.createServer({
-                        key: config.ssl.key,
-                        cert: config.ssl.cert
-                    }, app);
+                    var httpsServer = https.createServer(config.ssl, app);
+
                     httpsServer.listen(config.ssl.port || 443);
 
                     if(config.wss) {

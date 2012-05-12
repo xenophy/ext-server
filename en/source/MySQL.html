@@ -419,6 +419,10 @@ Ext.define('Ext.database.MySQL', {
                     sql += ', ';
                 }
 
+                if(Ext.isString(value)) {
+                    value = '&quot;' + value + '&quot;';
+                }
+
                 sql += key + ' = ' + value;
                 i++;
             }
@@ -438,25 +442,19 @@ Ext.define('Ext.database.MySQL', {
     },
 
     // }}}
-    // {{{ delete
+    // {{{ remove
 
-    delete: function(table, o, fn) {
+    remove: function(table, o, fn) {
 
         var me = this, where = '', sql = '';
 
         sql += 'DELETE FROM ' + table;
-
         where = ' ' + Ext.database.MySQL['where'](o);
-
         sql += where;
-
-        // {{{ delete
 
         me.driver.query(sql, function(err) {
             fn(err);
         });
-
-        // }}}
 
     },
 
@@ -497,7 +495,6 @@ Ext.define('Ext.database.MySQL', {
         });
 
         sql += ')';
-        console.log(sql);
 
         // {{{ replace into
 
