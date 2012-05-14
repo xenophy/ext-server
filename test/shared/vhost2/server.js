@@ -4,6 +4,10 @@ Ext.application({
     app: {
         vhost: function(host) {
 
+            console.log(
+            host.substr(0 - 'xeadexpress.com'.length)
+            );
+
             if(host === 'foo.com') {
                 return 'foo';
             }

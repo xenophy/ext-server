@@ -1,6 +1,7 @@
-# 0.1.2 (XXXX/XX/XX)
+# 0.1.2 (2012/05/14)
 ======================
-
+  * Change  Reverse Proxy Server Config style to {host:xxxx, port:xxxx} changed.
+  * Add     Support, WebSocket balance in Reverse Proxy.
 
 
 # 0.1.1 (2012/05/11)

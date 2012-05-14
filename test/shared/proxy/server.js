@@ -9,9 +9,9 @@ Ext.createProxy({
         cert: fs.readFileSync('./ryans-cert.pem')
     },
     servers: [
-        '192.168.0.10:8124',
-        '192.168.0.11:8124',
-        '192.168.0.12:8124'
+        { host: '192.168.0.1', port: '8124' },
+        { host: '192.168.0.2', port: '8124' },
+        { host: '129.168.0.3', port: '8124' }
     ]
 }).listen(5000);
 
