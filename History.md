@@ -1,3 +1,10 @@
+# 0.1.5 (2012/05/XX)
+======================
+  * Change  "onLaunch" method, change the scope at the method call.
+  * Add     became able to generate a user module class, "module.exports='your module class name';"
+  * Add     become able to custom bind name, "{name:'mod name', bind:'bind name', conn:'conn name'}"
+
+
 # 0.1.4 (2012/05/14)
 ======================
   * Add     MySQL add 'end' method. connection does not close it if you do not call end method.
