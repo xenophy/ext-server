@@ -1,3 +1,8 @@
+# 0.1.3 (2012/05/14)
+======================
+  * Change  MySQL, disable Connection Pooling.
+
+
 # 0.1.2 (2012/05/14)
 ======================
   * Change  Reverse Proxy Server Config style to {host:xxxx, port:xxxx} changed.
