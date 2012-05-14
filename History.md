@@ -1,6 +1,7 @@
 # 0.1.4 (2012/05/XX)
 ======================
   * Add     MySQL add 'end' method. connection does not close it if you do not call end method.
+  * Add     enable reference a socket object by this.socket of the user event handler.
 
 
 # 0.1.3 (2012/05/14)

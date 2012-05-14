@@ -1,7 +1,11 @@
 
-var socket = io.connect('https://localhost');
+var socket = io.connect('http://localhost');
+
 socket.on('news', function (data) {
     console.log(data);
-    socket.emit('MyEvent', { my: 'data' });
 });
+
+function fireMyEvent() {
+    socket.emit('MyEvent', { my: 'data' });
+};
 

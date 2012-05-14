@@ -2,7 +2,9 @@
 module.exports = {
 
     connect: function(socket) {
+
         socket.emit('news', { hello: 'world' });
+
     },
 
     disconnect: function() {
@@ -10,7 +12,12 @@ module.exports = {
     },
 
     onMyEvent: function(data) {
-        console.log(data);
+
+        var socket = this.socket;
+
+        socket.emit('news', { hello: 'world in MyEvent!!' });
+        socket.broadcast.emit('news', { hello: 'world in MyEvent!!' });
+
     }
 
 };
