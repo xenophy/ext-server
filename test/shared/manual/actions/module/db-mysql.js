@@ -19,6 +19,7 @@ module.exports = {
         var me = this;
 
         me.DBMySQL.func(function(fields) {
+            me.DBMySQL.end();
             me.set('users', fields);
             done();
         });

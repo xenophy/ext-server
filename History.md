@@ -1,3 +1,8 @@
+# 0.1.4 (2012/05/XX)
+======================
+  * Add     MySQL add 'end' method. connection does not close it if you do not call end method.
+
+
 # 0.1.3 (2012/05/14)
 ======================
   * Change  MySQL, disable Connection Pooling.
