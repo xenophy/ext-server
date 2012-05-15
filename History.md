@@ -1,4 +1,4 @@
-# 0.1.5 (2012/05/XX)
+# 0.1.5 (2012/05/15)
 ======================
   * Change  "onLaunch" method, change the scope at the method call.
   * Add     became able to generate a user module class, "module.exports='your module class name';"
