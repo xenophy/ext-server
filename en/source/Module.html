@@ -460,11 +460,8 @@ Ext.define('Ext.app.module.Module', {
 
 <span id='Ext-app-module-Module-method-end'>    /**
 </span>     * {Ext_app_module_Module:method-end:desc}
-     *
-     * @param o {Ext_app_module_Module:method-end:param_o}
-     * @param fn {Ext_app_module_Module:method-end:param_fn}
      */
-    end: function(o, fn) {
+    end: function() {
 
         if(this.conn.end) {
 
@@ -477,7 +474,7 @@ Ext.define('Ext.app.module.Module', {
             throw new Error(&quot;'end' is not support driver&quot;);
         }
 
-    },
+    }
 
     // }}}
 
