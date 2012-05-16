@@ -1,3 +1,8 @@
+# 0.1.6 (2012/05/XX)
+======================
+  * Change  need higher than node v0.6.18
+
+
 # 0.1.5 (2012/05/15)
 ======================
   * Change  "onLaunch" method, change the scope at the method call.
