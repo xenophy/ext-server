@@ -78,7 +78,9 @@ Ext.define('Ext.server.Server', {
         }
 
         Ext.apply(this, {
-            config: {}
+            config: {
+                name: config.name
+            }
         });
 
         init = function() {
@@ -241,7 +243,7 @@ Ext.define('Ext.server.Server', {
             next = function() {
 
                 var next = function() {
-                    onLaunch();
+                    onLaunch.call(me);
                 };
 
                 if(config.ssl) {

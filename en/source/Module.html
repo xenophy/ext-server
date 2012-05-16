@@ -453,7 +453,31 @@ Ext.define('Ext.app.module.Module', {
             throw new Error(&quot;'update' is not support driver&quot;);
         }
 
-    }
+    },
+
+    // }}}
+    // {{{ end
+
+<span id='Ext-app-module-Module-method-end'>    /**
+</span>     * {Ext_app_module_Module:method-end:desc}
+     *
+     * @param o {Ext_app_module_Module:method-end:param_o}
+     * @param fn {Ext_app_module_Module:method-end:param_fn}
+     */
+    end: function(o, fn) {
+
+        if(this.conn.end) {
+
+            if(this.conn.adapter === 'mysql') {
+                this.conn.end();
+            }
+
+        } else {
+            // このドライバーでは実装されていないことを通知
+            throw new Error(&quot;'end' is not support driver&quot;);
+        }
+
+    },
 
     // }}}
 
