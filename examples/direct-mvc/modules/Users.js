@@ -9,7 +9,10 @@ module.exports = {
     ],
 
     getAll: function(param, cb) {
-        this.query('SELECT * FROM users', function(err, rs) {
+        var me = this;
+
+        me.query('SELECT * FROM users', function(err, rs) {
+            me.end();
             if(rs) {
                 cb({
                     success: true,
@@ -20,7 +23,10 @@ module.exports = {
     },
 
     getRec: function(id, cb) {
-        this.query('SELECT * FROM users id=' + id, function(err, rs) {
+        var me = this;
+
+        me.query('SELECT * FROM users id=' + id, function(err, rs) {
+            me.end();
             if(rs) {
                 cb({
                     success: true,
@@ -38,7 +44,6 @@ module.exports = {
             params = [params];
         }
         l = params.length;
-        // 非同期で複数レコード挿入するのってどうすんだろ
         Ext.iterate(params, function (param) {
             me.$addRec(param, function(record) {
                 records.push(record);
@@ -57,6 +62,7 @@ module.exports = {
             email: param.email
         };
         me.insert(o, function(err) {
+            me.end();
             // idを付加したオブジェクトを返す
             me.$lastId(function(ret){
                 o.id = ret;
@@ -66,7 +72,10 @@ module.exports = {
     },
 
     $lastId: function (cb) {
-        this.query('SELECT LAST_INSERT_ID()', function(err, ret) {
+        var me = this;
+
+        me.query('SELECT LAST_INSERT_ID()', function(err, ret) {
+            me.end();
             cb(ret);
         });
     },
@@ -91,13 +100,16 @@ module.exports = {
     },
 
     $updateRec: function(param, cb) {
-        var o = {
+        var o, me = this;
+        
+        o = {
             'name': param.name,
             'email': param.email,
             '$where': {id: param.id}
         };
 
-        this.update(o, function(err) {
+        me.update(o, function(err) {
+            me.end();
             cb(param);
         });
     },
@@ -121,9 +133,11 @@ module.exports = {
     },
 
     $removeRec: function(id, cb) {
-        var o = {id: id};
+        var me = this,
+            o = {id: id};
 
-        this.remove(o, function(err) {
+        me.remove(o, function(err) {
+            me.end();
             cb(id);
         });
     }

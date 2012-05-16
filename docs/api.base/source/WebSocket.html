@@ -85,7 +85,10 @@ Ext.define('Ext.server.WebSocket', {
 
             Ext.iterate(me.actionsrc, function(key, method) {
                 if(key.substr(0, 'on'.length) === 'on') {
-                    socket.on(key.substr('on'.length), method);
+                    socket.on(key.substr('on'.length), function() {
+                        this.socket = socket;
+                        method.apply(this, arguments);
+                    });
                 }
             });
 
