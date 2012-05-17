@@ -1,7 +1,8 @@
-# 0.1.6 (2012/05/XX)
+# 0.1.6 (2012/05/18)
 ======================
   * Change  need higher than node v0.6.18
   * Add     add Ext.util.OTP
+  * Add     add Ext.util.GeoIP and auto settiong "res.geoip" object.
 
 
 # 0.1.5 (2012/05/15)
