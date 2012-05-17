@@ -35,15 +35,21 @@ you can browse '**http://localhost:8124**'.
 ## Road Map
 
 ### Version 0.1.x
-* Bug fixes
+* module(db) escape method.
+* enable to select whether connection pooling.
 * Socket.io(ws.action.js/wss.action.js) enable use modules(DB) and Session share.
 
 ### Version 0.2.x
-* Ext Classs System, watch a required file and update it automatically.
+* Bug fixes
 
 ### Version 0.3.x
+* Modules, watch a required file and update it automatically.
+* Ext Classs System, watch a required file and update it automatically.
 * create Ext.shell.Shell base action execute enviroment.
 * create REST Controller.
+
+### Version 0.4.x
+* Bug fixes
 
 ### higher versions.
 * Ext.media.PDF class implement, used by "PDFKit".
