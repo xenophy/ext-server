@@ -14,7 +14,8 @@ Ext.define('AM.view.user.List' ,{
 
     columns: [
         {header: '名前',  dataIndex: 'name',  flex: 1},
-        {header: 'メール', dataIndex: 'email', flex: 1}
+        {header: 'メール', dataIndex: 'email', flex: 1},
+        {header: '紹介', dataIndex: 'bio', flex: 2}
     ]
 });
 

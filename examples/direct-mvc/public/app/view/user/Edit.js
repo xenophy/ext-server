@@ -14,8 +14,7 @@ Ext.define('AM.view.user.Edit', {
     title : 'ユーザー情報の編集',
     layout: 'fit',
     autoShow: true,
-    height: 120,
-    width: 280,
+    width: 480,
 
     initComponent: function() {
         this.items = [
@@ -24,6 +23,10 @@ Ext.define('AM.view.user.Edit', {
                 padding: '5 5 0 5',
                 border: false,
                 style: 'background-color: #fff;',
+
+                defaults: {
+                    anchor: '100%'
+                },
 
                 items: [
                     {
@@ -35,6 +38,11 @@ Ext.define('AM.view.user.Edit', {
                         xtype: 'textfield',
                         name : 'email',
                         fieldLabel: '電子メール'
+                    },
+                    {
+                        xtype: 'textarea',
+                        name : 'bio',
+                        fieldLabel: '紹介'
                     }
                 ]
             }

@@ -11,6 +11,10 @@ Ext.onReady(function() {
     Ext.direct.Manager.addProvider(Ext.app.REMOTING_API);
 });
 
+Ext.Loader.setConfig({
+    enabled: true
+});
+
 Ext.application({
     name: 'AM',
     autoCreateViewport: true,
