@@ -11,7 +11,7 @@ Ext.createProxy({
     servers: [
         { host: '192.168.0.1', port: '8124' },
         { host: '192.168.0.2', port: '8124' },
-        { host: '129.168.0.3', port: '8124' }
+        { host: '192.168.0.3', port: '8124' }
     ]
 }).listen(5000);
 

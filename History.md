@@ -1,3 +1,8 @@
+# 0.1.7 (2012/05/19)
+======================
+  * Add     Reverse Proxy add http header 'X-Forwarded-HTTPS', and 'X-Forwarded-proto'.
+
+
 # 0.1.6 (2012/05/18)
 ======================
   * Change  need higher than node v0.6.18
