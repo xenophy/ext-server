@@ -1,6 +1,6 @@
 # 0.1.7 (2012/05/19)
 ======================
-  * Add     Reverse Proxy add http header 'X-Forwarded-HTTPS', and 'X-Forwarded-proto'.
+  * Add     Reverse Proxy add http header 'x-forwarded-https', and 'x-forwarded-proto'.
 
 
 # 0.1.6 (2012/05/18)
