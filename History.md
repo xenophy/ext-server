@@ -1,3 +1,9 @@
+# 0.1.8 (2012/05/XX)
+======================
+  * Change  validation at connection pooling of MySQL.
+  * Change  Optimize transfer Static Files.
+
+
 # 0.1.7 (2012/05/19)
 ======================
   * Add     Reverse Proxy add http header 'x-forwarded-https', and 'x-forwarded-proto'.
