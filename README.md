@@ -51,6 +51,12 @@ you can browse '**http://localhost:8124**'.
 ### Version 0.4.x
 * Bug fixes
 
+### Version 0.5.x
+* preload cache static files.
+
+### Version 0.6.x
+* Bug fixes
+
 ### higher versions.
 * Ext.media.PDF class implement, used by "PDFKit".
 * Ext.media.Excel/Ext.media.Word/Ext.media.PowerPoint, implement it in reference to "PHP Excel" etc.
