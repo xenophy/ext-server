@@ -37,7 +37,6 @@ you can browse '**http://localhost:8124**'.
 ### Version 0.1.x
 * module(db) escape method.
 * enable to select whether connection pooling.
-* Socket.io(ws.action.js/wss.action.js) enable use modules(DB) and Session share.
 
 ### Version 0.2.x
 * Bug fixes
@@ -45,14 +44,15 @@ you can browse '**http://localhost:8124**'.
 ### Version 0.3.x
 * Modules, watch a required file and update it automatically.
 * Ext Classs System, watch a required file and update it automatically.
-* create Ext.shell.Shell base action execute enviroment.
-* create REST Controller.
+* Socket.io(ws.action.js/wss.action.js) enable use modules(DB) and Session share.
 
 ### Version 0.4.x
 * Bug fixes
 
 ### Version 0.5.x
 * preload cache static files.
+* create Ext.shell.Shell base action execute enviroment.
+* create REST Controller.
 
 ### Version 0.6.x
 * Bug fixes

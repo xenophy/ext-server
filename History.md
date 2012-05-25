@@ -1,3 +1,8 @@
+# 0.1.9 (2012/05/XX)
+======================
+
+
+
 # 0.1.8 (2012/05/24)
 ======================
   * Change  validation at connection pooling of MySQL.
