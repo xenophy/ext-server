@@ -1,6 +1,6 @@
 # 0.1.9 (2012/05/XX)
 ======================
-
+  * Fixed   too many static contents transfer fixed.
 
 
 # 0.1.8 (2012/05/24)
