@@ -36,6 +36,7 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.2.x
 * Bug fixes
+* An error at the time of the Ext Direct use is incomprehensible.
 
 ### Version 0.3.x
 * Modules, watch a required file and update it automatically.

@@ -1,3 +1,8 @@
+# 0.2.1 (2012/05/xx)
+======================
+  * Fixed   Ext Direct Router, send remoting api after send logic.
+
+
 # 0.2.0 (2012/05/29)
 ======================
   * Add     module(db) escape method.
