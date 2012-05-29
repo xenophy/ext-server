@@ -34,10 +34,6 @@ you can browse '**http://localhost:8124**'.
 
 ## Road Map
 
-### Version 0.1.x
-* module(db) escape method.
-* enable to select whether connection pooling.
-
 ### Version 0.2.x
 * Bug fixes
 

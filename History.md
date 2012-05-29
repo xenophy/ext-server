@@ -1,5 +1,8 @@
-# 0.1.10 (2012/05/XX)
+# 0.2.0 (2012/05/29)
 ======================
+  * Add     module(db) escape method.
+  * Fixed   directory index handling fixed.
+  * Fixed   404 Error handling fixed.
 
 
 # 0.1.9 (2012/05/25)
