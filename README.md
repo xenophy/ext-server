@@ -36,7 +36,7 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.2.x
 * Bug fixes
-* capture of the run-time error to easy.
+* Easy to handle a run-time error.
 * brush up Ext Core Classes.
 
 ### Version 0.3.x
