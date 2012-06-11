@@ -36,7 +36,8 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.2.x
 * Bug fixes
-* An error at the time of the Ext Direct use is incomprehensible.
+* capture of the run-time error to easy.
+* brush up Ext Core Classes.
 
 ### Version 0.3.x
 * Modules, watch a required file and update it automatically.
