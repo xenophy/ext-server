@@ -1,4 +1,4 @@
-# 0.2.1 (2012/06/xx)
+# 0.2.1 (2012/06/11)
 ======================
   * Fixed   Ext Direct Router, send remoting api after send logic.
   * Fixed   Module Session for Ext Direct.
