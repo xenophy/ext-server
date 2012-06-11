@@ -36,13 +36,12 @@ you can browse '**http://localhost:8124**'.
 
 ### Version 0.2.x
 * Bug fixes
-* Make easier to handle a run-time error than ever.
-* brush up Ext Core Classes.
 
 ### Version 0.3.x
 * Modules, watch a required file and update it automatically.
 * Ext Classs System, watch a required file and update it automatically.
 * Socket.io(ws.action.js/wss.action.js) enable use modules(DB) and Session share.
+* brush up Ext Core Classes.
 
 ### Version 0.4.x
 * Bug fixes
