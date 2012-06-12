@@ -1,3 +1,9 @@
+# 0.3.0 (2012/06/12)
+======================
+  * Add     Modules, watch a required file and update it automatically.
+  * Add     Ext Classs System, watch a required file and update it automatically.
+
+
 # 0.2.1 (2012/06/11)
 ======================
   * Fixed   Ext Direct Router, send remoting api after send logic.
