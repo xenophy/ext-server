@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+// {{{ Ext.server.view.Util
+
+<span id='Ext-server-view-Util'>/**
+</span> * @class Ext.server.view.Util
+ *
+ * {Ext_server_view_Util:doc-contents}
+ */
+Ext.define('Ext.server.view.Util', {
+
+    // {{{ printErrors
+
+    printErrors: function(res, code, errors, data) {
+
+        var mime    = Ext.$dependencies.mime,
+            swig    = Ext.$dependencies.swig,
+            content = '', data = data || {};
+
+        switch(code) {
+
+            case 403:
+                content = errors.forbidden;
+            break;
+
+            case 404:
+                content = errors.not_found;
+            break;
+
+            case 500:
+                content = errors.internal_server_error;
+            break;
+
+        }
+
+        swig.init({cache: false, autoescape: false});
+        content = swig.compile(content, {})(data).toString();
+
+        res.setHeader(&quot;Content-Type&quot;,   mime.lookup('html'));
+        res.setHeader(&quot;Content-Length&quot;, Buffer.byteLength(content.toString(), 'utf8'));
+        res.setHeader(&quot;Expires&quot;,        &quot;Thu, 01 Dec 1994 16:00:00 GMT&quot;);
+        res.setHeader(&quot;Cache-Control&quot;,  &quot;no-cache, must-revalidate, post-check=0, pre-check=0&quot;);
+        res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
+        res.writeHead(code);
+        res.end(content);
+
+    },
+
+    // }}}
+    // {{{ etag
+
+    etag: function(stat) {
+        return '&quot;' + stat.size + '-' + Number(stat.mtime) + '&quot;';
+    }
+
+    // }}}
+
+});
+
+// }}}
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>

@@ -88,12 +88,20 @@ Ext.define('Ext.server.proxy.Reverse', {
         if(!config.ssl) {
 
             server = require('http').createServer(function(req, res) {
+
                 var proxy = new httpProxy.HttpProxy({ target: getTarget() });
-                proxy.proxyRequest(req,res);
+
+                req.headers['X-Forwarded-proto'] = 'http';
+
+                proxy.proxyRequest(req, res);
             });
 
             server.on('upgrade',function(req, socket, head) {
+
                 var proxy = new httpProxy.HttpProxy({ target: getTarget() });
+
+                req.headers['X-Forwarded-proto'] = 'http';
+
                 proxy.proxyWebSocketRequest(req, socket, head);
             });
 
@@ -102,12 +110,22 @@ Ext.define('Ext.server.proxy.Reverse', {
         } else {
 
             server = require('https').createServer(config.ssl, function(req, res) {
+
                 var proxy = new httpProxy.HttpProxy({ target: getTarget() });
-                proxy.proxyRequest(req,res);
+
+                req.headers['X-Forwarded-HTTPS'] = 'on';
+                req.headers['X-Forwarded-proto'] = 'https';
+
+                proxy.proxyRequest(req, res);
             });
 
             server.on('upgrade',function(req, socket, head) {
+
                 var proxy = new httpProxy.HttpProxy({ target: getTarget() });
+
+                req.headers['X-Forwarded-HTTPS'] = 'on';
+                req.headers['X-Forwarded-proto'] = 'https';
+
                 proxy.proxyWebSocketRequest(req, socket, head);
             });
 

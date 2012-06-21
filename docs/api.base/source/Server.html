@@ -72,7 +72,8 @@ Ext.define('Ext.server.Server', {
 
         config = config || {};
 
-        config.ws   = config.ws || true;
+        config.ws = (config.ws !== false) ? true : false;
+
         if(config.wss !== false) {
             config.wss  = config.wss || (config.ssl ? true : false)
         }
@@ -89,18 +90,14 @@ Ext.define('Ext.server.Server', {
 
             middleware  = [
                 'Favicon',
-                //'BodyParser',
+                'StaticCache',
                 'Compress',
                 'CookieParser',
-                //'Multipart',
                 'Session'
             ];
             app         = Ext.create('Ext.server.Connect');
             port        = config.port || this.$port;
             onLaunch    = config.onLaunch || Ext.emptyFn;
-
-//            debug       = Ext.$dependencies.debug('connect:dispatcher');
-//            env         = process.env.NODE_ENV || 'development';
 
             // init configs
             [
@@ -127,6 +124,7 @@ Ext.define('Ext.server.Server', {
             // Router create.
             this.router = Ext.create('Ext.server.Router');
 
+            // Body Parser
             app.use(Ext.server.Connect.bodyParser());
 
             // vhost setting
@@ -149,7 +147,9 @@ Ext.define('Ext.server.Server', {
                     }
 
                 } else {
+
                     if(vhost.length &gt; 0) {
+
                         Ext.iterate(vhost, function(o) {
 
                             var hostname = o.hostname;
@@ -196,6 +196,18 @@ Ext.define('Ext.server.Server', {
                         Ext.String.format('Ext Server {0}', Ext.getVersion('server').toString())
                     );
                 }
+
+                next();
+            });
+
+            app.use(function(req, res, next) {
+
+                var ip, f;
+
+                ip  = req.headers['x-forwarded-for'] || req.client.remoteAddress;
+                f   = Ext.util.GeoIP.getCountry;
+
+                req.geoip = { code: f(ip, 'code'), code3: f(ip, 'code3'), name: f(ip) };
 
                 next();
             });
