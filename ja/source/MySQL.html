@@ -45,16 +45,17 @@ Ext.define('Ext.database.MySQL', {
 
         config = config || {};
 
-        //driver = Ext.database.Manager.get(config);
+        // TODO: コンフィグで調整可能にする
 
-        //if(driver === undefined) {
+        driver = Ext.database.Manager.get(config);
+
+        if(driver === undefined) {
 
             // TODO: そのまま渡さないでちゃんと再設計
-
             driver = Ext.$dependencies.mysql.createClient(config);
-        //    Ext.database.Manager.set(config, driver);
+            Ext.database.Manager.set(config, driver);
 
-        //}
+        }
 
         Ext.apply(this, config);
         Ext.applyIf(this, {
@@ -511,6 +512,13 @@ Ext.define('Ext.database.MySQL', {
 
     end: function() {
         this.driver.end();
+    },
+
+    // }}}
+    // {{{ escape
+
+    escape: function(str) {
+        return this.conn.driver.escape(str);
     }
 
     // }}}

@@ -32,19 +32,19 @@
  */
 Ext.Loader = new function() {
 
-    var Loader = this,
-        Manager = Ext.ClassManager,
-        Class = Ext.Class,
-        flexSetter = Ext.Function.flexSetter,
-        alias = Ext.Function.alias,
-        pass = Ext.Function.pass,
-        defer = Ext.Function.defer,
-        arrayErase = Ext.Array.erase,
-        dependencyProperties = ['extend', 'mixins', 'requires'],
-        isInHistory = {},
-        history = [],
-        slashDotSlashRe = /\/\.\//g,
-        dotRe = /\./g;
+    var Loader                  = this,
+        Manager                 = Ext.ClassManager,
+        Class                   = Ext.Class,
+        flexSetter              = Ext.Function.flexSetter,
+        alias                   = Ext.Function.alias,
+        pass                    = Ext.Function.pass,
+        defer                   = Ext.Function.defer,
+        arrayErase              = Ext.Array.erase,
+        dependencyProperties    = ['extend', 'mixins', 'requires'],
+        isInHistory             = {},
+        history                 = [],
+        slashDotSlashRe         = /\/\.\//g,
+        dotRe                   = /\./g;
 
     Ext.apply(Loader, {
 
@@ -159,10 +159,10 @@ Ext.Loader = new function() {
          * @return {Ext.Loader} {Ext_Loader:method-setConfig:return}
          */
         setConfig: function(name, value) {
+
             if(Ext.isObject(name) &amp;&amp; arguments.length === 1) {
                 Ext.merge(Loader.config, name);
-            }
-            else {
+            } else {
                 Loader.config[name] = (Ext.isObject(value)) ? Ext.merge(Loader.config[name], value) : value;
             }
 
@@ -317,6 +317,7 @@ Ext.Loader = new function() {
         isClassFileLoaded = {},
         isFileLoaded = {},
         classNameToFilePathMap = {},
+        classFileModified = {},
         scriptElements = {},
         readyListeners = [],
         usedClasses = [],
@@ -324,6 +325,27 @@ Ext.Loader = new function() {
 
     Ext.apply(Loader, {
 
+        // {{{ updateLatest
+
+        updateLatest: function(name) {
+
+            var file = classNameToFilePathMap[name];
+
+            if(file) {
+
+                if(classFileModified[name] &lt; require('fs').statSync(file).mtime) {
+                    delete require.cache[file];
+                    require(file);
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
+        },
+
+        // }}}
         // {{{ isLoading
 
 <span id='Ext-Loader-property-isLoading'>        /**
@@ -404,6 +426,7 @@ Ext.Loader = new function() {
          * @private
          */
         refreshQueue: function() {
+
             var ln = queue.length,
                 i, item, j, requires;
 
@@ -449,9 +472,10 @@ Ext.Loader = new function() {
             return Loader;
         },
 
-<span id='Ext-Loader-method-removeScriptElement'>        /**
+<span id='Ext-Loader-property-'>        /**
 </span>         * @private
          */
+        /*
         removeScriptElement: function(url) {
             if(scriptElements[url]) {
                 Loader.cleanupScriptElement(scriptElements[url], true, !!Loader.getConfig('garbageCollect'));
@@ -460,13 +484,17 @@ Ext.Loader = new function() {
 
             return Loader;
         },
+        */
 
 <span id='Ext-Loader-method-cleanupScriptElement'>        /**
 </span>         * @private
          */
         cleanupScriptElement: function(script, remove, collect) {
+
             var prop;
+
             script.onload = script.onreadystatechange = script.onerror = null;
+
             if(remove) {
                 Ext.removeNode(script);       // Remove, since its useless now
                 if(collect) {
@@ -484,9 +512,11 @@ Ext.Loader = new function() {
             return Loader;
         },
 
+        // }}}
         // {{{ syncRequire
 
         syncRequire: function() {
+
             var syncModeEnabled = Loader.syncModeEnabled;
 
             if(!syncModeEnabled) {
@@ -538,10 +568,12 @@ Ext.Loader = new function() {
             expressions = (typeof expressions === 'string') ? [ expressions ] : (expressions ? expressions : []);
 
             if(fn) {
+
                 if(fn.length &gt; 0) {
+
                     callback = function() {
-                        var classes = [],
-                            i, ln;
+
+                        var classes = [], i, ln;
 
                         for(i = 0,ln = references.length; i &lt; ln; i++) {
                             classes.push(Manager.get(references[i]));
@@ -549,13 +581,15 @@ Ext.Loader = new function() {
 
                         return fn.apply(Loader, classes);
                     };
-                }
-                else {
+
+                } else {
                     callback = fn;
                 }
-            }
-            else {
+
+            } else {
+
                 callback = Ext.emptyFn;
+
             }
 
             scope = scope || Ext.global;
@@ -620,16 +654,21 @@ Ext.Loader = new function() {
 
                 if(syncModeEnabled &amp;&amp; isClassFileLoaded.hasOwnProperty(className)) {
                     Loader.numPendingFiles--;
-                    Loader.removeScriptElement(filePath);
+                    //Loader.removeScriptElement(filePath);
                     delete isClassFileLoaded[className];
                 }
 
                 if(!isClassFileLoaded.hasOwnProperty(className)) {
+
                     isClassFileLoaded[className] = false;
 
                     classNameToFilePathMap[className] = filePath;
 
                     Loader.numPendingFiles++;
+
+                    // Modified 記録
+                    classFileModified[className] = require('fs').statSync(filePath).mtime;
+
                     Loader.loadScriptFile(
                         filePath,
                         pass(Loader.onFileLoaded, [className, filePath], Loader),
@@ -705,7 +744,7 @@ Ext.Loader = new function() {
                 references = (typeof references == 'string') ? [references] : references;
                 for(i = 0, ln = references.length; i &lt; ln; i++) {
                     if(!Ext.Array.contains(usedClasses, references[i])) {
-                    	usedClasses.push(references[i]);
+                        usedClasses.push(references[i]);
                     }
                 }
             }
@@ -720,6 +759,7 @@ Ext.Loader = new function() {
 </span>         * @private
          */
         triggerReady: function() {
+
             var listener,
                 i, refClasses = usedClasses;
 
@@ -740,7 +780,7 @@ Ext.Loader = new function() {
             // this method can be called with Loader.isLoading either true or false
             // (can be called with false when all 'uses' classes are already loaded)
             // this may bypass the above if condition
-            while (readyListeners.length &amp;&amp; !Loader.isLoading) {
+            while(readyListeners.length &amp;&amp; !Loader.isLoading) {
                 // calls to refreshQueue may re-enter triggerReady
                 // so we cannot necessarily iterate the readyListeners array
                 listener = readyListeners.shift();
@@ -759,10 +799,12 @@ Ext.Loader = new function() {
          * @param {String} className {Ext_Loader:method-historyPush:param_className}
          */
         historyPush: function(className) {
+
             if(className &amp;&amp; isClassFileLoaded.hasOwnProperty(className) &amp;&amp; !isInHistory[className]) {
                 isInHistory[className] = true;
                 history.push(className);
             }
+
             return Loader;
         }
 
@@ -830,6 +872,7 @@ Ext.Loader = new function() {
      * {Ext_Class:cfg-requires:desc}
      */
     Class.registerPreprocessor('loader', function(cls, data, hooks, continueFn) {
+
         var me = this,
             dependencies = [],
             dependency,

@@ -39,7 +39,9 @@
 
 <span id='Ext-ClassManager-property-classes'>        /**
 </span>         * @property {Object} classes
+         *
          * {Ext_ClassManager:property-classes:desc}
+         *
          * @private
          */
         classes: {},
@@ -160,6 +162,7 @@
 </span>         * @private
          */
         triggerCreated: function(className) {
+
             var listeners = this.createdListeners,
                 nameListeners = this.nameCreatedListeners,
                 i, ln, listener;
@@ -172,6 +175,7 @@
             listeners = nameListeners[className];
 
             if(listeners) {
+
                 for(i = 0,ln = listeners.length; i &lt; ln; i++) {
                     listener = listeners[i];
                     listener.fn.call(listener.scope, className);
@@ -197,6 +201,7 @@
                 };
 
             if(className) {
+
                 if(this.isCreated(className)) {
                     fn.call(scope, className);
                     return;
@@ -217,8 +222,7 @@
         // {{{ parseNamespace
 
 <span id='Ext-ClassManager-method-parseNamespace'>        /**
-</span>         * 
-         * @private
+</span>         * @private
          */
         parseNamespace: function(namespace) {
             //&lt;debug error&gt;
@@ -246,11 +250,13 @@
             name = namespace;
 
             for(i = 0, ln = rewrites.length; i &lt; ln; i++) {
+
                 rewrite = rewrites[i];
                 from = rewrite.from;
                 to = rewrite.to;
 
                 if(name === from || name.substring(0, from.length) === from) {
+
                     name = name.substring(from.length);
 
                     if(typeof to != 'string') {
@@ -279,6 +285,7 @@
 
 <span id='Ext-ClassManager-method-setNamespace'>        /**
 </span>         * {Ext_ClassManager:method-setNamespace:desc}
+         *
          * @param {String} name {Ext_ClassManager:method-setNamespace:param_name}
          * @param {Object} value {Ext_ClassManager:method-setNamespace:param_value}
          */
@@ -351,6 +358,7 @@
          * @return {Ext.ClassManager} {Ext_ClassManager:method-set:return}
          */
         set: function(name, value) {
+
             var me = this,
                 maps = me.maps,
                 nameToAlternates = maps.nameToAlternates,
@@ -378,12 +386,15 @@
          * @return {Ext.Class} {Ext_ClassManager:method-get:return}
          */
         get: function(name) {
+
             var classes = this.classes,
                 root,
                 parts,
                 part, i, ln;
 
+            // キャッシュからの読み出し
             if(classes[name]) {
+                Ext.Loader.updateLatest(name);
                 return classes[name];
             }
 
@@ -391,6 +402,7 @@
             parts = this.parseNamespace(name);
 
             for(i = 0, ln = parts.length; i &lt; ln; i++) {
+
                 part = parts[i];
 
                 if(typeof part != 'string') {
@@ -664,9 +676,9 @@
                 delete overrideBody.override;
 
                 me.create(overrideName, {
-                        requires: data.requires,
-                        uses: data.uses,
-                        override: className
+                    requires: data.requires,
+                    uses: data.uses,
+                    override: className
                 }, function() {
 
                     this.active = true;
@@ -1167,9 +1179,11 @@
     Ext.ns = Ext.namespace;
 
     Class.registerPreprocessor('className', function(cls, data) {
+
         if(data.$className) {
             cls.$className = data.$className;
         }
+
     }, true, 'first');
 
     Class.registerPreprocessor('alias', function(cls, data) {

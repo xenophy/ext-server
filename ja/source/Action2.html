@@ -172,7 +172,7 @@ Ext.define('Ext.server.action.Action', {
                 req         : config.req,
                 res         : config.res,
                 paths       : config.config.app.paths,
-                result      : {},
+                result      : config.res.actionresult || {},
                 post        : config.req.body,
                 get         : get,
                 request     : config.req.body,
@@ -196,7 +196,10 @@ Ext.define('Ext.server.action.Action', {
                     post        : config.req.body,
                     get         : get,
                     request     : config.req.body,
-                    session     : config.req.session
+                    session     : config.req.session,
+                    escape      : function() {
+                        return mod.conn.escape.apply(mod, arguments);
+                    }
                 });
 
             });

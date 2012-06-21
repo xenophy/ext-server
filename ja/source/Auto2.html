@@ -300,17 +300,29 @@ Ext.define('Ext.server.controller.Auto', {
 
                         action(config, function(result) {
 
+                            // 実行後の結果を格納
                             result = result || {};
                             Ext.apply(rc, result);
+
+                            // タイマークリア
                             clearTimeout(timer);
+
+                            // 次へ
                             run();
 
                         });
 
                     } catch(e) {
 
+                        // タイマークリア
+                        clearTimeout(timer);
+
                         // render 500 Error
-                        config.actionResultConfig = { abort: 500, errorDetails: e };
+                        config.actionResultConfig = { abort: 500, errorDetails: {
+                            message: e.message,
+                            stack: e.stack
+                        } };
+
                         me.render.call(me, config, next);
 
                     }
@@ -374,6 +386,7 @@ Ext.define('Ext.server.controller.Auto', {
                                 });
 
                                 if(all) {
+                                    // console.log(me.actions);
                                     runActions(next);
                                 }
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+<span id='Ext-util-OTP'>/**
+</span> * @class Ext.util.OTP
+ *
+ * {Ext_util_OTP:doc-contents}
+ *
+ * Time-Based One-Time Password Algorithm.
+ * Support FEITAIN One-Time Password Token.
+ *
+(function() {
+
+    var unixtime    = ~~(new Date/1000),                            // UnixTime
+        seed        = 'D8A45B25A52A315E25E31CFB4AF6E51A6C8FAC0F',   // Seed
+        timestep    = 60,                                           // TimeStep
+        len         = 6;                                            // Code Length
+
+    console.log([
+        '-------------------------------------------------------',
+        'UnixTime     : ' + unixtime,
+        'Seed         : ' + seed,
+        'TimeStep     : ' + timestep,
+        'Code Length  : ' + len,
+        '-------------------------------------------------------',
+        'Result(-180) : [' + Ext.util.OTP.auth(seed, unixtime, -180, timestep, len) + ']',
+        'Result(-120) : [' + Ext.util.OTP.auth(seed, unixtime, -120, timestep, len) + ']',
+        'Result(-60)  : [' + Ext.util.OTP.auth(seed, unixtime, -60, timestep, len) + ']',
+        'Result(+-0)  : [' + Ext.util.OTP.auth(seed, unixtime, 0, timestep, len) + ']',
+        'Result(+60)  : [' + Ext.util.OTP.auth(seed, unixtime, 60, timestep, len) + ']',
+        'Result(+120) : [' + Ext.util.OTP.auth(seed, unixtime, 120, timestep, len) + ']',
+        'Result(+180) : [' + Ext.util.OTP.auth(seed, unixtime, 180, timestep, len) + ']'
+    ].join(&quot;\n&quot;));
+
+})();
+ *
+ * @singleton
+ */
+module.exports = {
+
+    // {{{ auth
+
+    auth: function(key, time, begin, interval, len) {
+
+        return (function (key, cnt, len) {
+
+            var otp, idx;
+
+            hmac = (function(key, cnt) {
+
+                var blocksize = 64, Sha1Pad;
+
+                Sha1Pad = function(key, len, pad) {
+
+                    var ret = '', klen = key.length;
+
+                    for(var i=0; i&lt;klen; i+=2) {
+                        ret += String.fromCharCode((parseInt(key.substr(i, 2), 16)) ^ pad);
+                    }
+
+                    return (ret + (new Array(len + 1).join(String.fromCharCode(pad)))).substr(0, len);
+                };
+
+                return  require('crypto').createHash('sha1')
+                        .update(
+                        Sha1Pad(key, blocksize, 0x5c) +
+                        (
+                            require('crypto').createHash('sha1')
+                            .update(
+                                Sha1Pad(key, blocksize, 0x36) +
+                                [
+                                    String.fromCharCode(0x00),
+                                    String.fromCharCode(0x00),
+                                    String.fromCharCode(0x00),
+                                    String.fromCharCode(0x00),
+                                    String.fromCharCode(cnt &gt;&gt; 24 &amp; 0xff),
+                                    String.fromCharCode(cnt &gt;&gt; 16 &amp; 0xff),
+                                    String.fromCharCode(cnt &gt;&gt; 8 &amp; 0xff),
+                                    String.fromCharCode(cnt &amp; 0xff)
+                                ].join('')
+                            ).digest())
+                        ).digest('hex');
+
+            })(key, cnt);
+
+            idx = (parseInt(hmac.substr(38, 2), 16) &amp; 0xf)*2;
+
+            otp  = (parseInt(hmac.substr(idx, 2), 16) &amp; 0x7f) &lt;&lt; 24;
+            otp += parseInt(hmac.substr(idx+2, 2), 16) &lt;&lt; 16;
+            otp += parseInt(hmac.substr(idx+4, 2), 16) &lt;&lt; 8;
+            otp += parseInt(hmac.substr(idx+6, 2), 16);
+            otp %= Math.pow(10, len);
+
+            return ((new Array(len + 1).join('0')) + otp).slice(0-len);
+
+        })(key, (Math.round(((time - begin) / interval) * 1000000) / 1000000), len);
+
+    }
+
+    // }}}
+
+};
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>

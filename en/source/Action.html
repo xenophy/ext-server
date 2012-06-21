@@ -90,7 +90,7 @@ Ext.define('Ext.app.action.Action', {
 
     $bind: function(config, next) {
 
-        var me, uses, tmp, callback;
+        var me, uses, tmp, callback, moduleFileModified = {};
 
         me = this;
 
@@ -149,7 +149,6 @@ Ext.define('Ext.app.action.Action', {
             if(all) {
 
                 // モジュールをアクションにバインド
-
                 me.$moduleNames = [];
 
                 uses.forEach(function(item, i) {
@@ -186,6 +185,7 @@ Ext.define('Ext.app.action.Action', {
                     Ext.moduleCacheClear(item.path, stat.mtime);
 
                     try {
+
                         var src = require(item.path);
 
                         if(Ext.isString(src)) {
@@ -196,6 +196,15 @@ Ext.define('Ext.app.action.Action', {
                             // TODO 'Ext.app.module.Module'を継承していない場合は、エラー
 
                         } else {
+
+                            var mtime = require('fs').statSync(item.path).mtime;
+
+                            if(Ext.moduleFileModified[item.path] &lt; mtime) {
+                                delete require.cache[item.path];
+                            }
+
+                            // modified記録
+                            Ext.moduleFileModified[item.path] = mtime;
 
                             // モジュール生成
                             item.define = Ext.create('Ext.app.module.Module', require(item.path));
@@ -233,6 +242,12 @@ Ext.define('Ext.app.action.Action', {
     // }}}
     // {{{ set
 
+<span id='Ext-app-action-Action-method-set'>    /**
+</span>     * {Ext_app_action_Action:method-set:desc}
+     *
+     * @param name {String} {Ext_app_action_Action:method-set:param_name}
+     * @param value {Ext_app_action_Action:method-set:param_name}
+     */
     set: function(name, value) {
 
         var result = this.result;

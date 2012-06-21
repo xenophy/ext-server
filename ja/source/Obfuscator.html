@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/*!
+ * Ext Server
+ * Copyright (c)2012 Xenophy.CO.,LTD All rights Reserved.
+ * MIT Licensed
+ */
+
+<span id='Ext-util-Obfuscator'>/**
+</span> * @class Ext.util.Obfuscator
+ *
+ * {Ext_util_Obfuscator:doc-contents}
+ *
+ * @singleton
+ */
+module.exports = {
+
+    // {{{ encode
+
+    encode: function(src) {
+
+        var table, getNum, getValues;
+
+        src = (function (str) {
+
+            var buf=[], pos=0, s=str=String(str);
+
+            R:
+            while(s) {
+
+                var c,nc,n, q=false, sq=false, re=false, rec=false, esc=false;
+
+                for(var i=0,l=s.length;i&lt;l;i++) {
+                    c=s[i];
+
+                    if(esc) {
+                        esc=false;
+                    } else if(q) {
+                        if(c=='&quot;') {
+                            q=false;
+                        } else if(c=='\\') {
+                            esc=true;
+                        }
+                    } else if(sq) {
+                        if(c==&quot;'&quot;) {
+                            sq=false;
+                        } else if(c=='\\') {
+                            esc=true;
+                        }
+                    } else if(re) {
+                        if(rec) {
+                            if(c==']') {
+                                rec=false;
+                            } else if(c=='\\') {
+                                esc=true;
+                            }
+                        }
+                        else {
+                            if(c==&quot;/&quot;) {
+                                re=false;
+                            } else if(c=='\\') {
+                                esc=true;
+                            } else if(c=='[') {
+                                rec=true;
+                            }
+                        }
+                    } else {
+                        if(c=='&quot;') {
+                            q=true;
+                        } else if(c==&quot;'&quot;) {
+                            sq=true;
+                        } else if(c=='/') {
+                            nc=s[i+1];
+                            if(nc=='/') {
+                                var l = s.length;
+                                buf.push(s.slice(0,i));
+                                s=s.slice(i+2);
+                                s=s.replace(/[\s\S]*?(\r?\n)/, '$1');
+                                pos += (l - s.length);
+                                continue R;
+                            } else if(nc=='*') {
+                                var l = s.length;
+                                buf.push(s.slice(0,i));
+                                n=s.indexOf('*/',i+2);
+                                s=s.slice(n+2);
+                                pos += (l - s.length);
+                                continue R;
+                            } else{
+                                var cur = pos + i + 1;
+                                var regcheck = str.slice(0, cur) + '^' + str.slice(cur);
+                                try { Function('('+regcheck+')'); re = true; } catch(e) { }
+                            }
+                        }
+                    }
+                }
+                buf.push(s);
+                break;
+            }
+            return buf.join('');
+        })(src);
+
+        src = src.split(&quot;\n&quot;).join('');
+
+        getNum = function(n) {
+
+            var nums, values, target, pre, ret;
+
+            nums = [ 0, 1, 2 ];
+            values = [
+                '+[]',      //  0
+                '-~[]',     //  1
+                '-~-~[]'    //  2
+            ];
+            target = n;
+            ret = '';
+
+            for(;;) {
+
+                var idx;
+
+                for(;;) {
+                    idx = Math.floor( Math.random() * nums.length );
+                    if(idx !== pre &amp;&amp; target &gt;= nums[idx]) {
+                        break;
+                    }
+                }
+
+                target = target - nums[idx];
+                ret += values[idx];
+
+                if(target === 0) {
+                    break;
+                }
+
+                pre = idx;
+            }
+
+            return ret;
+        };
+
+        var charAtArray = '', name = '_' + Ext.uid(6);
+
+        charAtArray = [
+            'var ' + name + '=[',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;,',
+            '&quot;\\x63\\x68\\x61\\x72\\x41\\x74&quot;',
+            '];'
+            ].join('');
+
+        getValues = function() {
+
+            return {
+                'a' : '(!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(1) + ')',
+                'b' : '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(2) + ')',
+                'c' : '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(5) + ')',
+                'd' : '({}.$+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(2) + ')',
+                'e' : '({}.$+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(3) + ')',
+                'f' : '(!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](+[])',
+                'g' : &quot;'\\x67'&quot;,
+                'h' : &quot;'\\x68'&quot;,
+                'i' : &quot;'\\x69'&quot;,
+                'j' : &quot;'\\x6a'&quot;,
+                'k' : &quot;'\\x6b'&quot;,
+                'l' : &quot;'\\x6c'&quot;,
+                'm' : &quot;'\\x6d'&quot;,
+                'n' : &quot;'\\x6e'&quot;,
+                'o' : &quot;'\\x6f'&quot;,
+                'p' : &quot;'\\x70'&quot;,
+                'q' : &quot;'\\x71'&quot;,
+                'r' : &quot;'\\x72'&quot;,
+                's' : &quot;'\\x73'&quot;,
+                't' : &quot;'\\x74'&quot;,
+                'u' : &quot;'\\x75'&quot;,
+                'v' : &quot;'\\x76'&quot;,
+                'w' : &quot;'\\x77'&quot;,
+                'x' : &quot;'\\x78'&quot;,
+                'y' : &quot;'\\x79'&quot;,
+                'z' : &quot;'\\x7a'&quot;,
+                'A' : &quot;'\\x41'&quot;,
+                'B' : &quot;'\\x42'&quot;,
+                'C' : &quot;'\\x43'&quot;,
+                'D' : &quot;'\\x44'&quot;,
+                'E' : &quot;'\\x45'&quot;,
+                'F' : &quot;'\\x46'&quot;,
+                'G' : &quot;'\\x47'&quot;,
+                'H' : &quot;'\\x48'&quot;,
+                'I' : &quot;'\\x49'&quot;,
+                'J' : &quot;'\\x4a'&quot;,
+                'K' : &quot;'\\x4b'&quot;,
+                'L' : &quot;'\\x4c'&quot;,
+                'M' : &quot;'\\x4d'&quot;,
+                'N' : &quot;'\\x4e'&quot;,
+                'O' : '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) +']](' + getNum(8) + ')',
+                'P' : &quot;'\\x50'&quot;,
+                'Q' : &quot;'\\x51'&quot;,
+                'R' : &quot;'\\x52'&quot;,
+                'S' : &quot;'\\x53'&quot;,
+                'T' : &quot;'\\x54'&quot;,
+                'U' : &quot;'\\x55'&quot;,
+                'V' : &quot;'\\x56'&quot;,
+                'W' : &quot;'\\x57'&quot;,
+                'X' : &quot;'\\x58'&quot;,
+                'Y' : &quot;'\\x59'&quot;,
+                'Z' : &quot;'\\x5a'&quot;,
+                '@' : &quot;'\\x40'&quot;,
+                '/' : &quot;'\\x2f'&quot;,
+                '[' : &quot;'\\x5b'&quot;,
+                ']' : &quot;'\\x5d'&quot;,
+                '{' : &quot;'\\x7b'&quot;,
+                '}' : &quot;'\\x7d'&quot;,
+                '(' : &quot;'\\x28'&quot;,
+                ')' : &quot;'\\x29'&quot;,
+                '*' : &quot;'\\x2a'&quot;,
+                '+' : &quot;'\\x2b'&quot;,
+                '=' : &quot;'\\x3d'&quot;,
+                ',' : &quot;'\\x2c'&quot;,
+                ':' : &quot;'\\x3a'&quot;,
+                ';' : &quot;'\\x3b'&quot;,
+                '|' : &quot;'\\x7c'&quot;,
+                '?' : &quot;'\\x3f'&quot;,
+                '!' : &quot;'\\x21'&quot;,
+                '&quot;' : &quot;'\\x22'&quot;,
+                '#' : &quot;'\\x23'&quot;,
+                '$' : &quot;'\\x24'&quot;,
+                '%' : &quot;'\\x25'&quot;,
+                '&amp;' : &quot;'\\x26'&quot;,
+                '^' : &quot;'\\x5e'&quot;,
+                '~' : &quot;'\\x7e'&quot;,
+                '`' : &quot;'\\x60'&quot;,
+                '\'' : &quot;'\\x27'&quot;,
+                '\\' : &quot;'\\x5c'&quot;
+            };
+        }
+
+        var ret = '';
+        for(var i=0; i&lt;src.length; i++) {
+            var values = getValues()
+            var c = src[i];
+
+            if(ret.length &gt; 0) {
+                ret += '+';
+            }
+
+            if(values[c]) {
+                ret += values[c];
+            } else {
+                ret += '\'' + c + '\'';
+            }
+        }
+
+        var getConstructorStr = function() {
+
+            var str = '';
+
+            // c
+            str += '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(5) + ')';
+
+            // o
+            str += '+';
+            str += '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(1) + ')';
+
+            // n
+            str += '+';
+            str += '({}.$+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(1) + ')';
+
+            // s
+            str += '+';
+            str += '(!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(3) + ')';
+
+            // t
+            str += '+';
+            str += '(!!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](+[])';
+
+            // r
+            str += '+';
+            str += '(!!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(1) + ')';
+
+            // u
+            str += '+';
+            str += '({}.$+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](+[])';
+
+            // c
+            str += '+';
+            str += '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(5) + ')';
+
+            // t
+            str += '+';
+            str += '(!!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](+[])';
+
+            // o
+            str += '+';
+            str += '({}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(1) + ')';
+
+            // r
+            str += '+';
+            str += '(!!{}+&quot;&quot;)[' + name + '[' + getNum(Math.floor( Math.random() * 10 )) + ']](' + getNum(1) + ')';
+
+            return str;
+        };
+
+        var code = encodeURIComponent(
+            (function(s) {
+                var a = 53300, b, c, d, e, f, g = -1, h, r = [];
+
+                s = Array(a--).join(' ') + s;
+                while(b = s.substr(a, 256)) {
+                    for(c = 2; c &lt;= b.length; ++c) {
+                        d = s.substring(a - 52275, a + c - 1).lastIndexOf(b.substring(0, c));
+                        if (d === -1) {
+                            break;
+                        }
+                        e = d;
+                    }
+                    if(c === 2 || c === 3 &amp;&amp; f === g) {
+                        f = g;
+                        h = s.charCodeAt(a++);
+                        r.push(h &gt;&gt; 8 &amp; 255, h &amp; 255);
+                    } else {
+                        r.push((e &gt;&gt; 8 &amp; 255) | 65280, e &amp; 255, c - 3);
+                        a += c - 1;
+                    }
+                }
+                return String.fromCharCode.apply(0, r);
+            })([
+                charAtArray,
+                &quot;(+[])[&quot;+ getConstructorStr() + &quot;][&quot; + getConstructorStr() + &quot;](&quot; + ret + &quot;)();&quot;
+            ].join('')));
+
+        var output = 'var _0x5d3c=[&quot;' + code + '&quot;,&quot;\x20&quot;,&quot;\x6A\x6F\x69\x6E&quot;,&quot;\x63\x68\x61\x72\x43\x6F\x64\x65\x41\x74&quot;,&quot;\x66\x72\x6F\x6D\x43\x68\x61\x72\x43\x6F\x64\x65&quot;,&quot;\x73\x6C\x69\x63\x65&quot;,&quot;\x73\x75\x62\x73\x74\x72\x69\x6E\x67&quot;,&quot;\x6C\x65\x6E\x67\x74\x68&quot;];eval((function (_0x2e11x1){var _0x2e11x2=53300,_0x2e11x3=0,_0x2e11x4,_0x2e11x5,_0x2e11x6,_0x2e11x7,_0x2e11x8,_0x2e11x9,_0x2e11xa=Array(_0x2e11x2--)[_0x5d3c[2]](_0x5d3c[1]);while(_0x2e11x3&lt;_0x2e11x1[_0x5d3c[7]]){_0x2e11x4=_0x2e11x1[_0x5d3c[3]](_0x2e11x3++);if(_0x2e11x4&lt;=255){_0x2e11xa+=String[_0x5d3c[4]]((_0x2e11x4&lt;&lt;8)|_0x2e11x1[_0x5d3c[3]](_0x2e11x3++));} else {_0x2e11x6=((_0x2e11x4&amp;255)&lt;&lt;8)|_0x2e11x1[_0x5d3c[3]](_0x2e11x3++);_0x2e11x7=_0x2e11x6+_0x2e11x1[_0x5d3c[3]](_0x2e11x3++)+2;_0x2e11x9=_0x2e11xa[_0x5d3c[5]](-52275);_0x2e11x8=_0x2e11x9[_0x5d3c[6]](_0x2e11x6,_0x2e11x7);if(_0x2e11x8){while(_0x2e11x9[_0x5d3c[7]]&lt;_0x2e11x7){_0x2e11x9+=_0x2e11x8;} ;_0x2e11xa+=_0x2e11x9[_0x5d3c[6]](_0x2e11x6,_0x2e11x7);} ;} ;} ;return _0x2e11xa[_0x5d3c[5]](_0x2e11x2);} )(decodeURIComponent(_0x5d3c[0])));';
+
+        return output.split(&quot;_0x5d3c&quot;).join('_0x' + Ext.uid(4))
+    }
+
+    // }}}
+
+};
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * c-hanging-comment-ender-p: nil
+ * End:
+ */
+</pre>
+</body>
+</html>

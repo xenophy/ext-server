@@ -696,7 +696,16 @@
         Markdown: require('./util/Markdown'),
 
         // Ext.util.Format
-        Format: require('./util/Format')
+        Format: require('./util/Format'),
+
+        // Ext.util.OTP
+        OTP: require('./util/OTP'),
+
+        // Ext.util.GeoIP
+        GeoIP: require('./util/GeoIP'),
+
+        // Ext.util.Obfuscator
+        Obfuscator: require('./util/Obfuscator')
 
     });
 
@@ -780,7 +789,12 @@
          * @method decode
          * @member Ext
          */
-        decode: Ext.JSON.decode
+        decode: Ext.JSON.decode,
+
+        // }}}
+        // {{{ defer
+
+        defer: Ext.Function.defer
 
         // }}}
 

@@ -131,6 +131,8 @@ Ext.define('Ext.server.action.Direct', {
                             res.writeHead(200);
                             res.end(output);
 
+                            next();
+
                         //};
 
                     } else {
@@ -196,6 +198,8 @@ Ext.define('Ext.server.action.Direct', {
                             res.writeHead(200);
                             res.end(output);
 
+                            next();
+
                         } else {
 
                             var output = Ext.encode({
@@ -226,7 +230,7 @@ Ext.define('Ext.server.action.Direct', {
                         req: req,
                         res: res,
                         cookie: req.cookies,
-                        session: req.session.values
+                        session: req.session
                     });
 
                     // モジュールメソッドコール
@@ -261,7 +265,7 @@ Ext.define('Ext.server.action.Direct', {
                             mod.privateHandler = [];
                         }
 
-                        Ext.iterate(member, function(name) {
+                        for(name in member) {
 
                             var formHandler = false
 
@@ -288,7 +292,7 @@ Ext.define('Ext.server.action.Direct', {
 
                             }
 
-                        });
+                        };
 
                         remoteActions[memberName] = interface
                     }
@@ -316,6 +320,8 @@ Ext.define('Ext.server.action.Direct', {
                 res.setHeader(&quot;Pragma&quot;,         &quot;no-cache&quot;);
                 res.writeHead(200);
                 res.end(output);
+
+                next();
 
             }
 
