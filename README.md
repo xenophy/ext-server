@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/xenophy/ext-server.png)](http://travis-ci.org/xenophy/ext-server)
 ![Ext Server](http://xenophy.github.com/ext-server/resources/images/ext-server-logo.jpg)
 
 # Ext Server
